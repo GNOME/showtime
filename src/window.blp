@@ -60,11 +60,20 @@ template $AfternoonWindow : Adw.ApplicationWindow {
             margin-bottom: 3;
             spacing: 6;
 
+            WindowControls {
+              halign: start;
+              side: start;
+              margin-start: 6;
+
+              styles [
+                "window-controls-osd"
+              ]
+            }
+
             Button button_fullscreen {
               hexpand: true;
               valign: start;
               halign: start;
-              margin-start: 12;
               icon-name: "view-fullscreen-symbolic";
               tooltip-text: _("Toggle Fullscreen");
 
@@ -92,10 +101,14 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               ]
             }
 
-            WindowControls window_controls_video {
+            WindowControls {
               halign: end;
+              side: end;
               margin-end: 6;
-              decoration-layout: "close";
+
+              styles [
+                "window-controls-osd"
+              ]
             }
           }
         }

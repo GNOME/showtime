@@ -37,16 +37,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video: Gtk.Video = Gtk.Template.Child()
     header_revealer: Gtk.Revealer = Gtk.Template.Child()
-    window_controls_video: Gtk.WindowControls = Gtk.Template.Child()
     button_fullscreen = Gtk.Template.Child()
 
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
-
-        # HACK: Should inherit the user's window control layout
-        self.window_controls_video.get_first_child().get_first_child().add_css_class(
-            "osd"
-        )
 
         # HACK: Should reimplement Gtk.Video instead of hacking around in it
         self.media_controls = (
