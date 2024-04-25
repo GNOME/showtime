@@ -64,6 +64,10 @@ class AfternoonApplication(Adw.Application):
             ["<primary>o"],
         )
         self.create_action(
+            "screenshot",
+            lambda *_: self.get_active_window().screenshot(),
+        )
+        self.create_action(
             "close-window",
             lambda *_: self.get_active_window().close(),
             ["<primary>w"],
@@ -73,7 +77,10 @@ class AfternoonApplication(Adw.Application):
             lambda *_: self.get_active_window().toggle_fullscreen(),
             ["F11"],
         )
-        self.create_action("about", self.on_about_action)
+        self.create_action(
+            "about",
+            self.on_about_action,
+        )
 
     def do_activate(self, gfile: Optional[Gio.File] = None):
         """Called when the application is activated.

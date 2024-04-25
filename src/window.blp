@@ -7,115 +7,117 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 
   title: _("Afternoon");
 
-  content: Stack stack {
-    Adw.ToolbarView placeholder_page {
+  content: Adw.ToastOverlay toast_overlay {
+    Stack stack {
+      Adw.ToolbarView placeholder_page {
 
-      [top]
-      Adw.HeaderBar header_bar {
+        [top]
+        Adw.HeaderBar header_bar {
 
-        [end]
-        MenuButton {
-          primary: true;
-          icon-name: "open-menu-symbolic";
-          tooltip-text: _("Menu");
-          menu-model: primary_menu;
+          [end]
+          MenuButton {
+            primary: true;
+            icon-name: "open-menu-symbolic";
+            tooltip-text: _("Menu");
+            menu-model: primary_menu;
+          }
         }
+
+        content: Stack placeholder_stack {
+          Adw.StatusPage open_status_page {
+            icon-name: "video-x-generic-symbolic";
+            title: _("Watch Videos");
+
+            Button button_open {
+              label: _("Open…");
+              halign: center;
+
+              clicked => $choose_video();
+
+              styles [
+                "pill",
+                "suggested-action"
+              ]
+            }
+          }
+
+          Adw.StatusPage error_status_page {
+            icon-name: "dialog-error-symbolic";
+            title: _("Unable to Play Video");
+          }
+        };
       }
 
-      content: Stack placeholder_stack {
-        Adw.StatusPage open_status_page {
-          icon-name: "video-x-generic-symbolic";
-          title: _("Watch Videos");
+      WindowHandle video_page {
+        Overlay {
+          [overlay]
+          Revealer header_revealer {
+            valign: start;
+            reveal-child: true;
+            transition-type: crossfade;
 
-          Button button_open {
-            label: _("Open…");
-            halign: center;
+            Box {
+              margin-top: 6;
+              margin-bottom: 3;
+              spacing: 6;
 
-            clicked => $choose_video();
+              WindowControls {
+                halign: start;
+                side: start;
+                margin-start: 6;
 
-            styles [
-              "pill",
-              "suggested-action"
-            ]
-          }
-        }
+                styles [
+                  "window-controls-osd"
+                ]
+              }
 
-        Adw.StatusPage error_status_page {
-          icon-name: "dialog-error-symbolic";
-          title: _("Unable to Play Video");
-        }
-      };
-    }
+              Button button_fullscreen {
+                hexpand: true;
+                valign: start;
+                halign: start;
+                icon-name: "view-fullscreen-symbolic";
+                tooltip-text: _("Toggle Fullscreen");
 
-    WindowHandle video_page {
-      Overlay {
-        [overlay]
-        Revealer header_revealer {
-          valign: start;
-          reveal-child: true;
-          transition-type: crossfade;
+                clicked => $toggle_fullscreen();
 
-          Box {
-            margin-top: 6;
-            margin-bottom: 3;
-            spacing: 6;
+                styles [
+                  "osd",
+                  "circular"
+                ]
+              }
 
-            WindowControls {
-              halign: start;
-              side: start;
-              margin-start: 6;
+              MenuButton {
+                hexpand: true;
+                valign: start;
+                halign: end;
+                margin-start: 6;
+                primary: true;
+                icon-name: "open-menu-symbolic";
+                tooltip-text: _("Menu");
+                menu-model: primary_menu;
 
-              styles [
-                "window-controls-osd"
-              ]
-            }
+                styles [
+                  "osd",
+                  "circular"
+                ]
+              }
 
-            Button button_fullscreen {
-              hexpand: true;
-              valign: start;
-              halign: start;
-              icon-name: "view-fullscreen-symbolic";
-              tooltip-text: _("Toggle Fullscreen");
+              WindowControls {
+                halign: end;
+                side: end;
+                margin-end: 6;
 
-              clicked => $toggle_fullscreen();
-
-              styles [
-                "osd",
-                "circular"
-              ]
-            }
-
-            MenuButton {
-              hexpand: true;
-              valign: start;
-              halign: end;
-              margin-start: 6;
-              primary: true;
-              icon-name: "open-menu-symbolic";
-              tooltip-text: _("Menu");
-              menu-model: primary_menu;
-
-              styles [
-                "osd",
-                "circular"
-              ]
-            }
-
-            WindowControls {
-              halign: end;
-              side: end;
-              margin-end: 6;
-
-              styles [
-                "window-controls-osd"
-              ]
+                styles [
+                  "window-controls-osd"
+                ]
+              }
             }
           }
-        }
 
-        Video video {
-          autoplay: true;
-          graphics-offload: enabled;
+          Video video {
+            autoplay: true;
+            graphics-offload: enabled;
+          }
         }
       }
     }
@@ -131,6 +133,12 @@ menu primary_menu {
     item {
       label: _("_Open…");
       action: "app.open-video";
+    }
+  }
+  section {
+    item {
+      label: _("Take _Screenshot");
+      action: "app.screenshot";
     }
   }
   section {

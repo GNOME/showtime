@@ -17,15 +17,20 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import datetime
+import logging
+from os import sep
+from pathlib import Path
 from typing import Any
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk
 
 
 @Gtk.Template(resource_path="/page/kramo/Afternoon/window.ui")
 class AfternoonWindow(Adw.ApplicationWindow):
     __gtype_name__ = "AfternoonWindow"
 
+    toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
@@ -72,6 +77,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.video.get_first_child().get_first_child().add_controller(primary_click)
 
         self.connect("notify::fullscreened", self.__on_fullscreen)
+        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
+        self.__on_stack_child_changed()
 
     def __on_width_changed(self, *_args: Any):
         # TODO: Only use floating controls in fullscreen if
@@ -94,6 +101,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
             else "view-fullscreen-symbolic"
         )
         self.__on_width_changed()
+
+    def __on_stack_child_changed(self, *_args: Any) -> None:
+        self.get_application().lookup_action("screenshot").set_enabled(
+            self.stack.get_visible_child() == self.video_page
+        )
 
     def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
@@ -137,3 +149,76 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.video.set_file(gfile)
         self.video.get_media_stream().connect("notify::error", self.__on_media_error)
         self.stack.set_visible_child(self.video_page)
+
+    def screenshot(self) -> None:
+        # Copied from Workbench
+        # https://github.com/workbenchdev/Workbench/blob/1ebbe1e3915aabfd172c166c88ca23ad08861d15/src/Previewer/previewer.vala#L36
+
+        if not (stream := self.video.get_media_stream()):
+            return
+
+        paintable = stream.get_current_image()
+
+        width = paintable.get_intrinsic_width()
+        height = paintable.get_intrinsic_height()
+        snapshot = Gtk.Snapshot()
+        paintable.snapshot(snapshot, width, height)
+
+        if not (node := snapshot.to_node()):
+            logging.warning(
+                f"Could not get node snapshot, width: {width}, height: {height}"
+            )
+            return
+
+        rect = Graphene.Rect()
+        rect.origin = Graphene.Point.zero()
+
+        size = Graphene.Size()
+        size.width = width
+        size.height = height
+        rect.size = size
+
+        renderer = self.get_native().get_renderer()
+        texture = renderer.render_texture(node, rect)
+
+        if pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES):
+            path = GLib.build_pathv(sep, (pictures, "Screenshots"))
+        else:
+            path = GLib.get_home_dir()
+
+        if not (gfile := self.video.get_file()):
+            return
+
+        display_name = gfile.query_info(
+            Gio.FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, Gio.FileQueryInfoFlags.NONE
+        ).get_display_name()
+
+        time = (
+            (
+                datetime.datetime.min
+                + datetime.timedelta(microseconds=stream.get_timestamp())
+            )
+            .time()
+            .strftime("%H:%M:%S")
+        )
+
+        path = GLib.build_pathv(
+            sep,
+            (path, f"{Path(display_name).stem} {time}.png"),
+        )
+
+        texture.save_to_png(path)
+
+        toast = Adw.Toast.new(_("Screenshot captured"))
+        toast.set_priority(Adw.ToastPriority.HIGH)
+
+        toast.set_button_label(_("Show in Files"))
+
+        toast.connect(
+            "button-clicked",
+            lambda *_: Gtk.FileLauncher.new(
+                Gio.File.new_for_path(path)
+            ).open_containing_folder(),
+        )
+
+        self.toast_overlay.add_toast(toast)
