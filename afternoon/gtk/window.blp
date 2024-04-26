@@ -23,27 +23,29 @@ template $AfternoonWindow : Adw.ApplicationWindow {
           }
         }
 
-        content: Stack placeholder_stack {
-          Adw.StatusPage open_status_page {
-            icon-name: "video-x-generic-symbolic";
-            title: _("Watch Videos");
+        content: WindowHandle {
+          Stack placeholder_stack {
+            Adw.StatusPage open_status_page {
+              icon-name: "video-x-generic-symbolic";
+              title: _("Watch Videos");
 
-            Button button_open {
-              label: _("Open…");
-              halign: center;
+              Button button_open {
+                label: _("Open…");
+                halign: center;
 
-              clicked => $choose_video();
+                clicked => $choose_video();
 
-              styles [
-                "pill",
-                "suggested-action"
-              ]
+                styles [
+                  "pill",
+                  "suggested-action"
+                ]
+              }
             }
-          }
 
-          Adw.StatusPage error_status_page {
-            icon-name: "dialog-error-symbolic";
-            title: _("Unable to Play Video");
+            Adw.StatusPage error_status_page {
+              icon-name: "dialog-error-symbolic";
+              title: _("Unable to Play Video");
+            }
           }
         };
       }
