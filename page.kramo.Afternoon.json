@@ -10,7 +10,7 @@
         "--device=dri",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--filesystem=xdg-pictures/Screenshots"
+        "--filesystem=xdg-pictures/Screenshots:create"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
