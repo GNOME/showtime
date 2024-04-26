@@ -79,11 +79,6 @@ class AfternoonApplication(Adw.Application):
             ["F11"],
         )
         self.create_action(
-            "unfullscreen",
-            lambda *_: self.get_active_window().unfullscreen(),
-            ["Escape"],
-        )
-        self.create_action(
             "about",
             self.on_about_action,
         )

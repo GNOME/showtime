@@ -82,6 +82,14 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
         self.__on_stack_child_changed()
 
+        (esc := Gtk.ShortcutController()).add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.ShortcutTrigger.parse_string("Escape"),
+                Gtk.CallbackAction.new(lambda *_: self.unfullscreen()),
+            )
+        )
+        self.video_page.add_controller(esc)
+
     def __on_width_changed(self, *_args: Any):
         # TODO: Only use floating controls in fullscreen if
         # screen size is greater than 600px
