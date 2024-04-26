@@ -17,17 +17,20 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+"""The main application singleton class."""
 import logging
 import sys
-from typing import Optional, Sequence
+from typing import Any, Optional, Sequence
 
 import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 
+# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Gio, GLib, Gtk
+from gi.repository import Adw, Gio, GLib
 
 from afternoon import shared
 from afternoon.window import AfternoonWindow
@@ -66,7 +69,7 @@ class AfternoonApplication(Adw.Application):
         )
         self.create_action(
             "screenshot",
-            lambda *_: self.get_active_window().screenshot(),
+            lambda *_: self.get_active_window().save_screenshot(),
         )
         self.create_action(
             "close-window",
@@ -83,7 +86,9 @@ class AfternoonApplication(Adw.Application):
             self.on_about_action,
         )
 
-    def do_activate(self, gfile: Optional[Gio.File] = None):
+    def do_activate(  # pylint: disable=arguments-differ
+        self, gfile: Optional[Gio.File] = None
+    ) -> None:
         """Called when the application is activated.
 
         We raise the application's main window, creating it if
@@ -99,12 +104,16 @@ class AfternoonApplication(Adw.Application):
 
         win.play_video(gfile)
 
-    def do_open(self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str) -> None:
+    def do_open(  # pylint: disable=arguments-differ
+        self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str
+    ) -> None:
         """Opens the given files."""
         for gfile in gfiles:
             self.do_activate(gfile)
 
-    def do_handle_local_options(self, options: GLib.VariantDict) -> int:
+    def do_handle_local_options(  # pylint: disable=arguments-differ
+        self, options: GLib.VariantDict
+    ) -> int:
         """Handles local command line arguments."""
         self.register()  # This is so get_is_remote works
         if self.get_is_remote():
@@ -119,7 +128,7 @@ class AfternoonApplication(Adw.Application):
 
         return -1
 
-    def on_about_action(self, widget, _):
+    def on_about_action(self, *_args: Any):
         """Callback for the app.about action."""
         about = Adw.AboutDialog(
             application_name="Afternoon",
@@ -147,7 +156,7 @@ class AfternoonApplication(Adw.Application):
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
-def main(version):
+def main():
     """The application's entry point."""
     app = AfternoonApplication()
     return app.run(sys.argv)

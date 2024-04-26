@@ -17,26 +17,29 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+"""The main application window."""
 import datetime
-import logging
 from os import sep
 from pathlib import Path
 from typing import Any
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 from afternoon import shared
+from afternoon.utils import screenshot
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
 class AfternoonWindow(Adw.ApplicationWindow):
+    """The main application window."""
+
     __gtype_name__ = "AfternoonWindow"
 
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
-    placeholder_stack: Adw.ToolbarView = Gtk.Template.Child()
+    placeholder_stack: Gtk.Stack = Gtk.Template.Child()
     open_status_page: Adw.StatusPage = Gtk.Template.Child()
     error_status_page: Adw.StatusPage = Gtk.Template.Child()
     button_open: Gtk.Button = Gtk.Template.Child()
@@ -44,9 +47,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video: Gtk.Video = Gtk.Template.Child()
     header_revealer: Gtk.Revealer = Gtk.Template.Child()
-    button_fullscreen = Gtk.Template.Child()
+    button_fullscreen: Gtk.Button = Gtk.Template.Child()
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
         # HACK: Should reimplement Gtk.Video instead of hacking around in it
@@ -90,7 +93,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
         self.video_page.add_controller(esc)
 
-    def __on_width_changed(self, *_args: Any):
+    def __on_width_changed(self, *_args: Any) -> None:
         # TODO: Only use floating controls in fullscreen if
         # screen size is greater than 600px
         if self.get_default_size().width > 600 or self.is_fullscreen():
@@ -104,7 +107,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             self.media_controls.set_margin_end(0)
             self.media_controls.remove_css_class("toolbar")
 
-    def __on_fullscreen(self, *_args: Any):
+    def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
             "view-restore-symbolic"
             if self.is_fullscreen()
@@ -119,7 +122,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
-            gfile = dialog.open_finish(res)
+            if not (gfile := dialog.open_finish(res)):
+                return
+
         except GLib.Error:
             return
 
@@ -127,6 +132,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def toggle_fullscreen(self, *_args: Any) -> None:
+        """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
         if self.is_fullscreen():
             self.unfullscreen()
             return
@@ -135,16 +141,17 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def choose_video(self, *_args: Any) -> None:
+        """Opens a file dialog to pick a video to play."""
         dialog = Gtk.FileDialog()
 
-        filter = Gtk.FileFilter()
-        filter.add_mime_type("video/*")
-        filter.set_name(_("Video"))
+        file_filter = Gtk.FileFilter()
+        file_filter.add_mime_type("video/*")
+        file_filter.set_name(_("Video"))
 
         filters = Gio.ListStore()
-        filters.append(filter)
+        filters.append(file_filter)
         dialog.set_filters(filters)
-        dialog.set_default_filter(filter)
+        dialog.set_default_filter(file_filter)
 
         dialog.open(self, callback=self.__choose_video_cb)
 
@@ -156,40 +163,23 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.stack.set_visible_child(self.placeholder_page)
 
     def play_video(self, gfile: Gio.File) -> None:
+        """Starts playing the given `GFile`."""
         self.video.set_file(gfile)
         self.video.get_media_stream().connect("notify::error", self.__on_media_error)
         self.stack.set_visible_child(self.video_page)
 
-    def screenshot(self) -> None:
-        # Copied from Workbench
-        # https://github.com/workbenchdev/Workbench/blob/1ebbe1e3915aabfd172c166c88ca23ad08861d15/src/Previewer/previewer.vala#L36
+    def save_screenshot(self) -> None:
+        """
+        Saves a screenshot of the current frame of the video being played in PNG format.
+
+        It tries saving it to `xdg-pictures/Screenshot` and falls back to `~`.
+        """
 
         if not (stream := self.video.get_media_stream()):
             return
 
-        paintable = stream.get_current_image()
-
-        width = paintable.get_intrinsic_width()
-        height = paintable.get_intrinsic_height()
-        snapshot = Gtk.Snapshot()
-        paintable.snapshot(snapshot, width, height)
-
-        if not (node := snapshot.to_node()):
-            logging.warning(
-                f"Could not get node snapshot, width: {width}, height: {height}"
-            )
+        if not (texture := screenshot(stream, self)):
             return
-
-        rect = Graphene.Rect()
-        rect.origin = Graphene.Point.zero()
-
-        size = Graphene.Size()
-        size.width = width
-        size.height = height
-        rect.size = size
-
-        renderer = self.get_native().get_renderer()
-        texture = renderer.render_texture(node, rect)
 
         if pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES):
             path = GLib.build_pathv(sep, (pictures, "Screenshots"))
@@ -221,9 +211,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         toast = Adw.Toast.new(_("Screenshot captured"))
         toast.set_priority(Adw.ToastPriority.HIGH)
-
         toast.set_button_label(_("Show in Files"))
-
         toast.connect(
             "button-clicked",
             lambda *_: Gtk.FileLauncher.new(

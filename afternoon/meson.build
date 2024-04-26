@@ -35,6 +35,7 @@ configure_file(
 afternoon_sources = [
   '__init__.py',
   'main.py',
+  'utils.py',
   'window.py',
   configure_file(
     input: 'shared.py.in',
