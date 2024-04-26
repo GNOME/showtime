@@ -91,7 +91,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 Gtk.CallbackAction.new(lambda *_: self.unfullscreen()),
             )
         )
-        self.video_page.add_controller(esc)
+        self.add_controller(esc)
 
     def __on_width_changed(self, *_args: Any) -> None:
         # TODO: Only use floating controls in fullscreen if
