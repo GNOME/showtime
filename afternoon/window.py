@@ -162,11 +162,30 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
+    def __resize_window(self, stream, *_args: Any) -> None:
+        if (ratio := stream.get_intrinsic_aspect_ratio()) == 0:
+            return
+
+        # Make the window 3/5ths of the display height
+        height = (
+            self.props.display.get_monitor_at_surface(self.get_surface())
+            .get_geometry()
+            .height
+            * 0.6
+        )
+        width = height * ratio
+
+        self.set_default_size(width, height)
+
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
         self.video.set_file(gfile)
-        self.video.get_media_stream().connect("notify::error", self.__on_media_error)
+        stream = self.video.get_media_stream()
+
+        stream.connect("notify::error", self.__on_media_error)
         self.stack.set_visible_child(self.video_page)
+
+        stream.connect("notify::has-video", self.__resize_window)
 
     def save_screenshot(self) -> None:
         """
