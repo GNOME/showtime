@@ -21,12 +21,12 @@
 import datetime
 from os import sep
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
 
 from afternoon import shared
-from afternoon.utils import screenshot
+from afternoon.utils import screenshot, subtitleUpdater, update_subtitles
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
@@ -49,16 +49,41 @@ class AfternoonWindow(Adw.ApplicationWindow):
     header_revealer: Gtk.Revealer = Gtk.Template.Child()
     button_fullscreen: Gtk.Button = Gtk.Template.Child()
 
+    subtitles_menu: Gio.Menu = Gtk.Template.Child()
+
+    subtitle_updater: Optional[subtitleUpdater] = None
+
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
         # HACK: Should reimplement Gtk.Video instead of hacking around in it
+        overlay = self.video.get_first_child()
+
         self.media_controls = (
-            self.video.get_first_child()
-            .get_first_child()
+            overlay.get_first_child()
             .get_next_sibling()
             .get_next_sibling()
             .get_first_child()
+        )
+
+        self.subtitles_label = Gtk.Label(
+            halign=Gtk.Align.CENTER,
+            valign=Gtk.Align.END,
+            margin_bottom=75,
+            justify=Gtk.Justification.CENTER,
+            visible=False,
+        )
+        self.subtitles_label.add_css_class("title-2")
+        self.subtitles_label.add_css_class("toolbar")
+        self.subtitles_label.add_css_class("osd")
+
+        overlay.add_overlay(self.subtitles_label)
+
+        self.media_controls.get_first_child().append(
+            Gtk.MenuButton(
+                icon_name="media-view-subtitles-symbolic",
+                menu_model=self.subtitles_menu,
+            )
         )
 
         self.media_controls.get_parent().bind_property(
@@ -120,16 +145,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
             self.stack.get_visible_child() == self.video_page
         )
 
-    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
-        try:
-            if not (gfile := dialog.open_finish(res)):
-                return
-
-        except GLib.Error:
-            return
-
-        self.play_video(gfile)
-
     @Gtk.Template.Callback()
     def toggle_fullscreen(self, *_args: Any) -> None:
         """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
@@ -154,6 +169,43 @@ class AfternoonWindow(Adw.ApplicationWindow):
         dialog.set_default_filter(file_filter)
 
         dialog.open(self, callback=self.__choose_video_cb)
+
+    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
+        try:
+            if not (gfile := dialog.open_finish(res)):
+                return
+
+        except GLib.Error:
+            return
+
+        self.play_video(gfile)
+
+    def choose_subtitles(self, *_args: Any) -> None:
+        """Opens a file dialog to pick a subtitle."""
+        dialog = Gtk.FileDialog()
+
+        file_filter = Gtk.FileFilter()
+        file_filter.add_mime_type("application/x-subrip")
+        file_filter.set_name(_("Subtitles"))
+
+        filters = Gio.ListStore()
+        filters.append(file_filter)
+        dialog.set_filters(filters)
+        dialog.set_default_filter(file_filter)
+
+        dialog.open(self, callback=self.__choose_subtitles_cb)
+
+    def __choose_subtitles_cb(
+        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
+    ) -> None:
+        try:
+            if not (gfile := dialog.open_finish(res)):
+                return
+
+        except GLib.Error:
+            return
+
+        update_subtitles(self.subtitles_label, gfile, self.video.get_media_stream())
 
     def __on_media_error(self, *_args: Any) -> None:
         self.error_status_page.set_description(

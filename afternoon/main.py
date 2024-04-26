@@ -68,6 +68,10 @@ class AfternoonApplication(Adw.Application):
             ["<primary>o"],
         )
         self.create_action(
+            "open-subtitles",
+            lambda *_: self.get_active_window().choose_subtitles(),
+        )
+        self.create_action(
             "screenshot",
             lambda *_: self.get_active_window().save_screenshot(),
         )
@@ -85,6 +89,21 @@ class AfternoonApplication(Adw.Application):
             "about",
             self.on_about_action,
         )
+
+        show_subtitles_action = Gio.SimpleAction.new_stateful(
+            "show-subtitles", None, GLib.Variant.new_boolean(True)
+        )
+        show_subtitles_action.connect("activate", self.__show_subtitles)
+        show_subtitles_action.connect("change-state", self.__show_subtitles)
+        self.add_action(show_subtitles_action)
+
+    def __show_subtitles(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
+        value = not action.props.state.get_boolean()
+        action.set_state(GLib.Variant.new_boolean(value))
+
+        # TODO: Use a signal handler for this
+        for window in self.get_windows():
+            window.subtitles_label.set_opacity(1 if value else 0)
 
     def do_activate(  # pylint: disable=arguments-differ
         self, gfile: Optional[Gio.File] = None

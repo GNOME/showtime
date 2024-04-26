@@ -129,28 +129,24 @@ template $AfternoonWindow : Adw.ApplicationWindow {
   ]
 }
 
+menu subtitles_menu {
+  section {
+    item (_("_Open Subtitle File…"), "app.open-subtitles")
+  }
+  section {
+    item (_("_Show Subtitles"), "app.show-subtitles")
+  }
+}
+
 menu primary_menu {
   section {
-    item {
-      label: _("_Open…");
-      action: "app.open-video";
-    }
+    item (_("_Open…"), "app.open-video")
   }
   section {
-    item {
-      label: _("Take _Screenshot");
-      action: "app.screenshot";
-    }
+    item (_("Take _Screenshot"), "app.screenshot")
   }
   section {
-    item {
-      label: _("_Keyboard Shortcuts");
-      action: "win.show-help-overlay";
-    }
-
-    item {
-      label: _("_About Afternoon");
-      action: "app.about";
-    }
+    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("_About Afternoon"), "app.about")
   }
 }
