@@ -1,5 +1,5 @@
 {
-    "id" : "page.kramo.Afternoon",
+    "id" : "page.kramo.Afternoon.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
@@ -40,6 +40,9 @@
             "name" : "afternoon",
             "builddir" : true,
             "buildsystem" : "meson",
+            "config-opts": [
+                "-Dprofile=development"
+            ],
             "sources" : [
                 {
                     "type" : "dir",

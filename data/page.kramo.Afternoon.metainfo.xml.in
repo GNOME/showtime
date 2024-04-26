@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-	<id>page.kramo.Afternoon.desktop</id>
+	<id>@APP_ID@</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
+	<name>Afternoon</name>
 	<summary>Play videos</summary>
 	<description>
 	  <p>Play video files on your device.</p>

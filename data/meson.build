@@ -1,6 +1,10 @@
 desktop_file = i18n.merge_file(
-        input: 'page.kramo.Afternoon.desktop.in',
-       output: 'page.kramo.Afternoon.desktop',
+        input: configure_file(
+           input: 'page.kramo.Afternoon.desktop.in',
+          output: app_id + '.desktop.in',
+          configuration: conf
+        ),
+       output: app_id + '.desktop',
          type: 'desktop',
        po_dir: '../po',
       install: true,
@@ -13,8 +17,12 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-        input: 'page.kramo.Afternoon.metainfo.xml.in',
-       output: 'page.kramo.Afternoon.metainfo.xml',
+        input: configure_file(
+          input: 'page.kramo.Afternoon.metainfo.xml.in',
+          output: app_id + '.metainfo.xml.in',
+          configuration: conf
+        ),
+       output: app_id + '.metainfo.xml',
        po_dir: '../po',
       install: true,
   install_dir: get_option('datadir') / 'metainfo'
@@ -24,7 +32,12 @@ appstreamcli = find_program('appstreamcli', required: false, disabler: true)
 test('Validate appstream file', appstreamcli,
      args: ['validate', '--no-net', '--explain', appstream_file])
 
-install_data('page.kramo.Afternoon.gschema.xml',
+install_data(
+  configure_file(
+    input: 'page.kramo.Afternoon.gschema.xml.in',
+    output: app_id + '.gschema.xml',
+    configuration: conf
+  ),
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
 )
 

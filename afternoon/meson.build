@@ -1,18 +1,20 @@
-pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
-moduledir = pkgdatadir / 'afternoon'
-gnome = import('gnome')
+moduledir = python_dir / 'afternoon'
 
 blueprints = custom_target('blueprints',
   input: files(
     'gtk/help-overlay.blp',
-    'window.blp',
+    'gtk/window.blp',
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
 )
 
 gnome.compile_resources('afternoon',
-  'afternoon.gresource.xml',
+  configure_file(
+    input: 'afternoon.gresource.xml.in',
+    output: 'afternoon.gresource.xml',
+    configuration: conf
+  ),
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
@@ -20,12 +22,6 @@ gnome.compile_resources('afternoon',
 )
 
 python = import('python')
-
-conf = configuration_data()
-conf.set('PYTHON', python.find_installation('python3').full_path())
-conf.set('VERSION', meson.project_version())
-conf.set('localedir', get_option('prefix') / get_option('localedir'))
-conf.set('pkgdatadir', pkgdatadir)
 
 configure_file(
   input: 'afternoon.in',
@@ -40,6 +36,11 @@ afternoon_sources = [
   '__init__.py',
   'main.py',
   'window.py',
+  configure_file(
+    input: 'shared.py.in',
+    output: 'shared.py',
+    configuration: conf
+  )
 ]
 
 install_data(afternoon_sources, install_dir: moduledir)

@@ -29,7 +29,8 @@ gi.require_version("Adw", "1")
 
 from gi.repository import Adw, Gio, GLib, Gtk
 
-from .window import AfternoonWindow
+from afternoon import shared
+from afternoon.window import AfternoonWindow
 
 
 class AfternoonApplication(Adw.Application):
@@ -37,7 +38,7 @@ class AfternoonApplication(Adw.Application):
 
     def __init__(self):
         super().__init__(
-            application_id="page.kramo.Afternoon",
+            application_id=shared.APP_ID,
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
@@ -122,9 +123,9 @@ class AfternoonApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutDialog(
             application_name="Afternoon",
-            application_icon="page.kramo.Afternoon",
+            application_icon=shared.APP_ID,
             developer_name="kramo",
-            version="0.1.0",
+            version=shared.VERSION,
             developers=["kramo"],
             copyright="© 2024 kramo",
         )

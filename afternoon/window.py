@@ -25,8 +25,10 @@ from typing import Any
 
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Graphene, Gtk
 
+from afternoon import shared
 
-@Gtk.Template(resource_path="/page/kramo/Afternoon/window.ui")
+
+@Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
 class AfternoonWindow(Adw.ApplicationWindow):
     __gtype_name__ = "AfternoonWindow"
 
