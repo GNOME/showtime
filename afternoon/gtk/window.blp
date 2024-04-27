@@ -1,9 +1,12 @@
 using Gtk 4.0;
 using Adw 1;
+using ClapperGtk 0.0;
 
 template $AfternoonWindow : Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
+  height-request: 180;
+  width-request: 320;
 
   title: _("Afternoon");
 
@@ -51,75 +54,7 @@ template $AfternoonWindow : Adw.ApplicationWindow {
       }
 
       WindowHandle video_page {
-        Overlay {
-          [overlay]
-          Revealer header_revealer {
-            valign: start;
-            transition-type: crossfade;
-
-            Box {
-              margin-top: 6;
-              margin-bottom: 3;
-              spacing: 6;
-
-              WindowControls {
-                halign: start;
-                side: start;
-                margin-start: 6;
-
-                styles [
-                  "window-controls-osd"
-                ]
-              }
-
-              Button button_fullscreen {
-                hexpand: true;
-                valign: start;
-                halign: start;
-                icon-name: "view-fullscreen-symbolic";
-                tooltip-text: _("Toggle Fullscreen");
-
-                clicked => $toggle_fullscreen();
-
-                styles [
-                  "osd",
-                  "circular"
-                ]
-              }
-
-              MenuButton {
-                hexpand: true;
-                valign: start;
-                halign: end;
-                margin-start: 6;
-                primary: true;
-                icon-name: "open-menu-symbolic";
-                tooltip-text: _("Menu");
-                menu-model: primary_menu;
-
-                styles [
-                  "osd",
-                  "circular"
-                ]
-              }
-
-              WindowControls {
-                halign: end;
-                side: end;
-                margin-end: 6;
-
-                styles [
-                  "window-controls-osd"
-                ]
-              }
-            }
-          }
-
-          Video video {
-            autoplay: true;
-            graphics-offload: enabled;
-          }
-        }
+        ClapperGtk.Video video {}
       }
     }
   };
@@ -127,6 +62,93 @@ template $AfternoonWindow : Adw.ApplicationWindow {
   styles [
     "view"
   ]
+}
+
+Adw.BreakpointBin toolbar_bin {
+  height-request: 180;
+  width-request: 320;
+
+  Adw.Breakpoint {
+    condition ("min-width: 550px")
+    setters {
+      toolbar_clamp.margin-bottom: 24;
+      toolbar_clamp.margin-start: 24;
+      toolbar_clamp.margin-end: 24;
+    }
+  }
+  Adw.Clamp toolbar_clamp {
+    unit: px;
+    maximum-size: 600;
+    tightening-threshold: 550;
+
+    Box toolbar {
+      valign: end;
+      orientation: vertical;
+
+      styles [
+        "osd",
+        "toolbar"
+      ]
+    }
+  }
+}
+
+Box window_controls {
+  valign: start;
+  margin-top: 6;
+  margin-bottom: 3;
+  spacing: 6;
+
+  WindowControls {
+    halign: start;
+    side: start;
+    margin-start: 6;
+
+    styles [
+      "window-controls-osd"
+    ]
+  }
+
+  Button button_fullscreen {
+    hexpand: true;
+    valign: start;
+    halign: start;
+    icon-name: "view-fullscreen-symbolic";
+    tooltip-text: _("Toggle Fullscreen");
+
+    clicked => $toggle_fullscreen();
+
+    styles [
+      "osd",
+      "circular"
+    ]
+  }
+
+  MenuButton {
+    hexpand: true;
+    valign: start;
+    halign: end;
+    margin-start: 6;
+    primary: true;
+    icon-name: "open-menu-symbolic";
+    tooltip-text: _("Menu");
+    menu-model: primary_menu;
+
+    styles [
+      "osd",
+      "circular"
+    ]
+  }
+
+  WindowControls {
+    halign: end;
+    side: end;
+    margin-end: 6;
+
+    styles [
+      "window-controls-osd"
+    ]
+  }
 }
 
 menu subtitles_menu {

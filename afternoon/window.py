@@ -23,10 +23,10 @@ from os import sep
 from pathlib import Path
 from typing import Any, Optional
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk
+from gi.repository import Adw, Clapper, ClapperGtk, Gdk, Gio, GLib, GObject, Gst, Gtk
 
 from afternoon import shared
-from afternoon.utils import screenshot, subtitleUpdater, update_subtitles
+from afternoon.utils import screenshot
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
@@ -45,66 +45,31 @@ class AfternoonWindow(Adw.ApplicationWindow):
     button_open: Gtk.Button = Gtk.Template.Child()
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
-    video: Gtk.Video = Gtk.Template.Child()
-    header_revealer: Gtk.Revealer = Gtk.Template.Child()
+    video: ClapperGtk.Video = Gtk.Template.Child()
+
+    toolbar_bin: Adw.Clamp = Gtk.Template.Child()
+    toolbar: Gtk.Box = Gtk.Template.Child()
+
+    window_controls: Gtk.Box = Gtk.Template.Child()
     button_fullscreen: Gtk.Button = Gtk.Template.Child()
-
-    subtitles_menu: Gio.Menu = Gtk.Template.Child()
-
-    subtitle_updater: Optional[subtitleUpdater] = None
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
-        # HACK: Should reimplement Gtk.Video instead of hacking around in it
-        overlay = self.video.get_first_child()
+        self.player = self.video.get_player()
+        self.queue = self.player.get_queue()
 
-        self.media_controls = (
-            overlay.get_first_child()
-            .get_next_sibling()
-            .get_next_sibling()
-            .get_first_child()
+        mpris = Clapper.Mpris.new(
+            "org.mpris.MediaPlayer2.Afternoon", "Afternoon", shared.APP_ID
         )
+        self.player.add_feature(mpris)
 
-        self.subtitles_label = Gtk.Label(
-            halign=Gtk.Align.CENTER,
-            valign=Gtk.Align.END,
-            margin_bottom=75,
-            justify=Gtk.Justification.CENTER,
-            visible=False,
-        )
-        self.subtitles_label.add_css_class("title-2")
-        self.subtitles_label.add_css_class("toolbar")
-        self.subtitles_label.add_css_class("osd")
+        self.player.set_autoplay(True)
+        if settings := Gtk.Settings.get_default():
+            self.player.set_subtitle_font_desc(settings.props.gtk_font_name)
 
-        overlay.add_overlay(self.subtitles_label)
-
-        self.media_controls.get_first_child().append(
-            Gtk.MenuButton(
-                icon_name="media-view-subtitles-symbolic",
-                menu_model=self.subtitles_menu,
-            )
-        )
-
-        self.media_controls.get_parent().bind_property(
-            "reveal-child",
-            self.header_revealer,
-            "reveal-child",
-            GObject.BindingFlags.DEFAULT,
-        )
-
-        # Dock/undock the toolbar based on window size
-        self.connect("notify::default-width", self.__on_width_changed)
-        self.__on_width_changed()
-
-        primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-        primary_click.connect(
-            "released",
-            lambda *_: (stream := self.video.get_media_stream()).set_playing(
-                not stream.get_playing()
-            ),
-        )
-        self.video.get_first_child().get_first_child().add_controller(primary_click)
+        self.video.add_fading_overlay(self.toolbar_bin)
+        self.video.add_fading_overlay(self.window_controls)
 
         self.connect("notify::fullscreened", self.__on_fullscreen)
         self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
@@ -118,19 +83,49 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
         self.add_controller(esc)
 
-    def __on_width_changed(self, *_args: Any) -> None:
-        # TODO: Only use floating controls in fullscreen if
-        # screen size is greater than 600px
-        if self.get_default_size().width > 600 or self.is_fullscreen():
-            self.media_controls.set_margin_bottom(12)
-            self.media_controls.set_margin_start(36)
-            self.media_controls.set_margin_end(36)
-            self.media_controls.add_css_class("toolbar")
-        else:
-            self.media_controls.set_margin_bottom(0)
-            self.media_controls.set_margin_start(0)
-            self.media_controls.set_margin_end(0)
-            self.media_controls.remove_css_class("toolbar")
+        self.queue.connect(
+            "notify::current-item",
+            lambda *_: self.player.get_video_streams().connect(
+                "notify::current-stream", lambda *_: self.__resize_window()
+            ),
+        )
+        self.player.connect("error", self.__on_player_error)
+        self.player.connect("missing-plugin", self.__on_missing_plugin)
+
+        # Build toolbar
+
+        backwards_button = Gtk.Button(icon_name="skip-backwards-10-symbolic")
+        backwards_button.connect(
+            "clicked",
+            lambda *_: self.player.seek(max(0, self.player.get_position() - 10)),
+        )
+
+        forwards_button = Gtk.Button(icon_name="skip-forward-10-symbolic")
+        forwards_button.connect(
+            "clicked",
+            lambda *_: self.player.seek(self.player.get_position() + 10),
+        )
+
+        play_controls = Gtk.Box()
+        play_controls.append(backwards_button)
+        play_controls.append(ClapperGtk.TogglePlayButton())
+        play_controls.append(forwards_button)
+
+        title_label = ClapperGtk.TitleLabel()
+        title_label.add_css_class("heading")
+        title_label.set_margin_start(3)
+        title_label.set_margin_end(3)
+
+        menu_button = ClapperGtk.ExtraMenuButton()
+        menu_button.get_first_child().set_icon_name("settings-symbolic")
+
+        controls_box = Gtk.CenterBox(shrink_center_last=True)
+        controls_box.set_start_widget(play_controls)
+        controls_box.set_center_widget(title_label)
+        controls_box.set_end_widget(menu_button)
+
+        self.toolbar.append(controls_box)
+        self.toolbar.append(seek_bar := ClapperGtk.SeekBar())
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
@@ -138,7 +133,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
             if self.is_fullscreen()
             else "view-fullscreen-symbolic"
         )
-        self.__on_width_changed()
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
         self.get_application().lookup_action("screenshot").set_enabled(
@@ -205,17 +199,26 @@ class AfternoonWindow(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
-        update_subtitles(self.subtitles_label, gfile, self.video.get_media_stream())
-
-    def __on_media_error(self, *_args: Any) -> None:
+    def __on_missing_plugin(self, _obj: Any, name: str, _installer_detail: str) -> None:
         self.error_status_page.set_description(
-            self.video.get_media_stream().get_error().message
+            f"A “{name}” plugin is required to play this video"
         )
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
-    def __resize_window(self, stream, *_args: Any) -> None:
-        if (ratio := stream.get_intrinsic_aspect_ratio()) == 0:
+    def __on_player_error(self, _obj: Any, error: GLib.Error, *_args: Any) -> None:
+        self.error_status_page.set_description(error.message.rstrip("."))
+        self.placeholder_stack.set_visible_child(self.error_status_page)
+        self.stack.set_visible_child(self.placeholder_page)
+
+    def __resize_window(self) -> None:
+        if not (stream := self.player.get_video_streams().get_current_stream()):
+            return
+
+        try:
+            if (ratio := stream.get_width() / stream.get_height()) == 0:
+                return
+        except ZeroDevisionError:
             return
 
         # Make the window 3/5ths of the display height
@@ -231,13 +234,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
-        self.video.set_file(gfile)
-        stream = self.video.get_media_stream()
-
-        stream.connect("notify::error", self.__on_media_error)
         self.stack.set_visible_child(self.video_page)
+        self.queue.add_item(Clapper.MediaItem.new_from_file(gfile))
 
-        stream.connect("notify::has-video", self.__resize_window)
+        if self.queue.get_n_items() > 1:
+            self.queue.select_next_item()
+            self.queue.remove_index(0)
 
     def save_screenshot(self) -> None:
         """
@@ -246,10 +248,25 @@ class AfternoonWindow(Adw.ApplicationWindow):
         It tries saving it to `xdg-pictures/Screenshot` and falls back to `~`.
         """
 
-        if not (stream := self.video.get_media_stream()):
+        if not (item := self.queue.get_current_item()):
             return
 
-        if not (texture := screenshot(stream, self)):
+        if not (
+            paintable := self.video.get_first_child().get_first_child().get_paintable()
+        ):
+            return
+
+        if not (stream := self.player.get_video_streams().get_current_stream()):
+            return
+
+        if not (
+            texture := screenshot(
+                paintable,
+                stream.get_width(),
+                stream.get_height(),
+                self,
+            )
+        ):
             return
 
         if pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES):
@@ -257,17 +274,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
         else:
             path = GLib.get_home_dir()
 
-        if not (gfile := self.video.get_file()):
-            return
-
-        display_name = gfile.query_info(
-            Gio.FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, Gio.FileQueryInfoFlags.NONE
-        ).get_display_name()
+        if not (title := item.get_title()):
+            title = _("Unknown Title")
 
         time = (
             (
                 datetime.datetime.min
-                + datetime.timedelta(microseconds=stream.get_timestamp())
+                + datetime.timedelta(seconds=self.player.get_position())
             )
             .time()
             .strftime("%H:%M:%S")
@@ -275,7 +288,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         path = GLib.build_pathv(
             sep,
-            (path, f"{Path(display_name).stem} {time}.png"),
+            (path, f"{Path(title).stem} {time}.png"),
         )
 
         texture.save_to_png(path)

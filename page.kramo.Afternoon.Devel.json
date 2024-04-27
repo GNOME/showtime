@@ -10,7 +10,9 @@
         "--device=dri",
         "--socket=wayland",
         "--socket=pulseaudio",
-        "--filesystem=xdg-pictures/Screenshots:create"
+        "--filesystem=xdg-pictures/Screenshots:create",
+        "--own-name=org.mpris.MediaPlayer2.Afternoon",
+        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
@@ -37,30 +39,98 @@
     ],
     "modules" : [
         {
-            "name": "python3-chardet",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"chardet\" --no-build-isolation"
+            "name": "gstreamer",
+            "buildsystem": "meson",
+            "config-opts": [
+                "--buildtype=release",
+                "--wrap-mode=nodownload",
+
+                "-Dbase=enabled",
+                "-Dgood=enabled",
+                "-Dbad=enabled",
+                "-Dugly=enabled",
+                "-Dlibav=enabled",
+                "-Dvaapi=enabled",
+                "-Dsharp=disabled",
+                "-Drs=disabled",
+                "-Dpython=disabled",
+                "-Ddevtools=disabled",
+                "-Dges=disabled",
+                "-Drtsp_server=disabled",
+                "-Dgst-examples=disabled",
+                "-Dqt5=disabled",
+                "-Dtests=disabled",
+                "-Dexamples=disabled",
+                "-Dintrospection=enabled",
+                "-Ddoc=disabled",
+                "-Dgtk_doc=disabled",
+                "-Dgpl=enabled",
+
+                "-Dgstreamer:benchmarks=disabled",
+                "-Dgstreamer:gobject-cast-checks=disabled",
+                "-Dgstreamer:glib-asserts=disabled",
+                "-Dgstreamer:glib-checks=disabled",
+                "-Dgstreamer:extra-checks=disabled",
+
+                "-Dgst-plugins-base:gobject-cast-checks=disabled",
+                "-Dgst-plugins-base:glib-asserts=disabled",
+                "-Dgst-plugins-base:glib-checks=disabled",
+                "-Dgst-plugins-base:gl_api=opengl,gles2",
+                "-Dgst-plugins-base:gl_platform=egl,glx",
+
+                "-Dgst-plugins-good:gobject-cast-checks=disabled",
+                "-Dgst-plugins-good:glib-asserts=disabled",
+                "-Dgst-plugins-good:glib-checks=disabled",
+                "-Dgst-plugins-good:gtk3=disabled",
+
+                "-Dgst-plugins-bad:gobject-cast-checks=disabled",
+                "-Dgst-plugins-bad:glib-asserts=disabled",
+                "-Dgst-plugins-bad:glib-checks=disabled",
+                "-Dgst-plugins-bad:extra-checks=disabled",
+                "-Dgst-plugins-bad:vulkan=disabled",
+                "-Dgst-plugins-bad:webrtc=disabled",
+                "-Dgst-plugins-bad:wasapi=disabled",
+                "-Dgst-plugins-bad:wasapi2=disabled",
+                "-Dgst-plugins-bad:winks=disabled",
+                "-Dgst-plugins-bad:winscreencap=disabled",
+                "-Dgst-plugins-bad:nvcodec=enabled",
+                "-Dgst-plugins-bad:v4l2codecs=enabled",
+                "-Dgst-plugins-bad:va=enabled",
+
+                "-Dgst-plugins-ugly:gobject-cast-checks=disabled",
+                "-Dgst-plugins-ugly:glib-asserts=disabled",
+                "-Dgst-plugins-ugly:glib-checks=disabled"
             ],
             "sources": [
                 {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47dcc38cbf/chardet-5.2.0-py3-none-any.whl",
-                    "sha256": "e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970"
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
+                    "tag": "1.22.8",
+                    "commit": "4af14db10e8355f980bbf79733af004e59d255fc",
+                    "disable-submodules": true
                 }
             ]
         },
         {
-            "name": "python3-srt",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"srt\" --no-build-isolation"
+            "name": "clapper",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dclapper=enabled",
+                "-Dclapper-gtk=enabled",
+                "-Dclapper-app=disabled",
+                "-Dintrospection=enabled",
+                "-Dvapi=enabled",
+                "-Dc_args=\"-DHAVE_GST_PATCHES=1\""
+            ],
+            "cleanup": [
+                "/include",
+                "/lib/pkgconfig"
             ],
             "sources": [
                 {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/66/b7/4a1bc231e0681ebf339337b0cd05b91dc6a0d701fa852bb812e244b7a030/srt-3.5.3.tar.gz",
-                    "sha256": "4884315043a4f0740fd1f878ed6caa376ac06d70e135f306a6dc44632eed0cc0"
+                    "type": "git",
+                    "url": "https://github.com/Rafostar/clapper.git",
+                    "branch": "master"
                 }
             ]
         },

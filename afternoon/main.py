@@ -20,17 +20,24 @@
 """The main application singleton class."""
 import logging
 import sys
+from os import environ
 from typing import Any, Optional, Sequence
 
 import gi
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
+gi.require_version("Gst", "1.0")
+gi.require_version("Clapper", "0.0")
+gi.require_version("ClapperGtk", "0.0")
 
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Gio, GLib
+from gi.repository import Adw, Clapper, Gio, GLib
+
+environ["CLAPPER_USE_PLAYBIN3"] = "1"
+Clapper.init()
 
 from afternoon import shared
 from afternoon.window import AfternoonWindow

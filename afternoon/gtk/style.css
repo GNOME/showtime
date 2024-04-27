@@ -6,3 +6,11 @@
     background-color: alpha(black, .7);
     background-clip: padding-box;
 }
+
+.osd {
+	background-color: alpha(black, .7);
+}
+
+.osd arrow {
+	background-color: transparent;
+}
