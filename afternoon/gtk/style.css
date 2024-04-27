@@ -7,10 +7,22 @@
     background-clip: padding-box;
 }
 
-.osd {
+/* Revert Clapper's custom styling */
+/* https://github.com/Rafostar/clapper/blob/6d47aa3c6d8b2ef1b6ca6c0de90bac695590ff47/src/lib/clapper-gtk/css/styles.css#L1 */
+
+clapper-gtk-video button.osd,
+clapper-gtk-video box.osd,
+clapper-gtk-video clapper-gtk-title-header.osd,
+clapper-gtk-video .osd popover > contents,
+clapper-gtk-video .osd popover > arrow {
 	background-color: alpha(black, .7);
 }
 
-.osd arrow {
+clapper-gtk-video menubutton.osd,
+clapper-gtk-video .osd menubutton > popover > contents arrow {
 	background-color: transparent;
+}
+
+clapper-gtk-extra-menu-button popover spinbutton {
+  border-radius: 6px;
 }
