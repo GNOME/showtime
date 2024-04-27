@@ -5,8 +5,8 @@ using ClapperGtk 0.0;
 template $AfternoonWindow : Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
-  height-request: 180;
-  width-request: 320;
+  height-request: 202; // For a 16∶9 aspect ratio
+  width-request: 360;
 
   title: _("Afternoon");
 
@@ -65,8 +65,8 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 }
 
 Adw.BreakpointBin toolbar_bin {
-  height-request: 180;
-  width-request: 320;
+  height-request: 202; // For a 16∶9 aspect ratio
+  width-request: 360;
 
   Adw.Breakpoint {
     condition ("min-width: 550px")
