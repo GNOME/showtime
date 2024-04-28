@@ -19,6 +19,7 @@
 
 """The main application window."""
 import datetime
+import logging
 import pickle
 from hashlib import sha256
 from math import floor
@@ -80,13 +81,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.queue = self.player.get_queue()
 
-        self.queue.connect(
-            "notify::current-item",
-            lambda *_: self.player.get_video_streams().connect(
-                "notify::current-stream", lambda *_: self.__resize_window()
-            ),
-        )
-
         self.breakpoint.connect(
             "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
         )
@@ -101,13 +95,16 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 maximum_size=2147483647,  # Max gint size
             )
         )
-        extra_menu_button = ClapperGtk.ExtraMenuButton()
+        extra_menu_button = ClapperGtk.ExtraMenuButton(can_open_subtitles=True)
         extra_menu_button.get_first_child().set_icon_name("settings-symbolic")
         self.toolbar_center_box.set_end_widget(extra_menu_button)
         self.play_controls_box.insert_child_after(
             ClapperGtk.TogglePlayButton(), self.backwards_button
         )
         self.toolbar_box.append(ClapperGtk.SeekBar())
+        extra_menu_button.connect(
+            "open-subtitles", lambda _obj, item: self.choose_subtitles(item)
+        )
 
         self.backwards_button.connect(
             "clicked",
@@ -179,12 +176,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.get_application().save_play_position(self)
         self.play_video(gfile)
 
-    def choose_subtitles(self, *_args: Any) -> None:
+    def choose_subtitles(self, item: Clapper.MediaItem) -> None:
         """Opens a file dialog to pick a subtitle."""
         dialog = Gtk.FileDialog()
 
         file_filter = Gtk.FileFilter()
         file_filter.add_mime_type("application/x-subrip")
+        file_filter.add_mime_type("text/x-ssa")
         file_filter.set_name(_("Subtitles"))
 
         filters = Gio.ListStore()
@@ -192,10 +190,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
         dialog.set_filters(filters)
         dialog.set_default_filter(file_filter)
 
-        dialog.open(self, callback=self.__choose_subtitles_cb)
+        dialog.open(self, callback=self.__choose_subtitles_cb, user_data=item)
 
     def __choose_subtitles_cb(
-        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
+        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult, item: Clapper.MediaItem
     ) -> None:
         try:
             if not (gfile := dialog.open_finish(res)):
@@ -204,12 +202,14 @@ class AfternoonWindow(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
+        item.set_suburi(gfile.get_uri())
+
     def __on_state_changed(self, player: Clapper.Player, *_args: Any) -> None:
         if (state := player.get_state()) == Clapper.PlayerState.PLAYING:
             self.restore_revealer.set_reveal_child(False)
             return
 
-        if player.get_state() != Clapper.PlayerState.PAUSED:
+        if state != Clapper.PlayerState.PAUSED:
             return
 
         if not (item := self.queue.get_current_item()):
@@ -227,10 +227,17 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         player.seek(0)
 
-    def __on_player_error(self, _obj: Any, error: GLib.Error, *_args: Any) -> None:
+    def __on_player_error(
+        self, _obj: Any, error: GLib.Error, debug_info: Optional[str] = None
+    ) -> None:
         self.error_status_page.set_description(error.message.rstrip("."))
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
+
+        if not debug_info:
+            return
+
+        logging.error("Playback error: %s", debug_info)
 
     def __on_missing_plugin(self, _obj: Any, name: str, _installer_detail: str) -> None:
         self.error_status_page.set_description(
@@ -238,27 +245,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
-
-    def __resize_window(self) -> None:
-        if not (stream := self.player.get_video_streams().get_current_stream()):
-            return
-
-        try:
-            if (ratio := stream.get_width() / stream.get_height()) == 0:
-                return
-        except ZeroDivisionError:
-            return
-
-        # Make the window 3/5ths of the display height
-        height = (
-            self.props.display.get_monitor_at_surface(self.get_surface())
-            .get_geometry()
-            .height
-            * 0.6
-        )
-        width = height * ratio
-
-        self.set_default_size(width, height)
 
     def __get_previous_play_position(self) -> Optional[float]:
         if not (item := self.queue.get_current_item()):
@@ -278,9 +264,30 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         return hist.get(sha256(item.get_uri().encode("utf-8")).hexdigest())
 
+    def __resize_window(self, stream: Clapper.VideoStream) -> None:
+        try:
+            if (ratio := stream.get_width() / stream.get_height()) == 0:
+                return
+        except ZeroDivisionError:
+            return
+
+        # Make the window 3/5ths of the display height
+        height = (
+            self.props.display.get_monitor_at_surface(self.get_surface())
+            .get_geometry()
+            .height
+            * 0.6
+        )
+        width = height * ratio
+
+        self.set_default_size(width, height)
+
     def __stream_cb(self, player: Clapper.Player, *_args: Any) -> None:
         if player.get_state() != Clapper.PlayerState.PAUSED:
             return
+
+        if video_stream := self.player.get_video_streams().get_current_stream():
+            self.__resize_window(video_stream)
 
         player.disconnect_by_func(self.__stream_cb)
 

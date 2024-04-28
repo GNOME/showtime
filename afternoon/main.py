@@ -22,7 +22,6 @@ import logging
 import pickle
 import sys
 from hashlib import sha256
-from os import environ
 from typing import Any, Optional, Sequence
 
 import gi
@@ -38,7 +37,7 @@ gi.require_version("ClapperGtk", "0.0")
 
 from gi.repository import Adw, Clapper, Gio, GLib
 
-environ["CLAPPER_USE_PLAYBIN3"] = "1"
+# environ["CLAPPER_USE_PLAYBIN3"] = "1"
 Clapper.init()
 
 from afternoon import shared
@@ -75,10 +74,6 @@ class AfternoonApplication(Adw.Application):
             "open-video",
             lambda *_: self.get_active_window().choose_video(),
             ["<primary>o"],
-        )
-        self.create_action(
-            "open-subtitles",
-            lambda *_: self.get_active_window().choose_subtitles(),
         )
         self.create_action(
             "screenshot",
