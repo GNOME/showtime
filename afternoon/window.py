@@ -35,6 +35,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     __gtype_name__ = "AfternoonWindow"
 
+    breakpoint: Adw.Breakpoint = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
@@ -78,6 +79,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
             lambda *_: self.player.get_video_streams().connect(
                 "notify::current-stream", lambda *_: self.__resize_window()
             ),
+        )
+
+        self.breakpoint.connect(
+            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
+        )
+        self.breakpoint.connect(
+            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
 
         self.toolbar_center_box.set_center_widget(

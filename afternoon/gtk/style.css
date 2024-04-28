@@ -26,3 +26,7 @@ clapper-gtk-video .osd menubutton > popover > contents arrow {
 clapper-gtk-extra-menu-button popover spinbutton {
   border-radius: 6px;
 }
+
+.sharp-corners {
+    border-radius: 0;
+}
