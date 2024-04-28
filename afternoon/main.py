@@ -19,7 +19,9 @@
 
 """The main application singleton class."""
 import logging
+import pickle
 import sys
+from hashlib import sha256
 from os import environ
 from typing import Any, Optional, Sequence
 
@@ -103,6 +105,40 @@ class AfternoonApplication(Adw.Application):
         show_subtitles_action.connect("activate", self.__show_subtitles)
         show_subtitles_action.connect("change-state", self.__show_subtitles)
         self.add_action(show_subtitles_action)
+
+        self.connect("window-removed", lambda _app, win: self.save_play_position(win))
+
+    def save_play_position(self, window: AfternoonWindow) -> None:
+        """Saves the play position of the currently playing file in the window to restore later."""
+        if not (item := window.queue.get_current_item()):
+            return
+
+        digest = sha256(item.get_uri().encode("utf-8")).hexdigest()
+
+        shared.cache_path.mkdir(parents=True, exist_ok=True)
+        hist_path = shared.cache_path / "playback_history"
+
+        try:
+            hist_file = hist_path.open("rb")
+        except FileNotFoundError:
+            hist = {}
+        else:
+            try:
+                hist = pickle.load(hist_file)
+            except EOFError:
+                hist = {}
+
+        hist_file.close()
+
+        hist[digest] = window.player.get_position()
+
+        MAX_HIST_ITEMS = 1000
+
+        for _extra in range(max(len(hist) - MAX_HIST_ITEMS, 0)):
+            del hist[next(iter(hist))]
+
+        with hist_path.open("wb") as hist_file:
+            pickle.dump(hist, hist_file)
 
     def __show_subtitles(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
         value = not action.props.state.get_boolean()

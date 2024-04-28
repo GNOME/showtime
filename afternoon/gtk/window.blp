@@ -146,6 +146,78 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               ]
             }
           }
+
+          [overlay]
+          Revealer restore_revealer {
+            valign: center;
+            halign: center;
+            transition-type: crossfade;
+
+            Box {
+              halign: center;
+              spacing: 24;
+
+              Button {
+                width-request: 126;
+                height-request: 120;
+
+                Box {
+                  valign: center;
+                  orientation: vertical;
+                  spacing: 18;
+
+                  Image {
+                    margin-top: 12;
+                    icon-name: "media-playback-start-symbolic";
+                    icon-size: large;
+                  }
+
+                  Label {
+                    justify: center;
+                    wrap: true;
+                    label: _("Resume");
+                  }
+                }
+
+                clicked => $_restore();
+
+                styles [
+                  "osd",
+                  "soft-corners"
+                ]
+              }
+
+              Button {
+                width-request: 126;
+                height-request: 120;
+
+                Box {
+                  valign: center;
+                  orientation: vertical;
+                  spacing: 18;
+
+                  Image {
+                    margin-top: 12;
+                    icon-name: "arrow-circular-top-right-symbolic";
+                    icon-size: large;
+                  }
+
+                  Label {
+                    justify: center;
+                    wrap: true;
+                    label: _("Start Again");
+                  }
+                }
+
+                clicked => $_play_again();
+
+                styles [
+                  "osd",
+                  "soft-corners"
+                ]
+              }
+            }
+          }
         }
       }
     }

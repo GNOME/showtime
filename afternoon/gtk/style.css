@@ -30,3 +30,7 @@ clapper-gtk-extra-menu-button popover spinbutton {
 .sharp-corners {
     border-radius: 0;
 }
+
+.soft-corners {
+    border-radius: 18px;
+}

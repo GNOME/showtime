@@ -19,11 +19,14 @@
 
 """The main application window."""
 import datetime
+import pickle
+from hashlib import sha256
+from math import floor
 from os import sep
 from pathlib import Path
 from typing import Any, Optional
 
-from gi.repository import Adw, Clapper, ClapperGtk, Gdk, Gio, GLib, GObject, Gst, Gtk
+from gi.repository import Adw, Clapper, ClapperGtk, Gio, GLib, Gtk
 
 from afternoon import shared
 from afternoon.utils import screenshot
@@ -54,12 +57,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
     play_controls_box: Gtk.Box = Gtk.Template.Child()
     backwards_button: Gtk.Button = Gtk.Template.Child()
     forwards_button: Gtk.Button = Gtk.Template.Child()
+    restore_revealer: Gtk.Revealer = Gtk.Template.Child()
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
         self.player = self.video.get_player()
-        self.player.set_autoplay(True)
         self.player.add_feature(
             Clapper.Mpris.new(
                 "org.mpris.MediaPlayer2.Afternoon", "Afternoon", shared.APP_ID
@@ -170,6 +173,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
+        self.get_application().save_play_position(self)
         self.play_video(gfile)
 
     def choose_subtitles(self, *_args: Any) -> None:
@@ -198,16 +202,26 @@ class AfternoonWindow(Adw.ApplicationWindow):
             return
 
     def __on_state_changed(self, player: Clapper.Player, *_args: Any) -> None:
+        if (state := player.get_state()) == Clapper.PlayerState.PLAYING:
+            self.restore_revealer.set_reveal_child(False)
+            return
+
         if player.get_state() != Clapper.PlayerState.PAUSED:
             return
 
         if not (item := self.queue.get_current_item()):
             return
 
-        if player.get_position() != item.get_duration():
+        # The precision of the two values can differ so floor them
+
+        # While a video is loading
+        if (pos := floor(player.get_position())) == 0:
             return
 
         # Seek to the beginning when a video has ended
+        if pos != floor(item.get_duration()):
+            return
+
         player.seek(0)
 
     def __on_player_error(self, _obj: Any, error: GLib.Error, *_args: Any) -> None:
@@ -229,7 +243,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         try:
             if (ratio := stream.get_width() / stream.get_height()) == 0:
                 return
-        except ZeroDevisionError:
+        except ZeroDivisionError:
             return
 
         # Make the window 3/5ths of the display height
@@ -243,14 +257,65 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.set_default_size(width, height)
 
+    def __get_previous_play_position(self) -> Optional[float]:
+        if not (item := self.queue.get_current_item()):
+            return None
+
+        try:
+            hist_file = (shared.cache_path / "playback_history").open("rb")
+        except FileNotFoundError:
+            return None
+
+        try:
+            hist = pickle.load(hist_file)
+        except EOFError:
+            return None
+
+        hist_file.close()
+
+        return hist.get(sha256(item.get_uri().encode("utf-8")).hexdigest())
+
+    def __stream_cb(self, player: Clapper.Player, *_args: Any) -> None:
+        if player.get_state() != Clapper.PlayerState.PAUSED:
+            return
+
+        player.disconnect_by_func(self.__stream_cb)
+
+        if not (pos := self.__get_previous_play_position()):
+            self.player.play()
+            return
+
+        # Don't restore the previous play position if it is in the first minute
+        if pos < 60:
+            self.player.play()
+            return
+
+        self.player.seek(pos)
+        self.restore_revealer.set_reveal_child(True)
+
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
         self.stack.set_visible_child(self.video_page)
-        self.queue.add_item(Clapper.MediaItem.new_from_file(gfile))
+        self.restore_revealer.set_reveal_child(False)
 
+        # Can't seek while buffering
+        self.player.connect("notify::state", self.__stream_cb)
+
+        self.queue.add_item(Clapper.MediaItem.new_from_file(gfile))
         if self.queue.get_n_items() > 1:
             self.queue.select_next_item()
             self.queue.remove_index(0)
+
+        self.player.pause()
+
+    @Gtk.Template.Callback()
+    def _restore(self, *_args: Any) -> None:
+        self.player.play()
+
+    @Gtk.Template.Callback()
+    def _play_again(self, *_args: Any) -> None:
+        self.player.seek(0)
+        self.player.play()
 
     def save_screenshot(self) -> None:
         """

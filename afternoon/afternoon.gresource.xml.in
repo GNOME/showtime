@@ -4,6 +4,7 @@
     <file preprocess="xml-stripblanks" alias="settings-symbolic.svg">../data/icons/scalable/actions/settings-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="skip-backwards-10-symbolic.svg">../data/icons/scalable/actions/skip-backwards-10-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="skip-forward-10-symbolic.svg">../data/icons/scalable/actions/skip-forward-10-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="arrow-circular-top-right-symbolic.svg">../data/icons/scalable/actions/arrow-circular-top-right-symbolic.svg</file>
   </gresource>
   <gresource prefix="@PREFIX@">
     <file preprocess="xml-stripblanks">gtk/window.ui</file>
