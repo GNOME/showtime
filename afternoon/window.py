@@ -58,20 +58,20 @@ class AfternoonWindow(Adw.ApplicationWindow):
         super().__init__(**kwargs)
 
         self.player = self.video.get_player()
-        self.queue = self.player.get_queue()
-
-        mpris = Clapper.Mpris.new(
-            "org.mpris.MediaPlayer2.Afternoon", "Afternoon", shared.APP_ID
-        )
-        self.player.add_feature(mpris)
-
         self.player.set_autoplay(True)
+        self.player.add_feature(
+            Clapper.Mpris.new(
+                "org.mpris.MediaPlayer2.Afternoon", "Afternoon", shared.APP_ID
+            )
+        )
         if settings := Gtk.Settings.get_default():
             self.player.set_subtitle_font_desc(settings.props.gtk_font_name)
 
-        self.connect("notify::fullscreened", self.__on_fullscreen)
-        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
-        self.__on_stack_child_changed()
+        self.player.connect("error", self.__on_player_error)
+        self.player.connect("missing-plugin", self.__on_missing_plugin)
+        self.player.connect("notify::state", self.__on_state_changed)
+
+        self.queue = self.player.get_queue()
 
         self.queue.connect(
             "notify::current-item",
@@ -79,18 +79,29 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 "notify::current-stream", lambda *_: self.__resize_window()
             ),
         )
-        self.player.connect("error", self.__on_player_error)
-        self.player.connect("missing-plugin", self.__on_missing_plugin)
+
+        self.toolbar_center_box.set_center_widget(
+            ClapperGtk.TitleLabel(margin_start=3, margin_end=3)
+        )
+        extra_menu_button = ClapperGtk.ExtraMenuButton()
+        extra_menu_button.get_first_child().set_icon_name("settings-symbolic")
+        self.toolbar_center_box.set_end_widget(extra_menu_button)
+        self.play_controls_box.insert_child_after(
+            ClapperGtk.TogglePlayButton(), self.backwards_button
+        )
+        self.toolbar_box.append(ClapperGtk.SeekBar())
 
         self.backwards_button.connect(
             "clicked",
             lambda *_: self.player.seek(max(0, self.player.get_position() - 10)),
         )
-
         self.forwards_button.connect(
             "clicked",
             lambda *_: self.player.seek(self.player.get_position() + 10),
         )
+
+        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
+        self.__on_stack_child_changed()
 
         (esc := Gtk.ShortcutController()).add_shortcut(
             Gtk.Shortcut.new(
@@ -100,18 +111,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
         self.add_controller(esc)
 
-        self.play_controls_box.insert_child_after(
-            ClapperGtk.TogglePlayButton(), self.backwards_button
-        )
-
-        extra_menu_button = ClapperGtk.ExtraMenuButton()
-        extra_menu_button.get_first_child().set_icon_name("settings-symbolic")
-
-        self.toolbar_center_box.set_center_widget(
-            ClapperGtk.TitleLabel(margin_start=3, margin_end=3)
-        )
-        self.toolbar_center_box.set_end_widget(extra_menu_button)
-        self.toolbar_box.append(ClapperGtk.SeekBar())
+        self.connect("notify::fullscreened", self.__on_fullscreen)
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
@@ -185,15 +185,28 @@ class AfternoonWindow(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
+    def __on_state_changed(self, player: Clapper.Player, *_args: Any) -> None:
+        if player.get_state() != Clapper.PlayerState.PAUSED:
+            return
+
+        if not (item := self.queue.get_current_item()):
+            return
+
+        if player.get_position() != item.get_duration():
+            return
+
+        # Seek to the beginning when a video has ended
+        player.seek(0)
+
+    def __on_player_error(self, _obj: Any, error: GLib.Error, *_args: Any) -> None:
+        self.error_status_page.set_description(error.message.rstrip("."))
+        self.placeholder_stack.set_visible_child(self.error_status_page)
+        self.stack.set_visible_child(self.placeholder_page)
+
     def __on_missing_plugin(self, _obj: Any, name: str, _installer_detail: str) -> None:
         self.error_status_page.set_description(
             f"A “{name}” plugin is required to play this video"
         )
-        self.placeholder_stack.set_visible_child(self.error_status_page)
-        self.stack.set_visible_child(self.placeholder_page)
-
-    def __on_player_error(self, _obj: Any, error: GLib.Error, *_args: Any) -> None:
-        self.error_status_page.set_description(error.message.rstrip("."))
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
