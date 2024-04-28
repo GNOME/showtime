@@ -46,12 +46,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video: ClapperGtk.Video = Gtk.Template.Child()
-
-    toolbar_bin: Adw.Clamp = Gtk.Template.Child()
-    toolbar: Gtk.Box = Gtk.Template.Child()
-
-    window_controls: Gtk.Box = Gtk.Template.Child()
     button_fullscreen: Gtk.Button = Gtk.Template.Child()
+
+    toolbar_box: Gtk.Box = Gtk.Template.Child()
+    toolbar_center_box: Gtk.CenterBox = Gtk.Template.Child()
+    play_controls_box: Gtk.Box = Gtk.Template.Child()
+    backwards_button: Gtk.Button = Gtk.Template.Child()
+    forwards_button: Gtk.Button = Gtk.Template.Child()
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
@@ -68,20 +69,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         if settings := Gtk.Settings.get_default():
             self.player.set_subtitle_font_desc(settings.props.gtk_font_name)
 
-        self.video.add_fading_overlay(self.toolbar_bin)
-        self.video.add_fading_overlay(self.window_controls)
-
         self.connect("notify::fullscreened", self.__on_fullscreen)
         self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
         self.__on_stack_child_changed()
-
-        (esc := Gtk.ShortcutController()).add_shortcut(
-            Gtk.Shortcut.new(
-                Gtk.ShortcutTrigger.parse_string("Escape"),
-                Gtk.CallbackAction.new(lambda *_: self.unfullscreen()),
-            )
-        )
-        self.add_controller(esc)
 
         self.queue.connect(
             "notify::current-item",
@@ -92,40 +82,36 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.player.connect("error", self.__on_player_error)
         self.player.connect("missing-plugin", self.__on_missing_plugin)
 
-        # Build toolbar
-
-        backwards_button = Gtk.Button(icon_name="skip-backwards-10-symbolic")
-        backwards_button.connect(
+        self.backwards_button.connect(
             "clicked",
             lambda *_: self.player.seek(max(0, self.player.get_position() - 10)),
         )
 
-        forwards_button = Gtk.Button(icon_name="skip-forward-10-symbolic")
-        forwards_button.connect(
+        self.forwards_button.connect(
             "clicked",
             lambda *_: self.player.seek(self.player.get_position() + 10),
         )
 
-        play_controls = Gtk.Box()
-        play_controls.append(backwards_button)
-        play_controls.append(ClapperGtk.TogglePlayButton())
-        play_controls.append(forwards_button)
+        (esc := Gtk.ShortcutController()).add_shortcut(
+            Gtk.Shortcut.new(
+                Gtk.ShortcutTrigger.parse_string("Escape"),
+                Gtk.CallbackAction.new(lambda *_: self.unfullscreen()),
+            )
+        )
+        self.add_controller(esc)
 
-        title_label = ClapperGtk.TitleLabel()
-        title_label.add_css_class("heading")
-        title_label.set_margin_start(3)
-        title_label.set_margin_end(3)
+        self.play_controls_box.insert_child_after(
+            ClapperGtk.TogglePlayButton(), self.backwards_button
+        )
 
-        menu_button = ClapperGtk.ExtraMenuButton()
-        menu_button.get_first_child().set_icon_name("settings-symbolic")
+        extra_menu_button = ClapperGtk.ExtraMenuButton()
+        extra_menu_button.get_first_child().set_icon_name("settings-symbolic")
 
-        controls_box = Gtk.CenterBox(shrink_center_last=True)
-        controls_box.set_start_widget(play_controls)
-        controls_box.set_center_widget(title_label)
-        controls_box.set_end_widget(menu_button)
-
-        self.toolbar.append(controls_box)
-        self.toolbar.append(seek_bar := ClapperGtk.SeekBar())
+        self.toolbar_center_box.set_center_widget(
+            ClapperGtk.TitleLabel(margin_start=3, margin_end=3)
+        )
+        self.toolbar_center_box.set_end_widget(extra_menu_button)
+        self.toolbar_box.append(ClapperGtk.SeekBar())
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(

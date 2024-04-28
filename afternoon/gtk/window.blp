@@ -54,19 +54,105 @@ template $AfternoonWindow : Adw.ApplicationWindow {
       }
 
       WindowHandle video_page {
-        ClapperGtk.Video video {}
+        ClapperGtk.Video video {
+          [fading-overlay]
+          Adw.Clamp toolbar_clamp {
+            unit: px;
+            maximum-size: 600;
+            tightening-threshold: 550;
+
+            Box toolbar_box {
+              valign: end;
+              orientation: vertical;
+
+              CenterBox toolbar_center_box {
+                shrink-center-last: true;
+
+                [start]
+                Box play_controls_box {
+                  Button backwards_button {
+                    icon-name: "skip-backwards-10-symbolic";
+                  }
+
+                  Button forwards_button {
+                     icon-name: "skip-forward-10-symbolic";
+                  }
+                }
+
+                styles [
+                  "heading"
+                ]
+              }
+
+              styles [
+                "osd",
+                "toolbar"
+              ]
+            }
+          }
+
+          [fading-overlay]
+          Box {
+            valign: start;
+            margin-top: 6;
+            margin-bottom: 3;
+            spacing: 6;
+
+            WindowControls {
+              halign: start;
+              side: start;
+              margin-start: 6;
+
+              styles [
+                "window-controls-osd"
+              ]
+            }
+
+            Button button_fullscreen {
+              hexpand: true;
+              valign: start;
+              halign: start;
+              icon-name: "view-fullscreen-symbolic";
+              tooltip-text: _("Toggle Fullscreen");
+
+              clicked => $toggle_fullscreen();
+
+              styles [
+                "osd",
+                "circular"
+              ]
+            }
+
+            MenuButton {
+              hexpand: true;
+              valign: start;
+              halign: end;
+              margin-start: 6;
+              primary: true;
+              icon-name: "open-menu-symbolic";
+              tooltip-text: _("Menu");
+              menu-model: primary_menu;
+
+              styles [
+                "osd",
+                "circular"
+              ]
+            }
+
+            WindowControls {
+              halign: end;
+              side: end;
+              margin-end: 6;
+
+              styles [
+                "window-controls-osd"
+              ]
+            }
+          }
+        }
       }
     }
   };
-
-  styles [
-    "view"
-  ]
-}
-
-Adw.BreakpointBin toolbar_bin {
-  height-request: 202; // For a 16∶9 aspect ratio
-  width-request: 360;
 
   Adw.Breakpoint {
     condition ("min-width: 550px")
@@ -76,79 +162,10 @@ Adw.BreakpointBin toolbar_bin {
       toolbar_clamp.margin-end: 24;
     }
   }
-  Adw.Clamp toolbar_clamp {
-    unit: px;
-    maximum-size: 600;
-    tightening-threshold: 550;
 
-    Box toolbar {
-      valign: end;
-      orientation: vertical;
-
-      styles [
-        "osd",
-        "toolbar"
-      ]
-    }
-  }
-}
-
-Box window_controls {
-  valign: start;
-  margin-top: 6;
-  margin-bottom: 3;
-  spacing: 6;
-
-  WindowControls {
-    halign: start;
-    side: start;
-    margin-start: 6;
-
-    styles [
-      "window-controls-osd"
-    ]
-  }
-
-  Button button_fullscreen {
-    hexpand: true;
-    valign: start;
-    halign: start;
-    icon-name: "view-fullscreen-symbolic";
-    tooltip-text: _("Toggle Fullscreen");
-
-    clicked => $toggle_fullscreen();
-
-    styles [
-      "osd",
-      "circular"
-    ]
-  }
-
-  MenuButton {
-    hexpand: true;
-    valign: start;
-    halign: end;
-    margin-start: 6;
-    primary: true;
-    icon-name: "open-menu-symbolic";
-    tooltip-text: _("Menu");
-    menu-model: primary_menu;
-
-    styles [
-      "osd",
-      "circular"
-    ]
-  }
-
-  WindowControls {
-    halign: end;
-    side: end;
-    margin-end: 6;
-
-    styles [
-      "window-controls-osd"
-    ]
-  }
+  styles [
+    "view"
+  ]
 }
 
 menu subtitles_menu {
