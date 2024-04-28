@@ -81,7 +81,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
 
         self.toolbar_center_box.set_center_widget(
-            ClapperGtk.TitleLabel(margin_start=3, margin_end=3)
+            Adw.Clamp(child=ClapperGtk.TitleLabel(margin_start=3, margin_end=3))
         )
         extra_menu_button = ClapperGtk.ExtraMenuButton()
         extra_menu_button.get_first_child().set_icon_name("settings-symbolic")

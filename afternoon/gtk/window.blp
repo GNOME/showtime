@@ -57,7 +57,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
         ClapperGtk.Video video {
           [fading-overlay]
           Adw.Clamp toolbar_clamp {
-            unit: px;
             maximum-size: 600;
             tightening-threshold: 550;
 
@@ -66,8 +65,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               orientation: vertical;
 
               CenterBox toolbar_center_box {
-                shrink-center-last: true;
-
                 [start]
                 Box play_controls_box {
                   Button backwards_button {
