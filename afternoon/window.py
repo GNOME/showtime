@@ -62,6 +62,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
+        if shared.PROFILE == "development":
+            self.add_css_class("devel")
+
         self.player = self.video.get_player()
         self.player.add_feature(
             Clapper.Mpris.new(
