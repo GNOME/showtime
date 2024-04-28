@@ -66,9 +66,9 @@ class AfternoonApplication(Adw.Application):
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
         self.create_action(
-            "quit",
-            lambda *_: self.quit(),
-            ["<primary>q"],
+            "new-window",
+            lambda *_: self.activate(),
+            ["<primary>n"],
         )
         self.create_action(
             "open-video",
@@ -80,14 +80,19 @@ class AfternoonApplication(Adw.Application):
             lambda *_: self.get_active_window().save_screenshot(),
         )
         self.create_action(
+            "fullscreen",
+            lambda *_: self.get_active_window().toggle_fullscreen(),
+            ["F11"],
+        )
+        self.create_action(
             "close-window",
             lambda *_: self.get_active_window().close(),
             ["<primary>w"],
         )
         self.create_action(
-            "fullscreen",
-            lambda *_: self.get_active_window().toggle_fullscreen(),
-            ["F11"],
+            "quit",
+            lambda *_: self.quit(),
+            ["<primary>q"],
         )
         self.create_action(
             "about",
