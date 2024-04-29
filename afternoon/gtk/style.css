@@ -27,10 +27,10 @@ clapper-gtk-extra-menu-button popover spinbutton {
   border-radius: 6px;
 }
 
-.sharp-corners {
-    border-radius: 0;
-}
-
 .soft-corners {
     border-radius: 18px;
+}
+
+.sharp-corners {
+    border-radius: 0;
 }
