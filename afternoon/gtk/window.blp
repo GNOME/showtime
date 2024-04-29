@@ -64,16 +64,13 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               valign: end;
               orientation: vertical;
 
-              CenterBox toolbar_center_box {
-                [start]
-                Box play_controls_box {
-                  Button backwards_button {
-                    icon-name: "skip-backwards-10-symbolic";
-                  }
+              Box toolbar_hbox {
+                Button backwards_button {
+                  icon-name: "skip-backwards-10-symbolic";
+                }
 
-                  Button forwards_button {
-                     icon-name: "skip-forward-10-symbolic";
-                  }
+                Button forwards_button {
+                   icon-name: "skip-forward-10-symbolic";
                 }
 
                 styles [

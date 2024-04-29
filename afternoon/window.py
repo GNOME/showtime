@@ -54,8 +54,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     button_fullscreen: Gtk.Button = Gtk.Template.Child()
 
     toolbar_box: Gtk.Box = Gtk.Template.Child()
-    toolbar_center_box: Gtk.CenterBox = Gtk.Template.Child()
-    play_controls_box: Gtk.Box = Gtk.Template.Child()
+    toolbar_hbox: Gtk.Box = Gtk.Template.Child()
     backwards_button: Gtk.Button = Gtk.Template.Child()
     forwards_button: Gtk.Button = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
@@ -88,18 +87,16 @@ class AfternoonWindow(Adw.ApplicationWindow):
             "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
 
-        self.toolbar_center_box.set_center_widget(
-            Adw.Clamp(
-                child=ClapperGtk.TitleLabel(margin_start=12, margin_end=3),
-                tightening_threshold=150,
-                maximum_size=2147483647,  # Max gint size
+        self.toolbar_hbox.prepend(
+            ClapperGtk.TitleLabel(
+                halign=Gtk.Align.START, hexpand=True, margin_start=3, margin_end=3
             )
         )
-        extra_menu_button = ClapperGtk.ExtraMenuButton(can_open_subtitles=True)
-        extra_menu_button.get_first_child().set_icon_name("settings-symbolic")
-        self.toolbar_center_box.set_end_widget(extra_menu_button)
-        self.play_controls_box.insert_child_after(
+        self.toolbar_hbox.insert_child_after(
             ClapperGtk.TogglePlayButton(), self.backwards_button
+        )
+        self.toolbar_hbox.append(
+            extra_menu_button := ClapperGtk.ExtraMenuButton(can_open_subtitles=True)
         )
         self.toolbar_box.append(ClapperGtk.SeekBar())
         extra_menu_button.connect(
