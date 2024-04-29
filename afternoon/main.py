@@ -29,16 +29,12 @@ import gi
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Gst", "1.0")
-gi.require_version("Clapper", "0.0")
-gi.require_version("ClapperGtk", "0.0")
+gi.require_version("GstPlay", "1.0")
 
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Clapper, Gio, GLib
-
-# environ["CLAPPER_USE_PLAYBIN3"] = "1"
-Clapper.init()
+from gi.repository import Adw, Gio, GLib
 
 from afternoon import shared
 from afternoon.window import AfternoonWindow
@@ -98,22 +94,35 @@ class AfternoonApplication(Adw.Application):
             "about",
             self.on_about_action,
         )
-
-        show_subtitles_action = Gio.SimpleAction.new_stateful(
-            "show-subtitles", None, GLib.Variant.new_boolean(True)
+        self.create_action(
+            "choose-subtitles",
+            lambda *_: self.get_active_window().choose_subtitles(),
         )
-        show_subtitles_action.connect("activate", self.__show_subtitles)
-        show_subtitles_action.connect("change-state", self.__show_subtitles)
-        self.add_action(show_subtitles_action)
+
+        subs_action = Gio.SimpleAction.new_stateful(
+            "select-subtitles", GLib.VariantType.new("q"), GLib.Variant.new_uint16(0)
+        )
+        subs_action.connect(
+            "activate", lambda *args: self.get_active_window().select_subtitles(*args)
+        )
+        self.add_action(subs_action)
+
+        lang_action = Gio.SimpleAction.new_stateful(
+            "select-language", GLib.VariantType.new("q"), GLib.Variant.new_uint16(0)
+        )
+        lang_action.connect(
+            "activate", lambda *args: self.get_active_window().select_language(*args)
+        )
+        self.add_action(lang_action)
 
         self.connect("window-removed", lambda _app, win: self.save_play_position(win))
 
     def save_play_position(self, window: AfternoonWindow) -> None:
         """Saves the play position of the currently playing file in the window to restore later."""
-        if not (item := window.queue.get_current_item()):
+        if not (uri := window.play.get_uri()):
             return
 
-        digest = sha256(item.get_uri().encode("utf-8")).hexdigest()
+        digest = sha256(uri.encode("utf-8")).hexdigest()
 
         shared.cache_path.mkdir(parents=True, exist_ok=True)
         hist_path = shared.cache_path / "playback_history"
@@ -130,7 +139,7 @@ class AfternoonApplication(Adw.Application):
 
         hist_file.close()
 
-        hist[digest] = window.player.get_position()
+        hist[digest] = window.play.get_position()
 
         MAX_HIST_ITEMS = 1000
 
@@ -139,14 +148,6 @@ class AfternoonApplication(Adw.Application):
 
         with hist_path.open("wb") as hist_file:
             pickle.dump(hist, hist_file)
-
-    def __show_subtitles(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
-        value = not action.props.state.get_boolean()
-        action.set_state(GLib.Variant.new_boolean(value))
-
-        # TODO: Use a signal handler for this
-        for window in self.get_windows():
-            window.subtitles_label.set_opacity(1 if value else 0)
 
     def do_activate(  # pylint: disable=arguments-differ
         self, gfile: Optional[Gio.File] = None

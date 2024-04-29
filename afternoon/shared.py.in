@@ -32,3 +32,5 @@ schema = Gio.Settings.new(APP_ID)
 state_schema = Gio.Settings.new(APP_ID + ".State")
 
 cache_path = Path(GLib.get_user_cache_dir()) / "afternoon"
+
+MAX_UINT16 = 65535

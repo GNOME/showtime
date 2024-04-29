@@ -1,4 +1,4 @@
-/* Taken from libadwaita */
+/* From libadwaita */
 /* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/3b34dfeb150ca091c7e73bc74a863a978028e318/src/stylesheet/_common.scss#L34 */
 .window-controls-osd > button > image {
     color: alpha(white, .9);
@@ -7,30 +7,16 @@
     background-clip: padding-box;
 }
 
-/* Revert Clapper's custom styling */
-/* https://github.com/Rafostar/clapper/blob/6d47aa3c6d8b2ef1b6ca6c0de90bac695590ff47/src/lib/clapper-gtk/css/styles.css#L1 */
+.soft-corners { border-radius: 18px; }
 
-clapper-gtk-video button.osd,
-clapper-gtk-video box.osd,
-clapper-gtk-video clapper-gtk-title-header.osd,
-clapper-gtk-video .osd popover > contents,
-clapper-gtk-video .osd popover > arrow {
-	background-color: alpha(black, .7);
-}
+.sharp-corners { border-radius: 0; }
 
-clapper-gtk-video menubutton.osd,
-clapper-gtk-video .osd menubutton > popover > contents arrow {
-	background-color: transparent;
-}
+.no-knob { padding: 6px 9px 6px 15px; }
+.no-knob mark > indicator { min-height: 0; }
 
-clapper-gtk-extra-menu-button popover spinbutton {
-  border-radius: 6px;
-}
+/* From Amberol */
+/* https://gitlab.gnome.org/World/amberol/-/blob/763dbd9c102805a9c4bf10c3175e10cde69953ad/src/gtk/style.css#L151 */
 
-.soft-corners {
-    border-radius: 18px;
-}
+.no-knob trough > highlight { min-height: 9px; min-width: 9px; }
+.no-knob trough > slider { opacity: 0; }
 
-.sharp-corners {
-    border-radius: 0;
-}

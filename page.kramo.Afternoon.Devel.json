@@ -3,6 +3,13 @@
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "46",
     "sdk" : "org.gnome.Sdk",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm16"
+    ],
+    "build-options": {
+        "append-path": "/usr/lib/sdk/rust-stable/bin"
+    },
     "command" : "afternoon",
     "finish-args" : [
         "--share=ipc",
@@ -38,26 +45,25 @@
     ],
     "modules" : [
         {
-            "name": "clapper",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dclapper=enabled",
-                "-Dclapper-gtk=enabled",
-                "-Dclapper-app=disabled",
-                "-Dintrospection=enabled",
-                "-Dvapi=enabled"
-            ],
-            "cleanup": [
-                "/include",
-                "/lib/pkgconfig"
-            ],
+            "name": "gst-plugin-gtk4",
+            "buildsystem": "simple",
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://github.com/Rafostar/clapper.git",
-                    "branch": "master"
+                "type": "archive",
+                "url": "https://crates.io/api/v1/crates/gst-plugin-gtk4/0.12.1/download",
+                "dest-filename": "gst-plugin-gtk4-0.12.1.tar.gz",
+                "sha256": "162762eb8df14f696707ff54382b3c02f58706255ab3a37a61d59bc1d0c0115a"
+                },
+                "gst-plugin-gtk4-sources.json"
+            ],
+            "build-commands": [
+                "cargo cinstall --offline --release --features=wayland,x11glx,x11egl --library-type=cdylib --prefix=/app"
+            ],
+            "build-options": {
+                "env": {
+                "CARGO_HOME": "/run/build/gst-plugin-gtk4/cargo"
                 }
-            ]
+            }
         },
         {
             "name" : "blueprint-compiler",
