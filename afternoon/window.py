@@ -135,6 +135,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
         self.add_controller(esc)
 
+        self.connect("move-focus", self.__on_motion)
+
         motion = Gtk.EventControllerMotion()
         motion.connect("motion", self.__on_motion)
         self.picture.add_controller(motion)
@@ -528,12 +530,15 @@ class AfternoonWindow(Adw.ApplicationWindow):
         for revealer in (self.toolbar_revealer, self.window_controls_revealer):
             revealer.set_reveal_child(False)
 
-    def __on_motion(self, _obj: Any, x: float, y: float) -> None:
+    def __on_motion(
+        self, _obj: Any, x: Optional[float] = None, y: Optional[float] = None
+    ) -> None:
         # TODO: Optimize this
-        if (x, y) == self.prev_motion_xy:
-            return
+        if None not in (x, y):
+            if (x, y) == self.prev_motion_xy:
+                return
 
-        self.prev_motion_xy = (x, y)
+            self.prev_motion_xy = (x, y)
 
         self.set_cursor_from_name(None)
 
