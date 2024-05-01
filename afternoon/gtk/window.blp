@@ -54,7 +54,6 @@ Popover volume_popover {
 
     Button volume_button {
       icon-name: "multimedia-volume-control-symbolic";
-
       clicked => $toggle_mute();
 
       styles [
@@ -64,6 +63,7 @@ Popover volume_popover {
 
     Scale volume_scale {
       hexpand: true;
+
       adjustment: Adjustment {
         step-increment: 0.2;
         lower: 0;
@@ -78,21 +78,18 @@ Popover volume_popover {
   }
 }
 
-template $AfternoonWindow : Adw.ApplicationWindow {
+template $AfternoonWindow: Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
   height-request: 202; // For a 16∶9 aspect ratio
   width-request: 360;
-
   title: _("Afternoon");
 
   content: Adw.ToastOverlay toast_overlay {
     Stack stack {
       Adw.ToolbarView placeholder_page {
-
         [top]
         Adw.HeaderBar header_bar {
-
           [end]
           MenuButton {
             primary: true;
@@ -111,7 +108,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               Button button_open {
                 label: _("Open…");
                 halign: center;
-
                 clicked => $choose_video();
 
                 styles [
@@ -218,7 +214,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 
                       Button play_button {
                         icon-name: "media-playback-start-symbolic";
-
                         clicked => $toggle_playback();
                       }
 
@@ -231,7 +226,10 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                     [end]
                     Box {
                       MenuButton speed_menu_button {
-                        child: Label { label: "1×"; };
+                        child: Label {
+                          label: "1×";
+                        };
+
                         has-frame: false;
                         menu-model: speed;
                         direction: up;
@@ -265,7 +263,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
               transition-type: crossfade;
               valign: start;
 
-
               Box {
                 margin-top: 6;
                 margin-bottom: 3;
@@ -287,7 +284,6 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                   halign: start;
                   icon-name: "view-fullscreen-symbolic";
                   tooltip-text: _("Toggle Fullscreen");
-
                   clicked => $toggle_fullscreen();
 
                   styles [
@@ -405,6 +401,7 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 
   Adw.Breakpoint breakpoint {
     condition ("min-width: 550px")
+
     setters {
       toolbar_clamp.margin-bottom: 24;
       toolbar_clamp.margin-start: 24;
@@ -421,9 +418,11 @@ menu primary_menu {
   section {
     item (_("_Open…"), "app.open-video")
   }
+
   section {
     item (_("Take _Screenshot"), "app.screenshot")
   }
+
   section {
     item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
     item (_("_About Afternoon"), "app.about")
