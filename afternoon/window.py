@@ -60,10 +60,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     toolbar_hbox: Gtk.Box = Gtk.Template.Child()
 
     title_label: Gtk.Label = Gtk.Template.Child()
-    backwards_button: Gtk.Button = Gtk.Template.Child()
     play_button: Gtk.Button = Gtk.Template.Child()
-    forwards_button: Gtk.Button = Gtk.Template.Child()
-
     position_label: Gtk.Label = Gtk.Template.Child()
     seek_scale: Gtk.Scale = Gtk.Template.Child()
     duration_label: Gtk.Label = Gtk.Template.Child()
@@ -123,15 +120,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
             "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
 
-        self.backwards_button.connect(
-            "clicked",
-            lambda *_: self.play.seek(max(0, self.play.get_position() - pow(10, 10))),
-        )
-        self.forwards_button.connect(
-            "clicked",
-            lambda *_: self.play.seek(self.play.get_position() + pow(10, 10)),
-        )
-
         self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
         self.__on_stack_child_changed()
 
@@ -155,12 +143,14 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.seek_scale.connect(
             "change-value",
-            lambda _obj, _scroll, val: self.play.seek(self.play.get_duration() * val),
+            lambda _obj, _scroll, val: self.play.seek(
+                max(self.play.get_duration() * val, 0)
+            ),
         )
 
         self.volume_scale.connect(
             "change-value",
-            lambda _obj, _scroll, val: self.play.set_volume(val),
+            lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
         )
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> bool:
@@ -513,9 +503,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
         # HACK
         self.__on_motion(None, 0, 0)
         self.reveal_timestamp = 0
-        self.get_application().lookup_action("screenshot").set_enabled(
-            self.stack.get_visible_child() == self.video_page
-        )
+
+        # TODO: Make this per-window instead of app-wide
+        if self.stack.get_visible_child() == self.video_page:
+            self.get_application().lookup_action("screenshot").set_enabled(True)
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(

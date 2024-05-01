@@ -64,31 +64,75 @@ class AfternoonApplication(Adw.Application):
         self.create_action(
             "new-window",
             lambda *_: self.activate(),
-            ["<primary>n"],
+            ("<primary>n",),
         )
         self.create_action(
             "open-video",
             lambda *_: self.get_active_window().choose_video(),
-            ["<primary>o"],
+            ("<primary>o",),
         )
         self.create_action(
             "screenshot",
             lambda *_: self.get_active_window().save_screenshot(),
+            ("<primary><alt>s",),
         )
+        self.lookup_action("screenshot").set_enabled(False)
         self.create_action(
             "fullscreen",
             lambda *_: self.get_active_window().toggle_fullscreen(),
-            ["F11"],
+            ("F11", "f"),
+        )
+        self.create_action(
+            "toggle-playback",
+            lambda *_: self.get_active_window().toggle_playback(),
+            (
+                "p",
+                "k",
+                "space",
+            ),
+        )
+        self.create_action(
+            "increase-volume",
+            lambda *_: (play := self.get_active_window().play).set_volume(
+                min(play.get_volume() + 0.05, 1)
+            ),
+            ("Up",),
+        )
+        self.create_action(
+            "decrease-volume",
+            lambda *_: (play := self.get_active_window().play).set_volume(
+                max(play.get_volume() - 0.05, 0)
+            ),
+            ("Down",),
+        )
+        self.create_action(
+            "toggle-mute",
+            lambda *_: self.get_active_window().toggle_mute(),
+            ("m",),
+        )
+        self.create_action(
+            "backwards",
+            lambda *_: (play := self.get_active_window().play).seek(
+                max(0, play.get_position() - pow(10, 10))
+            ),
+            ("Left",),
+        )
+        self.create_action(
+            "forwards",
+            lambda *_: (play := self.get_active_window().play).seek(
+                play.get_position() + pow(10, 10)
+            ),
+            ("Right",),
         )
         self.create_action(
             "close-window",
             lambda *_: self.get_active_window().close(),
-            ["<primary>w"],
+            ("<primary>w",),
         )
         self.create_action(
             "quit",
             lambda *_: self.quit(),
-            ["<primary>q"],
+            ("<primary>q",),
         )
         self.create_action(
             "about",

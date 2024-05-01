@@ -177,6 +177,7 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 
                     Scale seek_scale {
                       hexpand: true;
+                      focusable: false;
 
                       adjustment: Adjustment {
                         step-increment: 0.1;
@@ -212,8 +213,9 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                       ]
                     }
 
-                    Button backwards_button {
+                    Button {
                       icon-name: "skip-backwards-10-symbolic";
+                      action-name: "app.backwards";
                     }
 
                     Button play_button {
@@ -224,6 +226,7 @@ template $AfternoonWindow : Adw.ApplicationWindow {
 
                     Button forwards_button {
                       icon-name: "skip-forward-10-symbolic";
+                      action-name: "app.forwards";
                     }
 
                     MenuButton options_menu_button {

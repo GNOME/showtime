@@ -11,8 +11,8 @@ ShortcutsWindow help_overlay {
       title: _("General");
 
       ShortcutsShortcut {
-        title: _("New Window");
-        action-name: "app.new-window";
+        title: _("Show Shortcuts");
+        action-name: "win.show-help-overlay";
       }
 
       ShortcutsShortcut {
@@ -21,13 +21,13 @@ ShortcutsWindow help_overlay {
       }
 
       ShortcutsShortcut {
-        title: _("Toggle Fullscreen");
-        action-name: "app.fullscreen";
+        title: _("Take Screenshot");
+        action-name: "app.screenshot";
       }
 
       ShortcutsShortcut {
-        title: _("Show Shortcuts");
-        action-name: "win.show-help-overlay";
+        title: _("New Window");
+        action-name: "app.new-window";
       }
 
       ShortcutsShortcut {
@@ -38,6 +38,58 @@ ShortcutsWindow help_overlay {
       ShortcutsShortcut {
         title: _("Quit");
         action-name: "app.quit";
+      }
+    }
+
+    ShortcutsGroup {
+      title: _("Volume");
+
+      ShortcutsShortcut {
+        title: _("Increase Volume");
+        action-name: "app.increase-volume";
+      }
+
+      ShortcutsShortcut {
+        title: _("Decrease Volume");
+        action-name: "app.decrease-volume";
+      }
+
+      ShortcutsShortcut {
+        title: _("Mute/Unmute");
+        action-name: "app.toggle-mute";
+      }
+    }
+
+    ShortcutsGroup {
+      title: _("View");
+
+      ShortcutsShortcut {
+        title: _("Toggle Fullscreen");
+        action-name: "app.fullscreen";
+      }
+
+      ShortcutsShortcut {
+        title: _("Exit Fullscreen");
+        accelerator: "Escape";
+      }
+    }
+
+    ShortcutsGroup {
+      title: _("Playback");
+
+      ShortcutsShortcut {
+        title: _("Play/Pause");
+        action-name: "app.toggle-playback";
+      }
+
+      ShortcutsShortcut {
+        title: _("Go Back 10 Seconds");
+        action-name: "app.backwards";
+      }
+
+      ShortcutsShortcut {
+        title: _("Go Forward 10 Seconds");
+        action-name: "app.forwards";
       }
     }
   }
