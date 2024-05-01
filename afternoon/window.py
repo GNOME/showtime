@@ -253,6 +253,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 self.placeholder_stack.set_visible_child(self.error_status_page)
                 self.stack.set_visible_child(self.placeholder_page)
 
+            case GstPlay.PlayMessage.END_OF_STREAM:
+                self.pause()
+                self.play.seek(0)
+
         return True
 
     def play_video(self, gfile: Gio.File) -> None:
