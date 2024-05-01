@@ -6,6 +6,8 @@
 	<name>Afternoon</name>
 	<summary>Play videos</summary>
 	<description>
-	  <p>Play video files on your device.</p>
+	  <p>Watch your favorite movies and videos without hassle using this elegant video player.</p>
 	</description>
+	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
+	<content_rating type="oars-1.1" />
 </component>

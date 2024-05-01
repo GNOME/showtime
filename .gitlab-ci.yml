@@ -1,0 +1,18 @@
+include:
+  - project: "GNOME/citemplates"
+    file: "flatpak/flatpak_ci_initiative.yml"
+
+stages:
+  - build-flatpak
+
+variables:
+  BUNDLE: "page.kramo.Afternoon.Devel.flatpak"
+
+flatpak:
+    extends: .flatpak
+    stage: build-flatpak
+    variables:
+        APP_ID: "page.kramo.Afternoon.Devel"
+        FLATPAK_MODULE: "afternoon"
+        MANIFEST_PATH: "flatpak/page.kramo.Afternoon.Devel.json"
+        RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
