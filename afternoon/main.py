@@ -181,7 +181,7 @@ class AfternoonApplication(Adw.Application):
             except EOFError:
                 hist = {}
 
-        hist_file.close()
+            hist_file.close()
 
         hist[digest] = window.play.get_position()
 

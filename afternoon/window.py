@@ -144,6 +144,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.toolbar_motion = Gtk.EventControllerMotion()
         self.toolbar_box.add_controller(self.toolbar_motion)
 
+        (drop_target := Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)).connect(
+            "drop", lambda _target, gfile, _x, _y: self.play_video(gfile)
+        )
+        self.add_controller(drop_target)
+
         self.connect("notify::fullscreened", self.__on_fullscreen)
 
         self.seek_scale.connect(
