@@ -89,7 +89,7 @@
             "sources" : [
                 {
                     "type" : "dir",
-                    "path" : "."
+                    "path" : ".."
                 }
             ]
         }
