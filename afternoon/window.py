@@ -141,6 +141,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         motion.connect("motion", self.__on_motion)
         self.picture.add_controller(motion)
 
+        self.toolbar_motion = Gtk.EventControllerMotion()
+        self.toolbar_box.add_controller(self.toolbar_motion)
+
         self.connect("notify::fullscreened", self.__on_fullscreen)
 
         self.seek_scale.connect(
@@ -521,6 +524,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         for button in (self.video_primary_menu_button, self.options_menu_button):
             if button.get_active():
                 return
+
+        if self.toolbar_motion.contains_pointer():
+            return
 
         if timestamp != self.reveal_timestamp:
             return
