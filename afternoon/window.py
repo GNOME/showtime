@@ -65,11 +65,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
     seek_scale: Gtk.Scale = Gtk.Template.Child()
     duration_label: Gtk.Label = Gtk.Template.Child()
 
-    options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
+    volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     volume_button: Gtk.Button = Gtk.Template.Child()
     volume_scale: Gtk.Scale = Gtk.Template.Child()
-    speed_button: Gtk.Button = Gtk.Template.Child()
-    speed_scale: Gtk.Scale = Gtk.Template.Child()
+    speed_menu_button: Gtk.MenuButton = Gtk.Template.Child()
+    options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
@@ -87,20 +87,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
     @rate.setter
     def set_rate(self, rate: float) -> None:
         self.play.set_rate(rate)
-
-        self.speed_button.set_icon_name(
-            "speedometer2-symbolic"
-            if rate > 1
-            else "speedometer4-symbolic"
-            if rate < 1
-            else "speedometer3-symbolic"
-        )
+        self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.play = GstPlay.Play.new()
         self.pipeline = self.play.get_pipeline()
-        self.rate = 1
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
         self.picture.set_paintable(sink.props.paintable)
@@ -229,21 +221,21 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
                 GLib.idle_add(
                     self.volume_button.set_icon_name,
-                    (
-                        "audio-volume-muted-symbolic"
-                        if self.play.get_mute()
-                        else "audio-volume-high-symbolic"
-                        if vol > 0.7
-                        else "audio-volume-medium-symbolic"
-                        if vol > 0.3
-                        else "audio-volume-low-symbolic"
-                    ),
+                    "audio-volume-muted-symbolic"
+                    if self.play.get_mute()
+                    else "multimedia-volume-control-symbolic",
                 )
-
                 GLib.idle_add(
-                    self.volume_scale.set_value,
-                    (vol),
+                    self.volume_menu_button.set_icon_name,
+                    "audio-volume-muted-symbolic"
+                    if self.play.get_mute()
+                    else "audio-volume-high-symbolic"
+                    if vol > 0.7
+                    else "audio-volume-medium-symbolic"
+                    if vol > 0.3
+                    else "audio-volume-low-symbolic",
                 )
+                GLib.idle_add(self.volume_scale.set_value, vol)
 
             case GstPlay.PlayMessage.ERROR:
                 # TODO: Present a friendlier error
@@ -264,6 +256,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.stack.set_visible_child(self.video_page)
         self.__select_subtitles(0)
 
+        self.get_application().lookup_action("set-rate").activate(
+            GLib.Variant.new_string("1")
+        )
         self.play.set_uri(gfile.get_uri())
         self.pause()
 
@@ -353,10 +348,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.pause()
 
     @Gtk.Template.Callback()
-    def _reset_rate(self, *_args) -> None:
-        self.rate = 1
-
-    @Gtk.Template.Callback()
     def toggle_fullscreen(self, *_args: Any) -> None:
         """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
         if self.is_fullscreen():
@@ -364,6 +355,17 @@ class AfternoonWindow(Adw.ApplicationWindow):
             return
 
         self.fullscreen()
+
+    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
+        try:
+            if not (gfile := dialog.open_finish(res)):
+                return
+
+        except GLib.Error:
+            return
+
+        self.get_application().save_play_position(self)
+        self.play_video(gfile)
 
     @Gtk.Template.Callback()
     def choose_video(self, *_args: Any) -> None:
@@ -381,16 +383,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         dialog.open(self, callback=self.__choose_video_cb)
 
-    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
-        try:
-            if not (gfile := dialog.open_finish(res)):
-                return
-
-        except GLib.Error:
-            return
-
-        self.get_application().save_play_position(self)
-        self.play_video(gfile)
+    def select_rate(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
+        """Selects the playback speed for the video."""
+        action.set_state(state)
+        self.rate = float(state.get_string())
 
     def choose_subtitles(
         self,
@@ -530,7 +526,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
 
     def __hide_revealers(self, timestamp: int) -> None:
-        for button in (self.video_primary_menu_button, self.options_menu_button):
+        for button in (
+            self.video_primary_menu_button,
+            self.options_menu_button,
+            self.volume_menu_button,
+            self.speed_menu_button,
+        ):
             if button.get_active():
                 return
 

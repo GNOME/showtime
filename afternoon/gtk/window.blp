@@ -3,16 +3,6 @@ using Adw 1;
 
 menu options {
   section {
-    item {
-      custom: "volume-controls";
-    }
-
-    item {
-      custom: "speed-controls";
-    }
-  }
-
-  section {
     submenu language_menu {
       label: _("_Language");
     }
@@ -23,11 +13,39 @@ menu options {
   }
 }
 
-PopoverMenu options_popover {
-  menu-model: options;
+menu speed {
+  section {
+    label: _("Playback Speed");
+
+    item {
+      label: "2.0×";
+      action: "app.set-rate";
+      target: "2";
+    }
+
+    item {
+      label: "1.5×";
+      action: "app.set-rate";
+      target: "1.5";
+    }
+
+    item {
+      label: "1.0×";
+      action: "app.set-rate";
+      target: "1";
+    }
+
+    item {
+      label: "0.5×";
+      action: "app.set-rate";
+      target: "0.5";
+    }
+  }
+}
+
+Popover volume_popover {
   width-request: 250;
 
-  [volume-controls]
   Box {
     margin-top: 6;
     margin-bottom: 6;
@@ -35,7 +53,7 @@ PopoverMenu options_popover {
     margin-end: 6;
 
     Button volume_button {
-      icon-name: "audio-volume-high-symbolic";
+      icon-name: "multimedia-volume-control-symbolic";
 
       clicked => $toggle_mute();
 
@@ -52,42 +70,6 @@ PopoverMenu options_popover {
         upper: 1;
         value: 1;
       };
-
-      styles [
-        "no-knob"
-      ]
-    }
-  }
-
-  [speed-controls]
-  Box {
-    margin-top: 6;
-    margin-bottom: 3;
-    margin-start: 6;
-    margin-end: 6;
-
-    Button speed_button {
-      icon-name: "speedometer3-symbolic";
-
-      clicked => $_reset_rate();
-
-      styles [
-        "circular"
-      ]
-    }
-
-    Scale speed_scale {
-      hexpand: true;
-      adjustment: Adjustment {
-        step-increment: 0.25;
-        lower: 0.25;
-        upper: 1.75;
-        value: bind template.rate bidirectional;
-      };
-
-      marks [
-        mark (1, top)
-      ]
 
       styles [
         "no-knob"
@@ -163,10 +145,14 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                   valign: end;
                   orientation: vertical;
 
-                  Box {
+                  CenterBox {
+                    margin-top: 3;
+
+                    [start]
                     Label position_label {
                       label: "0:00";
-                      margin-start: 6;
+                      margin-top: 3;
+                      margin-start: 12;
                       margin-end: 3;
 
                       styles [
@@ -175,21 +161,26 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                       ]
                     }
 
-                    Scale seek_scale {
+                    [center]
+                    Label title_label {
+                      halign: center;
                       hexpand: true;
+                      margin-start: 12;
+                      margin-end: 12;
+                      justify: center;
+                      ellipsize: end;
 
-                      adjustment: Adjustment {
-                        step-increment: 0.1;
-                        lower: 0;
-                        upper: 1;
-                        value: 0;
-                      };
+                      styles [
+                        "heading"
+                      ]
                     }
 
+                    [end]
                     Label duration_label {
                       label: "0:00";
+                      margin-top: 3;
                       margin-start: 3;
-                      margin-end: 6;
+                      margin-end: 12;
 
                       styles [
                         "caption",
@@ -199,39 +190,64 @@ template $AfternoonWindow : Adw.ApplicationWindow {
                     }
                   }
 
-                  Box toolbar_hbox {
-                    Label title_label {
-                      halign: start;
-                      hexpand: true;
-                      margin-start: 9;
-                      margin-end: 3;
-                      ellipsize: end;
+                  Scale seek_scale {
+                    hexpand: true;
 
-                      styles [
-                        "heading"
-                      ]
-                    }
+                    adjustment: Adjustment {
+                      step-increment: 0.1;
+                      lower: 0;
+                      upper: 1;
+                      value: 0;
+                    };
+                  }
 
-                    Button {
-                      icon-name: "skip-backwards-10-symbolic";
-                      action-name: "app.backwards";
-                    }
-
-                    Button play_button {
-                      icon-name: "media-playback-start-symbolic";
-
-                      clicked => $toggle_playback();
-                    }
-
-                    Button forwards_button {
-                      icon-name: "skip-forward-10-symbolic";
-                      action-name: "app.forwards";
-                    }
-
-                    MenuButton options_menu_button {
-                      icon-name: "view-more-symbolic";
-                      popover: options_popover;
+                  CenterBox toolbar_hbox {
+                    [start]
+                    MenuButton volume_menu_button {
+                      icon-name: "audio-volume-high-symbolic";
+                      popover: volume_popover;
                       direction: up;
+                    }
+
+                    [center]
+                    Box {
+                      Button {
+                        icon-name: "skip-backwards-10-symbolic";
+                        action-name: "app.backwards";
+                      }
+
+                      Button play_button {
+                        icon-name: "media-playback-start-symbolic";
+
+                        clicked => $toggle_playback();
+                      }
+
+                      Button forwards_button {
+                        icon-name: "skip-forward-10-symbolic";
+                        action-name: "app.forwards";
+                      }
+                    }
+
+                    [end]
+                    Box {
+                      MenuButton speed_menu_button {
+                        child: Label { label: "1×"; };
+                        has-frame: false;
+                        menu-model: speed;
+                        direction: up;
+                        always-show-arrow: false;
+
+                        styles [
+                          "numeric",
+                        ]
+                      }
+
+                      MenuButton options_menu_button {
+                        halign: end;
+                        icon-name: "settings-symbolic";
+                        menu-model: options;
+                        direction: up;
+                      }
                     }
                   }
 

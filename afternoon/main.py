@@ -143,6 +143,15 @@ class AfternoonApplication(Adw.Application):
             lambda *_: self.get_active_window().choose_subtitles(),
         )
 
+        # TODO: How do I make this a double and make it work in blueprint?
+        rate_action = Gio.SimpleAction.new_stateful(
+            "set-rate", GLib.VariantType.new("s"), GLib.Variant.new_string("1")
+        )
+        rate_action.connect(
+            "activate", lambda *args: self.get_active_window().select_rate(*args)
+        )
+        self.add_action(rate_action)
+
         subs_action = Gio.SimpleAction.new_stateful(
             "select-subtitles", GLib.VariantType.new("q"), GLib.Variant.new_uint16(0)
         )
