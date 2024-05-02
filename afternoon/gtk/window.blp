@@ -226,6 +226,10 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                       upper: 1;
                       value: 0;
                     };
+
+                    accessibility {
+                      labelled-by: position_label;
+                    }
                   }
 
                   CenterBox toolbar_hbox {
@@ -234,6 +238,10 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                       icon-name: "audio-volume-high-symbolic";
                       popover: volume_popover;
                       direction: up;
+
+                      accessibility {
+                        label: _("Adjust Volume");
+                      }
                     }
 
                     [center]
@@ -241,17 +249,29 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                       Button {
                         icon-name: "skip-backwards-10-symbolic";
                         action-name: "app.backwards";
+
+                        accessibility {
+                          label: _("Skip Back 10 Seconds");
+                        }
                       }
 
                       Button play_button {
                         name: "play-button";
                         icon-name: "media-playback-start-symbolic";
                         clicked => $toggle_playback();
+
+                        accessibility {
+                          label: _("Play/Pause");
+                        }
                       }
 
                       Button forwards_button {
                         icon-name: "skip-forward-10-symbolic";
                         action-name: "app.forwards";
+
+                        accessibility {
+                          label: _("Skip Forward 10 Seconds");
+                        }
                       }
                     }
 
@@ -261,6 +281,10 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                       icon-name: "settings-symbolic";
                       popover: options_popover;
                       direction: up;
+
+                      accessibility {
+                        label: _("Playback Options");
+                      }
                     }
                   }
 
