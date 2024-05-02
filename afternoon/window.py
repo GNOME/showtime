@@ -68,8 +68,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     volume_button: Gtk.Button = Gtk.Template.Child()
     volume_scale: Gtk.Scale = Gtk.Template.Child()
-    speed_menu_button: Gtk.MenuButton = Gtk.Template.Child()
+
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
+    default_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
@@ -87,7 +88,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     @rate.setter
     def set_rate(self, rate: float) -> None:
         self.play.set_rate(rate)
-        self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
+        # self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
@@ -256,9 +257,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.stack.set_visible_child(self.video_page)
         self.__select_subtitles(0)
 
-        self.get_application().lookup_action("set-rate").activate(
-            GLib.Variant.new_string("1")
-        )
+        self.default_speed_button.set_active(True)
         self.play.set_uri(gfile.get_uri())
         self.pause()
 
@@ -383,11 +382,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         dialog.open(self, callback=self.__choose_video_cb)
 
-    def select_rate(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
-        """Selects the playback speed for the video."""
-        action.set_state(state)
-        self.rate = float(state.get_string())
-
     def choose_subtitles(
         self,
     ) -> None:
@@ -509,6 +503,18 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.play.seek(0)
         self.unpause()
 
+    @Gtk.Template.Callback()
+    def _set_rate(self, button: Gtk.ToggleButton) -> None:
+        match button.get_label():
+            case "0.5×":
+                self.rate = 0.5
+            case "1.5×":
+                self.rate = 1.5
+            case "2×":
+                self.rate = 2
+            case _:
+                self.rate = 1
+
     def __on_stack_child_changed(self, *_args: Any) -> None:
         # HACK
         self.__on_motion(None, 0, 0)
@@ -530,7 +536,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
             self.video_primary_menu_button,
             self.options_menu_button,
             self.volume_menu_button,
-            self.speed_menu_button,
         ):
             if button.get_active():
                 return

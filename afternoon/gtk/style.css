@@ -14,7 +14,15 @@
 .timestamp { margin-bottom: -15px; }
 #title-label { margin-bottom: -3px; }
 
-.no-knob { margin: 6px 9px 6px 15px; }
+.selection-toolbar > button {
+	border-radius: 1em;
+	padding: 0.2em 0.8em;
+}
+
+#play-button { padding: 3px 6px; margin: 0px 3px; }
+#play-button image { -gtk-icon-size: 21px; }
+
+.no-knob { padding: 6px 9px 6px 15px; }
 .no-knob mark > indicator { min-height: 0; }
 
 /* From Amberol */
@@ -22,4 +30,3 @@
 
 .no-knob trough > highlight { min-height: 9px; min-width: 9px; }
 .no-knob trough > slider { opacity: 0; }
-
