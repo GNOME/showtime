@@ -11,7 +11,10 @@
 
 .sharp-corners { border-radius: 0; }
 
-.no-knob { padding: 6px 9px 6px 15px; }
+.timestamp { margin-bottom: -15px; }
+#title-label { margin-bottom: -3px; }
+
+.no-knob { margin: 6px 9px 6px 15px; }
 .no-knob mark > indicator { min-height: 0; }
 
 /* From Amberol */

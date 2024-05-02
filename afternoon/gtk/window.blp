@@ -147,18 +147,19 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                     [start]
                     Label position_label {
                       label: "0:00";
-                      margin-top: 3;
                       margin-start: 12;
                       margin-end: 3;
 
                       styles [
                         "caption",
-                        "numeric"
+                        "numeric",
+                        "timestamp"
                       ]
                     }
 
                     [center]
                     Label title_label {
+                      name: "title-label";
                       halign: center;
                       hexpand: true;
                       margin-start: 12;
@@ -174,13 +175,13 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                     [end]
                     Label duration_label {
                       label: "0:00";
-                      margin-top: 3;
                       margin-start: 3;
                       margin-end: 12;
 
                       styles [
                         "caption",
                         "numeric",
+                        "timestamp",
                         "dim-label"
                       ]
                     }
