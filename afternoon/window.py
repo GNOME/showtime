@@ -441,15 +441,22 @@ class AfternoonWindow(Adw.ApplicationWindow):
         if not (media_info := self.play.get_media_info()):
             return
 
+        langs = 0
         for index, stream in enumerate(media_info.get_audio_streams()):
             self.language_menu.append(
                 stream.get_language()
                 # Translators: The variable is the number of channels in an audio track
-                or _("Unknown, {} Channels").format(channels)
+                or _("Undetermined, {} Channels").format(channels)
                 if (channels := stream.get_channels()) > 0
-                else _("Unknown"),
+                else _("Undetermined"),
                 f"app.select-language(uint16 {index})",
             )
+            langs += 1
+
+        if not langs:
+            self.language_menu.append(_("No Audio"), "nonexistent.action")
+            # HACK: This is to make the item insensitive
+            # I don't know if there is a better way to do this
 
         self.subtitles_menu.append(
             _("None"), f"app.select-subtitles(uint16 {shared.MAX_UINT16})"
@@ -458,7 +465,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         subs = 0
         for index, stream in enumerate(media_info.get_subtitle_streams()):
             self.subtitles_menu.append(
-                stream.get_language() or _("Unknown Language"),
+                stream.get_language() or _("Undetermined Language"),
                 f"app.select-subtitles(uint16 {index})",
             )
             subs += 1
