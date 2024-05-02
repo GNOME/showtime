@@ -2,9 +2,14 @@
 /* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/3b34dfeb150ca091c7e73bc74a863a978028e318/src/stylesheet/_common.scss#L34 */
 .window-controls-osd > button > image {
     color: alpha(white, .9);
-    border: none;
     background-color: alpha(black, .7);
-    background-clip: padding-box;
+}
+
+/* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/9e4d10af0308f6abf54769bd6b74941cb10bcdc7/src/stylesheet/widgets/_buttons.scss#L122 */
+
+.window-controls-osd > button > image:hover {
+    color: white;
+    background-color: alpha(mix(black, white, .15), .65);
 }
 
 .soft-corners { border-radius: 18px; }
@@ -19,7 +24,7 @@
 	padding: 0.2em 0.8em;
 }
 
-#play-button { padding: 3px 6px; margin: 0px 3px; }
+#play-button { padding: 3px 6px; margin: 0px 6px; }
 #play-button image { -gtk-icon-size: 21px; }
 
 .no-knob { padding: 6px 9px 6px 15px; }
