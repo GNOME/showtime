@@ -10,4 +10,10 @@
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
 	<content_rating type="oars-1.1" />
+	<screenshots>
+		<screenshot type="default">
+			<caption>The app playing a video</caption>
+			<image type="source" width="1668" height="770">https://gitlab.gnome.org/kramo/afternoon/-/raw/main/data/screenshots/1.png</image>
+		</screenshot>
+	</screenshots>
 </component>

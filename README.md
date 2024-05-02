@@ -7,3 +7,5 @@
 
   <img src="data/screenshots/1.png">
 </div>
+
+The project follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
