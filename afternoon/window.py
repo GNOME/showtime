@@ -189,7 +189,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.VIDEO_DIMENSIONS_CHANGED:
                 width, height = GstPlay.PlayMessage.parse_video_dimensions_changed(msg)
                 if width and height:
-                    GLib.idle_add(self.__resize_window, width, height)
+                    self.__resize_window(width, height)
 
             case GstPlay.PlayMessage.STATE_CHANGED:
                 match GstPlay.PlayMessage.parse_state_changed(msg):
@@ -205,59 +205,50 @@ class AfternoonWindow(Adw.ApplicationWindow):
                         self.paused = False
 
             case GstPlay.PlayMessage.DURATION_CHANGED:
-                GLib.idle_add(
-                    self.duration_label.set_label,
+                self.duration_label.set_label(
                     nanoseconds_to_timestamp(
                         GstPlay.PlayMessage.parse_duration_updated(msg)
-                    ),
+                    )
                 )
 
             case GstPlay.PlayMessage.POSITION_UPDATED:
-                GLib.idle_add(
-                    self.seek_scale.set_value,
-                    (
-                        GstPlay.PlayMessage.parse_position_updated(msg)
-                        / self.play.get_duration()
-                    ),
+                self.seek_scale.set_value(
+                    GstPlay.PlayMessage.parse_position_updated(msg)
+                    / self.play.get_duration()
                 )
 
                 # TODO: This can probably be done only every second instead
-                GLib.idle_add(
-                    self.position_label.set_label,
+                self.position_label.set_label(
                     nanoseconds_to_timestamp(
                         GstPlay.PlayMessage.parse_position_updated(msg)
-                    ),
+                    )
                 )
 
             case GstPlay.PlayMessage.SEEK_DONE:
                 pos = self.play.get_position()
                 dur = self.play.get_duration()
 
-                GLib.idle_add(self.seek_scale.set_value, pos / dur)
-                GLib.idle_add(
-                    self.position_label.set_label, nanoseconds_to_timestamp(pos)
-                )
+                self.seek_scale.set_value(pos / dur)
+                self.position_label.set_label(nanoseconds_to_timestamp(pos))
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
                 # TODO: Maybe parse the message?
-                GLib.idle_add(
-                    self.title_label.set_label,
+                self.title_label.set_label(
                     get_title(self.play.get_media_info()) or "",
                 )
-                GLib.idle_add(self.build_menus)
+
+                self.build_menus()
                 self.emit("media-info-updated")
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
                 vol = GstPlay.PlayMessage.parse_volume_changed(msg)
 
-                GLib.idle_add(
-                    self.volume_button.set_icon_name,
+                self.volume_button.set_icon_name(
                     "audio-volume-muted-symbolic"
                     if self.play.get_mute()
-                    else "multimedia-volume-control-symbolic",
+                    else "multimedia-volume-control-symbolic"
                 )
-                GLib.idle_add(
-                    self.volume_menu_button.set_icon_name,
+                self.volume_menu_button.set_icon_name(
                     "audio-volume-muted-symbolic"
                     if self.play.get_mute()
                     else "audio-volume-high-symbolic"
@@ -266,7 +257,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                     if vol > 0.3
                     else "audio-volume-low-symbolic",
                 )
-                GLib.idle_add(self.volume_scale.set_value, vol)
+                self.volume_scale.set_value(vol)
 
             case GstPlay.PlayMessage.ERROR:
                 # TODO: Present a friendlier error
