@@ -156,289 +156,291 @@ template $AfternoonWindow: Adw.ApplicationWindow {
       }
 
       WindowHandle video_page {
-        Stack {
-          Overlay video_overlay {
-            [overlay]
-            Revealer toolbar_revealer {
-              valign: end;
-              transition-type: crossfade;
+        Overlay video_overlay {
+          [overlay]
+          Revealer toolbar_revealer {
+            valign: end;
+            transition-type: crossfade;
 
-              Adw.Clamp toolbar_clamp {
-                maximum-size: 600;
-                tightening-threshold: 550;
+            Adw.Clamp toolbar_clamp {
+              maximum-size: 600;
+              tightening-threshold: 550;
 
-                Box toolbar_box {
-                  valign: end;
-                  orientation: vertical;
+              Box toolbar_box {
+                valign: end;
+                orientation: vertical;
 
-                  CenterBox {
-                    margin-top: 3;
+                CenterBox {
+                  margin-top: 3;
 
-                    [start]
-                    Label position_label {
-                      label: "0:00";
-                      margin-start: 12;
-                      margin-end: 3;
+                  [start]
+                  Label position_label {
+                    label: "0:00";
+                    margin-start: 12;
+                    margin-end: 3;
 
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp"
-                      ]
-                    }
-
-                    [center]
-                    Label title_label {
-                      name: "title-label";
-                      halign: center;
-                      hexpand: true;
-                      margin-start: 12;
-                      margin-end: 12;
-                      justify: center;
-                      ellipsize: end;
-
-                      styles [
-                        "heading"
-                      ]
-                    }
-
-                    [end]
-                    Label duration_label {
-                      label: "0:00";
-                      margin-start: 3;
-                      margin-end: 12;
-
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp",
-                        "dim-label"
-                      ]
-                    }
+                    styles [
+                      "caption",
+                      "numeric",
+                      "timestamp"
+                    ]
                   }
 
-                  Scale seek_scale {
+                  [center]
+                  Label title_label {
+                    name: "title-label";
+                    halign: center;
                     hexpand: true;
+                    margin-start: 12;
+                    margin-end: 12;
+                    justify: center;
+                    ellipsize: end;
 
-                    adjustment: Adjustment {
-                      step-increment: 0.1;
-                      lower: 0;
-                      upper: 1;
-                      value: 0;
-                    };
+                    styles [
+                      "heading"
+                    ]
+                  }
+
+                  [end]
+                  Label duration_label {
+                    label: "0:00";
+                    margin-start: 3;
+                    margin-end: 12;
+
+                    styles [
+                      "caption",
+                      "numeric",
+                      "timestamp",
+                      "dim-label"
+                    ]
+                  }
+                }
+
+                Scale seek_scale {
+                  hexpand: true;
+
+                  adjustment: Adjustment {
+                    step-increment: 0.1;
+                    lower: 0;
+                    upper: 1;
+                    value: 0;
+                  };
+
+                  accessibility {
+                    labelled-by: position_label;
+                  }
+                }
+
+                CenterBox toolbar_hbox {
+                  [start]
+                  MenuButton volume_menu_button {
+                    icon-name: "audio-volume-high-symbolic";
+                    popover: volume_popover;
+                    direction: up;
 
                     accessibility {
-                      labelled-by: position_label;
+                      label: _("Adjust Volume");
                     }
                   }
 
-                  CenterBox toolbar_hbox {
-                    [start]
-                    MenuButton volume_menu_button {
-                      icon-name: "audio-volume-high-symbolic";
-                      popover: volume_popover;
-                      direction: up;
-
-                      accessibility {
-                        label: _("Adjust Volume");
-                      }
-                    }
-
-                    [center]
-                    Box {
-                      Button {
-                        icon-name: "skip-backwards-10-symbolic";
-                        action-name: "app.backwards";
-
-                        accessibility {
-                          label: _("Skip Back 10 Seconds");
-                        }
-                      }
-
-                      Button play_button {
-                        name: "play-button";
-                        icon-name: "media-playback-start-symbolic";
-                        clicked => $toggle_playback();
-
-                        accessibility {
-                          label: _("Play/Pause");
-                        }
-                      }
-
-                      Button forwards_button {
-                        icon-name: "skip-forward-10-symbolic";
-                        action-name: "app.forwards";
-
-                        accessibility {
-                          label: _("Skip Forward 10 Seconds");
-                        }
-                      }
-                    }
-
-                    [end]
-                    MenuButton options_menu_button {
-                      halign: end;
-                      icon-name: "settings-symbolic";
-                      popover: options_popover;
-                      direction: up;
-
-                      accessibility {
-                        label: _("Playback Options");
-                      }
-                    }
-                  }
-
-                  styles [
-                    "osd",
-                    "toolbar",
-                    "soft-corners"
-                  ]
-                }
-              }
-            }
-
-            [overlay]
-            Revealer window_controls_revealer {
-              transition-type: crossfade;
-              valign: start;
-
-              Box {
-                margin-top: 6;
-                margin-bottom: 3;
-                margin-start: 6;
-                margin-end: 6;
-                spacing: 6;
-
-                WindowControls window_controls_start {
-                  halign: start;
-                  visible: bind window_controls_start.empty inverted;
-                  side: start;
-
-                  styles [
-                    "window-controls-osd"
-                  ]
-                }
-
-                Button button_fullscreen {
-                  hexpand: true;
-                  valign: start;
-                  halign: start;
-                  icon-name: "view-fullscreen-symbolic";
-                  tooltip-text: _("Toggle Fullscreen");
-                  clicked => $toggle_fullscreen();
-
-                  styles [
-                    "osd",
-                    "circular"
-                  ]
-                }
-
-                MenuButton video_primary_menu_button {
-                  hexpand: true;
-                  valign: start;
-                  halign: end;
-                  margin-start: 6;
-                  primary: true;
-                  icon-name: "open-menu-symbolic";
-                  tooltip-text: _("Menu");
-                  menu-model: primary_menu;
-
-                  styles [
-                    "osd",
-                    "circular"
-                  ]
-                }
-
-                WindowControls window_controls_end {
-                  halign: end;
-                  visible: bind window_controls_end.empty inverted;
-                  side: end;
-
-                  styles [
-                    "window-controls-osd"
-                  ]
-                }
-              }
-            }
-
-            [overlay]
-            Revealer restore_revealer {
-              valign: center;
-              halign: center;
-              transition-type: crossfade;
-
-              Box {
-                halign: center;
-                spacing: 24;
-                margin-top: 3;
-                margin-bottom: 3;
-                margin-start: 3;
-                margin-end: 3;
-
-                Button {
-                  width-request: 126;
-                  height-request: 120;
-
+                  [center]
                   Box {
-                    valign: center;
-                    orientation: vertical;
-                    spacing: 18;
+                    Button {
+                      icon-name: "skip-backwards-10-symbolic";
+                      action-name: "app.backwards";
 
-                    Image {
-                      margin-top: 12;
+                      accessibility {
+                        label: _("Skip Back 10 Seconds");
+                      }
+                    }
+
+                    Button play_button {
+                      name: "play-button";
                       icon-name: "media-playback-start-symbolic";
-                      icon-size: large;
+                      clicked => $toggle_playback();
+
+                      accessibility {
+                        label: _("Play/Pause");
+                      }
                     }
 
-                    Label {
-                      justify: center;
-                      wrap: true;
-                      label: _("Resume");
-                    }
-                  }
+                    Button forwards_button {
+                      icon-name: "skip-forward-10-symbolic";
+                      action-name: "app.forwards";
 
-                  clicked => $unpause();
-
-                  styles [
-                    "osd",
-                    "soft-corners"
-                  ]
-                }
-
-                Button {
-                  width-request: 126;
-                  height-request: 120;
-
-                  Box {
-                    valign: center;
-                    orientation: vertical;
-                    spacing: 18;
-
-                    Image {
-                      margin-top: 12;
-                      icon-name: "arrow-circular-top-right-symbolic";
-                      icon-size: large;
-                    }
-
-                    Label {
-                      justify: center;
-                      wrap: true;
-                      label: _("Start Again");
+                      accessibility {
+                        label: _("Skip Forward 10 Seconds");
+                      }
                     }
                   }
 
-                  clicked => $_play_again();
+                  [end]
+                  MenuButton options_menu_button {
+                    halign: end;
+                    icon-name: "settings-symbolic";
+                    popover: options_popover;
+                    direction: up;
 
-                  styles [
-                    "osd",
-                    "soft-corners"
-                  ]
+                    accessibility {
+                      label: _("Playback Options");
+                    }
+                  }
                 }
+
+                styles [
+                  "osd",
+                  "toolbar",
+                  "soft-corners"
+                ]
               }
             }
-
-            Picture picture {}
           }
+
+          [overlay]
+          Revealer window_controls_revealer {
+            transition-type: crossfade;
+            valign: start;
+
+            Box {
+              margin-top: 6;
+              margin-bottom: 3;
+              margin-start: 6;
+              margin-end: 6;
+              spacing: 6;
+
+              WindowControls window_controls_start {
+                halign: start;
+                visible: bind window_controls_start.empty inverted;
+                side: start;
+
+                styles [
+                  "window-controls-osd"
+                ]
+              }
+
+              Button button_fullscreen {
+                hexpand: true;
+                valign: start;
+                halign: start;
+                icon-name: "view-fullscreen-symbolic";
+                tooltip-text: _("Toggle Fullscreen");
+                clicked => $toggle_fullscreen();
+
+                styles [
+                  "osd",
+                  "circular"
+                ]
+              }
+
+              MenuButton video_primary_menu_button {
+                hexpand: true;
+                valign: start;
+                halign: end;
+                margin-start: 6;
+                primary: true;
+                icon-name: "open-menu-symbolic";
+                tooltip-text: _("Menu");
+                menu-model: primary_menu;
+
+                styles [
+                  "osd",
+                  "circular"
+                ]
+              }
+
+              WindowControls window_controls_end {
+                halign: end;
+                visible: bind window_controls_end.empty inverted;
+                side: end;
+
+                styles [
+                  "window-controls-osd"
+                ]
+              }
+            }
+          }
+
+          [overlay]
+          Revealer restore_revealer {
+            valign: center;
+            halign: center;
+            transition-type: crossfade;
+
+            Box {
+              halign: center;
+              spacing: 24;
+              margin-top: 3;
+              margin-bottom: 3;
+              margin-start: 3;
+              margin-end: 3;
+
+              Button {
+                width-request: 126;
+                height-request: 120;
+
+                Box {
+                  valign: center;
+                  orientation: vertical;
+                  spacing: 18;
+
+                  Image {
+                    margin-top: 12;
+                    icon-name: "media-playback-start-symbolic";
+                    icon-size: large;
+                  }
+
+                  Label {
+                    justify: center;
+                    wrap: true;
+                    label: _("Resume");
+                  }
+                }
+
+                clicked => $unpause();
+
+                styles [
+                  "osd",
+                  "soft-corners"
+                ]
+              }
+
+              Button {
+                width-request: 126;
+                height-request: 120;
+
+                Box {
+                  valign: center;
+                  orientation: vertical;
+                  spacing: 18;
+
+                  Image {
+                    margin-top: 12;
+                    icon-name: "arrow-circular-top-right-symbolic";
+                    icon-size: large;
+                  }
+
+                  Label {
+                    justify: center;
+                    wrap: true;
+                    label: _("Start Again");
+                  }
+                }
+
+                clicked => $_play_again();
+
+                styles [
+                  "osd",
+                  "soft-corners"
+                ]
+              }
+            }
+          }
+
+          Picture picture {}
+
+          styles [
+            "black-background"
+          ]
         }
       }
     }

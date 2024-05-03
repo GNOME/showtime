@@ -35,3 +35,5 @@
 
 .no-knob trough > highlight { min-height: 9px; min-width: 9px; }
 .no-knob trough > slider { opacity: 0; }
+
+.black-background { background-color: black; }
