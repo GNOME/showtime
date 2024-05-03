@@ -34,7 +34,7 @@ gi.require_version("GstPlay", "1.0")
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Gio, GLib
+from gi.repository import Adw, Gio, GLib, Gtk
 
 from afternoon import shared
 from afternoon.window import AfternoonWindow
@@ -42,6 +42,8 @@ from afternoon.window import AfternoonWindow
 
 class AfternoonApplication(Adw.Application):
     """The main application singleton class."""
+
+    inhibit_cookies: dict = {}
 
     def __init__(self):
         super().__init__(
@@ -159,11 +161,32 @@ class AfternoonApplication(Adw.Application):
         )
         self.add_action(lang_action)
 
-        self.connect("window-removed", lambda _app, win: self.save_play_position(win))
+        self.connect("window-removed", self.__on_window_removed)
 
-    def save_play_position(self, window: AfternoonWindow) -> None:
+    def __on_window_removed(self, _obj: Any, win: AfternoonWindow) -> None:
+        self.save_play_position(win)
+        self.uninhibit_win(win)
+
+    def inhibit_win(self, win: AfternoonWindow) -> None:
+        """
+        Tries to add an inhibitor associated with `win`.
+
+        This will automatically be removed when `win` is closed.
+        """
+        self.inhibit_cookies[win] = self.inhibit(
+            win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
+        )
+
+    def uninhibit_win(self, win: AfternoonWindow) -> None:
+        """Removes the inhibitor associated with `win` if one exists."""
+        if not (cookie := self.inhibit_cookies.pop(win, 0)):
+            return
+
+        self.uninhibit(cookie)
+
+    def save_play_position(self, win: AfternoonWindow) -> None:
         """Saves the play position of the currently playing file in the window to restore later."""
-        if not (uri := window.play.get_uri()):
+        if not (uri := win.play.get_uri()):
             return
 
         digest = sha256(uri.encode("utf-8")).hexdigest()
@@ -183,7 +206,7 @@ class AfternoonApplication(Adw.Application):
 
             hist_file.close()
 
-        hist[digest] = window.play.get_position()
+        hist[digest] = win.play.get_position()
 
         MAX_HIST_ITEMS = 1000
 

@@ -76,7 +76,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
 
-    paused: bool = False
+    _paused: bool = True
     reveal_timestamp: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -86,9 +86,26 @@ class AfternoonWindow(Adw.ApplicationWindow):
         return self.play.get_rate()
 
     @rate.setter
-    def set_rate(self, rate: float) -> None:
+    def rate(self, rate: float) -> None:
         self.play.set_rate(rate)
         # self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
+
+    @property
+    def paused(self) -> bool:
+        """Whether media is currently paused."""
+        return self._paused
+
+    @paused.setter
+    def paused(self, paused: bool) -> None:
+        if self._paused == paused:
+            return
+
+        self._paused = paused
+
+        if paused:
+            self.get_application().uninhibit_win(self)
+        else:
+            self.get_application().inhibit_win(self)
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
