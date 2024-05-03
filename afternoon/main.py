@@ -34,9 +34,10 @@ gi.require_version("GstPlay", "1.0")
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Gio, GLib, Gtk
+from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
 from afternoon import shared
+from afternoon.mpris import MPRIS
 from afternoon.window import AfternoonWindow
 
 
@@ -44,6 +45,15 @@ class AfternoonApplication(Adw.Application):
     """The main application singleton class."""
 
     inhibit_cookies: dict = {}
+    mpris_active: bool = False
+
+    @GObject.Signal(name="media-info-updated")
+    def __media_info_updated(self) -> None:
+        """Emitted when the currently active video's media info is updated."""
+
+    @GObject.Signal(name="state-changed")
+    def __state_changed(self) -> None:
+        """Emitted when the currently active video's state changes."""
 
     def __init__(self):
         super().__init__(
@@ -229,10 +239,26 @@ class AfternoonApplication(Adw.Application):
         win = AfternoonWindow(application=self)
         win.present()
 
-        if not gfile:
+        def emit_media_info_updated(win) -> None:
+            if win == self.get_active_window():
+                self.emit("media-info-updated")
+
+        win.connect("media-info-updated", emit_media_info_updated)
+
+        def emit_state_changed(win, _args: Any) -> None:
+            if win == self.get_active_window():
+                self.emit("state-changed")
+
+        win.connect("notify::paused", emit_state_changed)
+
+        if gfile:
+            win.play_video(gfile)
+
+        if self.mpris_active:
             return
 
-        win.play_video(gfile)
+        self.mpris_active = True
+        MPRIS(self)
 
     def do_open(  # pylint: disable=arguments-differ
         self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str

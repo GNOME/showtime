@@ -77,6 +77,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
 
     _paused: bool = True
+    stopped: bool = True
     reveal_timestamp: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -90,22 +91,32 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.play.set_rate(rate)
         # self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
 
-    @property
+    @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
         """Whether media is currently paused."""
         return self._paused
 
     @paused.setter
     def paused(self, paused: bool) -> None:
+        if not paused:
+            self.stopped = False
+
         if self._paused == paused:
             return
 
         self._paused = paused
 
+        if not (app := self.get_application()):
+            return
+
         if paused:
-            self.get_application().uninhibit_win(self)
+            app.uninhibit_win(self)
         else:
-            self.get_application().inhibit_win(self)
+            app.inhibit_win(self)
+
+    @GObject.Signal(name="media-info-updated")
+    def __media_info_updated(self) -> None:
+        """Emitted when the currently playing video's media info is updated."""
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
@@ -188,6 +199,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                     case GstPlay.PlayState.STOPPED:
                         self.play_button.set_icon_name("media-playback-start-symbolic")
                         self.paused = True
+                        self.stopped = True
                     case GstPlay.PlayState.PLAYING:
                         self.play_button.set_icon_name("media-playback-pause-symbolic")
                         self.paused = False
@@ -233,6 +245,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                     get_title(self.play.get_media_info()) or "",
                 )
                 GLib.idle_add(self.build_menus)
+                self.emit("media-info-updated")
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
                 vol = GstPlay.PlayMessage.parse_volume_changed(msg)
@@ -380,7 +393,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
-        self.get_application().save_play_position(self)
+        if app := self.get_application():
+            app.save_play_position(self)
+
         self.play_video(gfile)
 
     @Gtk.Template.Callback()
@@ -431,9 +446,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.__select_subtitles(0)
 
     def __select_subtitles(self, index: int) -> None:
-        self.get_application().lookup_action("select-subtitles").activate(
-            GLib.Variant.new_uint16(index)
-        )
+        if not (app := self.get_application()):
+            return
+
+        app.lookup_action("select-subtitles").activate(GLib.Variant.new_uint16(index))
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Selects the given subtitles for the video."""
@@ -545,8 +561,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.reveal_timestamp = 0
 
         # TODO: Make this per-window instead of app-wide
-        if self.stack.get_visible_child() == self.video_page:
-            self.get_application().lookup_action("screenshot").set_enabled(True)
+        if (self.stack.get_visible_child() != self.video_page) or not (
+            app := self.get_application()
+        ):
+            return
+
+        app.lookup_action("screenshot").set_enabled(True)
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
