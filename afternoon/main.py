@@ -34,7 +34,7 @@ gi.require_version("GstPlay", "1.0")
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
 
-from gi.repository import Adw, Gio, GLib, GObject, Gtk
+from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 from afternoon import shared
 from afternoon.mpris import MPRIS
@@ -60,6 +60,7 @@ class AfternoonApplication(Adw.Application):
             application_id=shared.APP_ID,
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
+        Gst.init()
 
         new_window = GLib.OptionEntry()
         new_window.long_name = "new-window"

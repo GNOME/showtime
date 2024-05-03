@@ -120,12 +120,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
-        self.play = GstPlay.Play.new()
-        self.pipeline = self.play.get_pipeline()
-
         sink = Gst.ElementFactory.make("gtk4paintablesink")
         self.picture.set_paintable(sink.props.paintable)
-        self.pipeline.props.video_sink = sink
+
+        self.play = GstPlay.Play.new(
+            GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(None, sink)
+        )
+        self.pipeline = self.play.get_pipeline()
         self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
 
         bus = self.play.get_message_bus()
