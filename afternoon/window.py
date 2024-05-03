@@ -121,11 +121,17 @@ class AfternoonWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         sink = Gst.ElementFactory.make("gtk4paintablesink")
-        self.picture.set_paintable(sink.props.paintable)
+        self.picture.set_paintable(paintable := sink.props.paintable)
+
+        if paintable.props.gl_context:
+            gl_sink = Gst.ElementFactory.make("glsinkbin")
+            gl_sink.props.sink = sink
+            sink = gl_sink
 
         self.play = GstPlay.Play.new(
             GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(None, sink)
         )
+
         self.pipeline = self.play.get_pipeline()
         self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
 
@@ -271,6 +277,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.END_OF_STREAM:
                 self.pause()
                 self.play.seek(0)
+
+            case GstPlay.PlayMessage.WARNING:
+                logging.warning(GstPlay.PlayMessage.parse_warning(msg))
 
         return True
 
