@@ -85,11 +85,18 @@ class AfternoonApplication(Adw.Application):
             ("<primary>o",),
         )
         self.create_action(
+            "show-in-files",
+            lambda *_: Gtk.FileLauncher.new(
+                Gio.File.new_for_uri(self.get_active_window().play.get_uri())
+            ).open_containing_folder(),
+        )
+        self.create_action(
             "screenshot",
             lambda *_: self.get_active_window().save_screenshot(),
             ("<primary><alt>s",),
         )
         self.lookup_action("screenshot").set_enabled(False)
+        self.lookup_action("show-in-files").set_enabled(False)
         self.create_action(
             "fullscreen",
             lambda *_: self.get_active_window().toggle_fullscreen(),
@@ -98,11 +105,7 @@ class AfternoonApplication(Adw.Application):
         self.create_action(
             "toggle-playback",
             lambda *_: self.get_active_window().toggle_playback(),
-            (
-                "p",
-                "k",
-                "space",
-            ),
+            ("p", "k", "space"),
         )
         self.create_action(
             "increase-volume",

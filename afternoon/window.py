@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 """The main application window."""
+import logging
 import pickle
 from hashlib import sha256
 from os import sep
@@ -568,6 +569,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             return
 
         app.lookup_action("screenshot").set_enabled(True)
+        app.lookup_action("show-in-files").set_enabled(True)
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
