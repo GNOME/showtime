@@ -18,7 +18,7 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--filesystem=xdg-pictures/Screenshots:create",
-        "--own-name=org.mpris.MediaPlayer2.Afternoon"
+        "--own-name=org.mpris.MediaPlayer2.page.kramo.Afternoon.Devel"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
