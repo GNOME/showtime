@@ -166,9 +166,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.connect("move-focus", self.__on_motion)
 
-        motion = Gtk.EventControllerMotion()
-        motion.connect("motion", self.__on_motion)
-        self.picture.add_controller(motion)
+        self.picture_motion = Gtk.EventControllerMotion()
+        self.picture_motion.connect("motion", self.__on_motion)
+        self.picture.add_controller(self.picture_motion)
 
         self.toolbar_motion = Gtk.EventControllerMotion()
         self.toolbar_box.add_controller(self.toolbar_motion)
@@ -579,6 +579,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
 
     def __hide_revealers(self, timestamp: int) -> None:
+        if timestamp != self.reveal_timestamp:
+            return
+
+        if self.toolbar_motion.contains_pointer():
+            return
+
         for button in (
             self.video_primary_menu_button,
             self.options_menu_button,
@@ -587,16 +593,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
             if button.get_active():
                 return
 
-        if self.toolbar_motion.contains_pointer():
-            return
+        for revealer in (self.toolbar_revealer, self.window_controls_revealer):
+            revealer.set_reveal_child(False)
 
-        if timestamp != self.reveal_timestamp:
+        if not self.picture_motion.contains_pointer():
             return
 
         self.set_cursor_from_name("none")
-
-        for revealer in (self.toolbar_revealer, self.window_controls_revealer):
-            revealer.set_reveal_child(False)
 
     def __on_motion(
         self, _obj: Any, x: Optional[float] = None, y: Optional[float] = None
