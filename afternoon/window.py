@@ -617,4 +617,4 @@ class AfternoonWindow(Adw.ApplicationWindow):
             revealer.set_reveal_child(True)
 
         self.reveal_timestamp = (timestamp := time())
-        GLib.timeout_add_seconds(3, self.__hide_revealers, timestamp)
+        GLib.timeout_add_seconds(2, self.__hide_revealers, timestamp)
