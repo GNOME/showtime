@@ -26,7 +26,7 @@ from pathlib import Path
 from time import time
 from typing import Any, Optional
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPlay, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, GstPlay, Gtk
 
 from afternoon import shared
 from afternoon.utils import get_title, nanoseconds_to_timestamp, screenshot
@@ -46,6 +46,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     placeholder_stack: Gtk.Stack = Gtk.Template.Child()
     open_status_page: Adw.StatusPage = Gtk.Template.Child()
     error_status_page: Adw.StatusPage = Gtk.Template.Child()
+    missing_plugin_status_page: Adw.StatusPage = Gtk.Template.Child()
     button_open: Gtk.Button = Gtk.Template.Child()
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
@@ -136,8 +137,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.pipeline = self.play.get_pipeline()
         self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
 
-        bus = self.play.get_message_bus()
-        Gst.Bus.add_watch(bus, GLib.PRIORITY_DEFAULT, self.__on_play_bus_message)
+        (bus := self.play.get_message_bus()).add_signal_watch()
+        bus.connect("message", self.__on_play_bus_message)
+
+        (bus := self.pipeline.get_bus()).add_signal_watch()
+        bus.connect("message", self.__on_pipeline_bus_message)
 
         if shared.PROFILE == "development":
             self.add_css_class("devel")
@@ -192,7 +196,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
         )
 
-    def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> bool:
+    def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
             case GstPlay.PlayMessage.VIDEO_DIMENSIONS_CHANGED:
                 width, height = GstPlay.PlayMessage.parse_video_dimensions_changed(msg)
@@ -267,14 +271,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 )
                 self.volume_scale.set_value(vol)
 
-            case GstPlay.PlayMessage.ERROR:
-                # TODO: Present a friendlier error
-                # error, _details = GstPlay.PlayMessage.parse_error(msg)
-                # self.error_status_page.set_description(error.message)
-
-                self.placeholder_stack.set_visible_child(self.error_status_page)
-                self.stack.set_visible_child(self.placeholder_page)
-
             case GstPlay.PlayMessage.END_OF_STREAM:
                 self.pause()
                 self.play.seek(0)
@@ -282,11 +278,101 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.WARNING:
                 logging.warning(GstPlay.PlayMessage.parse_warning(msg))
 
-        return True
+            case GstPlay.PlayMessage.ERROR:
+                error, _details = GstPlay.PlayMessage.parse_error(msg)
+                logging.error(error.message)
+
+                if (
+                    self.placeholder_stack.get_visible_child()
+                    == self.missing_plugin_status_page
+                ):
+                    return
+
+                def copy_details(*_args: Any) -> None:
+                    if not (display := Gdk.Display.get_default()):
+                        return
+
+                    display.get_clipboard().set(error.message)
+
+                    self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
+
+                button = Gtk.Button(
+                    halign=Gtk.Align.CENTER, label=_("Copy Technical Details")
+                )
+                button.add_css_class("pill")
+                button.connect("clicked", copy_details)
+
+                self.error_status_page.set_child(button)
+
+                self.placeholder_stack.set_visible_child(self.error_status_page)
+                self.stack.set_visible_child(self.placeholder_page)
+
+    def __on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
+        if not GstPbutils.is_missing_plugin_message(msg):
+            return
+
+        # This is so media that is still partially playable doesn't get interrupted
+        # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
+        if (
+            self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
+            != Gst.StateChangeReturn.FAILURE
+        ):
+            return
+
+        desc = GstPbutils.missing_plugin_message_get_description(msg)
+        detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
+
+        self.missing_plugin_status_page.set_description(
+            _("Codecs required to play “{}” media could not be found").format(desc)
+        )
+
+        if not GstPbutils.install_plugins_supported():
+            self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
+            self.stack.set_visible_child(self.placeholder_page)
+            return
+
+        def on_install_done(result) -> None:
+            match result:
+                case GstPbutils.InstallPluginsReturn.SUCCESS:
+                    logging.debug("Plugin installed.")
+                    self.stack.set_visible_child(self.video_page)
+                    self.pause()
+
+                case GstPbutils.InstallPluginsReturn.NOT_FOUND:
+                    logging.error("Plugin installation failed: Not found.")
+                    self.missing_plugin_status_page.set_description(
+                        _("No plugin available for this media type")
+                    )
+
+                case _:
+                    logging.error("Plugin installation failed, result: %d", int(result))
+                    self.missing_plugin_status_page.set_description(
+                        _("Unable to install the required plugin")
+                    )
+
+        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
+        button.add_css_class("pill")
+        button.add_css_class("suggested-action")
+
+        def install_plugin(*_args: Any) -> None:
+            GstPbutils.install_plugins_async((detail,), None, on_install_done)
+            self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
+            button.set_sensitive(False)
+
+        button.connect("clicked", install_plugin)
+
+        self.missing_plugin_status_page.set_child(button)
+
+        self.missing_plugin_status_page.set_description(
+            _("Additional codecs are required to play “{}” media").format(desc)
+        )
+        self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
+        self.stack.set_visible_child(self.placeholder_page)
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
         self.stack.set_visible_child(self.video_page)
+        self.placeholder_stack.set_visible_child(self.error_status_page)
         self.__select_subtitles(0)
 
         self.default_speed_button.set_active(True)
