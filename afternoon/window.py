@@ -331,6 +331,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
 
         if not GstPbutils.install_plugins_supported():
+            self.missing_plugin_status_page.set_child(None)
             self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
             self.stack.set_visible_child(self.placeholder_page)
             return
