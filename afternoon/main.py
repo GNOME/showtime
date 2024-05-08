@@ -30,6 +30,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Gst", "1.0")
 gi.require_version("GstPlay", "1.0")
+gi.require_version("GstPbutils", "1.0")
 
 # pylint: disable=wrong-import-position
 # pylint: disable=wrong-import-order
