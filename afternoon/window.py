@@ -327,7 +327,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
 
         self.missing_plugin_status_page.set_description(
-            _("Codecs required to play “{}” media could not be found").format(desc)
+            _("The “{}” codecs required to play this video could not be found").format(
+                desc
+            )
         )
 
         if not GstPbutils.install_plugins_supported():
@@ -369,7 +371,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.missing_plugin_status_page.set_child(button)
 
         self.missing_plugin_status_page.set_description(
-            _("Additional codecs are required to play “{}” media").format(desc)
+            _("“{}” codecs are required to play this video").format(desc)
         )
         self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
         self.stack.set_visible_child(self.placeholder_page)
