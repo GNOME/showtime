@@ -156,6 +156,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.breakpoint_margin.connect(
             "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
         )
+        self.breakpoint_margin.connect(
+            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
+        )
         self.breakpoint_dock.connect(
             "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
         )
