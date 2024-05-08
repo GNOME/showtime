@@ -177,10 +177,15 @@ class AfternoonApplication(Adw.Application):
         self.add_action(lang_action)
 
         self.connect("window-removed", self.__on_window_removed)
+        self.connect("shutdown", self.__on_shutdown)
 
     def __on_window_removed(self, _obj: Any, win: AfternoonWindow) -> None:
         self.save_play_position(win)
         self.uninhibit_win(win)
+
+    def __on_shutdown(self, *_args: Any) -> None:
+        for win in self.get_windows():
+            self.__on_window_removed(None, win)
 
     def inhibit_win(self, win: AfternoonWindow) -> None:
         """
@@ -241,7 +246,12 @@ class AfternoonApplication(Adw.Application):
         """
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
 
-        win = AfternoonWindow(application=self)
+        win = AfternoonWindow(
+            application=self, maximized=shared.state_schema.get_boolean("is-maximized")
+        )
+        shared.state_schema.bind(
+            "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
+        )
         win.present()
 
         def emit_media_info_updated(win) -> None:

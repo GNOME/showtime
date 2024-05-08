@@ -3,5 +3,8 @@
 	<schema id="@APP_ID@" path="@PREFIX@/">
 	</schema>
 	<schema id="@APP_ID@.State" path="@PREFIX@/State/">
+		<key name="is-maximized" type="b">
+			<default>false</default>
+		</key>
 	</schema>
 </schemalist>
