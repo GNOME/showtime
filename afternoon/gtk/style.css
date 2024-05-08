@@ -1,3 +1,7 @@
+.osd popover > contents, .osd popover > arrow {
+    background-color: alpha(black, .9);
+}
+
 /* From libadwaita */
 /* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/3b34dfeb150ca091c7e73bc74a863a978028e318/src/stylesheet/_common.scss#L34 */
 .window-controls-osd > button > image {
