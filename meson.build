@@ -4,6 +4,9 @@ project('afternoon',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
+dependency('gtk4', version: '>= 4.15.0')
+dependency('libadwaita-1', version: '>= 1.5')
+
 i18n = import('i18n')
 gnome = import('gnome')
 python = import('python')
