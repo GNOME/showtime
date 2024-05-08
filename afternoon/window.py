@@ -38,7 +38,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     __gtype_name__ = "AfternoonWindow"
 
-    breakpoint: Adw.Breakpoint = Gtk.Template.Child()
+    breakpoint_dock: Adw.Breakpoint = Gtk.Template.Child()
+    breakpoint_margin: Adw.Breakpoint = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
@@ -146,10 +147,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
         if shared.PROFILE == "development":
             self.add_css_class("devel")
 
-        self.breakpoint.connect(
+        self.breakpoint_margin.connect(
             "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
         )
-        self.breakpoint.connect(
+        self.breakpoint_dock.connect(
+            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
+        )
+        self.breakpoint_dock.connect(
             "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
 

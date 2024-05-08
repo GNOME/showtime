@@ -457,8 +457,18 @@ template $AfternoonWindow: Adw.ApplicationWindow {
     }
   };
 
-  Adw.Breakpoint breakpoint {
+  Adw.Breakpoint breakpoint_dock {
     condition ("min-width: 550px")
+
+    setters {
+      toolbar_clamp.margin-bottom: 12;
+      toolbar_clamp.margin-start: 12;
+      toolbar_clamp.margin-end: 12;
+    }
+  }
+
+  Adw.Breakpoint breakpoint_margin {
+    condition ("min-width: 720px")
 
     setters {
       toolbar_clamp.margin-bottom: 24;
