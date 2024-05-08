@@ -20,8 +20,8 @@
 #title-label { margin-bottom: -3px; }
 
 .selection-toolbar > button {
-	border-radius: 1em;
-	padding: 0.2em 0.8em;
+	border-radius: 2em;
+	padding: 0 .6em;
 }
 
 #play-button { padding: 3px 6px; margin: 0px 6px; }

@@ -550,9 +550,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
         match button.get_label():
             case "0.5×":
                 self.rate = 0.5
+            case "1.25×":
+                self.rate = 1.25
             case "1.5×":
                 self.rate = 1.5
-            case "2×":
+            case "2.0×":
                 self.rate = 2
             case _:
                 self.rate = 1

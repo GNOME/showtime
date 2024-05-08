@@ -23,11 +23,11 @@ PopoverMenu options_popover {
 
   [speed]
   Box {
-    margin-top: 12;
-    margin-bottom: 12;
-    margin-start: 12;
-    margin-end: 12;
-    spacing: 15;
+    margin-top: 9;
+    margin-bottom: 9;
+    margin-start: 9;
+    margin-end: 9;
+    spacing: 12;
     orientation: vertical;
 
     Label {
@@ -40,7 +40,7 @@ PopoverMenu options_popover {
     }
 
     Box {
-      spacing: 12;
+      spacing: 9;
 
       ToggleButton {
         label: "0.5×";
@@ -49,8 +49,14 @@ PopoverMenu options_popover {
       }
 
       ToggleButton default_speed_button {
-        label: "1×";
+        label: "1.0×";
         active: true;
+        clicked => $_set_rate();
+      }
+
+      ToggleButton {
+        label: "1.25×";
+        group: default_speed_button;
         clicked => $_set_rate();
       }
 
@@ -61,13 +67,14 @@ PopoverMenu options_popover {
       }
 
       ToggleButton {
-        label: "2×";
+        label: "2.0×";
         group: default_speed_button;
         clicked => $_set_rate();
       }
 
       styles [
-        "selection-toolbar"
+        "selection-toolbar",
+        "caption"
       ]
     }
   }
