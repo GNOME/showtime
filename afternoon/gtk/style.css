@@ -1,4 +1,4 @@
-.osd popover > contents, .osd popover > arrow {
+.osd popover > contents, .osd popover > arrow, toast {
     background-color: alpha(black, .9);
 }
 
