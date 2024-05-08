@@ -72,6 +72,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     volume_button: Gtk.Button = Gtk.Template.Child()
     volume_scale: Gtk.Scale = Gtk.Template.Child()
 
+    options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     default_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
     language_menu: Gio.Menu = Gtk.Template.Child()
@@ -137,6 +138,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.pipeline = self.play.get_pipeline()
         self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
+
+        # :)
+        self.options_popover.get_first_child().get_first_child().set_max_content_height(
+            300
+        )
 
         (bus := self.play.get_message_bus()).add_signal_watch()
         bus.connect("message", self.__on_play_bus_message)
