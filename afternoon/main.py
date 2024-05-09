@@ -301,14 +301,20 @@ class AfternoonApplication(Adw.Application):
 
     def on_about_action(self, *_args: Any):
         """Callback for the app.about action."""
-        about = Adw.AboutDialog(
-            application_name="Afternoon",
-            application_icon=shared.APP_ID,
-            developer_name="kramo",
-            version=shared.VERSION,
-            developers=["kramo"],
-            copyright="© 2024 kramo",
+        about = Adw.AboutDialog.new_from_appdata(
+            shared.PREFIX + "/" + shared.APP_ID + ".metainfo.xml", shared.VERSION
         )
+        about.set_developers(("kramo https://kramo.page",))
+        about.set_designers(
+            (
+                "Tobias Bernard https://tobiasbernard.com/",
+                "Allan Day https://blogs.gnome.org/aday/",
+                "kramo https://kramo.page",
+            )
+        )
+        about.set_copyright("© 2024 kramo")
+        # Translators: Replace this with your name for it to show up in the about dialog
+        about.set_translator_credits = (_("translator_credits"),)
         about.present(self.get_active_window())
 
     def create_action(self, name, callback, shortcuts=None):

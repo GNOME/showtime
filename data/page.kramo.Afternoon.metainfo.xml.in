@@ -16,4 +16,7 @@
 			<image type="source" width="1668" height="770">https://gitlab.gnome.org/kramo/afternoon/-/raw/main/data/screenshots/1.png</image>
 		</screenshot>
 	</screenshots>
+	<releases>
+		<release version="47.alpha" date="2024-05-09"/>
+	</releases>
 </component>
