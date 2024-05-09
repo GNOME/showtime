@@ -389,6 +389,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
             valign: center;
             halign: center;
             transition-type: crossfade;
+            visible: bind restore_revealer.reveal-child;
 
             Box {
               halign: center;

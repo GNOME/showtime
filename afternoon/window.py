@@ -83,6 +83,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
 
+    overlay_motions: set = set()
+    overlay_revealers: set = set()
+    overlay_menu_buttons: set = set()
+
     _paused: bool = True
     stopped: bool = True
     reveal_timestamp: int = 0
@@ -190,14 +194,25 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.picture_motion.connect("motion", self.__on_motion)
         self.picture.add_controller(self.picture_motion)
 
-        self.toolbar_motion = Gtk.EventControllerMotion()
-        self.toolbar_box.add_controller(self.toolbar_motion)
+        for widget in (
+            self.toolbar_box,
+            self.header_start,
+            self.header_end,
+        ):
+            widget.add_controller(motion := Gtk.EventControllerMotion())
+            self.overlay_motions.add(motion)
 
-        self.header_start_motion = Gtk.EventControllerMotion()
-        self.header_start.add_controller(self.header_start_motion)
+        self.overlay_revealers = {
+            self.toolbar_revealer,
+            self.header_revealer_start,
+            self.header_revealer_end,
+        }
 
-        self.header_end_motion = Gtk.EventControllerMotion()
-        self.header_end.add_controller(self.header_end_motion)
+        self.overlay_menu_buttons = {
+            self.video_primary_menu_button,
+            self.options_menu_button,
+            self.volume_menu_button,
+        }
 
         (drop_target := Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)).connect(
             "drop", lambda _target, gfile, _x, _y: self.play_video(gfile)
@@ -695,27 +710,15 @@ class AfternoonWindow(Adw.ApplicationWindow):
         if timestamp != self.reveal_timestamp:
             return
 
-        for motion in (
-            self.toolbar_motion,
-            self.header_start_motion,
-            self.header_end_motion,
-        ):
+        for motion in self.overlay_motions:
             if motion.contains_pointer():
                 return
 
-        for button in (
-            self.video_primary_menu_button,
-            self.options_menu_button,
-            self.volume_menu_button,
-        ):
+        for button in self.overlay_menu_buttons:
             if button.get_active():
                 return
 
-        for revealer in (
-            self.toolbar_revealer,
-            self.header_revealer_start,
-            self.header_revealer_end,
-        ):
+        for revealer in self.overlay_revealers:
             revealer.set_reveal_child(False)
 
         if not self.picture_motion.contains_pointer():
@@ -735,11 +738,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.set_cursor_from_name(None)
 
-        for revealer in (
-            self.toolbar_revealer,
-            self.header_revealer_start,
-            self.header_revealer_end,
-        ):
+        for revealer in self.overlay_revealers:
             revealer.set_reveal_child(True)
 
         self.reveal_timestamp = (timestamp := time())
