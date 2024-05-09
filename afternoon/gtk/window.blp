@@ -309,15 +309,14 @@ template $AfternoonWindow: Adw.ApplicationWindow {
           }
 
           [overlay]
-          Revealer window_controls_revealer {
+          Revealer header_revealer_start {
             transition-type: crossfade;
             valign: start;
+            halign: start;
 
-            Box {
+            Box header_start {
               margin-top: 6;
-              margin-bottom: 3;
               margin-start: 6;
-              margin-end: 6;
               spacing: 6;
 
               WindowControls window_controls_start {
@@ -343,6 +342,19 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                   "circular"
                 ]
               }
+            }
+          }
+
+          [overlay]
+          Revealer header_revealer_end {
+            transition-type: crossfade;
+            valign: start;
+            halign: end;
+
+            Box header_end {
+              margin-top: 6;
+              margin-end: 6;
+              spacing: 6;
 
               MenuButton video_primary_menu_button {
                 hexpand: true;
