@@ -139,8 +139,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
             gl_sink.props.sink = sink
             sink = gl_sink
 
-        self.play = GstPlay.Play.new(
-            GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(None, sink)
+        self.play = GstPlay.Play(
+            video_renderer=GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(
+                None, sink
+            )
         )
 
         self.pipeline = self.play.get_pipeline()
