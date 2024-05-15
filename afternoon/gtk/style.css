@@ -25,7 +25,7 @@
 
 .selection-toolbar > button {
 	border-radius: 2em;
-	padding: 0 .6em;
+	padding: .1em .6em .1em .8em;
 }
 
 #play-button { padding: 3px 6px; margin: 0px 6px; }
