@@ -29,6 +29,7 @@ from typing import Any, Optional
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, GstPlay, Gtk
 
 from afternoon import shared
+from afternoon.drag_overlay import AfternoonDragOverlay
 from afternoon.utils import get_title, nanoseconds_to_timestamp, screenshot
 
 
@@ -40,6 +41,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     breakpoint_dock: Adw.Breakpoint = Gtk.Template.Child()
     breakpoint_margin: Adw.Breakpoint = Gtk.Template.Child()
+    drag_overlay: AfternoonDragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
@@ -222,6 +224,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             "drop", lambda _target, gfile, _x, _y: self.play_video(gfile)
         )
         self.add_controller(drop_target)
+        self.drag_overlay.drop_target = drop_target
 
         self.connect("notify::fullscreened", self.__on_fullscreen)
 

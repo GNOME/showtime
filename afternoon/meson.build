@@ -34,6 +34,7 @@ configure_file(
 
 afternoon_sources = [
   '__init__.py',
+  'drag_overlay.py',
   'main.py',
   'mpris.py',
   'utils.py',

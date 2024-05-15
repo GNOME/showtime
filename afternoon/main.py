@@ -38,6 +38,7 @@ gi.require_version("GstPbutils", "1.0")
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 from afternoon import shared
+from afternoon.drag_overlay import AfternoonDragOverlay
 from afternoon.mpris import MPRIS
 from afternoon.window import AfternoonWindow
 
