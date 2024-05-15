@@ -44,6 +44,10 @@
 /* https://gitlab.gnome.org/GNOME/loupe/-/blob/d66dd0f16bf45b3cd46e3a084409513eaa1c9af5/data/resources/style.css#L31 */
 .afternoon-dragging-area-highlight {
   border-radius: 8px;
-  background-color: alpha(@blue_2, 0.35);
+  background-color: alpha(@blue_2, .35);
   margin: 24px;
+}
+
+.dim-video-overlay {
+  background-color: alpha(black, .3);
 }

@@ -399,7 +399,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
               valign: center;
               halign: center;
               transition-type: crossfade;
-              visible: bind restore_revealer.reveal-child;
+              can-target: bind restore_revealer.reveal-child;
 
               Box {
                 halign: center;
@@ -473,10 +473,10 @@ template $AfternoonWindow: Adw.ApplicationWindow {
 
             [overlay]
             Revealer spinner_revealer {
+              can-target: false;
               valign: center;
               halign: center;
               transition-type: crossfade;
-              visible: bind spinner_revealer.reveal-child;
 
               Spinner {
                 spinning: bind spinner_revealer.reveal-child;
@@ -485,9 +485,27 @@ template $AfternoonWindow: Adw.ApplicationWindow {
               }
             }
 
-            GraphicsOffload {
-              black-background: true;
-              child: Picture picture {};
+            Overlay {
+              [overlay]
+              Revealer {
+                transition-type: crossfade;
+                reveal-child: bind spinner_revealer.reveal-child;
+                can-target: false;
+
+                Adw.Bin {
+                  vexpand: true;
+                  hexpand: true;
+
+                  styles [
+                    "dim-video-overlay"
+                  ]
+                }
+              }
+
+              GraphicsOffload {
+                black-background: true;
+                child: Picture picture {};
+              }
             }
           }
         }
