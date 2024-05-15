@@ -81,6 +81,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
+    spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
 
     overlay_motions: set = set()
@@ -89,6 +90,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     _paused: bool = True
     stopped: bool = True
+    buffering: bool = False
     reveal_timestamp: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -240,10 +242,27 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.VIDEO_DIMENSIONS_CHANGED:
                 width, height = GstPlay.PlayMessage.parse_video_dimensions_changed(msg)
                 if width and height:
-                    self.__resize_window(width, height)
+                    # Add a timeout to not interfere with loading the stream too much
+                    GLib.timeout_add(100, self.__resize_window, width, height)
 
             case GstPlay.PlayMessage.STATE_CHANGED:
-                match GstPlay.PlayMessage.parse_state_changed(msg):
+                state = GstPlay.PlayMessage.parse_state_changed(msg)
+
+                # Only show a spinner if buffering for more than a second
+                if state == GstPlay.PlayState.BUFFERING:
+                    self.buffering = True
+                    GLib.timeout_add_seconds(
+                        1,
+                        lambda *_: self.spinner_revealer.set_reveal_child(True)
+                        if self.buffering
+                        else None,
+                    )
+                    return
+
+                self.buffering = False
+                self.spinner_revealer.set_reveal_child(False)
+
+                match state:
                     case GstPlay.PlayState.PAUSED:
                         self.play_button.set_icon_name("media-playback-start-symbolic")
                         self.paused = True
@@ -666,7 +685,17 @@ class AfternoonWindow(Adw.ApplicationWindow):
         height = monitor.get_geometry().height * 0.6
         width = height * (video_width / video_height)
 
-        self.set_default_size(int(width), int(height))
+        init_width, init_height = self.get_default_size()
+
+        for prop, init, target in (
+            ("default-width", init_width, int(width)),
+            ("default-height", init_height, int(height)),
+        ):
+            anim = Adw.TimedAnimation.new(
+                self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
+            )
+            anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
+            anim.play()
 
     @Gtk.Template.Callback()
     def _play_again(self, *_args: Any) -> None:

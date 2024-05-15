@@ -461,6 +461,20 @@ template $AfternoonWindow: Adw.ApplicationWindow {
             }
           }
 
+          [overlay]
+          Revealer spinner_revealer {
+            valign: center;
+            halign: center;
+            transition-type: crossfade;
+            visible: bind spinner_revealer.reveal-child;
+
+            Spinner {
+              spinning: bind spinner_revealer.reveal-child;
+              height-request: 32;
+              width-request: 32;
+            }
+          }
+
           GraphicsOffload {
             black-background: true;
             child: Picture picture {};
