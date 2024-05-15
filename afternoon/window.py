@@ -108,7 +108,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
-        """Whether media is currently paused."""
+        """Whether the video is currently paused."""
         return self._paused
 
     @paused.setter
@@ -316,20 +316,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.VOLUME_CHANGED:
                 vol = GstPlay.PlayMessage.parse_volume_changed(msg)
 
-                self.volume_button.set_icon_name(
-                    "audio-volume-muted-symbolic"
-                    if self.play.get_mute()
-                    else "multimedia-volume-control-symbolic"
-                )
-                self.volume_menu_button.set_icon_name(
-                    "audio-volume-muted-symbolic"
-                    if self.play.get_mute()
-                    else "audio-volume-high-symbolic"
-                    if vol > 0.7
-                    else "audio-volume-medium-symbolic"
-                    if vol > 0.3
-                    else "audio-volume-low-symbolic",
-                )
+                self.__set_volume_icons(volume=vol)
                 self.volume_scale.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
@@ -519,14 +506,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def toggle_mute(self, *_args) -> None:
         """Mutes/unmutes the player."""
-        self.play.set_mute(not self.play.get_mute())
-
-        if not self.paused:
-            return
-
-        # HACK: This is to get the icon to update
-        self.unpause()
-        self.pause()
+        self.play.set_mute(muted := not self.play.get_mute())
+        self.__set_volume_icons(muted)
 
     @Gtk.Template.Callback()
     def toggle_fullscreen(self, *_args: Any) -> None:
@@ -659,6 +640,30 @@ class AfternoonWindow(Adw.ApplicationWindow):
             self.__select_subtitles(shared.MAX_UINT16)
 
         self.subtitles_menu.append("Add Subtitle File…", "app.choose-subtitles")
+
+    def __set_volume_icons(
+        self, muted: Optional[bool] = None, volume: Optional[float] = None
+    ) -> None:
+        if muted is None:
+            muted = self.play.get_mute()
+
+        if volume is None:
+            volume = self.play.get_volume()
+
+        self.volume_button.set_icon_name(
+            "audio-volume-muted-symbolic"
+            if muted
+            else "multimedia-volume-control-symbolic"
+        )
+        self.volume_menu_button.set_icon_name(
+            "audio-volume-muted-symbolic"
+            if muted
+            else "audio-volume-high-symbolic"
+            if volume > 0.7
+            else "audio-volume-medium-symbolic"
+            if volume > 0.3
+            else "audio-volume-low-symbolic",
+        )
 
     def __get_previous_play_position(self) -> Optional[float]:
         if not (uri := self.play.get_uri()):
