@@ -471,20 +471,6 @@ template $AfternoonWindow: Adw.ApplicationWindow {
               }
             }
 
-            [overlay]
-            Revealer spinner_revealer {
-              can-target: false;
-              valign: center;
-              halign: center;
-              transition-type: crossfade;
-
-              Spinner {
-                spinning: bind spinner_revealer.reveal-child;
-                height-request: 32;
-                width-request: 32;
-              }
-            }
-
             Overlay {
               [overlay]
               Revealer {
@@ -499,6 +485,20 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                   styles [
                     "dim-video-overlay"
                   ]
+                }
+              }
+
+              [overlay]
+              Revealer spinner_revealer {
+                can-target: false;
+                valign: center;
+                halign: center;
+                transition-type: crossfade;
+
+                Spinner {
+                  spinning: bind spinner_revealer.reveal-child;
+                  height-request: 32;
+                  width-request: 32;
                 }
               }
 
