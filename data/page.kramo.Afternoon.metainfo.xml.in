@@ -10,6 +10,14 @@
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
 	<content_rating type="oars-1.1" />
+	<supports>
+		<control>pointing</control>
+		<control>keyboard</control>
+		<control>touch</control>
+	</supports>
+	<recommends>
+		<display_length compare="ge">360</display_length>
+	</recommends>
 	<screenshots>
 		<screenshot type="default">
 			<caption>The app playing a video</caption>
