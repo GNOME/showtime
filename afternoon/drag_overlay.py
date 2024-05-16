@@ -35,8 +35,8 @@ class AfternoonDragOverlay(Adw.Bin):
 
     _drop_target: Optional[Gtk.DropTarget] = None
 
-    overlay: Gtk.Overlay = Gtk.Overlay()
-    revealer: Gtk.Revealer = Gtk.Revealer()
+    overlay: Gtk.Overlay
+    revealer: Gtk.Revealer
 
     @GObject.Property(type=Gtk.Widget)
     def child(self) -> Optional[Gtk.Widget]:
@@ -77,6 +77,8 @@ class AfternoonDragOverlay(Adw.Bin):
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
+        self.overlay = Gtk.Overlay()
+        self.revealer = Gtk.Revealer()
 
         self.set_css_name("afternoon-drag-overlay")
 
