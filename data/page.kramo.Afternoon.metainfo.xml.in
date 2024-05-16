@@ -9,6 +9,11 @@
 	  <p>Watch your favorite movies and videos without hassle using this elegant video player.</p>
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
+	<translation type="gettext">afternoon</translation>
+	<branding>
+		<color type="primary" scheme_preference="light">#9aa9ee</color>
+		<color type="primary" scheme_preference="dark">#4b3e81</color>
+	</branding>
 	<content_rating type="oars-1.1" />
 	<supports>
 		<control>pointing</control>
