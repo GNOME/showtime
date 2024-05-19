@@ -435,7 +435,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             return
 
         # Don't restore the previous play position if it is in the first minute
-        if pos < 60000000000:
+        if pos < 6e10:
             self.unpause()
             return
 

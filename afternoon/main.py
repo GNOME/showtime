@@ -131,14 +131,14 @@ class AfternoonApplication(Adw.Application):
         self.create_action(
             "backwards",
             lambda *_: (play := self.get_active_window().play).seek(
-                max(0, play.get_position() - pow(10, 10))
+                max(0, play.get_position() - 1e10)
             ),
             ("Left",),
         )
         self.create_action(
             "forwards",
             lambda *_: (play := self.get_active_window().play).seek(
-                play.get_position() + pow(10, 10)
+                play.get_position() + 1e10
             ),
             ("Right",),
         )
@@ -240,10 +240,10 @@ class AfternoonApplication(Adw.Application):
     def do_activate(  # pylint: disable=arguments-differ
         self, gfile: Optional[Gio.File] = None
     ) -> None:
-        """Called when the application is activated.
+        """
+        Called when the application is activated.
 
-        We raise the application's main window, creating it if
-        necessary.
+        Creates a new window and sets up MPRIS.
         """
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
 
