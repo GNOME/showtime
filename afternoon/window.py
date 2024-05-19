@@ -93,8 +93,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
     _paused: bool = True
     stopped: bool = True
     buffering: bool = False
-    media_info_updated: bool = False
     reveal_timestamp: int = 0
+    menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
 
     @GObject.Property(type=float)
@@ -306,11 +306,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 self.position_label.set_label(nanoseconds_to_timestamp(pos))
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
-                if self.media_info_updated:
-                    return
-
-                self.media_info_updated = True
-
                 media_info = GstPlay.PlayMessage.parse_media_info_updated(msg)
 
                 self.title_label.set_label(
@@ -319,6 +314,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
                 # Add a timeout to reduce the things happening at once while the video is loading
                 # since the user won't want to change languages/subtitles within 500ms anyway
+                self.menus_building += 1
                 GLib.timeout_add(500, self.build_menus, media_info)
                 self.emit("media-info-updated")
 
@@ -611,6 +607,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
         """(Re)builds the Subtitles and Language menus for the currently playing video."""
+        self.menus_building -= 1
+
+        # Don't try to rebuild the menu multiple times when the media info has many changes
+        if self.menus_building > 1:
+            return
+
         self.language_menu.remove_all()
         self.subtitles_menu.remove_all()
 
