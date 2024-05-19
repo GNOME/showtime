@@ -18,6 +18,8 @@
 
 .soft-corners { border-radius: 18px; }
 
+.mild-corners { border-radius: 6px; }
+
 .sharp-corners { border-radius: 0; }
 
 .timestamp { margin-bottom: -15px; }

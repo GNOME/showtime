@@ -82,6 +82,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     default_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
+    delay_spin_row: Adw.SpinRow = Gtk.Template.Child()
 
     spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
@@ -239,6 +240,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.volume_scale.connect(
             "change-value",
             lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
+        )
+
+        self.delay_spin_row.connect(
+            "notify::value",
+            lambda *_: self.play.set_subtitle_video_offset(
+                int(self.delay_spin_row.get_value() * 1e9)
+            ),
         )
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
@@ -430,6 +438,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
+        self.delay_spin_row.set_value(0)
         self.__select_subtitles(0)
 
         self.default_speed_button.set_active(True)
