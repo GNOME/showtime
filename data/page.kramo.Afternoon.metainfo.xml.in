@@ -14,6 +14,9 @@
 		<color type="primary" scheme_preference="light">#9aa9ee</color>
 		<color type="primary" scheme_preference="dark">#4b3e81</color>
 	</branding>
+	<developer id="page.kramo">
+		<name translate="no">kramo</name>
+	</developer>
 	<content_rating type="oars-1.1" />
 	<supports>
 		<control>pointing</control>
