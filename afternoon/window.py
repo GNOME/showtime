@@ -93,6 +93,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     _paused: bool = True
     stopped: bool = True
     buffering: bool = False
+    media_info_updated: bool = False
     reveal_timestamp: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -305,12 +306,20 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 self.position_label.set_label(nanoseconds_to_timestamp(pos))
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
-                # TODO: Maybe parse the message?
+                if self.media_info_updated:
+                    return
+
+                self.media_info_updated = True
+
+                media_info = GstPlay.PlayMessage.parse_media_info_updated(msg)
+
                 self.title_label.set_label(
-                    get_title(self.play.get_media_info()) or "",
+                    get_title(media_info) or "",
                 )
 
-                self.build_menus()
+                # Add a timeout to reduce the things happening at once while the video is loading
+                # since the user won't want to change languages/subtitles within 500ms anyway
+                GLib.timeout_add(500, self.build_menus, media_info)
                 self.emit("media-info-updated")
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
@@ -422,6 +431,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
+        self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.__select_subtitles(0)
@@ -599,13 +609,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
         action.set_state(state)
         self.play.set_audio_track(state.get_uint16())
 
-    def build_menus(self) -> None:
+    def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
         """(Re)builds the Subtitles and Language menus for the currently playing video."""
         self.language_menu.remove_all()
         self.subtitles_menu.remove_all()
-
-        if not (media_info := self.play.get_media_info()):
-            return
 
         langs = 0
         for index, stream in enumerate(media_info.get_audio_streams()):
