@@ -184,7 +184,16 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.__on_stack_child_changed()
 
         primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-        primary_click.connect("released", self.toggle_playback)
+
+        def on_primary_click_released(_obj: Any, n: int, *_args: Any) -> None:
+            primary_click.set_state(Gtk.EventSequenceState.CLAIMED)
+
+            self.toggle_playback()
+
+            if not n % 2:
+                self.toggle_fullscreen()
+
+        primary_click.connect("released", on_primary_click_released)
         self.video_overlay.add_controller(primary_click)
 
         (esc := Gtk.ShortcutController()).add_shortcut(
