@@ -21,6 +21,7 @@
 import logging
 import pickle
 from hashlib import sha256
+from math import sqrt
 from os import sep
 from pathlib import Path
 from time import time
@@ -719,19 +720,53 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self, video_width: int, video_height: int, animate: Optional[bool] = True
     ) -> None:
         # Make the window 3/5ths of the display height
-        if not (
-            monitor := self.props.display.get_monitor_at_surface(self.get_surface())
-        ):
+        if not (surface := self.get_surface()):
             return
 
-        height = monitor.get_geometry().height * 0.6
-        width = height * (video_width / video_height)
+        if not (monitor := self.props.display.get_monitor_at_surface(surface)):
+            return
+
+        # Algorithm copied from Loupe
+        # https://gitlab.gnome.org/GNOME/loupe/-/blob/4ca5f9e03d18667db5d72325597cebc02887777a/src/widgets/image/rendering.rs#L151
+
+        hidpi_scale = surface.get_scale_factor()
+
+        monitor_rect = monitor.get_geometry()
+
+        monitor_width = monitor_rect.width
+        monitor_height = monitor_rect.height
+
+        monitor_area = monitor_width * monitor_height
+        logical_monitor_area = monitor_area * pow(hidpi_scale, 2)
+        image_area = video_width * video_height
+
+        occupy_area_factor = (
+            shared.SMALL_OCCUPY_SCREEN
+            if logical_monitor_area <= shared.SMALL_SCREEN_AREA
+            else shared.DEFAULT_OCCUPY_SCREEN
+        )
+
+        size_scale = sqrt(monitor_area / image_area * occupy_area_factor)
+
+        target_scale = min(1, size_scale)
+        nat_width = video_width * target_scale
+        nat_height = video_height * target_scale
+
+        max_width = monitor_width - 20
+        if nat_width > max_width:
+            nat_width = max_width
+            nat_height = video_height * nat_width / video_width
+
+        max_height = monitor_height - (50 + 35 + 20) * hidpi_scale
+        if nat_height > max_height:
+            nat_height = max_height
+            nat_width = video_width * nat_height / video_height
 
         init_width, init_height = self.get_default_size()
 
         for prop, init, target in (
-            ("default-width", init_width, int(width)),
-            ("default-height", init_height, int(height)),
+            ("default-width", init_width, int(nat_width)),
+            ("default-height", init_height, int(nat_height)),
         ):
             anim = Adw.TimedAnimation.new(
                 self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
