@@ -275,7 +275,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                         GLib.timeout_add(100, self.__resize_window, width, height)
                     else:
                         self.connect(
-                            "map", lambda *_: self.__resize_window(width, height, False)
+                            "map", lambda *_: self.__resize_window(width, height, True)
                         )
 
             case GstPlay.PlayMessage.STATE_CHANGED:
@@ -717,7 +717,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
     def __resize_window(
-        self, video_width: int, video_height: int, animate: Optional[bool] = True
+        self, video_width: int, video_height: int, initial: Optional[bool] = False
     ) -> None:
         # Make the window 3/5ths of the display height
         if not (surface := self.get_surface()):
@@ -726,43 +726,62 @@ class AfternoonWindow(Adw.ApplicationWindow):
         if not (monitor := self.props.display.get_monitor_at_surface(surface)):
             return
 
-        # Algorithm copied from Loupe
-        # https://gitlab.gnome.org/GNOME/loupe/-/blob/4ca5f9e03d18667db5d72325597cebc02887777a/src/widgets/image/rendering.rs#L151
-
-        hidpi_scale = surface.get_scale_factor()
-
-        monitor_rect = monitor.get_geometry()
-
-        monitor_width = monitor_rect.width
-        monitor_height = monitor_rect.height
-
-        monitor_area = monitor_width * monitor_height
-        logical_monitor_area = monitor_area * pow(hidpi_scale, 2)
-        image_area = video_width * video_height
-
-        occupy_area_factor = (
-            shared.SMALL_OCCUPY_SCREEN
-            if logical_monitor_area <= shared.SMALL_SCREEN_AREA
-            else shared.DEFAULT_OCCUPY_SCREEN
-        )
-
-        size_scale = sqrt(monitor_area / image_area * occupy_area_factor)
-
-        target_scale = min(1, size_scale)
-        nat_width = video_width * target_scale
-        nat_height = video_height * target_scale
-
-        max_width = monitor_width - 20
-        if nat_width > max_width:
-            nat_width = max_width
-            nat_height = video_height * nat_width / video_width
-
-        max_height = monitor_height - (50 + 35 + 20) * hidpi_scale
-        if nat_height > max_height:
-            nat_height = max_height
-            nat_width = video_width * nat_height / video_height
-
+        video_area = video_width * video_height
         init_width, init_height = self.get_default_size()
+
+        if initial:
+            # Algorithm copied from Loupe
+            # https://gitlab.gnome.org/GNOME/loupe/-/blob/4ca5f9e03d18667db5d72325597cebc02887777a/src/widgets/image/rendering.rs#L151
+
+            hidpi_scale = surface.get_scale_factor()
+
+            monitor_rect = monitor.get_geometry()
+
+            monitor_width = monitor_rect.width
+            monitor_height = monitor_rect.height
+
+            monitor_area = monitor_width * monitor_height
+            logical_monitor_area = monitor_area * pow(hidpi_scale, 2)
+
+            occupy_area_factor = (
+                shared.SMALL_OCCUPY_SCREEN
+                if logical_monitor_area <= shared.SMALL_SCREEN_AREA
+                else shared.DEFAULT_OCCUPY_SCREEN
+            )
+
+            size_scale = sqrt(monitor_area / video_area * occupy_area_factor)
+
+            target_scale = min(1, size_scale)
+            nat_width = video_width * target_scale
+            nat_height = video_height * target_scale
+
+            max_width = monitor_width - 20
+            if nat_width > max_width:
+                nat_width = max_width
+                nat_height = video_height * nat_width / video_width
+
+            max_height = monitor_height - (50 + 35 + 20) * hidpi_scale
+            if nat_height > max_height:
+                nat_height = max_height
+                nat_width = video_width * nat_height / video_height
+
+        else:
+            prev_area = init_width * init_height
+
+            if video_width > video_height:
+                ratio = video_width / video_height
+                nat_width = int(sqrt(prev_area * ratio))
+                nat_height = int(nat_width / ratio)
+            else:
+                ratio = video_height / video_width
+                nat_width = int(sqrt(prev_area / ratio))
+                nat_height = int(nat_width * ratio)
+
+            # Don't resize on really small changes
+            if (abs(init_width - nat_width) < 10) and (
+                abs(init_height - nat_height) < 10
+            ):
+                return
 
         for prop, init, target in (
             ("default-width", init_width, int(nat_width)),
@@ -772,7 +791,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
             )
             anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
-            (anim.play if animate else anim.skip)()
+            (anim.skip if initial else anim.play)()
 
     @Gtk.Template.Callback()
     def _resume(self, *_args: Any) -> None:
