@@ -111,7 +111,7 @@ Popover volume_popover {
 
     Button volume_button {
       icon-name: "multimedia-volume-control-symbolic";
-      clicked => $toggle_mute();
+      action-name: "app.toggle-mute";
 
       accessibility {
         label: _("Mute/Unmute");
@@ -204,7 +204,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                 Button button_open {
                   label: _("Open…");
                   halign: center;
-                  clicked => $choose_video();
+                  action-name: "app.open-video";
 
                   styles [
                     "pill",
@@ -328,7 +328,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                       Button play_button {
                         name: "play-button";
                         icon-name: "media-playback-start-symbolic";
-                        clicked => $toggle_playback();
+                        action-name: "app.toggle-playback";
 
                         accessibility {
                           label: _("Play/Pause");
@@ -396,7 +396,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                   halign: start;
                   icon-name: "view-fullscreen-symbolic";
                   tooltip-text: _("Toggle Fullscreen");
-                  clicked => $toggle_fullscreen();
+                  action-name: "app.toggle-fullscreen";
 
                   styles [
                     "osd",
@@ -484,7 +484,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                     }
                   }
 
-                  clicked => $unpause();
+                  clicked => $_resume();
 
                   styles [
                     "osd",

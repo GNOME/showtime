@@ -139,12 +139,6 @@ class AfternoonWindow(Adw.ApplicationWindow):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
-        # Limit the size of the options popover
-
-        self.options_popover.get_first_child().get_first_child().set_max_content_height(
-            300
-        )
-
         # Set up GstPlay
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
@@ -170,6 +164,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
         (bus := self.pipeline.get_bus()).add_signal_watch()
         bus.connect("message", self.__on_pipeline_bus_message)
 
+        # Limit the size of the options popover
+
+        self.options_popover.get_first_child().get_first_child().set_max_content_height(
+            300
+        )
+
         # Devel stripes
 
         if shared.PROFILE == "development":
@@ -178,32 +178,12 @@ class AfternoonWindow(Adw.ApplicationWindow):
         # Primary and secondary click
 
         primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-
-        def on_primary_click_released(_obj: Any, n: int, *_args: Any) -> None:
-            primary_click.set_state(Gtk.EventSequenceState.CLAIMED)
-
-            self.toggle_playback()
-
-            if not n % 2:
-                self.toggle_fullscreen()
-
-        primary_click.connect("released", on_primary_click_released)
-        self.video_overlay.add_controller(primary_click)
-
         secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
 
-        def on_secondary_click_pressed(_obj: Any, _n: Any, x: int, y: int) -> None:
-            secondary_click.set_state(Gtk.EventSequenceState.CLAIMED)
+        primary_click.connect("released", self.__on_primary_click_released)
+        secondary_click.connect("pressed", self.__on_secondary_click_pressed)
 
-            self.context_menu_popover.unparent()
-            self.context_menu_popover.set_parent(self)
-
-            rectangle = Gdk.Rectangle()
-            rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
-            self.context_menu_popover.set_pointing_to(rectangle)
-            self.context_menu_popover.popup()
-
-        secondary_click.connect("pressed", on_secondary_click_pressed)
+        self.video_overlay.add_controller(primary_click)
         self.video_overlay.add_controller(secondary_click)
 
         # Unfullscreen on Escape
@@ -537,8 +517,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.toast_overlay.add_toast(toast)
 
-    @Gtk.Template.Callback()
-    def unpause(self, *_args: Any) -> None:
+    def unpause(self) -> None:
         """Starts playing the current video."""
         self.restore_revealer.set_reveal_child(False)
         self.play.play()
@@ -547,19 +526,16 @@ class AfternoonWindow(Adw.ApplicationWindow):
         """Pauses the currently playing video."""
         self.play.pause()
 
-    @Gtk.Template.Callback()
-    def toggle_playback(self, *_args) -> None:
+    def toggle_playback(self) -> None:
         """Pauses/unpauses the currently playing video."""
         (self.unpause if self.paused else self.pause)()
 
-    @Gtk.Template.Callback()
-    def toggle_mute(self, *_args) -> None:
+    def toggle_mute(self) -> None:
         """Mutes/unmutes the player."""
         self.play.set_mute(muted := not self.play.get_mute())
         self.__set_volume_icons(muted)
 
-    @Gtk.Template.Callback()
-    def toggle_fullscreen(self, *_args: Any) -> None:
+    def toggle_fullscreen(self) -> None:
         """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
         if self.is_fullscreen():
             self.unfullscreen()
@@ -580,8 +556,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.play_video(gfile)
 
-    @Gtk.Template.Callback()
-    def choose_video(self, *_args: Any) -> None:
+    def choose_video(self) -> None:
         """Opens a file dialog to pick a video to play."""
         dialog = Gtk.FileDialog()
 
@@ -758,6 +733,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
             anim.play()
 
     @Gtk.Template.Callback()
+    def _resume(self, *_args: Any) -> None:
+        self.unpause()
+
+    @Gtk.Template.Callback()
     def _play_again(self, *_args: Any) -> None:
         self.play.seek(0)
         self.unpause()
@@ -789,6 +768,37 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         app.lookup_action("screenshot").set_enabled(True)
         app.lookup_action("show-in-files").set_enabled(True)
+
+    def __on_primary_click_released(
+        self,
+        gesture: Gtk.Gesture,
+        n: int,
+        _x: int,
+        _y: int,
+    ) -> None:
+        gesture.set_state(Gtk.EventSequenceState.CLAIMED)
+
+        self.toggle_playback()
+
+        if not n % 2:
+            self.toggle_fullscreen()
+
+    def __on_secondary_click_pressed(
+        self,
+        gesture: Gtk.Gesture,
+        _n: Any,
+        x: int,
+        y: int,
+    ) -> None:
+        gesture.set_state(Gtk.EventSequenceState.CLAIMED)
+
+        self.context_menu_popover.unparent()
+        self.context_menu_popover.set_parent(self)
+
+        rectangle = Gdk.Rectangle()
+        rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
+        self.context_menu_popover.set_pointing_to(rectangle)
+        self.context_menu_popover.popup()
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
