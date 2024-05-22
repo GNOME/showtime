@@ -45,6 +45,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
+    context_menu_popover: Gtk.PopoverMenu = Gtk.Template.Child()
+
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
     placeholder_stack: Gtk.Stack = Gtk.Template.Child()
     open_status_page: Adw.StatusPage = Gtk.Template.Child()
@@ -136,6 +138,15 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
+
+        # Limit the size of the options popover
+
+        self.options_popover.get_first_child().get_first_child().set_max_content_height(
+            300
+        )
+
+        # Set up GstPlay
+
         sink = Gst.ElementFactory.make("gtk4paintablesink")
         self.picture.set_paintable(paintable := sink.props.paintable)
 
@@ -153,35 +164,18 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.pipeline = self.play.get_pipeline()
         self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
 
-        # :)
-        self.options_popover.get_first_child().get_first_child().set_max_content_height(
-            300
-        )
-
         (bus := self.play.get_message_bus()).add_signal_watch()
         bus.connect("message", self.__on_play_bus_message)
 
         (bus := self.pipeline.get_bus()).add_signal_watch()
         bus.connect("message", self.__on_pipeline_bus_message)
 
+        # Devel stripes
+
         if shared.PROFILE == "development":
             self.add_css_class("devel")
 
-        self.breakpoint_margin.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_margin.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
-
-        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
-        self.__on_stack_child_changed()
+        # Primary and secondary click
 
         primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
 
@@ -196,6 +190,24 @@ class AfternoonWindow(Adw.ApplicationWindow):
         primary_click.connect("released", on_primary_click_released)
         self.video_overlay.add_controller(primary_click)
 
+        secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
+
+        def on_secondary_click_pressed(_obj: Any, _n: Any, x: int, y: int) -> None:
+            secondary_click.set_state(Gtk.EventSequenceState.CLAIMED)
+
+            self.context_menu_popover.unparent()
+            self.context_menu_popover.set_parent(self)
+
+            rectangle = Gdk.Rectangle()
+            rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
+            self.context_menu_popover.set_pointing_to(rectangle)
+            self.context_menu_popover.popup()
+
+        secondary_click.connect("pressed", on_secondary_click_pressed)
+        self.video_overlay.add_controller(secondary_click)
+
+        # Unfullscreen on Escape
+
         (esc := Gtk.ShortcutController()).add_shortcut(
             Gtk.Shortcut.new(
                 Gtk.ShortcutTrigger.parse_string("Escape"),
@@ -203,6 +215,8 @@ class AfternoonWindow(Adw.ApplicationWindow):
             )
         )
         self.add_controller(esc)
+
+        # Hide the toolbar on motion
 
         self.connect("move-focus", self.__on_motion)
 
@@ -230,11 +244,18 @@ class AfternoonWindow(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
+        # Drag and drop
+
         (drop_target := Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)).connect(
             "drop", lambda _target, gfile, _x, _y: self.play_video(gfile)
         )
         self.add_controller(drop_target)
         self.drag_overlay.drop_target = drop_target
+
+        # Connect signals
+
+        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
+        self.__on_stack_child_changed()
 
         self.connect("notify::fullscreened", self.__on_fullscreen)
 
@@ -248,6 +269,19 @@ class AfternoonWindow(Adw.ApplicationWindow):
         self.volume_scale.connect(
             "change-value",
             lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
+        )
+
+        self.breakpoint_margin.connect(
+            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
+        )
+        self.breakpoint_margin.connect(
+            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
+        )
+        self.breakpoint_dock.connect(
+            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
+        )
+        self.breakpoint_dock.connect(
+            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:

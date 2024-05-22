@@ -1,6 +1,25 @@
 using Gtk 4.0;
 using Adw 1;
 
+menu primary_menu {
+  section {
+    item (_("_Open…"), "app.open-video")
+  }
+
+  section {
+    item (_("Show in _Files"), "app.show-in-files")
+  }
+
+  section {
+    item (_("Take _Screenshot"), "app.screenshot")
+  }
+
+  section {
+    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("_About Afternoon"), "app.about")
+  }
+}
+
 menu options {
   section {
     item {
@@ -94,6 +113,10 @@ Popover volume_popover {
       icon-name: "multimedia-volume-control-symbolic";
       clicked => $toggle_mute();
 
+      accessibility {
+        label: _("Mute/Unmute");
+      }
+
       styles [
         "circular"
       ]
@@ -110,6 +133,36 @@ Popover volume_popover {
       };
     }
   }
+}
+
+menu context_menu {
+  section {
+    item (_("Play/Pause"), "app.toggle-playback")
+    item (_("Go Back 10 Seconds"), "app.backwards")
+    item (_("Go Forward 10 Seconds"), "app.forwards")
+  }
+
+  section {
+    item (_("Mute/Unmute"), "app.toggle-mute")
+  }
+
+  section {
+    item (_("Take _Screenshot"), "app.screenshot")
+  }
+
+  section {
+    item (_("Show in _Files"), "app.show-in-files")
+  }
+
+  section {
+    item (_("_Open…"), "app.open-video")
+  }
+}
+
+PopoverMenu context_menu_popover {
+  halign: start;
+  menu-model: context_menu;
+  has-arrow: false;
 }
 
 template $AfternoonWindow: Adw.ApplicationWindow {
@@ -268,7 +321,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                         action-name: "app.backwards";
 
                         accessibility {
-                          label: _("Skip Back 10 Seconds");
+                          label: _("Go Back 10 Seconds");
                         }
                       }
 
@@ -287,7 +340,7 @@ template $AfternoonWindow: Adw.ApplicationWindow {
                         action-name: "app.forwards";
 
                         accessibility {
-                          label: _("Skip Forward 10 Seconds");
+                          label: _("Go Forward 10 Seconds");
                         }
                       }
                     }
@@ -536,23 +589,4 @@ template $AfternoonWindow: Adw.ApplicationWindow {
   styles [
     "view"
   ]
-}
-
-menu primary_menu {
-  section {
-    item (_("_Open…"), "app.open-video")
-  }
-
-  section {
-    item (_("Show in _Files"), "app.show-in-files")
-  }
-
-  section {
-    item (_("Take _Screenshot"), "app.screenshot")
-  }
-
-  section {
-    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("_About Afternoon"), "app.about")
-  }
 }

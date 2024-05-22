@@ -100,7 +100,7 @@ class AfternoonApplication(Adw.Application):
         self.lookup_action("screenshot").set_enabled(False)
         self.lookup_action("show-in-files").set_enabled(False)
         self.create_action(
-            "fullscreen",
+            "toggle-fullscreen",
             lambda *_: self.get_active_window().toggle_fullscreen(),
             ("F11", "f"),
         )
