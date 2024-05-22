@@ -253,7 +253,6 @@ class AfternoonApplication(Adw.Application):
         shared.state_schema.bind(
             "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
         )
-        win.present()
 
         def emit_media_info_updated(win) -> None:
             if win == self.get_active_window():
@@ -269,6 +268,23 @@ class AfternoonApplication(Adw.Application):
 
         if gfile:
             win.play_video(gfile)
+
+            tries = 0
+
+            # Present the window only after it has loaded or after a 1s timeout
+            def present_timeout() -> None:
+                nonlocal tries
+
+                tries += 1
+                if (not win.buffering) or (tries >= 50):
+                    win.present()
+                    return False
+
+                return True
+
+            GLib.timeout_add(20, present_timeout)
+        else:
+            win.present()
 
         if self.mpris_active:
             return

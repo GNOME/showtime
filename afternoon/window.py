@@ -269,8 +269,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
             case GstPlay.PlayMessage.VIDEO_DIMENSIONS_CHANGED:
                 width, height = GstPlay.PlayMessage.parse_video_dimensions_changed(msg)
                 if width and height:
-                    # Add a timeout to not interfere with loading the stream too much
-                    GLib.timeout_add(100, self.__resize_window, width, height)
+                    if self.is_visible():
+                        # Add a timeout to not interfere with loading the stream too much
+                        GLib.timeout_add(100, self.__resize_window, width, height)
+                    else:
+                        self.connect(
+                            "map", lambda *_: self.__resize_window(width, height, False)
+                        )
 
             case GstPlay.PlayMessage.STATE_CHANGED:
                 state = GstPlay.PlayMessage.parse_state_changed(msg)
@@ -710,7 +715,9 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
-    def __resize_window(self, video_width: int, video_height: int) -> None:
+    def __resize_window(
+        self, video_width: int, video_height: int, animate: Optional[bool] = True
+    ) -> None:
         # Make the window 3/5ths of the display height
         if not (
             monitor := self.props.display.get_monitor_at_surface(self.get_surface())
@@ -730,7 +737,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
                 self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
             )
             anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
-            anim.play()
+            (anim.play if animate else anim.skip)()
 
     @Gtk.Template.Callback()
     def _resume(self, *_args: Any) -> None:
