@@ -343,6 +343,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
                 self.seek_scale.set_value(pos / dur)
                 self.position_label.set_label(nanoseconds_to_timestamp(pos))
+                logging.debug("Seeked to %i.", pos)
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
                 media_info = GstPlay.PlayMessage.parse_media_info_updated(msg)
@@ -466,6 +467,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
+        logging.debug("Playing video: %s.", gfile.get_uri())
         self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
@@ -477,12 +479,16 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         if not (pos := self.__get_previous_play_position()):
             self.unpause()
+            logging.debug("No previous play position.")
             return
 
         # Don't restore the previous play position if it is in the first minute
         if pos < 6e10:
             self.unpause()
+            logging.debug("Previous play position before 60s.")
             return
+
+        logging.debug("Previous play position restored: %i.", pos)
 
         def setup_cb(*_args: Any) -> None:
             self.restore_revealer.set_reveal_child(True)
@@ -498,8 +504,10 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         It tries saving it to `xdg-pictures/Screenshot` and falls back to `~`.
         """
+        logging.debug("Saving screenshot…")
 
         if not (paintable := self.picture.get_paintable()):
+            logging.warning("Cannot save screenshot, no paintable.")
             return
 
         if not (texture := screenshot(paintable, self)):
@@ -532,15 +540,18 @@ class AfternoonWindow(Adw.ApplicationWindow):
         )
 
         self.toast_overlay.add_toast(toast)
+        logging.debug("Screenshot saved.")
 
     def unpause(self) -> None:
         """Starts playing the current video."""
         self.restore_revealer.set_reveal_child(False)
         self.play.play()
+        logging.debug("Video unpaused.")
 
     def pause(self, *_args: Any) -> None:
         """Pauses the currently playing video."""
         self.play.pause()
+        logging.debug("Video paused.")
 
     def toggle_playback(self) -> None:
         """Pauses/unpauses the currently playing video."""
@@ -617,6 +628,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
         self.play.set_subtitle_uri(gfile.get_uri())
         self.__select_subtitles(0)
+        logging.debug("External subtitle added: %s.", gfile.get_uri())
 
     def __select_subtitles(self, index: int) -> None:
         if not (app := self.get_application()):
@@ -715,11 +727,13 @@ class AfternoonWindow(Adw.ApplicationWindow):
         try:
             hist_file = (shared.cache_path / "playback_history").open("rb")
         except FileNotFoundError:
+            logging.info("Cannot restore play positon, no playback history file.")
             return None
 
         try:
             hist = pickle.load(hist_file)
-        except EOFError:
+        except EOFError as error:
+            logging.warning("Cannot restore play positon: %s", error)
             return None
 
         hist_file.close()
@@ -729,11 +743,15 @@ class AfternoonWindow(Adw.ApplicationWindow):
     def __resize_window(
         self, video_width: int, video_height: int, initial: Optional[bool] = False
     ) -> None:
+        logging.debug("Resizing window…")
+
         # Make the window 3/5ths of the display height
         if not (surface := self.get_surface()):
+            logging.error("Could not get GdkSurface to resize window.")
             return
 
         if not (monitor := self.props.display.get_monitor_at_surface(surface)):
+            logging.error("Could not get GdkMonitor to resize window.")
             return
 
         video_area = video_width * video_height
@@ -802,6 +820,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
             )
             anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
             (anim.skip if initial else anim.play)()
+            logging.debug("Resized window to %i×%i.", int(nat_width), int(nat_height))
 
     @Gtk.Template.Callback()
     def _resume(self, *_args: Any) -> None:

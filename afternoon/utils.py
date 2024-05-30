@@ -42,7 +42,7 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Tex
 
     if not (node := snapshot.to_node()):
         logging.warning(
-            "Could not get node snapshot, width: %s, height: %s", width, height
+            "Could not get node snapshot, width: %s, height: %s.", width, height
         )
         return None
 
