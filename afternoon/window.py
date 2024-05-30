@@ -46,6 +46,7 @@ class AfternoonWindow(Adw.ApplicationWindow):
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
+    context_menu: Gio.Menu = Gtk.Template.Child()
     context_menu_popover: Gtk.PopoverMenu = Gtk.Template.Child()
 
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
@@ -124,6 +125,18 @@ class AfternoonWindow(Adw.ApplicationWindow):
             return
 
         self._paused = paused
+
+        if paused:
+            label = _("Play")
+            icon_name = "media-playback-start-symbolic"
+        else:
+            label = _("Pause")
+            icon_name = "media-playback-pause-symbolic"
+
+        self.context_menu.remove(0)
+        self.context_menu.prepend(label, "app.toggle-playback")
+        self.play_button.update_property((Gtk.AccessibleProperty.LABEL,), (label,))
+        self.play_button.set_icon_name(icon_name)
 
         if not (app := self.get_application()):
             return
@@ -297,14 +310,11 @@ class AfternoonWindow(Adw.ApplicationWindow):
 
                 match state:
                     case GstPlay.PlayState.PAUSED:
-                        self.play_button.set_icon_name("media-playback-start-symbolic")
                         self.paused = True
                     case GstPlay.PlayState.STOPPED:
-                        self.play_button.set_icon_name("media-playback-start-symbolic")
                         self.paused = True
                         self.stopped = True
                     case GstPlay.PlayState.PLAYING:
-                        self.play_button.set_icon_name("media-playback-pause-symbolic")
                         self.paused = False
 
             case GstPlay.PlayMessage.DURATION_CHANGED:
