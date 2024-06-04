@@ -23,6 +23,7 @@ Watch your favorite movies and videos without hassle using this elegant video pl
     <foaf:Person>
       <foaf:name>kramo</foaf:name>
       <foaf:mbox rdf:resource="mailto:contact@kramo.page" />
+      <gnome:userid>kramolis</gnome:userid>
       <foaf:account>
         <foaf:OnlineAccount>
           <foaf:accountServiceHomepage rdf:resource="https://github.com"/>
