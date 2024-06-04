@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
         input: configure_file(
-           input: 'page.kramo.Afternoon.desktop.in',
+           input: 'org.gnome.Afternoon.desktop.in',
           output: app_id + '.desktop.in',
           configuration: conf
         ),
@@ -18,7 +18,7 @@ endif
 
 appstream_file = i18n.merge_file(
         input: configure_file(
-          input: 'page.kramo.Afternoon.metainfo.xml.in',
+          input: 'org.gnome.Afternoon.metainfo.xml.in',
           output: app_id + '.metainfo.xml.in',
           configuration: conf
         ),
@@ -34,7 +34,7 @@ test('Validate appstream file', appstreamcli,
 
 install_data(
   configure_file(
-    input: 'page.kramo.Afternoon.gschema.xml.in',
+    input: 'org.gnome.Afternoon.gschema.xml.in',
     output: app_id + '.gschema.xml',
     configuration: conf
   ),

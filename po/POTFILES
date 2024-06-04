@@ -1,6 +1,10 @@
-data/page.kramo.Afternoon.desktop.in
-data/page.kramo.Afternoon.metainfo.xml.in
-data/page.kramo.Afternoon.gschema.xml
-src/main.py
-src/window.py
-src/window.ui
+data/org.gnome.Afternoon.desktop.in
+data/org.gnome.Afternoon.metainfo.xml.in
+data/org.gnome.Afternoon.gschema.xml
+
+afternoon/main.py
+afternoon/mpris.py
+afternoon/window.py
+
+afternoon/gtk/help-overlay.ui
+afternoon/gtk/window.ui

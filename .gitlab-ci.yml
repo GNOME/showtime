@@ -2,17 +2,30 @@ include:
   - project: "GNOME/citemplates"
     file: "flatpak/flatpak_ci_initiative.yml"
 
-stages:
-  - build-flatpak
-
 variables:
-  BUNDLE: "page.kramo.Afternoon.Devel.flatpak"
+  BUNDLE: "org.gnome.Afternoon.Devel.flatpak"
+  MANIFEST_PATH: "flatpak/org.gnome.Afternoon.Devel.json"
+  FLATPAK_MODULE: "afternoon"
+  APP_ID: "org.gnome.Afternoon.Devel"
+  RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
 
-flatpak:
-    extends: .flatpak
-    stage: build-flatpak
-    variables:
-        APP_ID: "page.kramo.Afternoon.Devel"
-        FLATPAK_MODULE: "afternoon"
-        MANIFEST_PATH: "flatpak/page.kramo.Afternoon.Devel.json"
-        RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
+flatpak@x86_64:
+  extends: ".flatpak@x86_64"
+  interruptible: true
+
+flatpak@aarch64:
+  extends: ".flatpak@aarch64"
+  allow_failure: true
+  interruptible: true
+
+nightly@x86_64:
+  extends: ".publish_nightly"
+  stage: deploy
+  dependencies:
+    - flatpak@x86_64
+
+nightly@aarch64:
+  extends: ".publish_nightly"
+  stage: deploy
+  dependencies:
+    - flatpak@aarch64

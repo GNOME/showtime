@@ -18,11 +18,11 @@ pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 
 profile = get_option('profile')
 if profile == 'development'
-  app_id = 'page.kramo.Afternoon.Devel'
-  prefix = '/page/kramo/Afternoon/Devel'
+  app_id = 'org.gnome.Afternoon.Devel'
+  prefix = '/org/gnome/Afternoon/Devel'
 elif profile ==  'release'
-  app_id = 'page.kramo.Afternoon'
-  prefix = '/page/kramo/Afternoon'
+  app_id = 'org.gnome.Afternoon'
+  prefix = '/org/gnome/Afternoon'
 endif
 
 conf = configuration_data()

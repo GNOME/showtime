@@ -1,5 +1,5 @@
 {
-    "id" : "page.kramo.Afternoon.Devel",
+    "id" : "org.gnome.Afternoon.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
@@ -18,7 +18,7 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--filesystem=xdg-pictures/Screenshots:create",
-        "--own-name=org.mpris.MediaPlayer2.page.kramo.Afternoon.Devel"
+        "--own-name=org.mpris.MediaPlayer2.org.gnome.Afternoon.Devel"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {

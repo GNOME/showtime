@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="data/icons/hicolor/scalable/apps/page.kramo.Afternoon.svg" width="128" height="128">
+  <img src="data/icons/hicolor/scalable/apps/org.gnome.Afternoon.svg" width="128" height="128">
 
   # Afternoon
 
