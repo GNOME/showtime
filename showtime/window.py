@@ -299,9 +299,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     self.buffering = True
                     GLib.timeout_add_seconds(
                         1,
-                        lambda *_: self.spinner_revealer.set_reveal_child(True)
-                        if self.buffering
-                        else None,
+                        lambda *_: (
+                            self.spinner_revealer.set_reveal_child(True)
+                            if self.buffering
+                            else None
+                        ),
                     )
                     return
 
@@ -665,11 +667,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         langs = 0
         for index, stream in enumerate(media_info.get_audio_streams()):
             self.language_menu.append(
-                stream.get_language()
-                # Translators: The variable is the number of channels in an audio track
-                or _("Undetermined, {} Channels").format(channels)
-                if (channels := stream.get_channels()) > 0
-                else _("Undetermined"),
+                (
+                    stream.get_language()
+                    # Translators: The variable is the number of channels in an audio track
+                    or _("Undetermined, {} Channels").format(channels)
+                    if (channels := stream.get_channels()) > 0
+                    else _("Undetermined")
+                ),
                 f"app.select-language(uint16 {index})",
             )
             langs += 1
@@ -711,13 +715,19 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             else "multimedia-volume-control-symbolic"
         )
         self.volume_menu_button.set_icon_name(
-            "audio-volume-muted-symbolic"
-            if muted
-            else "audio-volume-high-symbolic"
-            if volume > 0.7
-            else "audio-volume-medium-symbolic"
-            if volume > 0.3
-            else "audio-volume-low-symbolic",
+            (
+                "audio-volume-muted-symbolic"
+                if muted
+                else (
+                    "audio-volume-high-symbolic"
+                    if volume > 0.7
+                    else (
+                        "audio-volume-medium-symbolic"
+                        if volume > 0.3
+                        else "audio-volume-low-symbolic"
+                    )
+                )
+            ),
         )
 
     def __get_previous_play_position(self) -> Optional[float]:
@@ -847,7 +857,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
         # HACK
-        self.__on_motion(None, 0, 0)
+        self.__on_motion(None)
         self.reveal_timestamp = 0
 
         # TODO: Make this per-window instead of app-wide
@@ -869,6 +879,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
         self.toggle_playback()
+        self.__on_motion(None)
 
         if not n % 2:
             self.toggle_fullscreen()
