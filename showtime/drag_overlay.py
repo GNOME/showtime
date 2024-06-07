@@ -28,10 +28,10 @@ from typing import Any, Optional
 from gi.repository import Adw, GObject, Gtk
 
 
-class AfternoonDragOverlay(Adw.Bin):
+class ShowtimeDragOverlay(Adw.Bin):
     """A widget that shows an overlay when dragging a video over the window."""
 
-    __gtype_name__ = "AfternoonDragOverlay"
+    __gtype_name__ = "ShowtimeDragOverlay"
 
     _drop_target: Optional[Gtk.DropTarget] = None
 
@@ -80,7 +80,7 @@ class AfternoonDragOverlay(Adw.Bin):
         self.overlay = Gtk.Overlay()
         self.revealer = Gtk.Revealer()
 
-        self.set_css_name("afternoon-drag-overlay")
+        self.set_css_name("showtime-drag-overlay")
 
         self.overlay.set_parent(self)
         self.overlay.add_overlay(self.revealer)

@@ -37,14 +37,14 @@ gi.require_version("GstPbutils", "1.0")
 
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
-from afternoon import shared
-from afternoon.configure_logging import configure_logging
-from afternoon.drag_overlay import AfternoonDragOverlay
-from afternoon.mpris import MPRIS
-from afternoon.window import AfternoonWindow
+from showtime import shared
+from showtime.configure_logging import configure_logging
+from showtime.drag_overlay import ShowtimeDragOverlay
+from showtime.mpris import MPRIS
+from showtime.window import ShowtimeWindow
 
 
-class AfternoonApplication(Adw.Application):
+class ShowtimeApplication(Adw.Application):
     """The main application singleton class."""
 
     inhibit_cookies: dict = {}
@@ -184,7 +184,7 @@ class AfternoonApplication(Adw.Application):
         self.connect("window-removed", self.__on_window_removed)
         self.connect("shutdown", self.__on_shutdown)
 
-    def __on_window_removed(self, _obj: Any, win: AfternoonWindow) -> None:
+    def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:
         self.save_play_position(win)
         self.uninhibit_win(win)
 
@@ -192,7 +192,7 @@ class AfternoonApplication(Adw.Application):
         for win in self.get_windows():
             self.__on_window_removed(None, win)
 
-    def inhibit_win(self, win: AfternoonWindow) -> None:
+    def inhibit_win(self, win: ShowtimeWindow) -> None:
         """
         Tries to add an inhibitor associated with `win`.
 
@@ -202,14 +202,14 @@ class AfternoonApplication(Adw.Application):
             win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
         )
 
-    def uninhibit_win(self, win: AfternoonWindow) -> None:
+    def uninhibit_win(self, win: ShowtimeWindow) -> None:
         """Removes the inhibitor associated with `win` if one exists."""
         if not (cookie := self.inhibit_cookies.pop(win, 0)):
             return
 
         self.uninhibit(cookie)
 
-    def save_play_position(self, win: AfternoonWindow) -> None:
+    def save_play_position(self, win: ShowtimeWindow) -> None:
         """Saves the play position of the currently playing file in the window to restore later."""
         if not (uri := win.play.get_uri()):
             return
@@ -251,7 +251,7 @@ class AfternoonApplication(Adw.Application):
         """
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
 
-        win = AfternoonWindow(
+        win = ShowtimeWindow(
             application=self, maximized=shared.state_schema.get_boolean("is-maximized")
         )
         shared.state_schema.bind(
@@ -313,7 +313,7 @@ class AfternoonApplication(Adw.Application):
                 return -1
 
             logging.warning(
-                "Afternoon is already running. "
+                "Showtime is already running. "
                 "To open a new window, run the app with --new-window."
             )
             return 0
@@ -356,5 +356,5 @@ class AfternoonApplication(Adw.Application):
 
 def main():
     """The application's entry point."""
-    app = AfternoonApplication()
+    app = ShowtimeApplication()
     return app.run(sys.argv)

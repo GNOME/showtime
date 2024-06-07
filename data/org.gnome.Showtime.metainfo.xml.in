@@ -3,13 +3,13 @@
 	<id>@APP_ID@</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
-	<name>Afternoon</name>
+	<name>Showtime</name>
 	<summary>Watch without distraction</summary>
 	<description>
-	  <p>Play your favorite movies and video files without hassle. Afternoon features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
+	  <p>Play your favorite movies and video files without hassle. Showtime features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
-	<translation type="gettext">afternoon</translation>
+	<translation type="gettext">showtime</translation>
 	<branding>
 		<color type="primary" scheme_preference="light">#9aa9ee</color>
 		<color type="primary" scheme_preference="dark">#4b3e81</color>
@@ -30,7 +30,7 @@
 	<screenshots>
 		<screenshot type="default">
 			<caption>The app playing a video</caption>
-			<image type="source" width="1668" height="770">https://gitlab.gnome.org/GNOME/Incubator/afternoon/-/raw/main/data/screenshots/1.png</image>
+			<image type="source" width="1668" height="770">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/raw/main/data/screenshots/1.png</image>
 		</screenshot>
 	</screenshots>
 	<releases>

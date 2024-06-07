@@ -27,9 +27,9 @@ from typing import Any, Optional
 
 from gi.repository import Gio, GLib, GstPlay
 
-from afternoon import shared
-from afternoon.utils import get_title
-from afternoon.window import AfternoonWindow
+from showtime import shared
+from showtime.utils import get_title
+from showtime.window import ShowtimeWindow
 
 
 class DBusInterface:
@@ -240,7 +240,7 @@ class MPRIS(DBusInterface):
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
-    def win(self) -> Optional[AfternoonWindow]:
+    def win(self) -> Optional[ShowtimeWindow]:
         return self._app.get_active_window()
 
     @property
@@ -429,7 +429,7 @@ class MPRIS(DBusInterface):
                 "CanSetFullscreen": GLib.Variant("b", False),
                 "CanRaise": GLib.Variant("b", False),
                 "HasTrackList": GLib.Variant("b", False),
-                "Identity": GLib.Variant("s", "Afternoon"),
+                "Identity": GLib.Variant("s", "Showtime"),
                 "DesktopEntry": GLib.Variant("s", shared.APP_ID),
                 "SupportedUriSchemes": GLib.Variant("as", ["file"]),
                 "SupportedMimeTypes": GLib.Variant(

@@ -31,7 +31,7 @@ PROFILE = "@PROFILE@"
 schema = Gio.Settings.new(APP_ID)
 state_schema = Gio.Settings.new(APP_ID + ".State")
 
-cache_path = Path(GLib.get_user_cache_dir()) / "afternoon"
+cache_path = Path(GLib.get_user_cache_dir()) / "showtime"
 
 # For large enough monitors, occupy 40% of the screen area when opening a window with a video
 DEFAULT_OCCUPY_SCREEN = 0.4

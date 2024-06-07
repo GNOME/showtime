@@ -1,4 +1,4 @@
-project('afternoon',
+project('showtime',
           version: '47.alpha',
     meson_version: '>= 0.62.0',
   default_options: [ 'warning_level=2', 'werror=false', ],
@@ -18,11 +18,11 @@ pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 
 profile = get_option('profile')
 if profile == 'development'
-  app_id = 'org.gnome.Afternoon.Devel'
-  prefix = '/org/gnome/Afternoon/Devel'
+  app_id = 'org.gnome.Showtime.Devel'
+  prefix = '/org/gnome/Showtime/Devel'
 elif profile ==  'release'
-  app_id = 'org.gnome.Afternoon'
-  prefix = '/org/gnome/Afternoon'
+  app_id = 'org.gnome.Showtime'
+  prefix = '/org/gnome/Showtime'
 endif
 
 conf = configuration_data()
@@ -37,7 +37,7 @@ conf.set('bindir', get_option('bindir'))
 conf.set('prefix', get_option('prefix'))
 
 subdir('data')
-subdir('afternoon')
+subdir('showtime')
 subdir('po')
 
 gnome.post_install(

@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="data/icons/hicolor/scalable/apps/org.gnome.Afternoon.svg" width="128" height="128">
+  <img src="data/icons/hicolor/scalable/apps/org.gnome.Showtime.svg" width="128" height="128">
 
-  # Afternoon
+  # Showtime
 
-  Play videos
+  Watch without distraction
 
   <img src="data/screenshots/1.png">
 </div>

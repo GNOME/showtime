@@ -5,15 +5,15 @@
          xmlns:gnome="http://api.gnome.org/doap-extensions#"
          xmlns="http://usefulinc.com/ns/doap#">
 
-  <name>Afternoon</name>
+  <name>Showtime</name>
   <shortdesc xml:lang="en">Play videos</shortdesc>
   <description xml:lang="en">
 Watch your favorite movies and videos without hassle using this elegant video player.
   </description>
 
-  <homepage rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/afternoon" />
-  <download-page rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/afternoon" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/afternoon/-/issues" />
+  <homepage rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime" />
+  <download-page rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues" />
 
   <programming-language>Python</programming-language>
   <platform>GTK 4</platform>

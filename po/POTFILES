@@ -1,10 +1,10 @@
-data/org.gnome.Afternoon.desktop.in
-data/org.gnome.Afternoon.metainfo.xml.in
-data/org.gnome.Afternoon.gschema.xml
+data/org.gnome.Showtime.desktop.in
+data/org.gnome.Showtime.metainfo.xml.in
+data/org.gnome.Showtime.gschema.xml
 
-afternoon/main.py
-afternoon/mpris.py
-afternoon/window.py
+showtime/main.py
+showtime/mpris.py
+showtime/window.py
 
-afternoon/gtk/help-overlay.ui
-afternoon/gtk/window.ui
+showtime/gtk/help-overlay.ui
+showtime/gtk/window.ui

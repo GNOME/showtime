@@ -1,5 +1,5 @@
 {
-    "id" : "org.gnome.Afternoon.Devel",
+    "id" : "org.gnome.Showtime.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "master",
     "sdk" : "org.gnome.Sdk",
@@ -10,7 +10,7 @@
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin"
     },
-    "command" : "afternoon",
+    "command" : "showtime",
     "finish-args" : [
         "--share=ipc",
         "--socket=fallback-x11",
@@ -18,7 +18,7 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--filesystem=xdg-pictures/Screenshots:create",
-        "--own-name=org.mpris.MediaPlayer2.org.gnome.Afternoon.Devel"
+        "--own-name=org.mpris.MediaPlayer2.org.gnome.Showtime.Devel"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.ffmpeg-full": {
@@ -80,7 +80,7 @@
             ]
         },
         {
-            "name" : "afternoon",
+            "name" : "showtime",
             "builddir" : true,
             "buildsystem" : "meson",
             "config-opts": [

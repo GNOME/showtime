@@ -22,7 +22,7 @@
 from logging import Formatter, LogRecord, config
 from os import environ
 
-from afternoon import shared
+from showtime import shared
 
 
 class ColorLogFormatter(Formatter):
@@ -61,7 +61,7 @@ def configure_logging() -> None:
             "formatters": {
                 "console_formatter": {
                     "format": "%(levelname)s - %(message)s",
-                    "class": "afternoon.configure_logging.ColorLogFormatter",
+                    "class": "showtime.configure_logging.ColorLogFormatter",
                 },
             },
             "handlers": {

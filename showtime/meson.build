@@ -1,4 +1,4 @@
-moduledir = python_dir / 'afternoon'
+moduledir = python_dir / 'showtime'
 
 blueprints = custom_target('blueprints',
   input: files(
@@ -9,10 +9,10 @@ blueprints = custom_target('blueprints',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
 )
 
-gnome.compile_resources('afternoon',
+gnome.compile_resources('showtime',
   configure_file(
-    input: 'afternoon.gresource.xml.in',
-    output: 'afternoon.gresource.xml',
+    input: 'showtime.gresource.xml.in',
+    output: 'showtime.gresource.xml',
     configuration: conf
   ),
   gresource_bundle: true,
@@ -24,15 +24,15 @@ gnome.compile_resources('afternoon',
 python = import('python')
 
 configure_file(
-  input: 'afternoon.in',
-  output: 'afternoon',
+  input: 'showtime.in',
+  output: 'showtime',
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),
   install_mode: 'r-xr-xr-x'
 )
 
-afternoon_sources = [
+showtime_sources = [
   '__init__.py',
   'configure_logging.py',
   'drag_overlay.py',
@@ -47,4 +47,4 @@ afternoon_sources = [
   )
 ]
 
-install_data(afternoon_sources, install_dir: moduledir)
+install_data(showtime_sources, install_dir: moduledir)

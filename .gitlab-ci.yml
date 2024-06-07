@@ -3,10 +3,10 @@ include:
     file: "flatpak/flatpak_ci_initiative.yml"
 
 variables:
-  BUNDLE: "org.gnome.Afternoon.Devel.flatpak"
-  MANIFEST_PATH: "flatpak/org.gnome.Afternoon.Devel.json"
-  FLATPAK_MODULE: "afternoon"
-  APP_ID: "org.gnome.Afternoon.Devel"
+  BUNDLE: "org.gnome.Showtime.Devel.flatpak"
+  MANIFEST_PATH: "flatpak/org.gnome.Showtime.Devel.json"
+  FLATPAK_MODULE: "showtime"
+  APP_ID: "org.gnome.Showtime.Devel"
   RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
 
 flatpak@x86_64:

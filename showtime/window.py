@@ -29,20 +29,20 @@ from typing import Any, Optional
 
 from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, GstPlay, Gtk
 
-from afternoon import shared
-from afternoon.drag_overlay import AfternoonDragOverlay
-from afternoon.utils import get_title, nanoseconds_to_timestamp, screenshot
+from showtime import shared
+from showtime.drag_overlay import ShowtimeDragOverlay
+from showtime.utils import get_title, nanoseconds_to_timestamp, screenshot
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
-class AfternoonWindow(Adw.ApplicationWindow):
+class ShowtimeWindow(Adw.ApplicationWindow):
     """The main application window."""
 
-    __gtype_name__ = "AfternoonWindow"
+    __gtype_name__ = "ShowtimeWindow"
 
     breakpoint_dock: Adw.Breakpoint = Gtk.Template.Child()
     breakpoint_margin: Adw.Breakpoint = Gtk.Template.Child()
-    drag_overlay: AfternoonDragOverlay = Gtk.Template.Child()
+    drag_overlay: ShowtimeDragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 

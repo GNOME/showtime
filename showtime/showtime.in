@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# afternoon.in
+# showtime.in
 #
 # Copyright 2024 kramo
 #
@@ -30,16 +30,16 @@ localedir = '@localedir@'
 
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
-locale.bindtextdomain('afternoon', localedir)
-locale.textdomain('afternoon')
-gettext.install('afternoon', localedir)
+locale.bindtextdomain('showtime', localedir)
+locale.textdomain('showtime')
+gettext.install('showtime', localedir)
 
 if __name__ == '__main__':
     import gi
 
     from gi.repository import Gio
-    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'afternoon.gresource'))
+    resource = Gio.Resource.load(os.path.join(pkgdatadir, 'showtime.gresource'))
     resource._register()
 
-    from afternoon import main
+    from showtime import main
     sys.exit(main.main())

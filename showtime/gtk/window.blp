@@ -16,7 +16,7 @@ menu primary_menu {
 
   section {
     item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("_About Afternoon"), "app.about")
+    item (_("_About Showtime"), "app.about")
   }
 }
 
@@ -164,20 +164,20 @@ PopoverMenu context_menu_popover {
   has-arrow: false;
 }
 
-template $AfternoonWindow: Adw.ApplicationWindow {
+template $ShowtimeWindow: Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
   height-request: 202; // For a 16∶9 aspect ratio
   width-request: 360;
-  title: _("Afternoon");
+  title: _("Showtime");
 
   content: Adw.ToastOverlay toast_overlay {
-    $AfternoonDragOverlay drag_overlay {
+    $ShowtimeDragOverlay drag_overlay {
       overlayed: Adw.Bin {
         can-target: false;
 
         styles [
-          "afternoon-dragging-area-highlight"
+          "showtime-dragging-area-highlight"
         ]
       };
       child: Stack stack {
