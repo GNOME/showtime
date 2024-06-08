@@ -97,6 +97,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     _paused: bool = True
     stopped: bool = True
     buffering: bool = False
+    _toplevel_focused: bool = False
     reveal_timestamp: int = 0
     menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
@@ -277,6 +278,32 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.breakpoint_dock.connect(
             "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
         )
+
+        self.connect("realize", self.__on_realize)
+
+    def __on_realize(self, *_args: Any) -> None:
+        if not (surface := self.get_surface()):
+            return
+
+        if not isinstance(surface, Gdk.Toplevel):
+            return
+
+        surface.connect("notify::state", self.__on_toplevel_state_changed)
+
+    def __set_toplevel_focused(self, focused: bool) -> None:
+        self._toplevel_focused = focused
+
+    def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
+        if (
+            focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
+        ) == self._toplevel_focused:
+            return
+
+        if focused:
+            GLib.timeout_add(300, self.__set_toplevel_focused, focused)
+
+        else:
+            self.__set_toplevel_focused(focused)
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
@@ -877,6 +904,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         _y: int,
     ) -> None:
         self.__on_motion(None)
+        gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
         if (
             (event := gesture.get_current_event())
@@ -885,7 +913,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         ):
             return
 
-        gesture.set_state(Gtk.EventSequenceState.CLAIMED)
+        if not self._toplevel_focused:
+            return
 
         self.toggle_playback()
 
