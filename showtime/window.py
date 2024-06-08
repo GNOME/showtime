@@ -876,8 +876,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         _x: int,
         _y: int,
     ) -> None:
+        self.__on_motion(None)
+
         if (
-            (event := gesture.get_last_event())
+            (event := gesture.get_current_event())
             and (device := event.get_device())
             and device.get_source() == Gdk.InputSource.TOUCHSCREEN
         ):
@@ -886,7 +888,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
         self.toggle_playback()
-        self.__on_motion(None)
 
         if not n % 2:
             self.toggle_fullscreen()
