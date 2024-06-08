@@ -876,6 +876,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         _x: int,
         _y: int,
     ) -> None:
+        if (
+            (event := gesture.get_last_event())
+            and (device := event.get_device())
+            and device.get_source() == Gdk.InputSource.TOUCHSCREEN
+        ):
+            return
+
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
         self.toggle_playback()
