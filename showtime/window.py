@@ -549,7 +549,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         title = get_title(self.play.get_media_info()) or _("Unknown Title")
 
-        timestamp = nanoseconds_to_timestamp(self.play.get_position())
+        timestamp = nanoseconds_to_timestamp(self.play.get_position(), False)
 
         path = GLib.build_pathv(
             sep,

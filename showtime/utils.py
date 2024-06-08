@@ -57,22 +57,24 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Tex
     return renderer.render_texture(node, rect)
 
 
-def nanoseconds_to_timestamp(nanoseconds: int) -> str:
+def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) -> str:
     """
     Converts `nanoseconds` to a human readable time stamp
-    in the format 1:23 or 1:23:45 depending on the length.
+    in the format 1∶23 or 1∶23∶45 depending on the length.
+
+    If `format` is set to False, always returns a string in the format 01∶23∶45.
     """
 
-    return (
+    str = (
         (
             datetime.datetime.min
             + datetime.timedelta(microseconds=int(nanoseconds / 1000))
         )
         .time()
-        .strftime("%H:%M:%S")
-        .replace("00:0", "", 1)
-        .replace("00:", "", 1)
+        .strftime("%H∶%M∶%S")
     )
+
+    return str.replace("00∶0", "", 1).replace("00∶", "", 1) if format else str
 
 
 def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
