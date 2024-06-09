@@ -17,7 +17,7 @@
 	<developer id="page.kramo">
 		<name translate="no">kramo</name>
 	</developer>
-	<url type="homepage">https://gitlab.gnome.org/GNOME/Incubator/showtime</url>
+	<url type="homepage">https://apps.gnome.org/Showtime/</url>
 	<url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues</url>
 	<url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/showtime</url>
 	<project_group>GNOME</project_group>
