@@ -278,7 +278,7 @@ class MPRIS(DBusInterface):
                 )
             }
 
-        length = int(self.play.get_duration() / 1000)
+        length = int(self.play.get_duration() / 1e6)
 
         metadata = {
             "xesam:url": GLib.Variant("s", media_info.get_uri()),
@@ -313,7 +313,7 @@ class MPRIS(DBusInterface):
         )
 
     def _on_active_window_changed(self, *_args: Any) -> None:
-        position_msecond = int(self.play.get_position() / 1000) if self.play else 0
+        position_msecond = int(self.play.get_position() / 1e6) if self.play else 0
         playback_status = self._get_playback_status()
         can_play = (self.play.get_uri() is not None) if self.play else False
         self._properties_changed(
@@ -330,7 +330,10 @@ class MPRIS(DBusInterface):
 
     def _raise(self) -> None:
         """Brings user interface to the front (MPRIS Method)."""
-        ...
+        if not self.win:
+            return
+
+        self.win.present()
 
     def _quit(self) -> None:
         """Causes the media player to stop running (MPRIS Method)."""
@@ -379,7 +382,7 @@ class MPRIS(DBusInterface):
 
         self.win.unpause()
 
-    def _seek(self, _offset_msecond: int) -> None:
+    def _seek(self, offset_msecond: int) -> None:
         """Seek forward in the current track (MPRIS Method).
 
         Seek is relative to the current player position.
@@ -388,15 +391,21 @@ class MPRIS(DBusInterface):
 
         :param int offset_msecond: number of microseconds
         """
-        ...
+        if not self.play:
+            return
 
-    def _set_position(self, _track_id: str, _position_msecond: int) -> None:
+        self.play.seek(max(0, self.play.get_position() + (offset_msecond * 1e6)))
+
+    def _set_position(self, _track_id: str, position_msecond: int) -> None:
         """Set the current track position in microseconds (MPRIS Method)
 
         :param str track_id: The currently playing track's identifier
         :param int position_msecond: new position in microseconds
         """
-        ...
+        if not self.play:
+            return
+
+        self.play.seek(position_msecond * 1e6)
 
     def _open_uri(self, _uri: str) -> None:
         """Opens the Uri given as an argument (MPRIS Method).
@@ -438,7 +447,7 @@ class MPRIS(DBusInterface):
                 ),
             }
         elif interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
-            position_msecond = int(self.play.get_position() / 1000) if self.play else 0
+            position_msecond = int(self.play.get_position() / 1e6) if self.play else 0
             playback_status = self._get_playback_status()
             can_play = (self.play.get_uri() is not None) if self.play else False
             return {
@@ -454,7 +463,7 @@ class MPRIS(DBusInterface):
                 "CanGoPrevious": GLib.Variant("b", False),
                 "CanPlay": GLib.Variant("b", can_play),
                 "CanPause": GLib.Variant("b", can_play),
-                "CanSeek": GLib.Variant("b", False),
+                "CanSeek": GLib.Variant("b", True),
                 "CanControl": GLib.Variant("b", True),
             }
         elif interface_name == "org.freedesktop.DBus.Properties":
