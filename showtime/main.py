@@ -187,6 +187,7 @@ class ShowtimeApplication(Adw.Application):
     def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:
         self.save_play_position(win)
         self.uninhibit_win(win)
+        del win.play
 
     def __on_shutdown(self, *_args: Any) -> None:
         for win in self.get_windows():
