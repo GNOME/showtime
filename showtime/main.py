@@ -149,7 +149,7 @@ class ShowtimeApplication(Adw.Application):
         self.create_action(
             "close-window",
             lambda *_: self.get_active_window().close(),
-            ("<primary>w",),
+            ("<primary>w", "q"),
         )
         self.create_action(
             "quit",
