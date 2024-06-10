@@ -215,14 +215,15 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.connect("move-focus", self.__on_motion)
 
-        self.picture_motion = Gtk.EventControllerMotion()
-        self.picture_motion.connect("motion", self.__on_motion)
-        self.picture.add_controller(self.picture_motion)
+        self.overlay_motion = Gtk.EventControllerMotion()
+        self.overlay_motion.connect("motion", self.__on_motion)
+        self.video_overlay.add_controller(self.overlay_motion)
 
         for widget in (
             self.toolbar_box,
             self.header_start,
             self.header_end,
+            self.restore_revealer,
         ):
             widget.add_controller(motion := Gtk.EventControllerMotion())
             self.overlay_motions.add(motion)
@@ -960,7 +961,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(False)
 
-        if not self.picture_motion.contains_pointer():
+        if not self.overlay_motion.contains_pointer():
             return
 
         self.set_cursor_from_name("none")
