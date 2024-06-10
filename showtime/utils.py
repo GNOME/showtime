@@ -74,7 +74,15 @@ def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) ->
         .strftime("%H∶%M∶%S")
     )
 
-    return str.replace("00∶0", "", 1).replace("00∶", "", 1) if format else str
+    return (
+        (
+            stripped
+            if len(stripped := str.lstrip("0∶") or "0") > 2
+            else f"0∶{stripped.zfill(2)}"
+        )
+        if format
+        else str
+    )
 
 
 def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
