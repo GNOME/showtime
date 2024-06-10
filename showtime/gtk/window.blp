@@ -458,72 +458,79 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
               transition-type: crossfade;
               can-target: bind restore_revealer.reveal-child;
 
-              Box {
-                halign: center;
-                spacing: 24;
-                margin-top: 3;
-                margin-bottom: 3;
-                margin-start: 3;
-                margin-end: 3;
+              Adw.Clamp {
+                orientation: vertical;
+                maximum-size: 300;
+                tightening-threshold: 270;
 
-                Button {
-                  width-request: 126;
-                  height-request: 120;
+                Box restore_box {
+                  valign: start;
+                  halign: center;
+                  spacing: 24;
+                  margin-top: 12;
+                  margin-bottom: 3;
+                  margin-start: 3;
+                  margin-end: 3;
 
-                  Box {
-                    valign: center;
-                    orientation: vertical;
-                    spacing: 18;
+                  Button {
+                    width-request: 126;
+                    height-request: 120;
 
-                    Image {
-                      margin-top: 12;
-                      icon-name: "media-playback-start-symbolic";
-                      icon-size: large;
+                    Box {
+                      valign: center;
+                      orientation: vertical;
+                      spacing: 18;
+
+                      Image {
+                        margin-top: 12;
+                        icon-name: "media-playback-start-symbolic";
+                        icon-size: large;
+                      }
+
+                      Label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Resume");
+                      }
                     }
 
-                    Label {
-                      justify: center;
-                      wrap: true;
-                      label: _("Resume");
-                    }
+                    clicked => $_resume();
+
+                    styles [
+                      "osd",
+                      "soft-corners"
+                    ]
                   }
 
-                  clicked => $_resume();
+                  Button {
+                    width-request: 126;
+                    height-request: 120;
 
-                  styles [
-                    "osd",
-                    "soft-corners"
-                  ]
-                }
+                    Box {
+                      valign: center;
+                      orientation: vertical;
+                      spacing: 18;
 
-                Button {
-                  width-request: 126;
-                  height-request: 120;
+                      Image {
+                        margin-top: 12;
+                        icon-name: "arrow-circular-top-right-symbolic";
+                        icon-size: large;
+                      }
 
-                  Box {
-                    valign: center;
-                    orientation: vertical;
-                    spacing: 18;
-
-                    Image {
-                      margin-top: 12;
-                      icon-name: "arrow-circular-top-right-symbolic";
-                      icon-size: large;
+                      Label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Start Again");
+                      }
                     }
 
-                    Label {
-                      justify: center;
-                      wrap: true;
-                      label: _("Start Again");
-                    }
+                    clicked => $_play_again();
+
+                    styles [
+                      "osd",
+                      "soft-corners"
+                    ]
                   }
-
-                  clicked => $_play_again();
-
-                  styles [
-                    "osd",
-                    "soft-corners"
-                  ]
                 }
               }
             }

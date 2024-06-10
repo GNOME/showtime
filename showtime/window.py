@@ -89,6 +89,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
+    restore_box: Gtk.Box = Gtk.Template.Child()
 
     overlay_motions: set = set()
     overlay_revealers: set = set()
@@ -223,7 +224,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.toolbar_box,
             self.header_start,
             self.header_end,
-            self.restore_revealer,
+            self.restore_box,
         ):
             widget.add_controller(motion := Gtk.EventControllerMotion())
             self.overlay_motions.add(motion)
