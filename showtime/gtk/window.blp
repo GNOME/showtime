@@ -227,6 +227,128 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
         WindowHandle video_page {
           Overlay video_overlay {
+
+            [overlay]
+            Revealer restore_revealer {
+              can-target: bind restore_revealer.reveal-child;
+              transition-type: crossfade;
+
+              Adw.BreakpointBin {
+                width-request: 1;
+                height-request: 1;
+
+                Box restore_box {
+                  halign: center;
+                  valign: center;
+                  spacing: 9;
+                  margin-bottom: 126;
+                  margin-start: 3;
+                  margin-end: 3;
+
+                  Button resume_button {
+                    Box resume_box {
+                      margin-top: 9;
+                      margin-bottom: 9;
+                      margin-start: 18;
+                      margin-end: 18;
+                      valign: center;
+                      spacing: 18;
+
+                      Image resume_icon {
+                        icon-name: "media-playback-start-symbolic";
+                      }
+
+                      Label resume_label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Resume");
+                      }
+                    }
+
+                    clicked => $_resume();
+
+                    accessibility {
+                      labelled-by: resume_label;
+                    }
+
+                    styles [
+                      "osd",
+                      "soft-corners"
+                    ]
+                  }
+
+                  Button restart_button {
+                    Box restart_box {
+                      margin-top: 9;
+                      margin-bottom: 9;
+                      margin-start: 18;
+                      margin-end: 18;
+                      valign: center;
+                      spacing: 18;
+
+                      Image restart_icon {
+                        icon-name: "arrow-circular-top-right-symbolic";
+                      }
+
+                      Label restart_label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Start Again");
+                      }
+                    }
+
+                    clicked => $_play_again();
+
+                    accessibility {
+                      labelled-by: restart_label;
+                    }
+
+                    styles [
+                      "osd",
+                      "soft-corners"
+                    ]
+                  }
+                }
+
+                Adw.Breakpoint {
+                  condition ("max-height: 320px and max-width: 720px")
+
+                  setters {
+                    restart_label.visible: false;
+                    resume_label.visible: false;
+                  }
+                }
+
+                Adw.Breakpoint {
+                  condition ("min-height: 320px")
+
+                  setters {
+                    restore_box.spacing: 24;
+
+                    restart_button.width-request: 126;
+                    restart_button.height-request: 120;
+                    restart_box.orientation: vertical;
+                    restart_box.margin-top: 0;
+                    restart_box.margin-bottom: 0;
+                    restart_box.margin-start: 0;
+                    restart_box.margin-end: 0;
+                    restart_icon.icon-size: large;
+                    restart_icon.margin-top: 12;
+
+                    resume_button.width-request: 126;
+                    resume_button.height-request: 120;
+                    resume_box.orientation: vertical;
+                    resume_box.margin-top: 0;
+                    resume_box.margin-bottom: 0;
+                    resume_box.margin-start: 0;
+                    resume_box.margin-end: 0;
+                    resume_icon.icon-size: large;
+                    resume_icon.margin-top: 12;
+                  }
+                }
+              }
+            }
+
             [overlay]
             Revealer toolbar_revealer {
               valign: end;
@@ -451,90 +573,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
               }
             }
 
-            [overlay]
-            Revealer restore_revealer {
-              valign: center;
-              halign: center;
-              transition-type: crossfade;
-              can-target: bind restore_revealer.reveal-child;
-
-              Adw.Clamp {
-                orientation: vertical;
-                maximum-size: 300;
-                tightening-threshold: 270;
-
-                Box restore_box {
-                  valign: start;
-                  halign: center;
-                  spacing: 24;
-                  margin-top: 12;
-                  margin-bottom: 3;
-                  margin-start: 3;
-                  margin-end: 3;
-
-                  Button {
-                    width-request: 126;
-                    height-request: 120;
-
-                    Box {
-                      valign: center;
-                      orientation: vertical;
-                      spacing: 18;
-
-                      Image {
-                        margin-top: 12;
-                        icon-name: "media-playback-start-symbolic";
-                        icon-size: large;
-                      }
-
-                      Label {
-                        justify: center;
-                        wrap: true;
-                        label: _("Resume");
-                      }
-                    }
-
-                    clicked => $_resume();
-
-                    styles [
-                      "osd",
-                      "soft-corners"
-                    ]
-                  }
-
-                  Button {
-                    width-request: 126;
-                    height-request: 120;
-
-                    Box {
-                      valign: center;
-                      orientation: vertical;
-                      spacing: 18;
-
-                      Image {
-                        margin-top: 12;
-                        icon-name: "arrow-circular-top-right-symbolic";
-                        icon-size: large;
-                      }
-
-                      Label {
-                        justify: center;
-                        wrap: true;
-                        label: _("Start Again");
-                      }
-                    }
-
-                    clicked => $_play_again();
-
-                    styles [
-                      "osd",
-                      "soft-corners"
-                    ]
-                  }
-                }
-              }
-            }
-
             Overlay {
               [overlay]
               Revealer {
@@ -584,6 +622,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
       toolbar_clamp.margin-bottom: 12;
       toolbar_clamp.margin-start: 12;
       toolbar_clamp.margin-end: 12;
+
+      restore_box.margin-bottom: 138;
     }
   }
 
@@ -594,6 +634,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
       toolbar_clamp.margin-bottom: 24;
       toolbar_clamp.margin-start: 24;
       toolbar_clamp.margin-end: 24;
+
+      restore_box.margin-bottom: 150;
     }
   }
 
