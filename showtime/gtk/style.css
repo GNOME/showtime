@@ -51,3 +51,5 @@
 .dim-video-overlay {
   background-color: alpha(black, .3);
 }
+
+.black-background { background-color: black; }

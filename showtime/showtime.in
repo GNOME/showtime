@@ -24,15 +24,20 @@ import sys
 import signal
 import locale
 import gettext
+from platform import system
 
 pkgdatadir = '@pkgdatadir@'
 localedir = '@localedir@'
 
 sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
-locale.bindtextdomain('showtime', localedir)
-locale.textdomain('showtime')
-gettext.install('showtime', localedir)
+
+if system() == "Linux":
+    locale.bindtextdomain("showtime", localedir)
+    locale.textdomain("showtime")
+    gettext.install("showtime", localedir)
+else:
+    gettext.install("showtime")
 
 if __name__ == '__main__':
     import gi

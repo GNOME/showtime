@@ -605,9 +605,14 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
               }
 
               GraphicsOffload {
-                black-background: true;
+                // Requires GTK 4.15
+                // black-background: true;
                 child: Picture picture {};
               }
+
+              styles [
+                "black-background"
+              ]
             }
           }
         }

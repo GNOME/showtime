@@ -24,6 +24,7 @@ from hashlib import sha256
 from math import sqrt
 from os import sep
 from pathlib import Path
+from platform import system
 from time import time
 from typing import Any, Optional
 
@@ -160,7 +161,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         sink = Gst.ElementFactory.make("gtk4paintablesink")
         self.picture.set_paintable(paintable := sink.props.paintable)
 
-        if paintable.props.gl_context:
+        # OpenGL doesn't work on macOS properly
+        if paintable.props.gl_context and system() != "Darwin":
             gl_sink = Gst.ElementFactory.make("glsinkbin")
             gl_sink.props.sink = sink
             sink = gl_sink
