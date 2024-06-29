@@ -99,6 +99,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     _paused: bool = True
     stopped: bool = True
     buffering: bool = False
+    looping: bool = False
     _toplevel_focused: bool = False
     reveal_timestamp: int = 0
     menus_building: int = 0
@@ -399,7 +400,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.volume_scale.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
-                self.pause()
+                if not self.looping:
+                    self.pause()
+
                 self.play.seek(0)
 
             case GstPlay.PlayMessage.WARNING:
@@ -590,6 +593,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def toggle_playback(self) -> None:
         """Pauses/unpauses the currently playing video."""
         (self.unpause if self.paused else self.pause)()
+
+    def set_looping(self, looping: bool) -> None:
+        """Sets the looping state of the currently playing video."""
+        self.looping = looping
 
     def toggle_mute(self) -> None:
         """Mutes/unmutes the player."""

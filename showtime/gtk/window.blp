@@ -35,6 +35,10 @@ menu options {
       label: _("_Subtitles");
     }
   }
+
+  section {
+    item (_("_Repeat"), "app.toggle-loop")
+  }
 }
 
 PopoverMenu options_popover {
@@ -143,6 +147,7 @@ menu context_menu {
 
   section {
     item (_("Mute/Unmute"), "app.toggle-mute")
+    item (_("_Repeat"), "app.toggle-loop")
   }
 
   section {

@@ -181,8 +181,21 @@ class ShowtimeApplication(Adw.Application):
         )
         self.add_action(lang_action)
 
+        toggle_loop_action = Gio.SimpleAction.new_stateful(
+            "toggle-loop", None, GLib.Variant.new_boolean(False)
+        )
+        toggle_loop_action.connect("activate", self.__on_toggle_loop)
+        toggle_loop_action.connect("change-state", self.__on_toggle_loop)
+        self.add_action(toggle_loop_action)
+
         self.connect("window-removed", self.__on_window_removed)
         self.connect("shutdown", self.__on_shutdown)
+
+    def __on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant):
+        value = not action.props.state.get_boolean()
+        action.set_state(GLib.Variant.new_boolean(value))
+
+        self.get_active_window().set_looping(value)
 
     def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:
         self.save_play_position(win)
