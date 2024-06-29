@@ -216,8 +216,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         # Hide the toolbar on motion
 
-        self.connect("move-focus", self.__on_motion)
-
         self.overlay_motion = Gtk.EventControllerMotion()
         self.overlay_motion.connect("motion", self.__on_motion)
         self.video_overlay.add_controller(self.overlay_motion)
@@ -242,6 +240,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.options_menu_button,
             self.volume_menu_button,
         }
+
+        self.connect("move-focus", self.__on_motion)
+        self.__on_motion(None)
 
         # Drag and drop
 
