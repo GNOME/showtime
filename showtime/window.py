@@ -101,7 +101,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     buffering: bool = False
     looping: bool = False
     _toplevel_focused: bool = False
-    reveal_timestamp: int = 0
+    reveal_timestamp: float = 0.0
     menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -243,7 +243,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         }
 
         self.connect("move-focus", self.__on_motion)
-        self.__on_motion(None)
 
         # Drag and drop
 
@@ -895,9 +894,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.rate = 1
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
-        # HACK
         self.__on_motion(None)
-        self.reveal_timestamp = 0
 
         # TODO: Make this per-window instead of app-wide
         if (self.stack.get_visible_child() != self.video_page) or not (
@@ -957,7 +954,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             else "view-fullscreen-symbolic"
         )
 
-    def __hide_revealers(self, timestamp: int) -> None:
+    def __hide_revealers(self, timestamp: float) -> None:
         if timestamp != self.reveal_timestamp:
             return
 
@@ -980,7 +977,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def __on_motion(
         self, _obj: Any, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
-        # TODO: Optimize this
         if None not in (x, y):
             if (x, y) == self.prev_motion_xy:
                 return
@@ -992,5 +988,5 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(True)
 
-        self.reveal_timestamp = (timestamp := time())
-        GLib.timeout_add_seconds(2, self.__hide_revealers, timestamp)
+        self.reveal_timestamp = time()
+        GLib.timeout_add_seconds(2, self.__hide_revealers, self.reveal_timestamp)
