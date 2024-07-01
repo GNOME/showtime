@@ -18,11 +18,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""Configures application-wide logging."""
-from logging import Formatter, LogRecord, config
-from os import environ
-
-from showtime import shared
+from logging import Formatter, LogRecord
 
 
 class ColorLogFormatter(Formatter):
@@ -47,33 +43,3 @@ class ColorLogFormatter(Formatter):
                 return self.DIM + super_format + self.RESET
             case _other:
                 return super_format
-
-
-def configure_logging() -> None:
-    """Configures application-wide logging."""
-    log_level = environ.get(
-        "LOGLEVEL", "DEBUG" if shared.PROFILE == "development" else "INFO"
-    ).upper()
-
-    config.dictConfig(
-        {
-            "version": 1,
-            "formatters": {
-                "console_formatter": {
-                    "format": "%(levelname)s - %(message)s",
-                    "class": "showtime.configure_logging.ColorLogFormatter",
-                },
-            },
-            "handlers": {
-                "console_handler": {
-                    "class": "logging.StreamHandler",
-                    "formatter": "console_formatter",
-                    "level": log_level,
-                },
-            },
-            "root": {
-                "level": "NOTSET",
-                "handlers": ["console_handler"],
-            },
-        }
-    )

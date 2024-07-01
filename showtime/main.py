@@ -19,6 +19,7 @@
 
 """The main application singleton class."""
 import logging
+import lzma
 import pickle
 import sys
 from hashlib import sha256
@@ -38,8 +39,8 @@ gi.require_version("GstPbutils", "1.0")
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 from showtime import shared
-from showtime.configure_logging import configure_logging
 from showtime.drag_overlay import ShowtimeDragOverlay
+from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
 
@@ -64,7 +65,8 @@ class ShowtimeApplication(Adw.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
-        configure_logging()
+        setup_logging()
+        log_system_info()
 
         Gst.init()
 
@@ -334,8 +336,24 @@ class ShowtimeApplication(Adw.Application):
 
         return -1
 
-    def on_about_action(self, *_args: Any):
+    def on_about_action(self, *_args: Any) -> None:
         """Callback for the app.about action."""
+
+        # Get the debug info from the log files
+        debug_str = ""
+        for index, path in enumerate(shared.log_files):
+            # Add a horizontal line between runs
+            if index > 0:
+                debug_str += "─" * 37 + "\n"
+            # Add the run's logs
+            log_file = (
+                lzma.open(path, "rt", encoding="utf-8")
+                if path.name.endswith(".xz")
+                else open(path, "r", encoding="utf-8")
+            )
+            debug_str += log_file.read()
+            log_file.close()
+
         about = Adw.AboutDialog.new_from_appdata(
             shared.PREFIX + "/" + shared.APP_ID + ".metainfo.xml", shared.VERSION
         )
@@ -350,6 +368,8 @@ class ShowtimeApplication(Adw.Application):
         about.set_copyright("© 2024 kramo")
         # Translators: Replace this with your name for it to show up in the about dialog
         about.set_translator_credits = (_("translator_credits"),)
+        about.set_debug_info(debug_str)
+        about.set_debug_info_filename("showtime.log")
         about.present(self.get_active_window())
 
     def create_action(self, name, callback, shortcuts=None):

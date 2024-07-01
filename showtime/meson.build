@@ -34,7 +34,6 @@ configure_file(
 
 showtime_sources = [
   '__init__.py',
-  'configure_logging.py',
   'drag_overlay.py',
   'main.py',
   'mpris.py',
@@ -48,3 +47,4 @@ showtime_sources = [
 ]
 
 install_data(showtime_sources, install_dir: moduledir)
+install_subdir('logging', install_dir: moduledir)
