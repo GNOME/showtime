@@ -342,9 +342,11 @@ class ShowtimeApplication(Adw.Application):
         self.mpris_active = True
         MPRIS(self)
 
-    def do_open(self, files: Sequence[Gio.File], hint: str) -> None:
+    def do_open(  # type: ignore
+        self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str
+    ) -> None:
         """Opens the given files."""
-        for gfile in files:
+        for gfile in gfiles:
             self.do_activate(gfile)
 
     def do_handle_local_options(  # pylint: disable=arguments-differ
