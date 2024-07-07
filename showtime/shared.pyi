@@ -1,6 +1,6 @@
-# shared.py.in
+# shared.pyi
 #
-# Copyright 2023-2024 kramo
+# Copyright 2024 kramo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,30 +17,24 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""Shared data across the application."""
-
+from typing import Optional
 from pathlib import Path
 
-from gi.repository import Gio, GLib
+from gi.repository import Gio
 
-APP_ID = "@APP_ID@"
-VERSION = "@VERSION@"
-PREFIX = "@PREFIX@"
-PROFILE = "@PROFILE@"
+APP_ID: str
+VERSION: str
+PREFIX: str
+PROFILE: str
 
-schema = Gio.Settings.new(APP_ID)
-state_schema = Gio.Settings.new(APP_ID + ".State")
+schema: Gio.Settings
+state_schema: Gio.Settings
 
-cache_path = Path(GLib.get_user_cache_dir()) / "showtime"
-log_files = []
+cache_path: Path
+log_files: list[Path]
 
-# For large enough monitors, occupy 40% of the screen area when opening a window with a video
-DEFAULT_OCCUPY_SCREEN = 0.4
+DEFAULT_OCCUPY_SCREEN: float
+SMALL_SCREEN_AREA: int
+SMALL_OCCUPY_SCREEN: float
 
-# Screens with this resolution or smaller are handled as small
-SMALL_SCREEN_AREA = 1280 * 1024
-
-# For small monitors, occupy 80% of the screen area
-SMALL_OCCUPY_SCREEN = 0.8
-
-MAX_UINT16 = 65535
+MAX_UINT16: int

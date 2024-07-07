@@ -57,7 +57,7 @@ class ShowtimeDragOverlay(Adw.Bin):
         self.revealer.set_child(overlayed)
 
     @GObject.Property(type=Gtk.DropTarget)
-    def drop_target(self) -> Gtk.DropTarget:
+    def drop_target(self) -> Optional[Gtk.DropTarget]:
         """The drop target."""
         return self._drop_target
 

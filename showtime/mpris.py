@@ -25,7 +25,7 @@ import logging
 import re
 from typing import Any, Optional
 
-from gi.repository import Gio, GLib, GstPlay
+from gi.repository import Gio, GLib, GstPlay  # type: ignore
 
 from showtime import shared
 from showtime.utils import get_title
@@ -58,7 +58,9 @@ class DBusInterface:
         method_outargs = {}
         method_inargs = {}
         signals = {}
-        for interface in Gio.DBusNodeInfo.new_for_xml(self.__doc__).interfaces:
+        for interface in Gio.DBusNodeInfo.new_for_xml(
+            self.__doc__  #  type: ignore
+        ).interfaces:
             for method in interface.methods:
                 method_outargs[method.name] = (
                     "(" + "".join([arg.signature for arg in method.out_args]) + ")"
@@ -108,7 +110,7 @@ class DBusInterface:
             if sig == "h":
                 msg = invocation.get_message()
                 fd_list = msg.get_unix_fd_list()
-                args[i] = fd_list.get(args[i])
+                args[i] = fd_list.get(args[i])  #  type: ignore
 
         method_snake_name = DBusInterface.camelcase_to_snake_case(method_name)
         try:
@@ -421,7 +423,7 @@ class MPRIS(DBusInterface):
         # property. This results in a crash at startup.
         # Return nothing to prevent it.
         try:
-            return self._get_all(interface_name)[property_name]
+            return self._get_all(interface_name)[property_name]  # type: ignore
         except KeyError:
             msg = "MPRIS does not handle {} property from {} interface".format(
                 property_name, interface_name
@@ -429,7 +431,7 @@ class MPRIS(DBusInterface):
             logging.warning(msg)
             raise ValueError(msg)
 
-    def _get_all(self, interface_name: str) -> dict:
+    def _get_all(self, interface_name: str) -> Optional[dict]:
         if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
             application_id = self._app.props.application_id
             return {
@@ -500,5 +502,5 @@ class MPRIS(DBusInterface):
         }
         self._dbus_emit_signal("PropertiesChanged", parameters)
 
-    def _introspect(self) -> str:
+    def _introspect(self) -> Optional[str]:
         return self.__doc__

@@ -17,6 +17,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# pyright: reportAssignmentType=none
+
 """The main application window."""
 import logging
 import pickle
@@ -28,7 +30,17 @@ from platform import system
 from time import time
 from typing import Any, Optional
 
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, GstPlay, Gtk
+from gi.repository import (
+    Adw,
+    Gdk,
+    Gio,
+    GLib,
+    GObject,
+    Gst,
+    GstPbutils,
+    GstPlay,  # type: ignore
+    Gtk,
+)
 
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
@@ -146,9 +158,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         if paused:
-            app.uninhibit_win(self)
+            app.uninhibit_win(self)  # type: ignore
         else:
-            app.inhibit_win(self)
+            app.inhibit_win(self)  # type: ignore
 
     @GObject.Signal(name="media-info-updated")
     def __media_info_updated(self) -> None:
@@ -160,12 +172,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Set up GstPlay
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
-        self.picture.set_paintable(paintable := sink.props.paintable)
+        self.picture.set_paintable(paintable := sink.props.paintable)  # type: ignore
 
         # OpenGL doesn't work on macOS properly
         if paintable.props.gl_context and system() != "Darwin":
             gl_sink = Gst.ElementFactory.make("glsinkbin")
-            gl_sink.props.sink = sink
+            gl_sink.props.sink = sink  # type: ignore
             sink = gl_sink
 
         self.play = GstPlay.Play(
@@ -185,9 +197,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         # Limit the size of the options popover
 
-        self.options_popover.get_first_child().get_first_child().set_max_content_height(
-            300
-        )
+        if (child := self.options_popover.get_first_child()) and isinstance(
+            (scroll := child.get_first_child()), Gtk.ScrolledWindow
+        ):
+            scroll.set_max_content_height(300)
 
         # Devel stripes
 
@@ -210,7 +223,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         (esc := Gtk.ShortcutController()).add_shortcut(
             Gtk.Shortcut.new(
                 Gtk.ShortcutTrigger.parse_string("Escape"),
-                Gtk.CallbackAction.new(lambda *_: self.unfullscreen()),
+                Gtk.CallbackAction.new(lambda *_: bool(self.unfullscreen())),
             )
         )
         self.add_controller(esc)
@@ -305,10 +318,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         if focused:
-            GLib.timeout_add(300, self.__set_toplevel_focused, focused)
+            GLib.timeout_add(300, self.__set_toplevel_focused, True)
 
         else:
-            self.__set_toplevel_focused(focused)
+            self.__set_toplevel_focused(False)
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
@@ -487,7 +500,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         button.add_css_class("suggested-action")
 
         def install_plugin(*_args: Any) -> None:
-            GstPbutils.install_plugins_async((detail,), None, on_install_done)
+            GstPbutils.install_plugins_async(
+                (detail,) if detail else tuple(), None, on_install_done
+            )
             self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
             button.set_sensitive(False)
 
@@ -549,7 +564,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if not (texture := screenshot(paintable, self)):
             return
 
-        if pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES):
+        if pictures := GLib.get_user_special_dir(
+            GLib.USER_DIRECTORY_PICTURES  # type: ignore
+        ):
             path = GLib.build_pathv(sep, (pictures, "Screenshots"))
         else:
             path = GLib.get_home_dir()
@@ -619,7 +636,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         if app := self.get_application():
-            app.save_play_position(self)
+            app.save_play_position(self)  # type: ignore
 
         self.play_video(gfile)
 
@@ -647,7 +664,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         file_filter = Gtk.FileFilter()
         file_filter.add_mime_type("application/x-subrip")
         file_filter.add_mime_type("text/x-ssa")
-        file_filder.add_mime_type("text/vtt")
+        file_filter.add_mime_type("text/vtt")
         file_filter.set_name(_("Subtitles"))
 
         filters = Gio.ListStore()
@@ -675,7 +692,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if not (app := self.get_application()):
             return
 
-        app.lookup_action("select-subtitles").activate(GLib.Variant.new_uint16(index))
+        (
+            a.activate(GLib.Variant.new_uint16(index))
+            if (a := app.lookup_action("select-subtitles"))
+            else ...
+        )
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Selects the given subtitles for the video."""
@@ -746,7 +767,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             muted = self.play.get_mute()
 
         if volume is None:
-            volume = self.play.get_volume()
+            volume = self.play.get_volume() or 0.0
 
         self.volume_button.set_icon_name(
             "audio-volume-muted-symbolic"
@@ -903,8 +924,16 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         ):
             return
 
-        app.lookup_action("screenshot").set_enabled(True)
-        app.lookup_action("show-in-files").set_enabled(True)
+        (
+            a.set_enabled(True)
+            if isinstance(a := app.lookup_action("screenshot"), Gio.SimpleAction)
+            else ...
+        )
+        (
+            a.set_enabled(True)
+            if isinstance(a := app.lookup_action("show-in-files"), Gio.SimpleAction)
+            else ...
+        )
 
     def __on_primary_click_released(
         self,

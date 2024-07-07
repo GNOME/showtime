@@ -1,0 +1,4 @@
+{
+  "reportRedeclaration": "none", // For the GObject.Property decorator
+  "reportMissingModuleSource": "none"
+}

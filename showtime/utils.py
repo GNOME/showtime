@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Optional
 from urllib.parse import unquote, urlparse
 
-from gi.repository import Gdk, Graphene, GstPlay, Gtk
+from gi.repository import Gdk, Graphene, GstPlay, Gtk  # type: ignore
 
 
 def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Texture]:
@@ -53,8 +53,11 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Tex
     size.height = height
     rect.size = size
 
-    renderer = native.get_renderer()
-    return renderer.render_texture(node, rect)
+    return (
+        renderer.render_texture(node, rect)
+        if (renderer := native.get_renderer())
+        else None
+    )
 
 
 def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) -> str:
