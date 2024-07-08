@@ -4,7 +4,7 @@ include:
 
 variables:
   BUNDLE: "org.gnome.Showtime.Devel.flatpak"
-  MANIFEST_PATH: "flatpak/org.gnome.Showtime.Devel.json"
+  MANIFEST_PATH: "build-aux/flatpak/org.gnome.Showtime.Devel.json"
   FLATPAK_MODULE: "showtime"
   APP_ID: "org.gnome.Showtime.Devel"
   RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
