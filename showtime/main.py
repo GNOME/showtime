@@ -23,6 +23,7 @@ import lzma
 import pickle
 import sys
 from hashlib import sha256
+from platform import system
 from typing import Any, Optional, Sequence
 
 import gi
@@ -65,7 +66,11 @@ class ShowtimeApplication(Adw.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
-        setup_logging()
+        try:
+            setup_logging()
+        except ValueError:
+            pass
+
         log_system_info()
 
         Gst.init()
@@ -80,6 +85,9 @@ class ShowtimeApplication(Adw.Application):
 
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
+
+        if system() == "Darwin" and (settings := Gtk.Settings.get_default()):
+            settings.props.gtk_decoration_layout = "close,minimize:"
 
         self.create_action(
             "new-window",
@@ -174,7 +182,7 @@ class ShowtimeApplication(Adw.Application):
             ("<primary>w", "q"),
         )
         self.create_action(
-            "quit",
+            "quit-app",
             lambda *_: self.quit(),
             ("<primary>q",),
         )
@@ -415,6 +423,8 @@ class ShowtimeApplication(Adw.Application):
         action.connect("activate", callback)
         self.add_action(action)
         if shortcuts:
+            if system() == "Darwin":
+                shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
