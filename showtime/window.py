@@ -511,16 +511,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def __on_paintable_invalidate_size(
         self, paintable: Gdk.Paintable, *_args: Any
     ) -> None:
-        width = paintable.get_intrinsic_width()
-        height = paintable.get_intrinsic_height()
-        if width and height:
-            if self.is_visible():
-                # Add a timeout to not interfere with loading the stream too much
-                GLib.timeout_add(100, self.__resize_window, width, height)
-            else:
-                self.connect(
-                    "map", lambda *_: self.__resize_window(width, height, True)
-                )
+        if self.is_visible():
+            # Add a timeout to not interfere with loading the stream too much
+            GLib.timeout_add(100, self.__resize_window, None, paintable)
+        else:
+            self.connect("map", self.__resize_window, paintable, True)
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
@@ -817,11 +812,18 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
     def __resize_window(
-        self, video_width: int, video_height: int, initial: Optional[bool] = False
+        self, _obj: Any, paintable: Gdk.Paintable, initial: Optional[bool] = False
     ) -> None:
         logging.debug("Resizing window…")
 
-        # Make the window 3/5ths of the display height
+        if initial:
+            self.disconnect_by_func(self.__resize_window)
+
+        if not (video_width := paintable.get_intrinsic_width()) or not (
+            video_height := paintable.get_intrinsic_height()
+        ):
+            return
+
         if not (surface := self.get_surface()):
             logging.error("Could not get GdkSurface to resize window.")
             return
