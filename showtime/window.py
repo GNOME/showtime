@@ -172,7 +172,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Set up GstPlay
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
-        self.picture.set_paintable(paintable := sink.props.paintable)  # type: ignore
+        paintable = sink.props.paintable  # type: ignore
+
+        paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
+        self.picture.set_paintable(paintable)
 
         # OpenGL doesn't work on macOS properly
         if paintable.props.gl_context and system() != "Darwin":
@@ -325,17 +328,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
-            case GstPlay.PlayMessage.VIDEO_DIMENSIONS_CHANGED:
-                width, height = GstPlay.PlayMessage.parse_video_dimensions_changed(msg)
-                if width and height:
-                    if self.is_visible():
-                        # Add a timeout to not interfere with loading the stream too much
-                        GLib.timeout_add(100, self.__resize_window, width, height)
-                    else:
-                        self.connect(
-                            "map", lambda *_: self.__resize_window(width, height, True)
-                        )
-
             case GstPlay.PlayMessage.STATE_CHANGED:
                 state = GstPlay.PlayMessage.parse_state_changed(msg)
 
@@ -515,6 +507,20 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         )
         self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
         self.stack.set_visible_child(self.placeholder_page)
+
+    def __on_paintable_invalidate_size(
+        self, paintable: Gdk.Paintable, *_args: Any
+    ) -> None:
+        width = paintable.get_intrinsic_width()
+        height = paintable.get_intrinsic_height()
+        if width and height:
+            if self.is_visible():
+                # Add a timeout to not interfere with loading the stream too much
+                GLib.timeout_add(100, self.__resize_window, width, height)
+            else:
+                self.connect(
+                    "map", lambda *_: self.__resize_window(width, height, True)
+                )
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
