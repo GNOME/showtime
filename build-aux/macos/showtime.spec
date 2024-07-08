@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['../../_build/showtime/showtime'],
+    ["../../_build/showtime/showtime"],
     pathex=[],
     binaries=[],
     datas=[],
@@ -20,7 +20,7 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
-a.binaries = [b for b in a.binaries if 'libgtk-3.0' not in b[0]]
+a.binaries = [b for b in a.binaries if "libgtk-3.0" not in b[0]]
 pyz = PYZ(a.pure)
 
 exe = EXE(
@@ -28,7 +28,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='Showtime',
+    name="Showtime",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -47,11 +47,11 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='Showtime',
+    name="Showtime",
 )
 app = BUNDLE(
     coll,
-    name='Showtime.app',
-    icon='./icon.icns',
+    name="Showtime.app",
+    icon="./icon.icns",
     bundle_identifier=None,
 )
