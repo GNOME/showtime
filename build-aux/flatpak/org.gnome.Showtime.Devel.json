@@ -17,8 +17,7 @@
     "--device=dri",
     "--socket=wayland",
     "--socket=pulseaudio",
-    "--filesystem=xdg-pictures/Screenshots:create",
-    "--own-name=org.mpris.MediaPlayer2.org.gnome.Showtime.Devel"
+    "--filesystem=xdg-pictures/Screenshots:create"
   ],
   "add-extensions": {
     "org.freedesktop.Platform.ffmpeg-full": {
