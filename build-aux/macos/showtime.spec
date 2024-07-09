@@ -9,6 +9,11 @@ a = Analysis(
     hiddenimports=[],
     hookspath=[],
     hooksconfig={
+        "gstreamer": {
+            "exclude_plugins": [
+                "gtk",
+            ],
+        },
         "gi": {
             "module-versions": {
                 "Gtk": "4.0",
@@ -20,7 +25,6 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
-a.binaries = [b for b in a.binaries if "libgtk-3.0" not in b[0]]
 pyz = PYZ(a.pure)
 
 exe = EXE(
