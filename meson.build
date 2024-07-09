@@ -1,6 +1,6 @@
 project(
   'showtime',
-  version: '47.alpha',
+  version: '46.3',
   meson_version: '>= 0.62.0',
   default_options: [
     'warning_level=2',
