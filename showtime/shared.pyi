@@ -29,7 +29,7 @@ VERSION: str
 PREFIX: str
 PROFILE: str
 
-app = Optional[ShowtimeApplication]
+app: Optional[ShowtimeApplication]
 
 schema: Gio.Settings
 state_schema: Gio.Settings

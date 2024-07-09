@@ -46,15 +46,17 @@ from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
 
 if system() == "Darwin":
-    from Cocoa import NSObject, NSApp  # type: ignore
+    from Cocoa import NSObject, NSApp, NSApplication  # type: ignore
     from PyObjCTools import AppHelper
 
     class ApplicationDelegate(NSObject):  # type: ignore
-        def application_openFile_(self, _application, fileName):
-            if not (win := shared.app.win):  # type: ignore
+        def application_openFile_(
+            self, _theApplication: NSApplication, filename: str
+        ) -> bool:
+            if (not shared.app) or (not (win := shared.app.win)):
                 return False
 
-            win.play_video(Gio.File.new_for_path(fileName))
+            win.play_video(Gio.File.new_for_path(filename))
             return True
 
 
