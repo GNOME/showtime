@@ -5,7 +5,7 @@ a = Analysis(
     ["../../_build/showtime/showtime"],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[("../../_build/showtime/showtime.gresource", "Resources")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={
