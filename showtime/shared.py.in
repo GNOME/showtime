@@ -20,6 +20,7 @@
 """Shared data across the application."""
 
 from pathlib import Path
+import platform
 
 from gi.repository import Gio, GLib
 
@@ -27,6 +28,8 @@ APP_ID = "@APP_ID@"
 VERSION = "@VERSION@"
 PREFIX = "@PREFIX@"
 PROFILE = "@PROFILE@"
+
+system = platform.system()
 
 app = None
 

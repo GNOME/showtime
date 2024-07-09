@@ -7,11 +7,19 @@ menu primary_menu {
   }
 
   section {
-    item (_("Show in _Files"), "app.show-in-files")
+    item {
+        label: _("Show in _Files");
+        action: "app.show-in-files";
+        hidden-when: "action-disabled";
+    }
   }
 
   section {
-    item (_("Take _Screenshot"), "app.screenshot")
+    item {
+        label: _("Take _Screenshot");
+        action: "app.screenshot";
+        hidden-when: "action-disabled";
+    }
   }
 
   section {
@@ -151,11 +159,19 @@ menu context_menu {
   }
 
   section {
-    item (_("Take _Screenshot"), "app.screenshot")
+    item {
+        label: _("Take _Screenshot");
+        action: "app.screenshot";
+        hidden-when: "action-disabled";
+    }
   }
 
   section {
-    item (_("Show in _Files"), "app.show-in-files")
+    item {
+        label: _("Show in _Files");
+        action: "app.show-in-files";
+        hidden-when: "action-disabled";
+    }
   }
 
   section {

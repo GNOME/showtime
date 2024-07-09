@@ -29,6 +29,8 @@ VERSION: str
 PREFIX: str
 PROFILE: str
 
+system: str
+
 app: Optional[ShowtimeApplication]
 
 schema: Gio.Settings

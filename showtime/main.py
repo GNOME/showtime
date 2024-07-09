@@ -23,7 +23,6 @@ import lzma
 import pickle
 import sys
 from hashlib import sha256
-from platform import system
 from typing import Any, Optional, Sequence
 
 import gi
@@ -45,7 +44,7 @@ from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
 
-if system() == "Darwin":
+if shared.system == "Darwin":
     from Cocoa import NSObject, NSApp, NSApplication  # type: ignore
     from PyObjCTools import AppHelper
 
@@ -89,7 +88,7 @@ class ShowtimeApplication(Adw.Application):
 
         Gst.init()
 
-        if system() == "Darwin":
+        if shared.system == "Darwin":
 
             def setup_app_delegate() -> None:
                 NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
@@ -108,7 +107,7 @@ class ShowtimeApplication(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
-        if system() == "Darwin" and (settings := Gtk.Settings.get_default()):
+        if shared.system == "Darwin" and (settings := Gtk.Settings.get_default()):
             settings.props.gtk_decoration_layout = "close,minimize:"
 
         self.create_action(
@@ -445,7 +444,7 @@ class ShowtimeApplication(Adw.Application):
         action.connect("activate", callback)
         self.add_action(action)
         if shortcuts:
-            if system() == "Darwin":
+            if shared.system == "Darwin":
                 shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
             self.set_accels_for_action(f"app.{name}", shortcuts)
 

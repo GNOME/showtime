@@ -26,7 +26,6 @@ from hashlib import sha256
 from math import sqrt
 from os import sep
 from pathlib import Path
-from platform import system
 from time import time
 from typing import Any, Optional
 
@@ -167,7 +166,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         """Emitted when the currently playing video's media info is updated."""
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
+        super().__init__(
+            decorated=False if shared.system == "Darwin" else True, **kwargs
+        )
 
         # Set up GstPlay
 
@@ -178,7 +179,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.picture.set_paintable(paintable)
 
         # OpenGL doesn't work on macOS properly
-        if paintable.props.gl_context and system() != "Darwin":
+        if paintable.props.gl_context and shared.system != "Darwin":
             gl_sink = Gst.ElementFactory.make("glsinkbin")
             gl_sink.props.sink = sink  # type: ignore
             sink = gl_sink
@@ -935,11 +936,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         (
             a.set_enabled(True)
             if isinstance(a := app.lookup_action("screenshot"), Gio.SimpleAction)
+            and shared.system != "Darwin"
             else ...
         )
         (
             a.set_enabled(True)
             if isinstance(a := app.lookup_action("show-in-files"), Gio.SimpleAction)
+            and shared.system != "Darwin"
             else ...
         )
 
