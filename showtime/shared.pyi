@@ -22,10 +22,14 @@ from pathlib import Path
 
 from gi.repository import Gio
 
+from showtime.main import ShowtimeApplication
+
 APP_ID: str
 VERSION: str
 PREFIX: str
 PROFILE: str
+
+app = Optional[ShowtimeApplication]
 
 schema: Gio.Settings
 state_schema: Gio.Settings

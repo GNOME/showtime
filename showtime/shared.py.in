@@ -28,6 +28,8 @@ VERSION = "@VERSION@"
 PREFIX = "@PREFIX@"
 PROFILE = "@PROFILE@"
 
+app = None
+
 schema = Gio.Settings.new(APP_ID)
 state_schema = Gio.Settings.new(APP_ID + ".State")
 

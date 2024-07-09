@@ -53,5 +53,16 @@ app = BUNDLE(
     coll,
     name="Showtime.app",
     icon="./icon.icns",
-    bundle_identifier=None,
+    bundle_identifier="org.gnome.Showtime",
+    info_plist={
+        "LSApplicationCategoryType": "public.app-category.video",
+        "CFBundleDocumentTypes": [
+            {
+                "LSItemContentTypes": [
+                    "public.movie",
+                ],
+                "CFBundleTypeRole": "Viewer",
+            }
+        ],
+    },
 )

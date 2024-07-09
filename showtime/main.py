@@ -45,6 +45,18 @@ from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
 
+if system() == "Darwin":
+    from Cocoa import NSObject, NSApp  # type: ignore
+    from PyObjCTools import AppHelper
+
+    class ApplicationDelegate(NSObject):  # type: ignore
+        def application_openFile_(self, _application, fileName):
+            if not (win := shared.app.win):  # type: ignore
+                return False
+
+            win.play_video(Gio.File.new_for_path(fileName))
+            return True
+
 
 class ShowtimeApplication(Adw.Application):
     """The main application singleton class."""
@@ -74,6 +86,14 @@ class ShowtimeApplication(Adw.Application):
         log_system_info()
 
         Gst.init()
+
+        if system() == "Darwin":
+
+            def setup_app_delegate() -> None:
+                NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
+                AppHelper.runEventLoop()  # type: ignore
+
+            GLib.Thread.new(None, setup_app_delegate)
 
         new_window = GLib.OptionEntry()
         new_window.long_name = "new-window"
@@ -430,5 +450,5 @@ class ShowtimeApplication(Adw.Application):
 
 def main():
     """The application's entry point."""
-    app = ShowtimeApplication()
-    return app.run(sys.argv)
+    shared.app = ShowtimeApplication()
+    return shared.app.run(sys.argv)
