@@ -63,6 +63,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
     placeholder_stack: Gtk.Stack = Gtk.Template.Child()
+    placeholder_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     open_status_page: Adw.StatusPage = Gtk.Template.Child()
     error_status_page: Adw.StatusPage = Gtk.Template.Child()
     missing_plugin_status_page: Adw.StatusPage = Gtk.Template.Child()
@@ -169,6 +170,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         super().__init__(
             decorated=False if shared.system == "Darwin" else True, **kwargs
         )
+
+        if shared.system == "Darwin":
+            self.placeholder_primary_menu_button.set_visible(False)
+            self.video_primary_menu_button.set_visible(False)
 
         # Set up GstPlay
 
