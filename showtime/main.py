@@ -54,11 +54,16 @@ if shared.system == "Darwin":
         def applicationDidFinishLaunching_(self, *_args: Any) -> None:
             main_menu = NSApp.mainMenu()
 
+            new_window_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+                "New Window", "new:", "n"
+            )
+
             open_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
                 "Open…", "open:", "o"
             )
 
             file_menu = NSMenu.alloc().init()
+            file_menu.addItem_(new_window_item)
             file_menu.addItem_(open_menu_item)
 
             file_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
@@ -93,6 +98,12 @@ if shared.system == "Darwin":
             main_menu.addItem_(help_menu_item)
 
             NSApp.setHelpMenu_(help_menu)
+
+        def new_(self, *_args: Any) -> None:
+            if not shared.app:
+                return
+
+            shared.app.do_activate()
 
         def open_(self, *_args: Any) -> None:
             if (not (shared.app)) or (not (win := shared.app.win)):
