@@ -45,90 +45,10 @@ from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
 
 if shared.system == "Darwin":
-    from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
-
-    from Foundation import NSObject  # type: ignore
+    from AppKit import NSApp  # type: ignore
     from PyObjCTools import AppHelper
 
-    class ApplicationDelegate(NSObject):  # type: ignore
-        def applicationDidFinishLaunching_(self, *_args: Any) -> None:
-            main_menu = NSApp.mainMenu()
-
-            new_window_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "New Window", "new:", "n"
-            )
-
-            open_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "Open…", "open:", "o"
-            )
-
-            file_menu = NSMenu.alloc().init()
-            file_menu.addItem_(new_window_item)
-            file_menu.addItem_(open_menu_item)
-
-            file_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "File", None, ""
-            )
-            file_menu_item.setSubmenu_(file_menu)
-            main_menu.addItem_(file_menu_item)
-
-            windows_menu = NSMenu.alloc().init()
-
-            windows_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "Window", None, ""
-            )
-            windows_menu_item.setSubmenu_(windows_menu)
-            main_menu.addItem_(windows_menu_item)
-
-            NSApp.setWindowsMenu_(windows_menu)
-
-            keyboard_shortcuts_menu_item = (
-                NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                    "Keyboard Shortcuts", "shortcuts:", "?"
-                )
-            )
-
-            help_menu = NSMenu.alloc().init()
-            help_menu.addItem_(keyboard_shortcuts_menu_item)
-
-            help_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "Help", None, ""
-            )
-            help_menu_item.setSubmenu_(help_menu)
-            main_menu.addItem_(help_menu_item)
-
-            NSApp.setHelpMenu_(help_menu)
-
-        def new_(self, *_args: Any) -> None:
-            if not shared.app:
-                return
-
-            shared.app.do_activate()
-
-        def open_(self, *_args: Any) -> None:
-            if (not (shared.app)) or (not (win := shared.app.win)):
-                return
-
-            win.choose_video()
-
-        def shortcuts_(self, *_args: Any) -> None:
-            if (
-                (not (shared.app))
-                or (not (win := shared.app.win))
-                or (not (overlay := win.get_help_overlay()))
-            ):
-                return
-
-            overlay.present()
-
-        def application_openFile_(
-            self, _theApplication: NSApplication, filename: str
-        ) -> bool:
-            if (not shared.app) or (not (win := shared.app.win)):
-                return False
-
-            win.play_video(Gio.File.new_for_path(filename))
-            return True
+    from showtime.application_delegate import ApplicationDelegate
 
 
 class ShowtimeApplication(Adw.Application):

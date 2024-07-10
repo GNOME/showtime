@@ -40,6 +40,7 @@ configure_file(
 
 showtime_sources = [
   '__init__.py',
+  'application_delegate.py',
   'drag_overlay.py',
   'main.py',
   'mpris.py',
