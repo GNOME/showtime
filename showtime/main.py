@@ -67,12 +67,6 @@ if shared.system == "Darwin":
             file_menu_item.setSubmenu_(file_menu)
             main_menu.addItem_(file_menu_item)
 
-            keyboard_shortcuts_menu_item = (
-                NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                    "Keyboard Shortcuts", "shortcuts:", "?"
-                )
-            )
-
             windows_menu = NSMenu.alloc().init()
 
             windows_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
@@ -82,6 +76,12 @@ if shared.system == "Darwin":
             main_menu.addItem_(windows_menu_item)
 
             NSApp.setWindowsMenu_(windows_menu)
+
+            keyboard_shortcuts_menu_item = (
+                NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
+                    "Keyboard Shortcuts", "shortcuts:", "?"
+                )
+            )
 
             help_menu = NSMenu.alloc().init()
             help_menu.addItem_(keyboard_shortcuts_menu_item)
