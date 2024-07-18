@@ -47,9 +47,9 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://crates.io/api/v1/crates/gst-plugin-gtk4/0.12.5/download",
-          "dest-filename": "gst-plugin-gtk4-0.12.5.tar.gz",
-          "sha256": "56e483cb1452f056ae94ccd5f63bdec697e04c87b30d89eb30c3f934042e1022"
+          "url": "https://crates.io/api/v1/crates/gst-plugin-gtk4/0.13.0/download",
+          "dest-filename": "gst-plugin-gtk4-0.13.0.tar.gz",
+          "sha256": "69b98aeb531b6cf9c3a6eb36742cedc0168054e2f040b76ddc61260c10dec589"
         },
         "gst-plugin-gtk4-sources.json"
       ],
