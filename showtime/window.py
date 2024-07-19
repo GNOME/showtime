@@ -29,17 +29,8 @@ from pathlib import Path
 from time import time
 from typing import Any, Optional
 
-from gi.repository import (
-    Adw,
-    Gdk,
-    Gio,
-    GLib,
-    GObject,
-    Gst,
-    GstPbutils,
-    GstPlay,  # type: ignore
-    Gtk,
-)
+from gi.repository import GstPlay  # type: ignore
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, Gtk
 
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
@@ -71,6 +62,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video_overlay: Gtk.Overlay = Gtk.Template.Child()
+    spinner_overlay: Gtk.Overlay = Gtk.Template.Child()
+    graphics_offload: Gtk.GraphicsOffload = Gtk.Template.Child()
     picture: Gtk.Picture = Gtk.Template.Child()
 
     header_revealer_start: Gtk.Revealer = Gtk.Template.Child()
@@ -171,9 +164,21 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             decorated=False if shared.system == "Darwin" else True, **kwargs
         )
 
+        # Remove redundant main menu on macOS
+
         if shared.system == "Darwin":
             self.placeholder_primary_menu_button.set_visible(False)
             self.video_primary_menu_button.set_visible(False)
+
+        # Set `black-background` if supported or fall back to a style class
+
+        try:
+            self.graphics_offload.set_black_background(True)  #  type: ignore
+        except AttributeError:
+            logging.debug(
+                "GTK 4.14 or earlier, GtkGraphicsOffload:black-background not supported"
+            )
+            self.spinner_overlay.add_css_class("black-background")
 
         # Set up GstPlay
 
