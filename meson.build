@@ -9,7 +9,7 @@ project(
 )
 
 dependency('gtk4', version: '>= 4.14.0')
-dependency('libadwaita-1', version: '>= 1.5')
+dependency('libadwaita-1', version: '>= 1.6.beta')
 
 i18n = import('i18n')
 gnome = import('gnome')
