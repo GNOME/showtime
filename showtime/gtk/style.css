@@ -1,55 +1,81 @@
-.osd popover > contents, .osd popover > arrow, toast {
-    background-color: alpha(black, .9);
+.osd popover > contents,
+.osd popover > arrow,
+toast {
+    background-color: alpha(black, 0.9);
 }
 
 /* From libadwaita */
 /* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/3b34dfeb150ca091c7e73bc74a863a978028e318/src/stylesheet/_common.scss#L34 */
 .window-controls-osd > button > image {
-    color: alpha(white, .9);
-    background-color: alpha(black, .7);
+    color: alpha(white, 0.9);
+    background-color: alpha(black, 0.7);
 }
 
 /* https://gitlab.gnome.org/GNOME/libadwaita/-/blob/9e4d10af0308f6abf54769bd6b74941cb10bcdc7/src/stylesheet/widgets/_buttons.scss#L122 */
 
 .window-controls-osd > button > image:hover {
     color: white;
-    background-color: alpha(mix(black, white, .15), .65);
+    background-color: alpha(mix(black, white, 0.15), 0.65);
 }
 
-.soft-corners { border-radius: 18px; }
+.soft-corners {
+    border-radius: 18px;
+}
 
-.sharp-corners { border-radius: 0; }
+.sharp-corners {
+    border-radius: 0;
+}
 
-.timestamp { margin-bottom: -15px; }
-#title-label { margin-bottom: -3px; }
+.timestamp {
+    margin-bottom: -15px;
+}
+#title-label {
+    margin-bottom: -3px;
+}
 
 .selection-toolbar > button {
-	border-radius: 2em;
-	padding: .1em .6em .1em .8em;
+    border-radius: 2em;
+    padding: 0.1em 0.6em 0.1em 0.8em;
 }
 
-#play-button { padding: 3px 6px; margin: 0px 6px; }
-#play-button image { -gtk-icon-size: 21px; }
+#play-button {
+    padding: 3px 6px;
+    margin: 0px 6px;
+}
+#play-button image {
+    -gtk-icon-size: 21px;
+}
 
-.no-knob { padding: 6px 9px 6px 15px; }
-.no-knob mark > indicator { min-height: 0; }
+.no-knob {
+    padding: 6px 9px 6px 15px;
+}
+.no-knob mark > indicator {
+    min-height: 0;
+}
 
 /* From Amberol */
 /* https://gitlab.gnome.org/World/amberol/-/blob/763dbd9c102805a9c4bf10c3175e10cde69953ad/src/gtk/style.css#L151 */
 
-.no-knob trough > highlight { min-height: 9px; min-width: 9px; }
-.no-knob trough > slider { opacity: 0; }
+.no-knob trough > highlight {
+    min-height: 9px;
+    min-width: 9px;
+}
+.no-knob trough > slider {
+    opacity: 0;
+}
 
 /* Drag overlay, from Loupe */
 /* https://gitlab.gnome.org/GNOME/loupe/-/blob/d66dd0f16bf45b3cd46e3a084409513eaa1c9af5/data/resources/style.css#L31 */
 .showtime-dragging-area-highlight {
-  border-radius: 8px;
-  background-color: alpha(@blue_2, .35);
-  margin: 24px;
+    border-radius: 8px;
+    background-color: alpha(var(--accent-bg-color), 0.35);
+    margin: 24px;
 }
 
 .dim-video-overlay {
-  background-color: alpha(black, .3);
+    background-color: alpha(black, 0.3);
 }
 
-.black-background { background-color: black; }
+.black-background {
+    background-color: black;
+}
