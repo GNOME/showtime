@@ -39,6 +39,8 @@ state_schema = Gio.Settings.new(APP_ID + ".State")
 cache_path = Path(GLib.get_user_cache_dir()) / "showtime"
 log_files = []
 
+end_timestamp_type = state_schema.get_enum("end-timestamp-type")
+
 # For large enough monitors, occupy 40% of the screen area when opening a window with a video
 DEFAULT_OCCUPY_SCREEN = 0.4
 

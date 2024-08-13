@@ -39,6 +39,8 @@ state_schema: Gio.Settings
 cache_path: Path
 log_files: list[Path]
 
+end_timestamp_type: int
+
 DEFAULT_OCCUPY_SCREEN: float
 SMALL_SCREEN_AREA: int
 SMALL_OCCUPY_SCREEN: float

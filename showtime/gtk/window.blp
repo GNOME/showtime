@@ -415,16 +415,19 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     }
 
                     [end]
-                    Label duration_label {
+                    Button end_timestamp_button {
+                      name: "end-timestamp-button";
                       label: "0∶00";
                       margin-start: 3;
-                      margin-end: 12;
+                      tooltip-text: _("Toggle Duration/Remaining");
+                      clicked => $_cycle_end_timestamp_type();
 
                       styles [
                         "caption",
                         "numeric",
                         "timestamp",
-                        "dim-label"
+                        "dim-label",
+                        "flat"
                       ]
                     }
                   }
