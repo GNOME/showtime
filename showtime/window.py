@@ -81,7 +81,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     play_button: Gtk.Button = Gtk.Template.Child()
     position_label: Gtk.Label = Gtk.Template.Child()
     seek_scale: Gtk.Scale = Gtk.Template.Child()
-    duration_label: Gtk.Label = Gtk.Template.Child()
+    end_timestamp_button: Gtk.Button = Gtk.Template.Child()
 
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     volume_button: Gtk.Button = Gtk.Template.Child()
@@ -293,6 +293,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             ),
         )
 
+        shared.state_schema.connect(
+            "changed::end-timestamp-type", self.__on_end_timestamp_type_changed
+        )
+
         self.volume_scale.connect(
             "change-value",
             lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
@@ -368,24 +372,20 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                         self.paused = False
 
             case GstPlay.PlayMessage.DURATION_CHANGED:
-                self.duration_label.set_label(
-                    nanoseconds_to_timestamp(
-                        GstPlay.PlayMessage.parse_duration_updated(msg)
-                    )
-                )
+                pos = self.play.get_position()
+                dur = GstPlay.PlayMessage.parse_duration_updated(msg)
+
+                self.__set_end_timestamp_label(pos, dur)
 
             case GstPlay.PlayMessage.POSITION_UPDATED:
-                self.seek_scale.set_value(
-                    GstPlay.PlayMessage.parse_position_updated(msg)
-                    / self.play.get_duration()
-                )
+                pos = GstPlay.PlayMessage.parse_position_updated(msg)
+                dur = self.play.get_duration()
+
+                self.seek_scale.set_value(pos / dur)
 
                 # TODO: This can probably be done only every second instead
-                self.position_label.set_label(
-                    nanoseconds_to_timestamp(
-                        GstPlay.PlayMessage.parse_position_updated(msg)
-                    )
-                )
+                self.position_label.set_label(nanoseconds_to_timestamp(pos))
+                self.__set_end_timestamp_label(pos, dur)
 
             case GstPlay.PlayMessage.SEEK_DONE:
                 pos = self.play.get_position()
@@ -393,6 +393,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
                 self.seek_scale.set_value(pos / dur)
                 self.position_label.set_label(nanoseconds_to_timestamp(pos))
+                self.__set_end_timestamp_label(pos, dur)
                 logging.debug("Seeked to %i.", pos)
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
@@ -910,6 +911,33 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
             (anim.skip if initial else anim.play)()
             logging.debug("Resized window to %i×%i.", int(nat_width), int(nat_height))
+
+    def __on_end_timestamp_type_changed(self, *_args: Any) -> None:
+        shared.end_timestamp_type = shared.state_schema.get_enum("end-timestamp-type")
+        self.__set_end_timestamp_label(
+            self.play.get_position(), self.play.get_duration()
+        )
+
+    def __set_end_timestamp_label(self, pos: int, dur: int) -> None:
+        match shared.end_timestamp_type:
+            case 0:  # Duration
+                self.end_timestamp_button.set_label(nanoseconds_to_timestamp(dur))
+            case 1:  # Remaining
+                self.end_timestamp_button.set_label(
+                    "-" + nanoseconds_to_timestamp(dur - pos)
+                )
+
+    @Gtk.Template.Callback()
+    def _cycle_end_timestamp_type(self, *_args: Any) -> None:
+        match shared.end_timestamp_type:
+            case 0:
+                shared.state_schema.set_enum("end-timestamp-type", 1)
+            case 1:
+                shared.state_schema.set_enum("end-timestamp-type", 0)
+
+        self.__set_end_timestamp_label(
+            self.play.get_position(), self.play.get_duration()
+        )
 
     @Gtk.Template.Callback()
     def _resume(self, *_args: Any) -> None:

@@ -46,6 +46,10 @@ toast {
     -gtk-icon-size: 21px;
 }
 
+#end-timestamp-button {
+    padding: 0 12px;
+}
+
 .no-knob {
     padding: 6px 9px 6px 15px;
 }

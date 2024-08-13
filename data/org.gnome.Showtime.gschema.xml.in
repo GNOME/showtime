@@ -2,9 +2,19 @@
 <schemalist gettext-domain="showtime">
 	<schema id="@APP_ID@" path="@PREFIX@/">
 	</schema>
+	<enum id="@APP_ID@.end-timestamp-types">
+		<value nick="Duration" value="0"/>
+		<value nick="Remaining" value="1"/>
+	</enum>
 	<schema id="@APP_ID@.State" path="@PREFIX@/State/">
+		<key name="end-timestamp-type" enum="@APP_ID@.end-timestamp-types">
+			<default>"Duration"</default>
+			<summary>What to show in the end timestamp position</summary>
+			<description>E.g. total duration of the video or the amount of time remaining</description>
+		</key>
 		<key name="is-maximized" type="b">
 			<default>false</default>
 		</key>
 	</schema>
 </schemalist>
+
