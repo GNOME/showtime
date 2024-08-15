@@ -30,7 +30,7 @@ from time import time
 from typing import Any, Optional
 
 from gi.repository import GstPlay  # type: ignore
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstAudio, GstPbutils, Gtk
 
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
@@ -85,7 +85,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
     volume_button: Gtk.Button = Gtk.Template.Child()
-    volume_scale: Gtk.Scale = Gtk.Template.Child()
+    volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
@@ -297,10 +297,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             "changed::end-timestamp-type", self.__on_end_timestamp_type_changed
         )
 
-        self.volume_scale.connect(
-            "change-value",
-            lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
+        self.volume_adjustment.connect(
+            "notify::value",
+            lambda o, _: self.pipeline.set_volume(GstAudio.StreamVolumeFormat.CUBIC, o.get_value()),
         )
+        self._prev_volume = -1
 
         self.breakpoint_margin.connect(
             "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
@@ -410,10 +411,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.emit("media-info-updated")
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
-                vol = GstPlay.PlayMessage.parse_volume_changed(msg)
+                vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)
 
-                self.__set_volume_icons(volume=vol)
-                self.volume_scale.set_value(vol)
+                if self._prev_volume != vol:
+                    self._prev_volume = vol
+                    self.__set_volume_icons(volume=vol)
+                    self.volume_adjustment.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
                 if not self.looping:
