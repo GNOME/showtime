@@ -1,0 +1,337 @@
+# Slovenian translation for showtime.
+# Copyright (C) 2024 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+#
+# Martin Srebotnjak <miles@filmsi.net>,  2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-08-22 14:37+0000\n"
+"PO-Revision-Date: 2024-08-22 18:09+0200\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
+"com>\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || "
+"n%100==4 ? 3 : 0);\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#, fuzzy
+msgid "Showtime"
+msgstr "Čas predstavitve"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Predvajalnik videoposnetkov"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Predvajajte videoposnetke"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Novo okno"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Gledajte brez motenj"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+#, fuzzy
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"Predvajajte svoje najljubše filme in video datoteke brez težav. Showtime "
+"ima preproste kontrolnike za predvajanje, ki se med gledanjem izginejo, "
+"celozaslonske, nastavljivo hitrost predvajanja, skladbe v več jezikih in "
+"podnapisih ter posnetke zaslona – vse, kar potrebujete za enostavno "
+"izkušnjo gledanja."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+#, fuzzy
+msgid "The app playing a video"
+msgstr "Aplikacija, ki predvaja videoposnetek"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+#, fuzzy
+msgid "What to show in the end timestamp position"
+msgstr "Kaj naj se prikaže na končnem položaju časovnega žiga"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+#, fuzzy
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
+
+#: showtime/main.py:140
+#, fuzzy
+msgid "Playing a video"
+msgstr ""
+"Poleg razpoložljivosti vrstice povečave v ogledu in drsnikov ključnih "
+"sličic so drsniki povečave so zdaj na voljo tudi v časovnici. Pogled v "
+"časovnici lahko preprosto povečate/pomanjšate tako, da povlečete robove "
+"drsnika časovnice (navpične vrstice povečave prihajajo kmalu). Priporočamo "
+"predvajanje tega videa v celozaslonskem načinu."
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "Martin Srebotnjak  <miles@filmsi.net>"
+
+#: showtime/mpris.py:289 showtime/window.py:587
+msgid "Unknown Title"
+msgstr "Neznan naslov"
+
+#: showtime/window.py:139 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "Predvajaj"
+
+#: showtime/window.py:142
+msgid "Pause"
+msgstr "Premor"
+
+#: showtime/window.py:443
+msgid "Details copied"
+msgstr "Podrobnosti kopirane"
+
+#: showtime/window.py:446
+msgid "Copy Technical Details"
+msgstr "Kopiraj tehnične podrobnosti"
+
+#: showtime/window.py:472
+#, fuzzy
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni bilo mogoče "
+"najti"
+
+#: showtime/window.py:493
+#, fuzzy
+msgid "No plugin available for this media type"
+msgstr "Za to vrsto medija ni na voljo noben vtičnik"
+
+#: showtime/window.py:499
+#, fuzzy
+msgid "Unable to install the required plugin"
+msgstr "Zahtevanega vtičnika ni mogoče namestiti"
+
+#: showtime/window.py:502
+msgid "Install Plugin"
+msgstr "Namesti vstavek"
+
+#: showtime/window.py:510
+msgid "Installing…"
+msgstr "Poteka nameščanje …"
+
+#: showtime/window.py:518
+msgid "“{}” codecs are required to play this video"
+msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
+
+#: showtime/window.py:598
+msgid "Screenshot captured"
+msgstr "Zaslonska slika je zajeta"
+
+#: showtime/window.py:600
+msgid "Show in Files"
+msgstr "Pokaži v Datotekah"
+
+#: showtime/window.py:662
+msgid "Video"
+msgstr "Video"
+
+#: showtime/window.py:681
+msgid "Subtitles"
+msgstr "Podnaslovi"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:746
+msgid "Undetermined, {} Channels"
+msgstr "Nedoločeno, {} kanalov"
+
+#: showtime/window.py:748
+msgid "Undetermined"
+msgstr "Nedoločeno"
+
+#: showtime/window.py:755
+msgid "No Audio"
+msgstr "Brez zvoka"
+
+#: showtime/window.py:760
+msgid "None"
+msgstr "Brez"
+
+#: showtime/window.py:766
+msgid "Undetermined Language"
+msgstr "Nedoločen jezik"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "Splošno"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Pokaži bližnjice"
+
+#: showtime/gtk/help-overlay.blp:19
+#, fuzzy
+msgid "Open Video"
+msgstr "Odpri video"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Zajemi zaslonsko sliko"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Zapri okno"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Izhod"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Glasnost"
+
+#: showtime/gtk/help-overlay.blp:48
+#, fuzzy
+msgid "Increase Volume"
+msgstr "V - Povečaj glasnost"
+
+#: showtime/gtk/help-overlay.blp:53
+#, fuzzy
+msgid "Decrease Volume"
+msgstr "v - Zmanjšaj glasnost"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+#, fuzzy
+msgid "Mute/Unmute"
+msgstr "Utišanje / Priklop zvoka"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Pogled"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "Vključi/izključi celozaslonski pogled"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Izhod iz celozaslonskega načina"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Predvajanje"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Predvajaj / premor"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "Pojdi nazaj za 10 sekund"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "Pojdi naprej za 10 sekund"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "_Odpri …"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "Pokaži v _Datotekah"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "_Zajemi zaslonsko sliko …"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "_Tipkovne bližnjice"
+
+#: showtime/gtk/window.blp:27
+#, fuzzy
+msgid "_About Showtime"
+msgstr "_O programu Showtime"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "_Jezik"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "_Podnaslovi"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "_Ponovi"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "Hitrost predvajanja"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "Glavni meni"
+
+#: showtime/gtk/window.blp:221
+#, fuzzy
+msgid "Watch Videos"
+msgstr "Katero družbeno omrežje uporabljate za gledanje videoposnetkov?"
+
+#: showtime/gtk/window.blp:222
+#, fuzzy
+msgid "Drag and drop videos here"
+msgstr "Povlecite in spustite videoposnetke tukaj"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Odpri…"
+
+#: showtime/gtk/window.blp:238
+#, fuzzy
+msgid "Unable to Play Video"
+msgstr "Predvajanja videoposnetka ni mogoče predvajati"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Manjkajoči vstavek"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "Nadaljuj"
+
+#: showtime/gtk/window.blp:317
+#, fuzzy
+msgid "Start Again"
+msgstr "Začni znova"
+
+#: showtime/gtk/window.blp:422
+#, fuzzy
+msgid "Toggle Duration/Remaining"
+msgstr "Preklopi trajanje/preostalo"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "Prilagodi glasnost"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "Možnosti predvajanja"
