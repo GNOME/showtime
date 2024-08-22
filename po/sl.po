@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
 "POT-Creation-Date: 2024-08-22 14:37+0000\n"
-"PO-Revision-Date: 2024-08-22 18:09+0200\n"
+"PO-Revision-Date: 2024-08-22 18:24+0200\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups."
 "com>\n"
 "Language: sl\n"
@@ -24,9 +24,8 @@ msgstr ""
 
 #: data/org.gnome.Showtime.desktop.in:3
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
-#, fuzzy
 msgid "Showtime"
-msgstr "Čas predstavitve"
+msgstr "Showtime"
 
 #: data/org.gnome.Showtime.desktop.in:4
 msgid "Video Player"
@@ -45,7 +44,6 @@ msgid "Watch without distraction"
 msgstr "Gledajte brez motenj"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
-#, fuzzy
 msgid ""
 "Play your favorite movies and video files without hassle. Showtime features "
 "simple playback controls that fade out of your way when you're watching, "
@@ -53,36 +51,27 @@ msgid ""
 "tracks, and screenshots — everything you need for a straightforward viewing "
 "experience."
 msgstr ""
-"Predvajajte svoje najljubše filme in video datoteke brez težav. Showtime "
-"ima preproste kontrolnike za predvajanje, ki se med gledanjem izginejo, "
-"celozaslonske, nastavljivo hitrost predvajanja, skladbe v več jezikih in "
-"podnapisih ter posnetke zaslona – vse, kar potrebujete za enostavno "
-"izkušnjo gledanja."
+"Predvajajte svoje najljubše filme in videoposnetke brez težav. Showtime ima "
+"preproste kontrolnike za predvajanje, ki med gledanjem izginejo, podpira "
+"celozaslonsko predvajanje, nastavljivo hitrost predvajanja, večjezične "
+"zvokovne steze in podnaslove ter posnetke zaslona – vse, kar potrebujete za "
+"enostavno izkušnjo gledanja."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:35
-#, fuzzy
 msgid "The app playing a video"
-msgstr "Aplikacija, ki predvaja videoposnetek"
+msgstr "Program, ki predvaja videoposnetke"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
-#, fuzzy
 msgid "What to show in the end timestamp position"
-msgstr "Kaj naj se prikaže na končnem položaju časovnega žiga"
+msgstr "Kaj naj se prikaže na položaju končnega časovnega žiga"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
-#, fuzzy
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
 
 #: showtime/main.py:140
-#, fuzzy
 msgid "Playing a video"
-msgstr ""
-"Poleg razpoložljivosti vrstice povečave v ogledu in drsnikov ključnih "
-"sličic so drsniki povečave so zdaj na voljo tudi v časovnici. Pogled v "
-"časovnici lahko preprosto povečate/pomanjšate tako, da povlečete robove "
-"drsnika časovnice (navpične vrstice povečave prihajajo kmalu). Priporočamo "
-"predvajanje tega videa v celozaslonskem načinu."
+msgstr "Predvajanje videoposnetka"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
 #: showtime/main.py:427
@@ -110,21 +99,17 @@ msgid "Copy Technical Details"
 msgstr "Kopiraj tehnične podrobnosti"
 
 #: showtime/window.py:472
-#, fuzzy
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
-"Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni bilo mogoče "
-"najti"
+"Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni mogoče najti"
 
 #: showtime/window.py:493
-#, fuzzy
 msgid "No plugin available for this media type"
-msgstr "Za to vrsto medija ni na voljo noben vtičnik"
+msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
 
 #: showtime/window.py:499
-#, fuzzy
 msgid "Unable to install the required plugin"
-msgstr "Zahtevanega vtičnika ni mogoče namestiti"
+msgstr "Zahtevanega vstavka ni mogoče namestiti"
 
 #: showtime/window.py:502
 msgid "Install Plugin"
@@ -184,9 +169,8 @@ msgid "Show Shortcuts"
 msgstr "Pokaži bližnjice"
 
 #: showtime/gtk/help-overlay.blp:19
-#, fuzzy
 msgid "Open Video"
-msgstr "Odpri video"
+msgstr "Odpri videoposnetek"
 
 #: showtime/gtk/help-overlay.blp:24
 msgid "Take Screenshot"
@@ -205,20 +189,17 @@ msgid "Volume"
 msgstr "Glasnost"
 
 #: showtime/gtk/help-overlay.blp:48
-#, fuzzy
 msgid "Increase Volume"
-msgstr "V - Povečaj glasnost"
+msgstr "Povečaj glasnost"
 
 #: showtime/gtk/help-overlay.blp:53
-#, fuzzy
 msgid "Decrease Volume"
-msgstr "v - Zmanjšaj glasnost"
+msgstr "Zmanjšaj glasnost"
 
 #: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
 #: showtime/gtk/window.blp:157
-#, fuzzy
 msgid "Mute/Unmute"
-msgstr "Utišanje / Priklop zvoka"
+msgstr "Utišaj / Vklopi zvok"
 
 #: showtime/gtk/help-overlay.blp:64
 msgid "View"
@@ -267,7 +248,6 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Tipkovne bližnjice"
 
 #: showtime/gtk/window.blp:27
-#, fuzzy
 msgid "_About Showtime"
 msgstr "_O programu Showtime"
 
@@ -292,23 +272,20 @@ msgid "Main Menu"
 msgstr "Glavni meni"
 
 #: showtime/gtk/window.blp:221
-#, fuzzy
 msgid "Watch Videos"
-msgstr "Katero družbeno omrežje uporabljate za gledanje videoposnetkov?"
+msgstr "Oglejte si videoposnetke"
 
 #: showtime/gtk/window.blp:222
-#, fuzzy
 msgid "Drag and drop videos here"
-msgstr "Povlecite in spustite videoposnetke tukaj"
+msgstr "Povlecite in spustite videoposnetke sem"
 
 #: showtime/gtk/window.blp:225
 msgid "Open…"
 msgstr "Odpri…"
 
 #: showtime/gtk/window.blp:238
-#, fuzzy
 msgid "Unable to Play Video"
-msgstr "Predvajanja videoposnetka ni mogoče predvajati"
+msgstr "Videoposnetka ni mogoče predvajati"
 
 #: showtime/gtk/window.blp:243
 msgid "Missing Plugin"
@@ -319,14 +296,12 @@ msgid "Resume"
 msgstr "Nadaljuj"
 
 #: showtime/gtk/window.blp:317
-#, fuzzy
 msgid "Start Again"
 msgstr "Začni znova"
 
 #: showtime/gtk/window.blp:422
-#, fuzzy
 msgid "Toggle Duration/Remaining"
-msgstr "Preklopi trajanje/preostalo"
+msgstr "Preklopi trajanje/preostali čas"
 
 #: showtime/gtk/window.blp:458
 msgid "Adjust Volume"
