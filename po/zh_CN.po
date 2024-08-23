@@ -1,0 +1,306 @@
+# Chinese (China) translation for showtime.
+# Copyright (C) 2024 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# lumingzh <lumingzh@qq.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-08-22 23:18+0000\n"
+"PO-Revision-Date: 2024-08-23 10:16+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "Showtime"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "视频播放器"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "播放视频"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "新建窗口"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "沉浸式观看"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"无干扰播放您最爱的电影和视频文件。Showtime 提供了可以在您观看时淡出您视线的简"
+"易播放控制，具有全屏、播放速度调节、多个语言和字幕轨道以及截图等直观观看体验"
+"所需的一切功能。"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "播放视频的应用"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "在时间轴末尾的位置显示什么"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "例如：视频的总计时长或剩余时间"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "播放视频"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "lumingzh <lumingzh@qq.com>, 2024."
+
+#: showtime/mpris.py:289 showtime/window.py:587
+msgid "Unknown Title"
+msgstr "未知标题"
+
+#: showtime/window.py:139 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "播放"
+
+#: showtime/window.py:142
+msgid "Pause"
+msgstr "暂停"
+
+#: showtime/window.py:443
+msgid "Details copied"
+msgstr "详情已复制"
+
+#: showtime/window.py:446
+msgid "Copy Technical Details"
+msgstr "复制技术详情"
+
+#: showtime/window.py:472
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "无法找到播放该视频需要的“{}”解码器"
+
+#: showtime/window.py:493
+msgid "No plugin available for this media type"
+msgstr "无可用于该媒体类型的插件"
+
+#: showtime/window.py:499
+msgid "Unable to install the required plugin"
+msgstr "无法安装需要的插件"
+
+#: showtime/window.py:502
+msgid "Install Plugin"
+msgstr "安装插件"
+
+#: showtime/window.py:510
+msgid "Installing…"
+msgstr "正在安装…"
+
+#: showtime/window.py:518
+msgid "“{}” codecs are required to play this video"
+msgstr "播放该视频需要“{}”解码器"
+
+#: showtime/window.py:598
+msgid "Screenshot captured"
+msgstr "已获取截图"
+
+#: showtime/window.py:600
+msgid "Show in Files"
+msgstr "在文件管理器中显示"
+
+#: showtime/window.py:662
+msgid "Video"
+msgstr "视频"
+
+#: showtime/window.py:681
+msgid "Subtitles"
+msgstr "字幕"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:746
+msgid "Undetermined, {} Channels"
+msgstr "未确定，{} 个声道"
+
+#: showtime/window.py:748
+msgid "Undetermined"
+msgstr "未确定"
+
+#: showtime/window.py:755
+msgid "No Audio"
+msgstr "无音频"
+
+#: showtime/window.py:760
+msgid "None"
+msgstr "无"
+
+#: showtime/window.py:766
+msgid "Undetermined Language"
+msgstr "未确定语言"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "常规"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "显示快捷键"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "打开视频"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "截图"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "关闭窗口"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "退出"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "音量"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "增大音量"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "减小音量"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "静音/取消静音"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "视图"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "切换全屏"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "退出全屏"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "播放"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "播放/暂停"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "快退 10 秒"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "快进 10 秒"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "打开(_O)…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "在文件管理器中显示(_F)"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "截图(_S)"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "键盘快捷键(_K)"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "关于 Showtime(_A)"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "语言(_L)"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "字幕(_S)"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "重复(_R)"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "播放速度"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "主菜单"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "观看视频"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "拖放视频到这里"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "打开…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "无法播放视频"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "缺少插件"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "恢复"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "再次播放"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "切换总计时长/剩余时长"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "调整音量"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "播放选项"
