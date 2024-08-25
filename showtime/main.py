@@ -449,5 +449,7 @@ class ShowtimeApplication(Adw.Application):
 
 def main():
     """The application's entry point."""
+    GLib.set_application_name(_("Showtime"))
+
     shared.app = ShowtimeApplication()
     return shared.app.run(sys.argv)
