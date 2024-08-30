@@ -27,9 +27,9 @@
 		<control>keyboard</control>
 		<control>touch</control>
 	</supports>
-	<recommends>
+	<requires>
 		<display_length compare="ge">360</display_length>
-	</recommends>
+	</requires>
 	<screenshots>
 		<screenshot type="default">
 			<caption>The app playing a video</caption>
