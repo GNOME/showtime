@@ -22,6 +22,7 @@
 """The main application window."""
 import logging
 import pickle
+from gettext import ngettext
 from hashlib import sha256
 from math import sqrt
 from os import sep
@@ -299,7 +300,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.volume_adjustment.connect(
             "notify::value",
-            lambda o, _: self.pipeline.set_volume(GstAudio.StreamVolumeFormat.CUBIC, o.get_value()),
+            lambda o, _: self.pipeline.set_volume(
+                GstAudio.StreamVolumeFormat.CUBIC, o.get_value()
+            ),
         )
         self._prev_volume = -1
 
@@ -746,7 +749,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 (
                     stream.get_language()
                     # Translators: The variable is the number of channels in an audio track
-                    or _("Undetermined, {} Channels").format(channels)
+                    or ngettext(
+                        "Undetermined, {} Channel",
+                        "Undetermined, {} Channels",
+                        channels,
+                    ).format(channels)
                     if (channels := stream.get_channels()) > 0
                     else _("Undetermined")
                 ),
