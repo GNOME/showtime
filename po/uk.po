@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/iss"
 "ues\n"
-"POT-Creation-Date: 2024-08-22 16:24+0000\n"
-"PO-Revision-Date: 2024-08-22 20:06+0300\n"
+"POT-Creation-Date: 2024-09-03 19:24+0000\n"
+"PO-Revision-Date: 2024-09-04 19:16+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,8 @@ msgstr ""
 "X-Generator: Lokalize 23.04.3\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
 msgid "Showtime"
 msgstr "Шоутайм"
 
@@ -49,11 +50,11 @@ msgid ""
 "tracks, and screenshots — everything you need for a straightforward viewing "
 "experience."
 msgstr ""
-"Відтворюйте ваші улюблені фільми та відеофайли без проблем. У «Шоутайм» ви"
-" зможете скористатися простими елементами керування відтворенням, які"
-" зникають під час перегляду, повноекранним режимом, регульованою швидкістю"
-" відтворення, вибрати одну з кількох звукових доріжок і доріжок субтитрів, а"
-" також робити знімки екрана — усе, що потрібно для простого перегляду."
+"Відтворюйте ваші улюблені фільми та відеофайли без проблем. У «Шоутайм» ви "
+"зможете скористатися простими елементами керування відтворенням, які "
+"зникають під час перегляду, повноекранним режимом, регульованою швидкістю "
+"відтворення, вибрати одну з кількох звукових доріжок і доріжок субтитрів, а "
+"також робити знімки екрана — усе, що потрібно для простого перегляду."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:35
 msgid "The app playing a video"
@@ -76,84 +77,88 @@ msgstr "Відтворюємо відео"
 msgid "translator_credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: showtime/mpris.py:289 showtime/window.py:587
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "Невідома назва"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "Пуск"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/window.py:443
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "Подробиці скопійовано"
 
-#: showtime/window.py:446
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "Копіювати технічні параметри"
 
-#: showtime/window.py:472
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Кодеки «{}», які потрібні для відтворення цього відео, не знайдено"
 
-#: showtime/window.py:493
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "Немає додатка для цього типу мультимедійних даних"
 
-#: showtime/window.py:499
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "Не вдалося встановити потрібний додаток"
 
-#: showtime/window.py:502
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "Встановити додаток"
 
-#: showtime/window.py:510
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "Встановлення…"
 
-#: showtime/window.py:518
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "Для відтворення цього відео потрібні кодеки «{}»"
 
-#: showtime/window.py:598
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "Знімок зроблено"
 
-#: showtime/window.py:600
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "Показати у «Файлах»"
 
-#: showtime/window.py:662
+#: showtime/window.py:668
 msgid "Video"
 msgstr "Відео"
 
-#: showtime/window.py:681
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "Субтитри"
 
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:746
-msgid "Undetermined, {} Channels"
-msgstr "Не визначено, {} канали"
+#: showtime/window.py:753
+#| msgid "Undetermined, {} Channels"
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Не визначено, {} канал"
+msgstr[1] "Не визначено, {} канали"
+msgstr[2] "Не визначено, {} каналів"
+msgstr[3] "Не визначено, {} канал"
 
-#: showtime/window.py:748
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "невизначена"
 
-#: showtime/window.py:755
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "Немає звукових даних"
 
-#: showtime/window.py:760
+#: showtime/window.py:770
 msgid "None"
 msgstr "Немає"
 
-#: showtime/window.py:766
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Невизначена мова"
 
