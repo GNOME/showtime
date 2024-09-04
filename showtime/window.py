@@ -748,8 +748,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.language_menu.append(
                 (
                     stream.get_language()
-                    # Translators: The variable is the number of channels in an audio track
                     or ngettext(
+                        # Translators: The variable is the number of channels in an audio track
                         "Undetermined, {} Channel",
                         "Undetermined, {} Channels",
                         channels,
