@@ -2,21 +2,22 @@
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Filipe Motta <luizfilipemotta@gmail.com>, 2024.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-08-24 15:05+0000\n"
-"PO-Revision-Date: 2024-08-24 13:09-0300\n"
-"Last-Translator: Filipe Motta <luizfilipemotta@gmail.com>\n"
-"Language-Team: Brazilian Portuguese\n"
+"POT-Creation-Date: 2024-09-03 19:24+0000\n"
+"PO-Revision-Date: 2024-09-05 10:17-0300\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-DL-Lang: pt_BR\n"
 "X-DL-Module: showtime\n"
 "X-DL-Branch: main\n"
@@ -25,7 +26,8 @@ msgstr ""
 "X-Generator: Gtranslator 46.1\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
 msgid "Showtime"
 msgstr "Showtime"
 
@@ -78,87 +80,90 @@ msgstr "Reproduzindo um vídeo"
 #. Translators: Replace this with your name for it to show up in the about dialog
 #: showtime/main.py:427
 msgid "translator_credits"
-msgstr "Filipe Motta <luizfilipemotta@gmail.com>"
+msgstr ""
+"Filipe Motta <luizfilipemotta@gmail.com>\n"
+"Juliano de Souza Camargo <julianosc@pm.me>"
 
-#: showtime/mpris.py:289 showtime/window.py:587
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "Título desconhecido"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "Reproduzir"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "Pausar"
 
-#: showtime/window.py:443
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "Detalhes copiados"
 
-#: showtime/window.py:446
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "Copiar detalhes técnicos"
 
-#: showtime/window.py:472
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Os codecs \"{}\" necessários para reproduzir este vídeo não foram encontrados"
 
-#: showtime/window.py:493
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "Nenhum plugin disponível para este tipo de mídia"
 
-#: showtime/window.py:499
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "Não foi possível instalar o plugin necessário"
 
-#: showtime/window.py:502
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "Instalar plugin"
 
-#: showtime/window.py:510
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "Instalando…"
 
-#: showtime/window.py:518
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "Codecs \"{}\" são necessários para reproduzir este vídeo"
 
-#: showtime/window.py:598
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "Captura de tela obtida"
 
-#: showtime/window.py:600
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "Mostrar em Arquivos"
 
-#: showtime/window.py:662
+#: showtime/window.py:668
 msgid "Video"
 msgstr "Vídeo"
 
-#: showtime/window.py:681
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "Legendas"
 
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:746
-msgid "Undetermined, {} Channels"
-msgstr "Indeterminada, {} canais"
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Indeterminada, {} canal"
+msgstr[1] "Indeterminada, {} canais"
 
-#: showtime/window.py:748
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "Indeterminada"
 
-#: showtime/window.py:755
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "Sem áudio"
 
-#: showtime/window.py:760
+#: showtime/window.py:770
 msgid "None"
 msgstr "Nenhuma"
 
-#: showtime/window.py:766
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Idioma indeterminado"
 
