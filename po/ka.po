@@ -8,18 +8,20 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-08-23 02:21+0000\n"
-"PO-Revision-Date: 2024-08-23 07:26+0200\n"
+"POT-Creation-Date: 2024-09-03 19:24+0000\n"
+"PO-Revision-Date: 2024-09-09 14:54+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.3.2\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
 msgid "Showtime"
 msgstr "Showtime"
 
@@ -74,84 +76,85 @@ msgstr "მიმდინარეობს ვიდეოს დაკვრ�
 msgid "translator_credits"
 msgstr "მთარგმნელის_შესახებ"
 
-#: showtime/mpris.py:289 showtime/window.py:587
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "უცნობი სათაური"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "დაკვრა"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: showtime/window.py:443
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "დეტალები დაკოპირდა"
 
-#: showtime/window.py:446
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "ტექნიკური დეტალების კოპირება"
 
-#: showtime/window.py:472
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "ვიდეოს დასაკრავად აუცილებელი \"{}\" კოდეკები აღმოჩენილი არაა"
 
-#: showtime/window.py:493
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "ამ მედიის ტიპისთვის დამატება აღმოჩენილი არაა"
 
-#: showtime/window.py:499
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "აუცილებელი დამატების დაყენება შეუძლებელია"
 
-#: showtime/window.py:502
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "დამატების დაყენება"
 
-#: showtime/window.py:510
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "დაყენება…"
 
-#: showtime/window.py:518
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "ამ ვიდეოს დასაკრავად აუცილებელია \"{}\" კოდეკი"
 
-#: showtime/window.py:598
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "ეკრანის ანაბეჭდი დათრეულია"
 
-#: showtime/window.py:600
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "ფაილებში ჩვენება"
 
-#: showtime/window.py:662
+#: showtime/window.py:668
 msgid "Video"
 msgstr "ვიდეო"
 
-#: showtime/window.py:681
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "სუბტიტრები"
 
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:746
-msgid "Undetermined, {} Channels"
-msgstr "დაუდგენელია, {} არხი"
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "დაუდგენელია, {} არხი"
+msgstr[1] "დაუდგენელია, {} არხი"
 
-#: showtime/window.py:748
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "დაუდგენელია"
 
-#: showtime/window.py:755
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "აუდიოს გარეშე"
 
-#: showtime/window.py:760
+#: showtime/window.py:770
 msgid "None"
 msgstr "არაფერი"
 
-#: showtime/window.py:766
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "დაუდგენელი ენა"
 
