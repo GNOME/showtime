@@ -74,14 +74,14 @@ def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) ->
             + datetime.timedelta(microseconds=int(nanoseconds / 1000))
         )
         .time()
-        .strftime("%H∶%M∶%S")
+        .strftime("%H:%M:%S")
     )
 
     return (
         (
             stripped
-            if len(stripped := str.lstrip("0∶") or "0") > 2
-            else f"0∶{stripped.zfill(2)}"
+            if len(stripped := str.lstrip("0:") or "0") > 2
+            else f"0:{stripped.zfill(2)}"
         )
         if format
         else str
