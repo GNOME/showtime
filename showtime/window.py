@@ -781,7 +781,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if not subs:
             self.__select_subtitles(shared.MAX_UINT16)
 
-        self.subtitles_menu.append("Add Subtitle File…", "app.choose-subtitles")
+        self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
 
     def __set_volume_icons(
         self, muted: Optional[bool] = None, volume: Optional[float] = None
