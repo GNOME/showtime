@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-09-03 19:24+0000\n"
-"PO-Revision-Date: 2024-09-05 08:00+0300\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-11 08:00+0300\n"
 "Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -140,6 +140,7 @@ msgstr "Video"
 msgid "Subtitles"
 msgstr "Alt Yazılar"
 
+#. Translators: The variable is the number of channels in an audio track
 #: showtime/window.py:753
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
@@ -160,6 +161,10 @@ msgstr "Hiçbiri"
 #: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Belirsiz Dil"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Alt Yazı Dosyası Ekle…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
