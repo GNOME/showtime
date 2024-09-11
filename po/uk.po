@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/iss"
 "ues\n"
-"POT-Creation-Date: 2024-09-03 19:24+0000\n"
-"PO-Revision-Date: 2024-09-04 19:16+0300\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-11 16:44+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -137,8 +137,8 @@ msgstr "Відео"
 msgid "Subtitles"
 msgstr "Субтитри"
 
+#. Translators: The variable is the number of channels in an audio track
 #: showtime/window.py:753
-#| msgid "Undetermined, {} Channels"
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Не визначено, {} канал"
@@ -161,6 +161,10 @@ msgstr "Немає"
 #: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Невизначена мова"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Додати файл субтитрів…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
