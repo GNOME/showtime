@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-09-03 19:24+0000\n"
-"PO-Revision-Date: 2024-09-05 15:59+0330\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-12 13:39+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: data/org.gnome.Showtime.desktop.in:3 data/org.gnome.Showtime.metainfo.xml.in:6
 #: showtime/main.py:452 showtime/gtk/window.blp:193
@@ -133,6 +133,7 @@ msgstr "ویدیو"
 msgid "Subtitles"
 msgstr "زیرنویس‌ها"
 
+#. Translators: The variable is the number of channels in an audio track
 #: showtime/window.py:753
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
@@ -154,6 +155,10 @@ msgstr "هیچ"
 #: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "زبان تشخیص داده نشده"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "افزودن پروندهٔ زیرنویس…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
