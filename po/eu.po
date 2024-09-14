@@ -6,17 +6,19 @@
 msgid ""
 msgstr "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues\n"
-"POT-Creation-Date: 2024-08-24 17:22+0000\n"
-"PO-Revision-Date: 2024-08-24 17:22+0000\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-14 17:22+0000\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
 msgid "Showtime"
 msgstr "Showtime"
 
@@ -43,7 +45,7 @@ msgid ""
 "fullscreen, adjustable playback speed, multiple language and subtitle "
 "tracks, and screenshots — everything you need for a straightforward viewing "
 "experience."
-msgstr ""
+msgstr "Erreproduzitu zure film eta bideo-fitxategirik gogokoenak arazorik gabe. Showtime aplikazioak erreprodukzio-kontrol sinpleak ditu, gogaitzen ez dutenak zerbait ikusten ari zarenean, pantaila osoa onartzen du, erreprodukzio-abiadura doitu daiteke, hizkuntza anitzeko azpitituluak eta pantaila-argazkiak - bideoak ikusteko esperientzia gogobetegarria izateko behar duzun guztia."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:35
 msgid "The app playing a video"
@@ -66,86 +68,92 @@ msgstr "Bideo bat erreproduzitzen"
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: showtime/mpris.py:289 showtime/window.py:587
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "Titulu ezezaguna"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "Erreproduzitu"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "Pausatu"
 
-#: showtime/window.py:443
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "Xehetasunak kopiatu dira"
 
-#: showtime/window.py:446
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "Kopiatu xehetasun teknikoak"
 
-#: showtime/window.py:472
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Bideoo hauek erreproduzitzeko behar diren “{}” kodekak ez dira aurkitu"
 
-#: showtime/window.py:493
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "Ez dago pluginik multimedia mota horretarako"
 
-#: showtime/window.py:499
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "Ezin dira instalatu behar diren pluginak"
 
-#: showtime/window.py:502
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "Instalatu plugina"
 
-#: showtime/window.py:510
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "Instalatzen…"
 
-#: showtime/window.py:518
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "“{}” kodekak behar dira bideo hau erreproduzitzeko"
 
-#: showtime/window.py:598
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "Pantaila-argazkia hartu da"
 
-#: showtime/window.py:600
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "Erakutsi Fitxategiak aplikazioan"
 
-#: showtime/window.py:662
+#: showtime/window.py:668
 msgid "Video"
 msgstr "Bideoa"
 
-#: showtime/window.py:681
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "Azpitituluak"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:746
-msgid "Undetermined, {} Channels"
-msgstr "Zehaztu gabea, {} kanal"
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Zehaztu gabea, kanal {}"
+msgstr[1] "Zehaztu gabea, {} kanal"
 
-#: showtime/window.py:748
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "Zehaztu gabea"
 
-#: showtime/window.py:755
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "Audiorik ez"
 
-#: showtime/window.py:760
+#: showtime/window.py:770
 msgid "None"
 msgstr "Bat ere ez"
 
-#: showtime/window.py:766
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Zehaztu gabeko hizkuntza"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Gehitu azpitituluen fitxategia…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
