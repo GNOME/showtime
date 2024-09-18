@@ -37,7 +37,15 @@
 		</screenshot>
 	</screenshots>
 	<releases>
-		<release version="47.0" date="2024-07-09"/>
+		<release version="47.0" date="2024-09-18">
+		  <description>
+				<ul>
+				    <li>You can now switch between time remaining and video length by clicking on the duration</li>
+                    <li>Added support for VTT subtitles</li>
+				    <li>Added translations</li>
+				</ul>
+			</description>
+		</release>
 		<release version="46.3" date="2024-07-09">
 		    <description>
 				<p>Initial release</p>
