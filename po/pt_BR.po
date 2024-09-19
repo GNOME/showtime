@@ -1,23 +1,23 @@
 # Brazilian Portuguese translation for showtime.
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
-# Filipe Motta <luizfilipemotta@gmail.com>, 2024.
 # Juliano de Souza Camargo <julianosc@pm.me>, 2024.
+# Filipe Motta <luizfilipemotta@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-09-03 19:24+0000\n"
-"PO-Revision-Date: 2024-09-05 10:17-0300\n"
-"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>>\n"
+"POT-Creation-Date: 2024-09-18 09:56+0000\n"
+"PO-Revision-Date: 2024-09-19 02:09-0300\n"
+"Last-Translator: Filipe Motta <luizfilipemotta@gmail.com>\n"
+"Language-Team: Brazilian Portuguese\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "X-DL-Lang: pt_BR\n"
 "X-DL-Module: showtime\n"
 "X-DL-Branch: main\n"
@@ -145,6 +145,7 @@ msgstr "Vídeo"
 msgid "Subtitles"
 msgstr "Legendas"
 
+#. Translators: The variable is the number of channels in an audio track
 #: showtime/window.py:753
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
@@ -166,6 +167,10 @@ msgstr "Nenhuma"
 #: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Idioma indeterminado"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Adicionar arquivo de legendas…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
