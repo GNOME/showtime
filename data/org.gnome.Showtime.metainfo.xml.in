@@ -19,6 +19,8 @@
 	</developer>
 	<url type="homepage">https://apps.gnome.org/Showtime/</url>
 	<url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues</url>
+	<url type="contribute">https://welcome.gnome.org/app/Showtime/</url>
+	<url type="translate">https://l10n.gnome.org/module/showtime/</url>
 	<url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/showtime</url>
 	<project_group>GNOME</project_group>
 	<content_rating type="oars-1.1" />
