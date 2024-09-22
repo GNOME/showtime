@@ -99,6 +99,7 @@ class ShowtimeApplication(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
+        Gtk.Window.set_default_icon_name(shared.APP_ID)
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
 
         if shared.system == "Darwin" and (settings := Gtk.Settings.get_default()):
