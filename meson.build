@@ -8,7 +8,7 @@ project(
   ],
 )
 
-dependency('gtk4', version: '>= 4.14.0')
+dependency('gtk4', version: '>= 4.15.0')
 dependency('libadwaita-1', version: '>= 1.6.beta')
 
 i18n = import('i18n')

@@ -44,8 +44,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     __gtype_name__ = "ShowtimeWindow"
 
-    breakpoint_dock: Adw.Breakpoint = Gtk.Template.Child()
-    breakpoint_margin: Adw.Breakpoint = Gtk.Template.Child()
     drag_overlay: ShowtimeDragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
@@ -63,7 +61,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video_overlay: Gtk.Overlay = Gtk.Template.Child()
-    spinner_overlay: Gtk.Overlay = Gtk.Template.Child()
     graphics_offload: Gtk.GraphicsOffload = Gtk.Template.Child()
     picture: Gtk.Picture = Gtk.Template.Child()
 
@@ -76,7 +73,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     toolbar_revealer: Gtk.Revealer = Gtk.Template.Child()
     toolbar_box: Gtk.Box = Gtk.Template.Child()
-    toolbar_hbox: Gtk.Box = Gtk.Template.Child()
 
     title_label: Gtk.Label = Gtk.Template.Child()
     play_button: Gtk.Button = Gtk.Template.Child()
@@ -170,16 +166,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if shared.system == "Darwin":
             self.placeholder_primary_menu_button.set_visible(False)
             self.video_primary_menu_button.set_visible(False)
-
-        # Set `black-background` if supported or fall back to a style class
-
-        try:
-            self.graphics_offload.set_black_background(True)  #  type: ignore
-        except AttributeError:
-            logging.debug(
-                "GTK 4.14 or earlier, GtkGraphicsOffload:black-background not supported"
-            )
-            self.spinner_overlay.add_css_class("black-background")
 
         # Set up GstPlay
 
@@ -305,19 +291,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             ),
         )
         self._prev_volume = -1
-
-        self.breakpoint_margin.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_margin.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
 
         self.connect("realize", self.__on_realize)
 
