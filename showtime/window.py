@@ -519,6 +519,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.default_speed_button.set_active(True)
         self.play.set_uri(gfile.get_uri())
         self.pause()
+        self.__on_motion()
 
         if not (pos := self.__get_previous_play_position()):
             self.unpause()
@@ -946,7 +947,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.rate = 1
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
-        self.__on_motion(None)
+        self.__on_motion()
 
         # TODO: Make this per-window instead of app-wide
         if (self.stack.get_visible_child() != self.video_page) or not (
@@ -974,20 +975,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         _x: int,
         _y: int,
     ) -> None:
-        self.__on_motion(None)
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-
-        if (
-            (event := gesture.get_current_event())
-            and (device := event.get_device())
-            and device.get_source() == Gdk.InputSource.TOUCHSCREEN
-        ):
-            return
-
-        if not self._toplevel_focused:
-            return
-
-        self.toggle_playback()
+        self.__on_motion()
 
         if not n % 2:
             self.toggle_fullscreen()
@@ -1028,6 +1017,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             if button.get_active():
                 return
 
+        if self.restore_revealer.get_reveal_child():
+            return
+
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(False)
 
@@ -1037,7 +1029,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.set_cursor_from_name("none")
 
     def __on_motion(
-        self, _obj: Any, x: Optional[float] = None, y: Optional[float] = None
+        self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
         if None not in (x, y):
             if (x, y) == self.prev_motion_xy:

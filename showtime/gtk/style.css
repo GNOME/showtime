@@ -1,3 +1,13 @@
+#video-page {
+    --accent-color: white;
+    --accent-bg-color: white;
+}
+
+#video-page popover {
+    --accent-color: var(--window-fg-color);
+    --accent-bg-color: var(--window-fg-color);
+}
+
 button.bouncy,
 menubutton.bouncy > button,
 scale.bouncy slider {
@@ -24,51 +34,45 @@ menubutton.bouncy > button {
     background-color: transparent;
 }
 
-.transparent image,
-.transparent label,
-.transparent scale trough,
-.spinner.transparent {
+button.overlaid > image,
+button.overlaid > label,
+menubutton.overlaid > button > box > image,
+menubutton.overlaid > button > box > label,
+menubutton.overlaid > button > box > arrow,
+image.overlaid,
+label.overlaid,
+.spinner.overlaid {
     color: white;
-}
-
-.transparent popover image,
-.transparent popover label,
-.transparent popover scale trough {
-    color: var(--window-fg-color);
-}
-
-.transparent scale trough highlight {
-    background-color: white;
-}
-
-.transparent popover scale trough highlight {
-    background-color: var(--window-fg-color);
-}
-
-.transparent image,
-.transparent label {
     filter: drop-shadow(0 0 18px black);
 }
 
-.transparent #play-button image {
+scale.overlaid trough {
+    color: white;
+}
+
+scale.overlaid trough highlight {
+    background-color: white;
+}
+
+#play-button.overlaid > image {
     filter: drop-shadow(0 0 18px alpha(black, 0.4));
 }
 
-windowcontrols.transparent > button > image {
+windowcontrols.overlaid > button > image {
+    color: white;
     background-color: transparent;
 }
 
-windowcontrols.transparent > button:hover > image {
-    color: white;
+windowcontrols.overlaid > button:hover > image {
     background-color: alpha(white, 0.1);
 }
 
 .shade {
     background-image: linear-gradient(
         alpha(black, 0.3),
-        alpha(black, 0.3),
         alpha(black, 0.4),
         alpha(black, 0.5),
+        alpha(black, 0.6),
         alpha(black, 0.7)
     );
 }
@@ -78,10 +82,10 @@ toast {
 }
 
 .timestamp {
-    margin-top: -15px;
+    margin-top: -6px;
 }
 #title-box {
-    margin-bottom: -12px;
+    margin-bottom: -9px;
 }
 
 .selection-toolbar > button {
@@ -91,28 +95,11 @@ toast {
 
 #play-button image {
     -gtk-icon-size: 32px;
+    padding: 12px;
 }
 
 #end-timestamp-button {
     padding: 0 12px;
-}
-
-.no-knob {
-    padding: 6px 9px 6px 15px;
-}
-.no-knob mark > indicator {
-    min-height: 0;
-}
-
-/* From Amberol */
-/* https://gitlab.gnome.org/World/amberol/-/blob/763dbd9c102805a9c4bf10c3175e10cde69953ad/src/gtk/style.css#L151 */
-
-.no-knob trough > highlight {
-    min-height: 9px;
-    min-width: 9px;
-}
-.no-knob trough > slider {
-    opacity: 0;
 }
 
 /* Drag overlay, from Loupe */
