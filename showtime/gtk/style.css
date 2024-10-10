@@ -84,9 +84,6 @@ toast {
 .timestamp {
     margin-top: -6px;
 }
-#title-box {
-    margin-bottom: -9px;
-}
 
 .selection-toolbar > button {
     border-radius: 2em;

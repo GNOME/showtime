@@ -73,6 +73,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     toolbar_revealer: Gtk.Revealer = Gtk.Template.Child()
     toolbar_box: Gtk.Box = Gtk.Template.Child()
+    controls_box: Gtk.Box = Gtk.Template.Child()
+    bottom_overlay_box: Gtk.Box = Gtk.Template.Child()
 
     title_label: Gtk.Label = Gtk.Template.Child()
     play_button: Gtk.Button = Gtk.Template.Child()
@@ -236,7 +238,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.video_overlay.add_controller(self.overlay_motion)
 
         for widget in (
-            self.toolbar_box,
+            self.controls_box,
+            self.bottom_overlay_box,
             self.header_start,
             self.header_end,
             self.restore_box,
