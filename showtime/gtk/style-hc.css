@@ -1,15 +1,15 @@
-windowcontrols.overlaid > button:not(#play-button) > image,
-.overlaid button:not(#play-button),
-button:not(#play-button).overlaid {
+windowcontrols.overlaid > button > image,
+windowcontrols.overlaid > button,
+windowcontrols.overlaid > button:hover,
+.overlaid button,
+button.overlaid {
+    box-shadow: initial;
+}
+
+windowcontrols.overlaid > button:hover > image,
+.overlaid button:hover,
+button.overlaid:hover {
     box-shadow: 0 0 0 1px white;
-}
-
-#play-button {
-    box-shadow: initial;
-}
-
-windowcontrols.overlaid > button:not(#play-button) {
-    box-shadow: initial;
 }
 
 .shade {
