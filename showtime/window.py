@@ -306,20 +306,16 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         surface.connect("notify::state", self.__on_toplevel_state_changed)
 
-    def __set_toplevel_focused(self, focused: bool) -> None:
-        self._toplevel_focused = focused
-
     def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
         if (
             focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
         ) == self._toplevel_focused:
             return
 
-        if focused:
-            GLib.timeout_add(300, self.__set_toplevel_focused, True)
+        if not focused:
+            self.__hide_revealers(self.reveal_timestamp)
 
-        else:
-            self.__set_toplevel_focused(False)
+        self._toplevel_focused = bool(focused)
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
