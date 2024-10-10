@@ -8,17 +8,17 @@ menu primary_menu {
 
   section {
     item {
-        label: _("Show in _Files");
-        action: "app.show-in-files";
-        hidden-when: "action-disabled";
+      label: _("Show in _Files");
+      action: "app.show-in-files";
+      hidden-when: "action-disabled";
     }
   }
 
   section {
     item {
-        label: _("Take _Screenshot");
-        action: "app.screenshot";
-        hidden-when: "action-disabled";
+      label: _("Take _Screenshot");
+      action: "app.screenshot";
+      hidden-when: "action-disabled";
     }
   }
 
@@ -34,6 +34,7 @@ menu options {
       custom: "speed";
     }
   }
+
   section {
     submenu language_menu {
       label: _("_Language");
@@ -160,17 +161,17 @@ menu context_menu {
 
   section {
     item {
-        label: _("Take _Screenshot");
-        action: "app.screenshot";
-        hidden-when: "action-disabled";
+      label: _("Take _Screenshot");
+      action: "app.screenshot";
+      hidden-when: "action-disabled";
     }
   }
 
   section {
     item {
-        label: _("Show in _Files");
-        action: "app.show-in-files";
-        hidden-when: "action-disabled";
+      label: _("Show in _Files");
+      action: "app.show-in-files";
+      hidden-when: "action-disabled";
     }
   }
 
@@ -201,6 +202,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
           "showtime-dragging-area-highlight"
         ]
       };
+
       child: Stack stack {
         Adw.ToolbarView placeholder_page {
           [top]
@@ -247,12 +249,228 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
         }
 
         WindowHandle video_page {
+          name: "video-page";
+
           Overlay video_overlay {
+            [overlay]
+            Revealer toolbar_revealer {
+              transition-type: crossfade;
+
+              Adw.Clamp {
+                maximum-size: 1920;
+                tightening-threshold: 1920;
+
+                Box toolbar_box {
+                  orientation: vertical;
+                  margin-start: 12;
+                  margin-end: 12;
+                  margin-bottom: 12;
+
+                  Revealer controls_revealer {
+                    transition-type: crossfade;
+                    reveal-child: bind restore_revealer.reveal-child inverted;
+                    can-target: bind controls_revealer.reveal-child;
+
+                    Box controls_box {
+                      hexpand: true;
+                      vexpand: true;
+                      halign: center;
+                      valign: center;
+                      margin-top: 48;
+
+                      Button {
+                        valign: center;
+                        icon-name: "skip-backwards-10-symbolic";
+                        action-name: "app.backwards";
+
+                        accessibility {
+                          label: _("Go Back 10 Seconds");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+
+                      Button play_button {
+                        name: "play-button";
+                        margin-start: 12;
+                        margin-end: 12;
+                        valign: center;
+                        icon-name: "media-playback-start-symbolic";
+                        action-name: "app.toggle-playback";
+
+                        accessibility {
+                          label: _("Play");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+
+                      Button forwards_button {
+                        valign: center;
+                        icon-name: "skip-forward-10-symbolic";
+                        action-name: "app.forwards";
+
+                        accessibility {
+                          label: _("Go Forward 10 Seconds");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+                    }
+                  }
+
+                  Box bottom_overlay_box {
+                    vexpand: bind controls_revealer.reveal-child inverted;
+                    valign: end;
+
+                    Label title_label {
+                      hexpand: true;
+                      halign: start;
+                      margin-start: 12;
+                      margin-end: 12;
+                      ellipsize: end;
+
+                      styles [
+                        "heading",
+                        "overlaid"
+                      ]
+                    }
+
+                    MenuButton volume_menu_button {
+                      valign: center;
+                      icon-name: "audio-volume-high-symbolic";
+                      popover: volume_popover;
+                      direction: up;
+
+                      accessibility {
+                        label: _("Adjust Volume");
+                      }
+
+                      styles [
+                        "circular",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+
+                    MenuButton options_menu_button {
+                      halign: end;
+                      valign: center;
+                      icon-name: "settings-symbolic";
+                      popover: options_popover;
+                      direction: up;
+
+                      accessibility {
+                        label: _("Playback Options");
+                      }
+
+                      styles [
+                        "circular",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+                  }
+
+                  Scale seek_scale {
+                    hexpand: true;
+                    valign: end;
+
+                    adjustment: Adjustment {
+                      step-increment: 0.1;
+                      lower: 0;
+                      upper: 1;
+                      value: 0;
+                    };
+
+                    accessibility {
+                      labelled-by: title_label;
+                    }
+
+                    styles [
+                      "bouncy",
+                      "overlaid"
+                    ]
+                  }
+
+                  Box {
+                    valign: end;
+                    margin-bottom: 3;
+
+                    Label position_label {
+                      hexpand: true;
+                      halign: start;
+                      label: "0∶00";
+                      margin-start: 12;
+                      margin-end: 3;
+
+                      styles [
+                        "caption",
+                        "numeric",
+                        "timestamp",
+                        "overlaid"
+                      ]
+                    }
+
+                    Button end_timestamp_button {
+                      hexpand: true;
+                      name: "end-timestamp-button";
+                      halign: end;
+                      label: "0∶00";
+                      margin-start: 3;
+                      tooltip-text: _("Toggle Duration/Remaining");
+                      clicked => $_cycle_end_timestamp_type();
+
+                      styles [
+                        "caption",
+                        "numeric",
+                        "timestamp",
+                        "dim-label",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+                  }
+                }
+              }
+
+              styles [
+                "shade"
+              ]
+            }
+
+            [overlay]
+            Revealer spinner_revealer {
+              can-target: false;
+              hexpand: true;
+              vexpand: true;
+              margin-bottom: 46;
+              transition-type: crossfade;
+
+              Adw.Spinner {
+                styles [
+                  "overlaid"
+                ]
+              }
+            }
 
             [overlay]
             Revealer restore_revealer {
               can-target: bind restore_revealer.reveal-child;
               transition-type: crossfade;
+              margin-bottom: 60;
 
               Adw.BreakpointBin {
                 width-request: 1;
@@ -262,7 +480,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                   halign: center;
                   valign: center;
                   spacing: 9;
-                  margin-bottom: 126;
                   margin-start: 3;
                   margin-end: 3;
 
@@ -277,12 +494,20 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
                       Image resume_icon {
                         icon-name: "media-playback-start-symbolic";
+
+                        styles [
+                          "overlaid"
+                        ]
                       }
 
                       Label resume_label {
                         justify: center;
                         wrap: true;
                         label: _("Resume");
+
+                        styles [
+                          "overlaid"
+                        ]
                       }
                     }
 
@@ -293,8 +518,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     }
 
                     styles [
-                      "osd",
-                      "soft-corners"
+                      "overlaid",
+                      "bouncy"
                     ]
                   }
 
@@ -309,12 +534,20 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
                       Image restart_icon {
                         icon-name: "arrow-circular-top-right-symbolic";
+
+                        styles [
+                          "overlaid"
+                        ]
                       }
 
                       Label restart_label {
                         justify: center;
                         wrap: true;
                         label: _("Start Again");
+
+                        styles [
+                          "overlaid"
+                        ]
                       }
                     }
 
@@ -325,8 +558,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     }
 
                     styles [
-                      "osd",
-                      "soft-corners"
+                      "overlaid",
+                      "bouncy"
                     ]
                   }
                 }
@@ -345,7 +578,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
                   setters {
                     restore_box.spacing: 24;
-
                     restart_button.width-request: 126;
                     restart_button.height-request: 120;
                     restart_box.orientation: vertical;
@@ -355,7 +587,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     restart_box.margin-end: 0;
                     restart_icon.icon-size: large;
                     restart_icon.margin-top: 12;
-
                     resume_button.width-request: 126;
                     resume_button.height-request: 120;
                     resume_box.orientation: vertical;
@@ -366,149 +597,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     resume_icon.icon-size: large;
                     resume_icon.margin-top: 12;
                   }
-                }
-              }
-            }
-
-            [overlay]
-            Revealer toolbar_revealer {
-              valign: end;
-              transition-type: crossfade;
-
-              Adw.Clamp toolbar_clamp {
-                maximum-size: 600;
-                tightening-threshold: 550;
-
-                Box toolbar_box {
-                  valign: end;
-                  orientation: vertical;
-
-                  CenterBox {
-                    margin-top: 3;
-
-                    [start]
-                    Label position_label {
-                      label: "0∶00";
-                      margin-start: 12;
-                      margin-end: 3;
-
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp"
-                      ]
-                    }
-
-                    [center]
-                    Label title_label {
-                      name: "title-label";
-                      halign: center;
-                      hexpand: true;
-                      margin-start: 12;
-                      margin-end: 12;
-                      justify: center;
-                      ellipsize: end;
-
-                      styles [
-                        "heading"
-                      ]
-                    }
-
-                    [end]
-                    Button end_timestamp_button {
-                      name: "end-timestamp-button";
-                      label: "0∶00";
-                      margin-start: 3;
-                      tooltip-text: _("Toggle Duration/Remaining");
-                      clicked => $_cycle_end_timestamp_type();
-
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp",
-                        "dim-label",
-                        "flat"
-                      ]
-                    }
-                  }
-
-                  Scale seek_scale {
-                    hexpand: true;
-
-                    adjustment: Adjustment {
-                      step-increment: 0.1;
-                      lower: 0;
-                      upper: 1;
-                      value: 0;
-                    };
-
-                    accessibility {
-                      labelled-by: title_label;
-                    }
-                  }
-
-                  CenterBox toolbar_hbox {
-                    [start]
-                    MenuButton volume_menu_button {
-                      icon-name: "audio-volume-high-symbolic";
-                      popover: volume_popover;
-                      direction: up;
-
-                      accessibility {
-                        label: _("Adjust Volume");
-                      }
-                    }
-
-                    [center]
-                    Box {
-                      Button {
-                        icon-name: "skip-backwards-10-symbolic";
-                        action-name: "app.backwards";
-
-                        accessibility {
-                          label: _("Go Back 10 Seconds");
-                        }
-                      }
-
-                      Button play_button {
-                        name: "play-button";
-                        icon-name: "media-playback-start-symbolic";
-                        action-name: "app.toggle-playback";
-
-                        accessibility {
-                          label: _("Play");
-                        }
-                      }
-
-                      Button forwards_button {
-                        icon-name: "skip-forward-10-symbolic";
-                        action-name: "app.forwards";
-
-                        accessibility {
-                          label: _("Go Forward 10 Seconds");
-                        }
-                      }
-                    }
-
-                    [end]
-                    MenuButton options_menu_button {
-                      halign: end;
-                      icon-name: "settings-symbolic";
-                      popover: options_popover;
-                      direction: up;
-
-                      accessibility {
-                        label: _("Playback Options");
-                      }
-                    }
-                  }
-
-                  styles [
-                    "osd",
-                    "toolbar",
-                    "soft-corners",
-                    "sharp-corners"
-                  ]
                 }
               }
             }
@@ -529,25 +617,27 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
                   WindowControls window_controls_start {
                     halign: start;
+                    valign: start;
                     visible: bind window_controls_start.empty inverted;
                     side: start;
 
                     styles [
-                      "window-controls-osd"
+                      "overlaid"
                     ]
                   }
 
                   Button button_fullscreen {
                     hexpand: true;
-                    valign: start;
-                    halign: start;
+                    margin-bottom: 24;
+                    margin-end: 24;
                     icon-name: "view-fullscreen-symbolic";
                     tooltip-text: _("Toggle Fullscreen");
                     action-name: "app.toggle-fullscreen";
 
                     styles [
-                      "osd",
-                      "circular"
+                      "circular",
+                      "bouncy",
+                      "overlaid"
                     ]
                   }
                 }
@@ -570,61 +660,38 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
                   MenuButton video_primary_menu_button {
                     hexpand: true;
-                    valign: start;
-                    halign: end;
-                    margin-start: 6;
+                    margin-bottom: 24;
+                    margin-start: 24;
                     primary: true;
                     icon-name: "open-menu-symbolic";
                     tooltip-text: _("Main Menu");
                     menu-model: primary_menu;
 
                     styles [
-                      "osd",
-                      "circular"
+                      "circular",
+                      "bouncy",
+                      "overlaid"
                     ]
                   }
 
                   WindowControls window_controls_end {
                     halign: end;
+                    valign: start;
                     visible: bind window_controls_end.empty inverted;
                     side: end;
 
                     styles [
-                      "window-controls-osd"
+                      "overlaid"
                     ]
                   }
                 }
               }
             }
 
-            Overlay spinner_overlay {
-              [overlay]
-              Revealer {
-                transition-type: crossfade;
-                reveal-child: bind spinner_revealer.reveal-child;
-                can-target: false;
+            GraphicsOffload graphics_offload {
+              child: Picture picture {};
 
-                Adw.Bin {
-                  vexpand: true;
-                  hexpand: true;
-
-                  styles [
-                    "dim-video-overlay"
-                  ]
-                }
-              }
-
-              [overlay]
-              Revealer spinner_revealer {
-                can-target: false;
-                transition-type: crossfade;
-
-                Adw.Spinner {}
-              }
-
-              GraphicsOffload graphics_offload {
-                child: Picture picture {};
-              }
+              black-background: true;
             }
           }
         }
@@ -632,27 +699,15 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
     }
   };
 
-  Adw.Breakpoint breakpoint_dock {
+  Adw.Breakpoint {
     condition ("min-width: 550px")
 
     setters {
-      toolbar_clamp.margin-bottom: 12;
-      toolbar_clamp.margin-start: 12;
-      toolbar_clamp.margin-end: 12;
-
-      restore_box.margin-bottom: 138;
-    }
-  }
-
-  Adw.Breakpoint breakpoint_margin {
-    condition ("min-width: 720px")
-
-    setters {
-      toolbar_clamp.margin-bottom: 24;
-      toolbar_clamp.margin-start: 24;
-      toolbar_clamp.margin-end: 24;
-
-      restore_box.margin-bottom: 150;
+      toolbar_box.margin-bottom: 24;
+      toolbar_box.margin-start: 24;
+      toolbar_box.margin-end: 24;
+      spinner_revealer.margin-bottom: 58;
+      restore_revealer.margin-bottom: 90;
     }
   }
 

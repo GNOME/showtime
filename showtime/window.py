@@ -44,8 +44,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     __gtype_name__ = "ShowtimeWindow"
 
-    breakpoint_dock: Adw.Breakpoint = Gtk.Template.Child()
-    breakpoint_margin: Adw.Breakpoint = Gtk.Template.Child()
     drag_overlay: ShowtimeDragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
@@ -63,7 +61,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
     video_overlay: Gtk.Overlay = Gtk.Template.Child()
-    spinner_overlay: Gtk.Overlay = Gtk.Template.Child()
     graphics_offload: Gtk.GraphicsOffload = Gtk.Template.Child()
     picture: Gtk.Picture = Gtk.Template.Child()
 
@@ -76,7 +73,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     toolbar_revealer: Gtk.Revealer = Gtk.Template.Child()
     toolbar_box: Gtk.Box = Gtk.Template.Child()
-    toolbar_hbox: Gtk.Box = Gtk.Template.Child()
+    controls_box: Gtk.Box = Gtk.Template.Child()
+    bottom_overlay_box: Gtk.Box = Gtk.Template.Child()
 
     title_label: Gtk.Label = Gtk.Template.Child()
     play_button: Gtk.Button = Gtk.Template.Child()
@@ -171,16 +169,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.placeholder_primary_menu_button.set_visible(False)
             self.video_primary_menu_button.set_visible(False)
 
-        # Set `black-background` if supported or fall back to a style class
-
-        try:
-            self.graphics_offload.set_black_background(True)  #  type: ignore
-        except AttributeError:
-            logging.debug(
-                "GTK 4.14 or earlier, GtkGraphicsOffload:black-background not supported"
-            )
-            self.spinner_overlay.add_css_class("black-background")
-
         # Set up GstPlay
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
@@ -250,7 +238,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.video_overlay.add_controller(self.overlay_motion)
 
         for widget in (
-            self.toolbar_box,
+            self.controls_box,
+            self.bottom_overlay_box,
             self.header_start,
             self.header_end,
             self.restore_box,
@@ -306,19 +295,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         )
         self._prev_volume = -1
 
-        self.breakpoint_margin.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_margin.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "apply", lambda *_: self.toolbar_box.remove_css_class("sharp-corners")
-        )
-        self.breakpoint_dock.connect(
-            "unapply", lambda *_: self.toolbar_box.add_css_class("sharp-corners")
-        )
-
         self.connect("realize", self.__on_realize)
 
     def __on_realize(self, *_args: Any) -> None:
@@ -330,20 +306,16 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         surface.connect("notify::state", self.__on_toplevel_state_changed)
 
-    def __set_toplevel_focused(self, focused: bool) -> None:
-        self._toplevel_focused = focused
-
     def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
         if (
             focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
         ) == self._toplevel_focused:
             return
 
-        if focused:
-            GLib.timeout_add(300, self.__set_toplevel_focused, True)
+        if not focused:
+            self.__hide_revealers(self.reveal_timestamp)
 
-        else:
-            self.__set_toplevel_focused(False)
+        self._toplevel_focused = bool(focused)
 
     def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
@@ -546,6 +518,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.default_speed_button.set_active(True)
         self.play.set_uri(gfile.get_uri())
         self.pause()
+        self.__on_motion()
 
         if not (pos := self.__get_previous_play_position()):
             self.unpause()
@@ -973,7 +946,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.rate = 1
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
-        self.__on_motion(None)
+        self.__on_motion()
 
         # TODO: Make this per-window instead of app-wide
         if (self.stack.get_visible_child() != self.video_page) or not (
@@ -1001,20 +974,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         _x: int,
         _y: int,
     ) -> None:
-        self.__on_motion(None)
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-
-        if (
-            (event := gesture.get_current_event())
-            and (device := event.get_device())
-            and device.get_source() == Gdk.InputSource.TOUCHSCREEN
-        ):
-            return
-
-        if not self._toplevel_focused:
-            return
-
-        self.toggle_playback()
+        self.__on_motion()
 
         if not n % 2:
             self.toggle_fullscreen()
@@ -1055,6 +1016,9 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             if button.get_active():
                 return
 
+        if self.restore_revealer.get_reveal_child():
+            return
+
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(False)
 
@@ -1064,7 +1028,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.set_cursor_from_name("none")
 
     def __on_motion(
-        self, _obj: Any, x: Optional[float] = None, y: Optional[float] = None
+        self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
         if None not in (x, y):
             if (x, y) == self.prev_motion_xy:
