@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+	<id>@APP_ID@</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0-or-later</project_license>
+	<name>Showtime</name>
+	<summary>Watch without distraction</summary>
+	<description>
+	  <p>Play your favorite movies and video files without hassle. Showtime features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
+	</description>
+	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
+	<translation type="gettext">showtime</translation>
+	<branding>
+		<color type="primary" scheme_preference="light">#9aa9ee</color>
+		<color type="primary" scheme_preference="dark">#4b3e81</color>
+	</branding>
+	<developer id="page.kramo">
+		<name translate="no">kramo</name>
+	</developer>
+	<url type="homepage">https://apps.gnome.org/Showtime/</url>
+	<url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues</url>
+	<url type="contribute">https://welcome.gnome.org/app/Showtime/</url>
+	<url type="translate">https://l10n.gnome.org/module/showtime/</url>
+	<url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/showtime</url>
+	<project_group>GNOME</project_group>
+	<content_rating type="oars-1.1" />
+	<supports>
+		<control>pointing</control>
+		<control>keyboard</control>
+		<control>touch</control>
+	</supports>
+	<requires>
+		<display_length compare="ge">360</display_length>
+	</requires>
+	<screenshots>
+		<screenshot type="default">
+			<caption>The app playing a video</caption>
+			<image type="source" width="2540" height="1206">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/raw/main/data/screenshots/1.png</image>
+		</screenshot>
+	</screenshots>
+	<releases>
+		<release version="48.alpha" date="2024-07-09"/>
+		<release version="46.3" date="2024-07-09">
+		    <description>
+				<p>Initial release</p>
+			</description>
+		</release>
+	</releases>
+</component>

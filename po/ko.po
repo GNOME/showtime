@@ -1,0 +1,308 @@
+# Korean translation for showtime.
+# Copyright (C) 2024 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Seong-ho Cho <shcho@gnome.org>,  2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-08-28 22:36+0000\n"
+"PO-Revision-Date: 2024-08-30 12:31+0900\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
+"Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "쇼타임"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "동영상 재생 앱"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "동영상을 재생합니다"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "새 창"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "방해 요소 없이 시청합니다."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"좋아하는 영화나 동영상 파일을 어떤 귀찮은 요소 없이 재생합니다. 쇼타임은 원"
+"하는 경우 여러분이 원하는 방식으로 화면에 사라지는 효과를 주는 간단한 재생 "
+"컨트롤, 조절 가능한 재생 속도, 다중 언어 및 자막 트랙, 스크린샷 기능이 있습"
+"니다 — 직관적인 시청 경험에 여러분이 원하는 모든 기능이 담겼습니다."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "동영상을 재생하는 앱"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "타임스탬프 위치 마지막에 표시할 내용"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "예: 동영상의 총 재생 길이 또는 남은 시간"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "동영상 재생 중"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "조성호 <shcho@gnome.org>, 2024"
+
+#: showtime/mpris.py:289 showtime/window.py:590
+msgid "Unknown Title"
+msgstr "제목 알 수 없음"
+
+#: showtime/window.py:139 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "재생"
+
+#: showtime/window.py:142
+msgid "Pause"
+msgstr "일시 정지"
+
+#: showtime/window.py:446
+msgid "Details copied"
+msgstr "세부 정보를 복사했습니다"
+
+#: showtime/window.py:449
+msgid "Copy Technical Details"
+msgstr "복제 기술 세부 정보"
+
+#: showtime/window.py:475
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "이 동영상을 재생할 “{}” 코덱이 없습니다"
+
+#: showtime/window.py:496
+msgid "No plugin available for this media type"
+msgstr "이 미디어 형식에 맞는 플러그인이 없습니다"
+
+#: showtime/window.py:502
+msgid "Unable to install the required plugin"
+msgstr "필요한 플러그인을 설치할 수 없습니다"
+
+#: showtime/window.py:505
+msgid "Install Plugin"
+msgstr "플러그인 설치"
+
+#: showtime/window.py:513
+msgid "Installing…"
+msgstr "설치중…"
+
+#: showtime/window.py:521
+msgid "“{}” codecs are required to play this video"
+msgstr "이 영상을 재생하려면 “{}” 코덱이 필요합니다"
+
+#: showtime/window.py:601
+msgid "Screenshot captured"
+msgstr "스크린샷을 찍었습니다"
+
+#: showtime/window.py:603
+msgid "Show in Files"
+msgstr "파일에서 보기"
+
+#: showtime/window.py:665
+msgid "Video"
+msgstr "동영상"
+
+#: showtime/window.py:684
+msgid "Subtitles"
+msgstr "자막"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:749
+msgid "Undetermined, {} Channels"
+msgstr "분명하지 않음, 채널 {}개"
+
+#: showtime/window.py:751
+msgid "Undetermined"
+msgstr "분명하지 않음"
+
+#: showtime/window.py:758
+msgid "No Audio"
+msgstr "소리 없음"
+
+#: showtime/window.py:763
+msgid "None"
+msgstr "없음"
+
+#: showtime/window.py:769
+msgid "Undetermined Language"
+msgstr "분명하지 않은 언어"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "일반"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "바로 가기 키 표시"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "동영상 열기"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "스크린샷 찍기"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "창 닫기"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "끝내기"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "음량"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "음량 증가"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "음량 감소"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "음소거/해제"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "보기"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "전체 화면 전환"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "전체 화면 나가기"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "재생"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "재생/일시정지"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "10초 뒤로"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "10초 앞으로"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "열기(_O)…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "파일에서 보기(_F)"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "스크린샷 찍기(_S)"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "키보드 바로 가기 키(_K)"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "쇼타임 정보(_A)"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "언어(_L)"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "자막(_S)"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "반복재생(_R)"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "재생 속도"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "주 메뉴"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "시청한 영상"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "동영상을 이곳에 끌어다 놓으십시오"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "열기…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "동영상을 재생할 수 없습니다"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "플러그인 빠짐"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "재개"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "다시 시작"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "길이/남은시간 표시 전환"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "음량 조절"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "재생 옵션"

@@ -1,0 +1,315 @@
+# Hungarian translation for showtime.
+# Copyright (C) 2024 Free Software Foundation, Inc.
+# This file is distributed under the same license as the showtime package.
+#
+# Balázs Úr <ur.balazs at fsf dot hu>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-13 16:11+0200\n"
+"Last-Translator: Meskó Balázs <mesko.balazs@fsf.hu>\n"
+"Language-Team: Hungarian <openscope at fsf dot hu>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "Műsoridő"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Videolejátszó"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Videók lejátszása"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Új ablak"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Nézzen videókat zavartalanul"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"Játssza le kedvenc filmjeit és videofájljait gond nélkül. A Műsoridő "
+"egyszerű lejátszásvezérlőkkel rendelkezik, amelyek videónézés közben "
+"elhalványulnak és eltűnnek az útból, teljes képernyő, állítható lejátszási "
+"sebesség, több nyelvi és feliratozási sáv, valamint képernyőképek – minden, "
+"amire szüksége van az egyszerű videonézési élményhez."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "Az alkalmazás egy videó lejátszása közben"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Mit kell megjeleníteni a befejező időbélyeg pozíciójában"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Például a videó teljes időtartama vagy a hátralévő idő mennyisége"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "Egy videó lejátszása"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "Úr Balázs <ur.balazs at fsf dot hu>, 2024."
+
+#: showtime/mpris.py:289 showtime/window.py:593
+msgid "Unknown Title"
+msgstr "Ismeretlen cím"
+
+#: showtime/window.py:140 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "Lejátszás"
+
+#: showtime/window.py:143
+msgid "Pause"
+msgstr "Szüneteltetés"
+
+#: showtime/window.py:449
+msgid "Details copied"
+msgstr "Részletek másolva"
+
+#: showtime/window.py:452
+msgid "Copy Technical Details"
+msgstr "Műszaki részletek másolása"
+
+#: showtime/window.py:478
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "A videó lejátszásához szükséges „{}” kodekek nem találhatók"
+
+#: showtime/window.py:499
+msgid "No plugin available for this media type"
+msgstr "Nem érhető el bővítmény ehhez a médiatípushoz"
+
+#: showtime/window.py:505
+msgid "Unable to install the required plugin"
+msgstr "Nem lehet telepíteni a szükséges bővítményt"
+
+#: showtime/window.py:508
+msgid "Install Plugin"
+msgstr "Bővítmény telepítése"
+
+#: showtime/window.py:516
+msgid "Installing…"
+msgstr "Telepítés…"
+
+#: showtime/window.py:524
+msgid "“{}” codecs are required to play this video"
+msgstr "A(z) „{}” kodekek szükségesek a videó lejátszásához"
+
+#: showtime/window.py:604
+msgid "Screenshot captured"
+msgstr "Képernyőkép rögzítve"
+
+#: showtime/window.py:606
+msgid "Show in Files"
+msgstr "Megjelenítés a Fájlokban"
+
+#: showtime/window.py:668
+msgid "Video"
+msgstr "Videó"
+
+#: showtime/window.py:687
+msgid "Subtitles"
+msgstr "Feliratok"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Meghatározatlan, {} csatorna"
+msgstr[1] "Meghatározatlan, {} csatorna"
+
+#: showtime/window.py:758
+msgid "Undetermined"
+msgstr "Meghatározatlan"
+
+#: showtime/window.py:765
+msgid "No Audio"
+msgstr "Nincs hang"
+
+#: showtime/window.py:770
+msgid "None"
+msgstr "Nincs"
+
+#: showtime/window.py:776
+msgid "Undetermined Language"
+msgstr "Meghatározatlan nyelv"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Feliratfájl hozzáadása…"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "Általános"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Gyorsbillentyűk megjelenítése"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "Videó megnyitása"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Képernyőkép készítése"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Ablak bezárása"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Kilépés"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Hangerő"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "Hangerő növelése"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "Hangerő csökkentése"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "Némítás vagy visszahangosítás"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Nézet"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "Teljes képernyő be- és kikapcsolása"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Kilépés a teljes képernyőből"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Lejátszás"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Lejátszás vagy szüneteltetés"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "Ugrás vissza 10 másodpercet"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "Ugrás előre 10 másodpercet"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "_Megnyitás…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "Megjelenítés a _Fájlokban"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "_Képernyőkép készítése"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "_Gyorsbillenytűk"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "A Műsoridő _névjegye"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "_Nyelv"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "_Feliratok"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "_Ismétlés"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "Lejátszási sebesség"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "Főmenü"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "Videók megtekintése"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "Fogjon meg és ejtsen videókat ide"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Megnyitás…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "Nem lehet lejátszani a videót"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Hiányzó bővítmény"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "Folytatás"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "Újrakezdés"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "Időtartam vagy hátralévő idő átváltása"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "Hangerő beállítása"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "Lejátszási lehetőségek"

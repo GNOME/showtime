@@ -1,0 +1,743 @@
+using Gtk 4.0;
+using Adw 1;
+
+menu primary_menu {
+  section {
+    item (_("_Open…"), "app.open-video")
+  }
+
+  section {
+    item {
+      label: _("Show in _Files");
+      action: "app.show-in-files";
+      hidden-when: "action-disabled";
+    }
+  }
+
+  section {
+    item {
+      label: _("Take _Screenshot");
+      action: "app.screenshot";
+      hidden-when: "action-disabled";
+    }
+  }
+
+  section {
+    item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("_About Showtime"), "app.about")
+  }
+}
+
+menu options {
+  section {
+    item {
+      custom: "speed";
+    }
+  }
+
+  section {
+    submenu language_menu {
+      label: _("_Language");
+    }
+
+    submenu {
+      label: _("_Subtitles");
+
+    section subtitles_menu {}
+      section {
+        item {
+          custom: "subtitle-offset";
+        }
+      }
+    }
+  }
+
+  section {
+    item (_("_Repeat"), "app.toggle-loop")
+  }
+}
+
+PopoverMenu options_popover {
+  menu-model: options;
+
+  [subtitle-offset]
+  Adw.SpinRow delay_spin_row {
+    title: _("Delay (seconds)");
+    digits: 1;
+
+    styles [
+      "mild-corners"
+    ]
+
+    adjustment: Adjustment {
+      step-increment: 0.1;
+      page-increment: 1;
+      lower: -3600;
+      upper: 3600;
+      value: 0;
+    };
+  }
+
+  [speed]
+  Box {
+    margin-top: 9;
+    margin-bottom: 9;
+    margin-start: 9;
+    margin-end: 9;
+    spacing: 12;
+    orientation: vertical;
+
+    Label {
+      halign: start;
+      label: _("Playback Speed");
+
+      styles [
+        "caption-heading",
+      ]
+    }
+
+    Box {
+      spacing: 9;
+      homogeneous: true;
+
+      ToggleButton {
+        label: "0.5×";
+        group: default_speed_button;
+        clicked => $_set_rate();
+      }
+
+      ToggleButton default_speed_button {
+        label: "1.0×";
+        active: true;
+        clicked => $_set_rate();
+      }
+
+      ToggleButton {
+        label: "1.25×";
+        group: default_speed_button;
+        clicked => $_set_rate();
+      }
+
+      ToggleButton {
+        label: "1.5×";
+        group: default_speed_button;
+        clicked => $_set_rate();
+      }
+
+      ToggleButton {
+        label: "2.0×";
+        group: default_speed_button;
+        clicked => $_set_rate();
+      }
+
+      styles [
+        "selection-toolbar",
+        "caption"
+      ]
+    }
+  }
+}
+
+Popover volume_popover {
+  width-request: 250;
+
+  Box {
+    margin-top: 6;
+    margin-bottom: 6;
+    margin-start: 6;
+    margin-end: 6;
+
+    ToggleButton mute_button {
+      icon-name: "audio-volume-muted-symbolic";
+      action-name: "app.toggle-mute";
+
+      accessibility {
+        label: _("Mute/Unmute");
+      }
+
+      styles [
+        "circular"
+      ]
+    }
+
+    Scale volume_scale {
+      hexpand: true;
+
+      adjustment: Adjustment {
+        step-increment: 0.2;
+        lower: 0;
+        upper: 1;
+        value: 1;
+      };
+    }
+  }
+}
+
+menu context_menu {
+  section {
+    item (_("Go Back 10 Seconds"), "app.backwards")
+    item (_("Go Forward 10 Seconds"), "app.forwards")
+  }
+
+  section {
+    item (_("Mute/Unmute"), "app.toggle-mute")
+    item (_("_Repeat"), "app.toggle-loop")
+  }
+
+  section {
+    item {
+      label: _("Take _Screenshot");
+      action: "app.screenshot";
+      hidden-when: "action-disabled";
+    }
+  }
+
+  section {
+    item {
+      label: _("Show in _Files");
+      action: "app.show-in-files";
+      hidden-when: "action-disabled";
+    }
+  }
+
+  section {
+    item (_("_Open…"), "app.open-video")
+  }
+}
+
+PopoverMenu context_menu_popover {
+  halign: start;
+  menu-model: context_menu;
+  has-arrow: false;
+}
+
+template $ShowtimeWindow: Adw.ApplicationWindow {
+  default-width: 800;
+  default-height: 500;
+  height-request: 202; // For a 16∶9 aspect ratio
+  width-request: 360;
+  title: _("Showtime");
+
+  content: Adw.ToastOverlay toast_overlay {
+    $ShowtimeDragOverlay drag_overlay {
+      overlayed: Adw.Bin {
+        can-target: false;
+
+        styles [
+          "showtime-dragging-area-highlight"
+        ]
+      };
+
+      child: Stack stack {
+        Adw.ToolbarView placeholder_page {
+          [top]
+          Adw.HeaderBar header_bar {
+            [end]
+            MenuButton placeholder_primary_menu_button {
+              primary: true;
+              icon-name: "open-menu-symbolic";
+              tooltip-text: _("Main Menu");
+              menu-model: primary_menu;
+            }
+          }
+
+          content: WindowHandle {
+            Stack placeholder_stack {
+              Adw.StatusPage open_status_page {
+                icon-name: "video-x-generic-symbolic";
+                title: _("Watch Videos");
+                description: _("Drag and drop videos here");
+
+                Button button_open {
+                  label: _("Open…");
+                  halign: center;
+                  action-name: "app.open-video";
+
+                  styles [
+                    "pill",
+                    "suggested-action"
+                  ]
+                }
+              }
+
+              Adw.StatusPage error_status_page {
+                icon-name: "dialog-error-symbolic";
+                title: _("Unable to Play Video");
+              }
+
+              Adw.StatusPage missing_plugin_status_page {
+                icon-name: "puzzle-piece-symbolic";
+                title: _("Missing Plugin");
+              }
+            }
+          };
+        }
+
+        WindowHandle video_page {
+          name: "video-page";
+
+          Overlay video_overlay {
+            [overlay]
+            Revealer toolbar_revealer {
+              transition-type: crossfade;
+
+              Adw.Clamp {
+                maximum-size: 1920;
+                tightening-threshold: 1920;
+
+                Box toolbar_box {
+                  orientation: vertical;
+                  margin-start: 12;
+                  margin-end: 12;
+                  margin-bottom: 12;
+
+                  Revealer controls_revealer {
+                    transition-type: crossfade;
+                    reveal-child: bind restore_revealer.reveal-child inverted;
+                    can-target: bind controls_revealer.reveal-child;
+
+                    Box controls_box {
+                      hexpand: true;
+                      vexpand: true;
+                      halign: center;
+                      valign: center;
+                      margin-top: 48;
+
+                      Button {
+                        valign: center;
+                        icon-name: "skip-backwards-10-symbolic";
+                        action-name: "app.backwards";
+
+                        accessibility {
+                          label: _("Go Back 10 Seconds");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+
+                      Button play_button {
+                        name: "play-button";
+                        margin-start: 12;
+                        margin-end: 12;
+                        valign: center;
+                        icon-name: "media-playback-start-symbolic";
+                        action-name: "app.toggle-playback";
+
+                        accessibility {
+                          label: _("Play");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+
+                      Button forwards_button {
+                        valign: center;
+                        icon-name: "skip-forward-10-symbolic";
+                        action-name: "app.forwards";
+
+                        accessibility {
+                          label: _("Go Forward 10 Seconds");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+                    }
+                  }
+
+                  Box bottom_overlay_box {
+                    name: "bottom-overlay-box";
+                    vexpand: bind controls_revealer.reveal-child inverted;
+                    valign: end;
+
+                    Label title_label {
+                      hexpand: true;
+                      halign: start;
+                      margin-start: 12;
+                      margin-end: 12;
+                      ellipsize: end;
+
+                      styles [
+                        "title-4",
+                        "overlaid"
+                      ]
+                    }
+
+                    MenuButton volume_menu_button {
+                      valign: center;
+                      icon-name: "audio-volume-high-symbolic";
+                      popover: volume_popover;
+                      direction: up;
+
+                      accessibility {
+                        label: _("Adjust Volume");
+                      }
+
+                      styles [
+                        "circular",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+
+                    MenuButton options_menu_button {
+                      halign: end;
+                      valign: center;
+                      icon-name: "settings-symbolic";
+                      popover: options_popover;
+                      direction: up;
+
+                      accessibility {
+                        label: _("Playback Options");
+                      }
+
+                      styles [
+                        "circular",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+                  }
+
+                  Scale seek_scale {
+                    hexpand: true;
+                    valign: end;
+
+                    adjustment: Adjustment {
+                      step-increment: 0.1;
+                      lower: 0;
+                      upper: 1;
+                      value: 0;
+                    };
+
+                    accessibility {
+                      labelled-by: title_label;
+                    }
+
+                    styles [
+                      "bouncy",
+                      "overlaid"
+                    ]
+                  }
+
+                  Box {
+                    valign: end;
+                    margin-bottom: 3;
+
+                    Label position_label {
+                      hexpand: true;
+                      halign: start;
+                      label: "0∶00";
+                      margin-start: 12;
+                      margin-end: 3;
+
+                      styles [
+                        "caption",
+                        "numeric",
+                        "timestamp",
+                        "overlaid"
+                      ]
+                    }
+
+                    Button end_timestamp_button {
+                      hexpand: true;
+                      name: "end-timestamp-button";
+                      halign: end;
+                      label: "0∶00";
+                      margin-start: 3;
+                      tooltip-text: _("Toggle Duration/Remaining");
+                      clicked => $_cycle_end_timestamp_type();
+
+                      styles [
+                        "caption",
+                        "numeric",
+                        "timestamp",
+                        "dim-label",
+                        "bouncy",
+                        "overlaid"
+                      ]
+                    }
+                  }
+                }
+              }
+
+              styles [
+                "shade"
+              ]
+            }
+
+            [overlay]
+            Revealer spinner_revealer {
+              can-target: false;
+              hexpand: true;
+              vexpand: true;
+              margin-bottom: 46;
+              transition-type: crossfade;
+
+              Adw.Spinner {
+                styles [
+                  "overlaid"
+                ]
+              }
+            }
+
+            [overlay]
+            Revealer restore_revealer {
+              can-target: bind restore_revealer.reveal-child;
+              transition-type: crossfade;
+              margin-bottom: 60;
+
+              Adw.BreakpointBin {
+                width-request: 1;
+                height-request: 1;
+
+                Box restore_box {
+                  halign: center;
+                  valign: center;
+                  spacing: 9;
+                  margin-start: 3;
+                  margin-end: 3;
+
+                  Button resume_button {
+                    Box resume_box {
+                      margin-top: 9;
+                      margin-bottom: 9;
+                      margin-start: 18;
+                      margin-end: 18;
+                      valign: center;
+                      spacing: 18;
+
+                      Image resume_icon {
+                        icon-name: "media-playback-start-symbolic";
+
+                        styles [
+                          "overlaid"
+                        ]
+                      }
+
+                      Label resume_label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Resume");
+
+                        styles [
+                          "overlaid"
+                        ]
+                      }
+                    }
+
+                    clicked => $_resume();
+
+                    accessibility {
+                      labelled-by: resume_label;
+                    }
+
+                    styles [
+                      "overlaid",
+                      "bouncy"
+                    ]
+                  }
+
+                  Button restart_button {
+                    Box restart_box {
+                      margin-top: 9;
+                      margin-bottom: 9;
+                      margin-start: 18;
+                      margin-end: 18;
+                      valign: center;
+                      spacing: 18;
+
+                      Image restart_icon {
+                        icon-name: "arrow-circular-top-right-symbolic";
+
+                        styles [
+                          "overlaid"
+                        ]
+                      }
+
+                      Label restart_label {
+                        justify: center;
+                        wrap: true;
+                        label: _("Start Again");
+
+                        styles [
+                          "overlaid"
+                        ]
+                      }
+                    }
+
+                    clicked => $_play_again();
+
+                    accessibility {
+                      labelled-by: restart_label;
+                    }
+
+                    styles [
+                      "overlaid",
+                      "bouncy"
+                    ]
+                  }
+                }
+
+                Adw.Breakpoint {
+                  condition ("max-height: 320px and max-width: 720px")
+
+                  setters {
+                    restart_label.visible: false;
+                    resume_label.visible: false;
+                  }
+                }
+
+                Adw.Breakpoint {
+                  condition ("min-height: 320px")
+
+                  setters {
+                    restore_box.spacing: 24;
+                    restart_button.width-request: 126;
+                    restart_button.height-request: 120;
+                    restart_box.orientation: vertical;
+                    restart_box.margin-top: 0;
+                    restart_box.margin-bottom: 0;
+                    restart_box.margin-start: 0;
+                    restart_box.margin-end: 0;
+                    restart_icon.icon-size: large;
+                    restart_icon.margin-top: 12;
+                    resume_button.width-request: 126;
+                    resume_button.height-request: 120;
+                    resume_box.orientation: vertical;
+                    resume_box.margin-top: 0;
+                    resume_box.margin-bottom: 0;
+                    resume_box.margin-start: 0;
+                    resume_box.margin-end: 0;
+                    resume_icon.icon-size: large;
+                    resume_icon.margin-top: 12;
+                  }
+                }
+              }
+            }
+
+            [overlay]
+            Revealer header_revealer_start {
+              transition-type: crossfade;
+              valign: start;
+              halign: start;
+
+              WindowHandle {
+                Box header_start {
+                  margin-top: 6;
+                  margin-bottom: 3;
+                  margin-start: 6;
+                  margin-end: 3;
+                  spacing: 6;
+
+                  WindowControls window_controls_start {
+                    halign: start;
+                    valign: start;
+                    visible: bind window_controls_start.empty inverted;
+                    side: start;
+
+                    styles [
+                      "overlaid"
+                    ]
+                  }
+
+                  Button button_fullscreen {
+                    hexpand: true;
+                    margin-bottom: 24;
+                    margin-end: 24;
+                    icon-name: "view-fullscreen-symbolic";
+                    tooltip-text: _("Toggle Fullscreen");
+                    action-name: "app.toggle-fullscreen";
+
+                    styles [
+                      "circular",
+                      "bouncy",
+                      "overlaid"
+                    ]
+                  }
+                }
+              }
+            }
+
+            [overlay]
+            Revealer header_revealer_end {
+              transition-type: crossfade;
+              valign: start;
+              halign: end;
+
+              WindowHandle {
+                Box header_end {
+                  margin-top: 6;
+                  margin-bottom: 3;
+                  margin-end: 6;
+                  margin-start: 3;
+                  spacing: 6;
+
+                  MenuButton video_primary_menu_button {
+                    hexpand: true;
+                    margin-bottom: 24;
+                    margin-start: 24;
+                    primary: true;
+                    icon-name: "open-menu-symbolic";
+                    tooltip-text: _("Main Menu");
+                    menu-model: primary_menu;
+
+                    styles [
+                      "circular",
+                      "bouncy",
+                      "overlaid"
+                    ]
+                  }
+
+                  WindowControls window_controls_end {
+                    halign: end;
+                    valign: start;
+                    visible: bind window_controls_end.empty inverted;
+                    side: end;
+
+                    styles [
+                      "overlaid"
+                    ]
+                  }
+                }
+              }
+            }
+
+            GraphicsOffload graphics_offload {
+              child: Picture picture {};
+
+              black-background: true;
+            }
+          }
+        }
+      };
+    }
+  };
+
+  Adw.Breakpoint {
+    condition ("min-width: 550px")
+
+    setters {
+      toolbar_box.margin-bottom: 24;
+      toolbar_box.margin-start: 24;
+      toolbar_box.margin-end: 24;
+      spinner_revealer.margin-bottom: 58;
+      restore_revealer.margin-bottom: 90;
+    }
+  }
+
+  styles [
+    "view"
+  ]
+}

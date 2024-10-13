@@ -1,11 +1,15 @@
-project('afternoon',
-          version: '47.alpha',
-    meson_version: '>= 0.62.0',
-  default_options: [ 'warning_level=2', 'werror=false', ],
+project(
+  'showtime',
+  version: '48.alpha',
+  meson_version: '>= 0.62.0',
+  default_options: [
+    'warning_level=2',
+    'werror=false',
+  ],
 )
 
 dependency('gtk4', version: '>= 4.15.0')
-dependency('libadwaita-1', version: '>= 1.5')
+dependency('libadwaita-1', version: '>= 1.6.beta')
 
 i18n = import('i18n')
 gnome = import('gnome')
@@ -18,11 +22,11 @@ pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 
 profile = get_option('profile')
 if profile == 'development'
-  app_id = 'page.kramo.Afternoon.Devel'
-  prefix = '/page/kramo/Afternoon/Devel'
-elif profile ==  'release'
-  app_id = 'page.kramo.Afternoon'
-  prefix = '/page/kramo/Afternoon'
+  app_id = 'org.gnome.Showtime.Devel'
+  prefix = '/org/gnome/Showtime/Devel'
+elif profile == 'release'
+  app_id = 'org.gnome.Showtime'
+  prefix = '/org/gnome/Showtime'
 endif
 
 conf = configuration_data()
@@ -37,11 +41,11 @@ conf.set('bindir', get_option('bindir'))
 conf.set('prefix', get_option('prefix'))
 
 subdir('data')
-subdir('afternoon')
+subdir('showtime')
 subdir('po')
 
 gnome.post_install(
-     glib_compile_schemas: true,
-    gtk_update_icon_cache: true,
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
   update_desktop_database: true,
 )

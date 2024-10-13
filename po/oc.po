@@ -1,0 +1,310 @@
+# Occitan translation for showtime.
+# Copyright (C) 2024 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Quentin PAGÈS <pages_quentin@hotmail.com>,  2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-15 10:13+0200\n"
+"Last-Translator: Quentin PAGÈS\n"
+"Language-Team: Occitan <Occitan>\n"
+"Language: oc\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "Showtime"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Lector vidèo"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Legir de vidèos"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Fenèstra novèla"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Agachar sens cap de distraccion"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "L’aplicacion que legís una vidèo"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr ""
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr ""
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "Lectura d’una vidèo"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "Quentin PAGÈS"
+
+#: showtime/mpris.py:289 showtime/window.py:593
+msgid "Unknown Title"
+msgstr "Títol desconegut"
+
+#: showtime/window.py:140 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "Lectura"
+
+#: showtime/window.py:143
+msgid "Pause"
+msgstr "Pausa"
+
+#: showtime/window.py:449
+msgid "Details copied"
+msgstr "Detalhs copiats"
+
+#: showtime/window.py:452
+msgid "Copy Technical Details"
+msgstr "Detalhs tecnics copiats"
+
+#: showtime/window.py:478
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+
+#: showtime/window.py:499
+msgid "No plugin available for this media type"
+msgstr ""
+
+#: showtime/window.py:505
+msgid "Unable to install the required plugin"
+msgstr ""
+
+#: showtime/window.py:508
+msgid "Install Plugin"
+msgstr "Installar un empeuton"
+
+#: showtime/window.py:516
+msgid "Installing…"
+msgstr "Installacion…"
+
+#: showtime/window.py:524
+msgid "“{}” codecs are required to play this video"
+msgstr "Lo codèc « {} » es requerit per legir aquesta vidèo"
+
+#: showtime/window.py:604
+msgid "Screenshot captured"
+msgstr "Captura d'ecran efectuada"
+
+#: showtime/window.py:606
+msgid "Show in Files"
+msgstr "Mostrar dins Fichièrs"
+
+#: showtime/window.py:668
+msgid "Video"
+msgstr "Vidèo"
+
+#: showtime/window.py:687
+msgid "Subtitles"
+msgstr "Sostítols"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Indeterminada, {} canal"
+msgstr[1] "Indeterminada, {} canals"
+
+#: showtime/window.py:758
+msgid "Undetermined"
+msgstr "Pas determinat"
+
+#: showtime/window.py:765
+msgid "No Audio"
+msgstr "Cap d’àudio"
+
+#: showtime/window.py:770
+msgid "None"
+msgstr "Cap"
+
+#: showtime/window.py:776
+msgid "Undetermined Language"
+msgstr "Lenga non determinada"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Apondre un fichièr de sostítols…"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "General"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Afichar los acorchis"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "Dobrir una vidèo"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Prendre captura d'ecran"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Tampar la fenèstra"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Quitar"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Volum"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "Aumentar lo volum"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "Redusir lo volum"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "Amudir/Desamudir"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Afichatge"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "Alternar lo mòde ecran complèt"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Quitar lo mòde ecran complèt"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Lectura"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Lectura/Pausa"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "Tornar enrèire de 10 segondas"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "Avançar de 10 segondas"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "_Dobrir…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "Afichar dins _Fichièrs"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "Far una _captura d'ecran"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "_Acorchis clavièr"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "_A prepaus de Showtime"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "_Lenga"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "_Sostítols"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "_Repetir"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "Velocitat de lectura"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "Agachar de vidèos"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "Lisatz depausatz de vidèos aicí"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Dobrir…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "Lectura de la vidèo impossibla"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Empeuton absent"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "Reprendre"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "Recomençar"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "Alternar Durada/Restant"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "Ajustar lo volum"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "Opcions de lectura"

@@ -1,0 +1,306 @@
+# Hindi translation for showtime.
+# Copyright (C) 2024 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-08-23 13:41+0000\n"
+"PO-Revision-Date: 2024-08-24 11:30+0800\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "शोटाइम"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "वीडियो प्लेयर"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "वीडियो चलाएं"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "नई विंडो"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "बिना किसी व्यवधान के देखें"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"अपनी पसंदीदा फ़िल्में और वीडियो फाइलें बिना किसी परेशानी के चलाएं। शोटाइम में सरल प्लेबैक "
+"नियंत्रण हैं जो वीडियो देखते समय छिप जाते हैं, फुलस्क्रीन, समायोज्य प्लेबैक गति, कई भाषा और "
+"उपशीर्षक ट्रैक, और स्क्रीनशॉट - वह सब कुछ जो आपको एक सरल देखने के अनुभव के लिए चाहिए।"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "वीडियो चलाते समय ऐप"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "अंत समय-चिह्न स्थिति में क्या दिखाना है"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "उदा. वीडियो की कुल अवधि या शेष समय"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "वीडियो चलाते समय"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
+
+#: showtime/mpris.py:289 showtime/window.py:587
+msgid "Unknown Title"
+msgstr "अज्ञात शीर्षक"
+
+#: showtime/window.py:139 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "चलाएं"
+
+#: showtime/window.py:142
+msgid "Pause"
+msgstr "रोकें"
+
+#: showtime/window.py:443
+msgid "Details copied"
+msgstr "विवरण कॉपी किया गया"
+
+#: showtime/window.py:446
+msgid "Copy Technical Details"
+msgstr "तकनीकी विवरण कॉपी करें"
+
+#: showtime/window.py:472
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "इस वीडियो को चलाने के लिए आवश्यक “{}” कोडेक नहीं मिले"
+
+#: showtime/window.py:493
+msgid "No plugin available for this media type"
+msgstr "इस मीडिया प्रकार के लिए कोई प्लगइन उपलब्ध नहीं है"
+
+#: showtime/window.py:499
+msgid "Unable to install the required plugin"
+msgstr "आवश्यक प्लगइन स्थापित करने में असमर्थ"
+
+#: showtime/window.py:502
+msgid "Install Plugin"
+msgstr "प्लगइन स्थापित करें"
+
+#: showtime/window.py:510
+msgid "Installing…"
+msgstr "स्थापना की जा रही है…"
+
+#: showtime/window.py:518
+msgid "“{}” codecs are required to play this video"
+msgstr "इस वीडियो को चलाने के लिए “{}” कोडेक की आवश्यकता है"
+
+#: showtime/window.py:598
+msgid "Screenshot captured"
+msgstr "स्क्रीनशॉट लिया गया"
+
+#: showtime/window.py:600
+msgid "Show in Files"
+msgstr "फाइल्स में दिखाएं"
+
+#: showtime/window.py:662
+msgid "Video"
+msgstr "वीडियो"
+
+#: showtime/window.py:681
+msgid "Subtitles"
+msgstr "उपशीर्षक"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:746
+msgid "Undetermined, {} Channels"
+msgstr "अनिर्धारित, {} चैनल"
+
+#: showtime/window.py:748
+msgid "Undetermined"
+msgstr "अनिर्धारित"
+
+#: showtime/window.py:755
+msgid "No Audio"
+msgstr "कोई ऑडियो नहीं"
+
+#: showtime/window.py:760
+msgid "None"
+msgstr "कोई नहीं"
+
+#: showtime/window.py:766
+msgid "Undetermined Language"
+msgstr "अनिर्धारित भाषा"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "सामान्य"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "शॉर्टकट दिखाएं"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "वीडियो खोलें"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "स्क्रीनशॉट लें"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "विंडो बंद करे"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "बंद करें"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "आवाज़"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "आवाज़ बढ़ाएं"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "आवाज़ घटाएं"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "मूक/अमूक"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "देखें"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "पूर्णस्क्रीन टॉगल करें"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "पूर्णस्क्रीन से बाहर निकलें"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "प्लेबैक"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "चलाएं/रोकें"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "10 सेकंड पीछे जाएं"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "10 सेकंड आगे जाएं"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "खोलें (_O)…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "फाइल्स में दिखाएं (_F)"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "स्क्रीनशॉट लें (_S)"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "कीबोर्ड शॉर्टकट (_K)"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "शोटाइम के बारे में (_A)"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "भाषा (_L)"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "उपशीर्षक (_S)"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "दोहराएं (_R)"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "प्लेबैक गति"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "मुख्य मेनू"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "वीडियो देखें"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "वीडियो को यहां खींचें और छोड़ें"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "खोलें…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "वीडियो चलाने में असमर्थ"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "अनुपलब्ध प्लगइन"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "पुनरारंभ करें"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "दोबारा चलाएं"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "अवधि/शेष टॉगल करें"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "आवाज़ समायोजित करें"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "प्लेबैक विकल्प"

@@ -1,0 +1,316 @@
+# Russian translation for showtime.
+# Copyright (C) 2024 Free Software Foundation, Inc.
+# This file is distributed under the same license as the showtime package.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-15 12:23+0300\n"
+"Last-Translator: Artur So <arturios2005@mail.ru>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "Showtime"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Видеопроигрыватель"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Воспроизведение видео"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Новое окно"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Смотрите, не отвлекаясь"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"Воспроизводите любимые фильмы и видеофайлы без лишних хлопот. Showtime имеет "
+"простые элементы управления воспроизведением, которые исчезают во время "
+"просмотра, полноэкранный режим, регулируемую скорость воспроизведения, "
+"несколько языков и дорожек субтитров, а также снимки экрана - все, что вам "
+"нужно для удобного просмотра."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "Приложение, воспроизводящее видео"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Что показывать в позиции конечной метки времени"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Например, общая длительность видео или количество оставшегося времени"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "Воспроизведение видео"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr "Aleksandr Melman <Alexmelman88@gmail.com>"
+
+#: showtime/mpris.py:289 showtime/window.py:593
+msgid "Unknown Title"
+msgstr "Неизвестное название"
+
+#: showtime/window.py:140 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "Воспроизведение"
+
+#: showtime/window.py:143
+msgid "Pause"
+msgstr "Пауза"
+
+#: showtime/window.py:449
+msgid "Details copied"
+msgstr "Сведения скопированы"
+
+#: showtime/window.py:452
+msgid "Copy Technical Details"
+msgstr "Копировать технические сведения"
+
+#: showtime/window.py:478
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Кодеки “{}”, необходимые для воспроизведения этого видео, не найдены"
+
+#: showtime/window.py:499
+msgid "No plugin available for this media type"
+msgstr "Нет доступного модуля для этого типа медиафайлов"
+
+#: showtime/window.py:505
+msgid "Unable to install the required plugin"
+msgstr "Невозможно установить требуемый модуль"
+
+#: showtime/window.py:508
+msgid "Install Plugin"
+msgstr "Установить модуль"
+
+#: showtime/window.py:516
+msgid "Installing…"
+msgstr "Установка…"
+
+#: showtime/window.py:524
+msgid "“{}” codecs are required to play this video"
+msgstr "Кодеки “{}” необходимы для воспроизведения этого видео"
+
+#: showtime/window.py:604
+msgid "Screenshot captured"
+msgstr "Сделан снимок экрана"
+
+#: showtime/window.py:606
+msgid "Show in Files"
+msgstr "Показать в Файлах"
+
+#: showtime/window.py:668
+msgid "Video"
+msgstr "Видео"
+
+#: showtime/window.py:687
+msgid "Subtitles"
+msgstr "Субтитры"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Не определено, {} канал"
+msgstr[1] "Не определено, {} канала"
+msgstr[2] "Не определено, {} каналов"
+
+#: showtime/window.py:758
+msgid "Undetermined"
+msgstr "Не определено"
+
+#: showtime/window.py:765
+msgid "No Audio"
+msgstr "Нет аудио"
+
+#: showtime/window.py:770
+msgid "None"
+msgstr "Нет"
+
+#: showtime/window.py:776
+msgid "Undetermined Language"
+msgstr "Язык не определен"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Добавить файл субтитров…"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "Общие"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Показать комбинации клавиш"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "Открыть видео"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Сделать снимок экрана"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Закрыть окно"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Выйти"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Громкость"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "Увеличить громкость"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "Уменьшить громкость"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "Выключить/включить звук"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Вид"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "Переключить полноэкранный режим"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Выйти из полноэкранного режима"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Воспроизведение"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Воспроизведение/пауза"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "Вернуться на 10 секунд назад"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "Перейти на 10 секунд вперед"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "_Открыть…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "Показать в _Файлах"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "Сделать _снимок экрана"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "_Комбинации клавиш"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "О п_риложении"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "_Язык"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "С_убтитры"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "_Повтор"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "Скорость воспроизведения"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "Главное меню"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "Просмотр видео"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "Перетащите видео сюда"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Открыть…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "Невозможно воспроизвести видео"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Отсутствует модуль"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "Возобновить"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "Начать сначала"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "Переключить длительность/оставшееся время"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "Регулировка громкости"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "Параметры воспроизведения"

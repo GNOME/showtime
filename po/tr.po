@@ -1,0 +1,318 @@
+# Turkish translation for Showtime.
+# Copyright (C) 2024 Showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the Showtime package.
+#
+# Sabri Ünal <yakushabb@gmail.com>, 2024
+# Emin Tufan Çetin <etcetin@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-11 08:00+0300\n"
+"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Language-Team: Turkish <takim@gnome.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.3\n"
+"X-DamnedLies-Scope: partial\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
+msgid "Showtime"
+msgstr "Showtime"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Video Oynatıcı"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Videoları oynat"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Yeni Pencere"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Dikkat dağılmadan izle"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"Gözde film ve video dosyalarınızı zahmetsizce oynatın. Showtime izlerken "
+"gözden yiten basit yürütme denetimleri, ayarlanır oynatma hızı, çoklu dil ve "
+"alt yazı parçaları ve ekran görüntüleriyle yani kolay izleme deneyimi için "
+"gerekli her şeyle donatılmıştır."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:35
+msgid "The app playing a video"
+msgstr "Uygulama video oynatıyor"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Bitiş zaman damgası konumunda ne gösterilmeli"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Örneğin videonun toplam süresi ya da kalan süre"
+
+#: showtime/main.py:140
+msgid "Playing a video"
+msgstr "Video oynatıyor"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:427
+msgid "translator_credits"
+msgstr ""
+"Emin Tufan Çetin <etcetin@gmail.com>\n"
+"Sabri Ünal <yakushabb@gmail.com>"
+
+#: showtime/mpris.py:289 showtime/window.py:593
+msgid "Unknown Title"
+msgstr "Bilinmeyen Başlık"
+
+#: showtime/window.py:140 showtime/gtk/window.blp:479
+msgid "Play"
+msgstr "Oynat"
+
+#: showtime/window.py:143
+msgid "Pause"
+msgstr "Duraklat"
+
+#: showtime/window.py:449
+msgid "Details copied"
+msgstr "Ayrıntılar kopyalandı"
+
+#: showtime/window.py:452
+msgid "Copy Technical Details"
+msgstr "Teknik Ayrıntıları Kopyala"
+
+#: showtime/window.py:478
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Bu videoyu oynatmak için gereken “{}” kod çözücüler bulunamadı"
+
+#: showtime/window.py:499
+msgid "No plugin available for this media type"
+msgstr "Bu ortam türü için kullanılabilir eklenti yok"
+
+#: showtime/window.py:505
+msgid "Unable to install the required plugin"
+msgstr "Gerekli eklenti yüklenemedi"
+
+#: showtime/window.py:508
+msgid "Install Plugin"
+msgstr "Eklenti Kur"
+
+#: showtime/window.py:516
+msgid "Installing…"
+msgstr "Kuruluyor…"
+
+#: showtime/window.py:524
+msgid "“{}” codecs are required to play this video"
+msgstr "Bu videoyu oynatmak için “{}” kod çözücüler gerekli"
+
+#: showtime/window.py:604
+msgid "Screenshot captured"
+msgstr "Ekran görüntüsü yakalandı"
+
+#: showtime/window.py:606
+msgid "Show in Files"
+msgstr "Dosyalarʼda Göster"
+
+#: showtime/window.py:668
+msgid "Video"
+msgstr "Video"
+
+#: showtime/window.py:687
+msgid "Subtitles"
+msgstr "Alt Yazılar"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Belirsiz, {} Kanal"
+
+#: showtime/window.py:758
+msgid "Undetermined"
+msgstr "Belirsiz"
+
+#: showtime/window.py:765
+msgid "No Audio"
+msgstr "Ses Yok"
+
+#: showtime/window.py:770
+msgid "None"
+msgstr "Hiçbiri"
+
+#: showtime/window.py:776
+msgid "Undetermined Language"
+msgstr "Belirsiz Dil"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Alt Yazı Dosyası Ekle…"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "Genel"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Kısayolları Göster"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "Video Aç"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Ekran Görüntüsü Al"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Pencereyi Kapat"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Çık"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Ses"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "Sesi Artır"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "Sesi Azalt"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
+#: showtime/gtk/window.blp:157
+msgid "Mute/Unmute"
+msgstr "Sesi Kapat/Aç"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Görünüm"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+msgid "Toggle Fullscreen"
+msgstr "Tam Ekranı Aç/Kapat"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Tam Ekrandan Çık"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Oynatma"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Oynat/Duraklat"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
+#: showtime/gtk/window.blp:469
+msgid "Go Back 10 Seconds"
+msgstr "10 Saniye Geri Git"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
+#: showtime/gtk/window.blp:488
+msgid "Go Forward 10 Seconds"
+msgstr "10 Saniye İleri Git"
+
+#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+msgid "_Open…"
+msgstr "_Aç…"
+
+#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+msgid "Show in _Files"
+msgstr "_Dosyalarʼda Göster"
+
+#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+msgid "Take _Screenshot"
+msgstr "_Ekran Görüntüsü Al"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "_Klavye Kısayolları"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "Showtime _Hakkında"
+
+#: showtime/gtk/window.blp:39
+msgid "_Language"
+msgstr "_Dil"
+
+#: showtime/gtk/window.blp:43
+msgid "_Subtitles"
+msgstr "_Alt Yazılar"
+
+#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+msgid "_Repeat"
+msgstr "_Yinele"
+
+#: showtime/gtk/window.blp:66
+msgid "Playback Speed"
+msgstr "Oynatma Hızı"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+msgid "Main Menu"
+msgstr "Ana Menü"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "Videoları İzle"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "Videoları buraya sürükleyip bırak"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Aç…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "Video Oynatılamadı"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Eksik Eklenti"
+
+#: showtime/gtk/window.blp:285
+msgid "Resume"
+msgstr "Sürdür"
+
+#: showtime/gtk/window.blp:317
+msgid "Start Again"
+msgstr "Yeniden Başlat"
+
+#: showtime/gtk/window.blp:422
+msgid "Toggle Duration/Remaining"
+msgstr "Geçen/Kalan Süreyi Değiştir"
+
+#: showtime/gtk/window.blp:458
+msgid "Adjust Volume"
+msgstr "Sesi Ayarla"
+
+#: showtime/gtk/window.blp:501
+msgid "Playback Options"
+msgstr "Oynatma Seçenekleri"
