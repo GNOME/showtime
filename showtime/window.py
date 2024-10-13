@@ -650,8 +650,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         file_filter = Gtk.FileFilter()
         file_filter.add_mime_type("application/x-subrip")
+        file_filter.add_suffix("srt")
         file_filter.add_mime_type("text/x-ssa")
+        file_filter.add_suffix("ssa")
+        file_filter.add_suffix("ass")
         file_filter.add_mime_type("text/vtt")
+        file_filter.add_suffix("vtt")
         file_filter.set_name(_("Subtitles"))
 
         filters = Gio.ListStore()
