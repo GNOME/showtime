@@ -83,8 +83,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     end_timestamp_button: Gtk.Button = Gtk.Template.Child()
 
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    volume_button: Gtk.Button = Gtk.Template.Child()
     volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
+    mute_button: Gtk.ToggleButton = Gtk.Template.Child()
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
@@ -390,7 +390,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
                 if self._prev_volume != vol:
                     self._prev_volume = vol
-                    self.__set_volume_icons(volume=vol)
+                    self.__set_volume_display(volume=vol)
                     self.volume_adjustment.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
@@ -609,7 +609,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def toggle_mute(self) -> None:
         """Mutes/unmutes the player."""
         self.play.set_mute(muted := not self.play.get_mute())
-        self.__set_volume_icons(muted)
+        self.__set_volume_display(muted)
 
     def toggle_fullscreen(self) -> None:
         """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
@@ -756,7 +756,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
 
-    def __set_volume_icons(
+    def __set_volume_display(
         self, muted: Optional[bool] = None, volume: Optional[float] = None
     ) -> None:
         if muted is None:
@@ -765,11 +765,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if volume is None:
             volume = self.play.get_volume() or 0.0
 
-        self.volume_button.set_icon_name(
-            "audio-volume-muted-symbolic"
-            if muted
-            else "multimedia-volume-control-symbolic"
-        )
+        self.mute_button.set_active(muted)
         self.volume_menu_button.set_icon_name(
             (
                 "audio-volume-muted-symbolic"
