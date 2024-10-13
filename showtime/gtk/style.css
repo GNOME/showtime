@@ -95,6 +95,10 @@ toast {
     padding: 12px;
 }
 
+#bottom-overlay-box {
+    margin-bottom: -6px;
+}
+
 #end-timestamp-button {
     padding: 0 12px;
 }

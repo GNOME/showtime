@@ -332,6 +332,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                   }
 
                   Box bottom_overlay_box {
+                    name: "bottom-overlay-box";
                     vexpand: bind controls_revealer.reveal-child inverted;
                     valign: end;
 
@@ -343,7 +344,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                       ellipsize: end;
 
                       styles [
-                        "heading",
+                        "title-4",
                         "overlaid"
                       ]
                     }
