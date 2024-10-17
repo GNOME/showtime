@@ -48,7 +48,7 @@ class DBusInterface:
         try:
             self._con = Gio.bus_get_finish(res)
         except GLib.Error as e:
-            logging.warning("Unable to connect to to session bus: %s", e.message)
+            logging.warning("Unable to connect to the session bus: %s", e.message)
             return
 
         Gio.bus_own_name_on_connection(
