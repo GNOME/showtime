@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-09-11 13:31+0000\n"
-"PO-Revision-Date: 2024-09-15 10:13+0200\n"
+"POT-Creation-Date: 2024-09-15 08:13+0000\n"
+"PO-Revision-Date: 2024-10-19 20:24+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <Occitan>\n"
 "Language: oc\n"
@@ -49,6 +49,11 @@ msgid ""
 "tracks, and screenshots — everything you need for a straightforward viewing "
 "experience."
 msgstr ""
+"Legissètz vòstres filmes e fichièrs vidèo favorits sens cap de problèma. "
+"Showtime presenta de contraròtles de lectura simples que dispareisson quand "
+"agachatz, en ecran complèt, velocitat de lectura ajustabla, divèrsas pistas "
+"de lenga e de sostítols, e de capturas d'ecran — tot çò que vos cal per una "
+"experiéncia de visualizacion simpla."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:35
 msgid "The app playing a video"
@@ -56,11 +61,11 @@ msgstr "L’aplicacion que legís una vidèo"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr ""
+msgstr "De qué mostrar a la fin de l’interval"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr ""
+msgstr "Ex. durada totala de la vidèo o la quantitat de temps que demòra"
 
 #: showtime/main.py:140
 msgid "Playing a video"
@@ -94,14 +99,15 @@ msgstr "Detalhs tecnics copiats"
 #: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
+"Los codecs « {} » requerits per legir aquesta vidèo son pas estats trobats"
 
 #: showtime/window.py:499
 msgid "No plugin available for this media type"
-msgstr ""
+msgstr "Cap d’empeuton pas disponible per aqueste tipe de mèdia"
 
 #: showtime/window.py:505
 msgid "Unable to install the required plugin"
-msgstr ""
+msgstr "Installacion impossibla de l’empeuton requerit"
 
 #: showtime/window.py:508
 msgid "Install Plugin"
