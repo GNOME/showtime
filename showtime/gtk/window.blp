@@ -332,116 +332,120 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                   }
 
                   Box bottom_overlay_box {
-                    name: "bottom-overlay-box";
-                    vexpand: bind controls_revealer.reveal-child inverted;
-                    valign: end;
+                    orientation: vertical;
 
-                    Label title_label {
-                      hexpand: true;
-                      halign: start;
-                      margin-start: 12;
-                      margin-end: 12;
-                      ellipsize: end;
+                    Box {
+                      name: "bottom-overlay-box";
+                      vexpand: bind controls_revealer.reveal-child inverted;
+                      valign: end;
 
-                      styles [
-                        "title-4",
-                        "overlaid"
-                      ]
+                      Label title_label {
+                        hexpand: true;
+                        halign: start;
+                        margin-start: 12;
+                        margin-end: 12;
+                        ellipsize: end;
+
+                        styles [
+                          "title-4",
+                          "overlaid"
+                        ]
+                      }
+
+                      MenuButton volume_menu_button {
+                        valign: center;
+                        icon-name: "audio-volume-high-symbolic";
+                        popover: volume_popover;
+                        direction: up;
+
+                        accessibility {
+                          label: _("Adjust Volume");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
+
+                      MenuButton options_menu_button {
+                        halign: end;
+                        valign: center;
+                        icon-name: "settings-symbolic";
+                        popover: options_popover;
+                        direction: up;
+
+                        accessibility {
+                          label: _("Playback Options");
+                        }
+
+                        styles [
+                          "circular",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
                     }
 
-                    MenuButton volume_menu_button {
-                      valign: center;
-                      icon-name: "audio-volume-high-symbolic";
-                      popover: volume_popover;
-                      direction: up;
+                    Scale seek_scale {
+                      hexpand: true;
+                      valign: end;
+
+                      adjustment: Adjustment {
+                        step-increment: 0.1;
+                        lower: 0;
+                        upper: 1;
+                        value: 0;
+                      };
 
                       accessibility {
-                        label: _("Adjust Volume");
+                        labelled-by: title_label;
                       }
 
                       styles [
-                        "circular",
                         "bouncy",
                         "overlaid"
                       ]
                     }
 
-                    MenuButton options_menu_button {
-                      halign: end;
-                      valign: center;
-                      icon-name: "settings-symbolic";
-                      popover: options_popover;
-                      direction: up;
+                    Box {
+                      valign: end;
+                      margin-bottom: 3;
 
-                      accessibility {
-                        label: _("Playback Options");
+                      Label position_label {
+                        hexpand: true;
+                        halign: start;
+                        label: "0∶00";
+                        margin-start: 12;
+                        margin-end: 3;
+
+                        styles [
+                          "caption",
+                          "numeric",
+                          "timestamp",
+                          "overlaid"
+                        ]
                       }
 
-                      styles [
-                        "circular",
-                        "bouncy",
-                        "overlaid"
-                      ]
-                    }
-                  }
+                      Button end_timestamp_button {
+                        hexpand: true;
+                        name: "end-timestamp-button";
+                        halign: end;
+                        label: "0∶00";
+                        margin-start: 3;
+                        tooltip-text: _("Toggle Duration/Remaining");
+                        clicked => $_cycle_end_timestamp_type();
 
-                  Scale seek_scale {
-                    hexpand: true;
-                    valign: end;
-
-                    adjustment: Adjustment {
-                      step-increment: 0.1;
-                      lower: 0;
-                      upper: 1;
-                      value: 0;
-                    };
-
-                    accessibility {
-                      labelled-by: title_label;
-                    }
-
-                    styles [
-                      "bouncy",
-                      "overlaid"
-                    ]
-                  }
-
-                  Box {
-                    valign: end;
-                    margin-bottom: 3;
-
-                    Label position_label {
-                      hexpand: true;
-                      halign: start;
-                      label: "0∶00";
-                      margin-start: 12;
-                      margin-end: 3;
-
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp",
-                        "overlaid"
-                      ]
-                    }
-
-                    Button end_timestamp_button {
-                      hexpand: true;
-                      name: "end-timestamp-button";
-                      halign: end;
-                      label: "0∶00";
-                      margin-start: 3;
-                      tooltip-text: _("Toggle Duration/Remaining");
-                      clicked => $_cycle_end_timestamp_type();
-
-                      styles [
-                        "caption",
-                        "numeric",
-                        "timestamp",
-                        "dim-label",
-                        "bouncy",
-                        "overlaid"
-                      ]
+                        styles [
+                          "caption",
+                          "numeric",
+                          "timestamp",
+                          "dim-label",
+                          "bouncy",
+                          "overlaid"
+                        ]
+                      }
                     }
                   }
                 }
