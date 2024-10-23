@@ -717,18 +717,24 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         langs = 0
         for index, stream in enumerate(media_info.get_audio_streams()):
+            has_title, title = stream.get_tags().get_string("title")
+            language = (
+                stream.get_language()
+                or ngettext(
+                    # Translators: The variable is the number of channels in an audio track
+                    "Undetermined, {} Channel",
+                    "Undetermined, {} Channels",
+                    channels,
+                ).format(channels)
+                if (channels := stream.get_channels()) > 0
+                else _("Undetermined")
+            )
+
+            if (title != None) and (title == language):
+                title = None
+
             self.language_menu.append(
-                (
-                    stream.get_language()
-                    or ngettext(
-                        # Translators: The variable is the number of channels in an audio track
-                        "Undetermined, {} Channel",
-                        "Undetermined, {} Channels",
-                        channels,
-                    ).format(channels)
-                    if (channels := stream.get_channels()) > 0
-                    else _("Undetermined")
-                ),
+                f'{ (title + " - ") if (has_title and title) else "" }{language}',
                 f"app.select-language(uint16 {index})",
             )
             langs += 1
@@ -744,8 +750,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         subs = 0
         for index, stream in enumerate(media_info.get_subtitle_streams()):
+            has_title, title = stream.get_tags().get_string("title")
+            language = stream.get_language() or _("Undetermined Language")
+
             self.subtitles_menu.append(
-                stream.get_language() or _("Undetermined Language"),
+                f'{ (title + " - ") if (has_title and title) else "" }{language}',
                 f"app.select-subtitles(uint16 {index})",
             )
             subs += 1
