@@ -734,7 +734,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 title = None
 
             self.language_menu.append(
-                f'{ (title + " - ") if (has_title and title) else "" }{language}',
+                f'{language}{ (" - " + title) if (has_title and title) else "" }',
                 f"app.select-language(uint16 {index})",
             )
             langs += 1
@@ -754,7 +754,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             language = stream.get_language() or _("Undetermined Language")
 
             self.subtitles_menu.append(
-                f'{ (title + " - ") if (has_title and title) else "" }{language}',
+                f'{language}{ (" - " + title) if (has_title and title) else "" }',
                 f"app.select-subtitles(uint16 {index})",
             )
             subs += 1
