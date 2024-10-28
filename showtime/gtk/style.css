@@ -50,7 +50,8 @@ scale.overlaid trough {
     color: white;
 }
 
-scale.overlaid trough highlight {
+scale.overlaid trough highlight,
+scale.overlaid slider {
     background-color: white;
 }
 
