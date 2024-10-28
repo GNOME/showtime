@@ -14,6 +14,10 @@ scale.bouncy slider {
     transition: transform 0.3s;
 }
 
+scale.overlaid trough {
+    transition: background-color 0.2s;
+}
+
 button.bouncy:hover,
 menubutton.bouncy > button:hover {
     transform: scale(1.3);
