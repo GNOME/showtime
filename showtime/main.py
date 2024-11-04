@@ -137,7 +137,9 @@ class ShowtimeApplication(Adw.Application):
         This will automatically be removed when `win` is closed.
         """
         self.inhibit_cookies[win] = self.inhibit(
-            win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
+            win,
+            Gtk.ApplicationInhibitFlags.IDLE | Gtk.ApplicationInhibitFlags.SUSPEND,
+            _("Playing a video"),
         )
 
     def uninhibit_win(self, win: ShowtimeWindow) -> None:
