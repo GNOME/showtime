@@ -99,8 +99,6 @@ class ShowtimeApplication(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
-        Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
-
         if shared.system == "Darwin" and (settings := Gtk.Settings.get_default()):
             settings.props.gtk_decoration_layout = "close,minimize:"
 
@@ -189,6 +187,8 @@ class ShowtimeApplication(Adw.Application):
         """
 
         if not self.win:
+            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
+
             self.create_action(
                 "new-window",
                 lambda *_: self.activate(),
