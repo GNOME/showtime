@@ -177,152 +177,152 @@ class ShowtimeApplication(Adw.Application):
         with hist_path.open("wb") as hist_file:
             pickle.dump(hist, hist_file)
 
+    def do_startup(self):
+        Adw.Application.do_startup(self)
+
+        Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
+
+        self.create_action(
+            "new-window",
+            lambda *_: self.activate(),
+            ("<primary>n",),
+        )
+        self.create_action(
+            "open-video",
+            lambda *_: (self.win.choose_video() if self.win else ...),
+            ("<primary>o",),
+        )
+        self.create_action(
+            "show-in-files",
+            lambda *_: (
+                Gtk.FileLauncher.new(
+                    Gio.File.new_for_uri(self.win.play.get_uri())
+                ).open_containing_folder()
+                if self.win
+                else None
+            ),
+        )
+        self.create_action(
+            "screenshot",
+            lambda *_: self.win.save_screenshot() if self.win else ...,
+            ("<primary><alt>s",),
+        )
+        (
+            a.set_enabled(False)
+            if isinstance(a := self.lookup_action("screenshot"), Gio.SimpleAction)
+            else ...
+        )
+        (
+            a.set_enabled(False)
+            if isinstance(a := self.lookup_action("show-in-files"), Gio.SimpleAction)
+            else ...
+        )
+        self.create_action(
+            "toggle-fullscreen",
+            lambda *_: self.win.toggle_fullscreen() if self.win else ...,
+            ("F11", "f"),
+        )
+        self.create_action(
+            "toggle-playback",
+            lambda *_: self.win.toggle_playback() if self.win else ...,
+            ("p", "k", "space"),
+        )
+        self.create_action(
+            "increase-volume",
+            lambda *_: (
+                (play := self.win.play).set_volume(min(play.get_volume() + 0.05, 1))
+                if self.win
+                else None
+            ),
+            ("Up",),
+        )
+        self.create_action(
+            "decrease-volume",
+            lambda *_: (
+                (play := self.win.play).set_volume(max(play.get_volume() - 0.05, 0))
+                if self.win
+                else None
+            ),
+            ("Down",),
+        )
+        self.create_action(
+            "toggle-mute",
+            lambda *_: self.win.toggle_mute() if self.win else ...,
+            ("m",),
+        )
+
+        self.create_action(
+            "backwards",
+            lambda *_: (
+                (play := self.win.play).seek(max(0, play.get_position() - 1e10))
+                if self.win
+                else None
+            ),
+            ("Left",),
+        )
+        self.create_action(
+            "forwards",
+            lambda *_: (
+                (play := self.win.play).seek(play.get_position() + 1e10)
+                if self.win
+                else None
+            ),
+            ("Right",),
+        )
+        self.create_action(
+            "close-window",
+            lambda *_: self.win.close() if self.win else ...,
+            ("<primary>w", "q"),
+        )
+        self.create_action(
+            "quit",
+            lambda *_: self.quit(),
+            ("<primary>q",),
+        )
+        self.create_action(
+            "about",
+            self.on_about_action,
+        )
+        self.create_action(
+            "choose-subtitles",
+            lambda *_: self.win.choose_subtitles() if self.win else ...,
+        )
+
+        subs_action = Gio.SimpleAction.new_stateful(
+            "select-subtitles",
+            GLib.VariantType.new("q"),
+            GLib.Variant.new_uint16(0),
+        )
+        subs_action.connect(
+            "activate",
+            lambda *args: self.win.select_subtitles(*args) if self.win else ...,
+        )
+        self.add_action(subs_action)
+
+        lang_action = Gio.SimpleAction.new_stateful(
+            "select-language", GLib.VariantType.new("q"), GLib.Variant.new_uint16(0)
+        )
+        lang_action.connect(
+            "activate",
+            lambda *args: self.win.select_language(*args) if self.win else ...,
+        )
+        self.add_action(lang_action)
+
+        toggle_loop_action = Gio.SimpleAction.new_stateful(
+            "toggle-loop", None, GLib.Variant.new_boolean(False)
+        )
+        toggle_loop_action.connect("activate", self.__on_toggle_loop)
+        toggle_loop_action.connect("change-state", self.__on_toggle_loop)
+        self.add_action(toggle_loop_action)
+
     def do_activate(  # pylint: disable=arguments-differ
         self, gfile: Optional[Gio.File] = None
     ) -> None:
         """
         Called when the application is activated.
 
-        Creates a new window, sets up MPRIS and actions.
+        Creates a new window, sets up MPRIS.
         """
-
-        if not self.win:
-            Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
-
-            self.create_action(
-                "new-window",
-                lambda *_: self.activate(),
-                ("<primary>n",),
-            )
-            self.create_action(
-                "open-video",
-                lambda *_: (self.win.choose_video() if self.win else ...),
-                ("<primary>o",),
-            )
-            self.create_action(
-                "show-in-files",
-                lambda *_: (
-                    Gtk.FileLauncher.new(
-                        Gio.File.new_for_uri(self.win.play.get_uri())
-                    ).open_containing_folder()
-                    if self.win
-                    else None
-                ),
-            )
-            self.create_action(
-                "screenshot",
-                lambda *_: self.win.save_screenshot() if self.win else ...,
-                ("<primary><alt>s",),
-            )
-            (
-                a.set_enabled(False)
-                if isinstance(a := self.lookup_action("screenshot"), Gio.SimpleAction)
-                else ...
-            )
-            (
-                a.set_enabled(False)
-                if isinstance(
-                    a := self.lookup_action("show-in-files"), Gio.SimpleAction
-                )
-                else ...
-            )
-            self.create_action(
-                "toggle-fullscreen",
-                lambda *_: self.win.toggle_fullscreen() if self.win else ...,
-                ("F11", "f"),
-            )
-            self.create_action(
-                "toggle-playback",
-                lambda *_: self.win.toggle_playback() if self.win else ...,
-                ("p", "k", "space"),
-            )
-            self.create_action(
-                "increase-volume",
-                lambda *_: (
-                    (play := self.win.play).set_volume(min(play.get_volume() + 0.05, 1))
-                    if self.win
-                    else None
-                ),
-                ("Up",),
-            )
-            self.create_action(
-                "decrease-volume",
-                lambda *_: (
-                    (play := self.win.play).set_volume(max(play.get_volume() - 0.05, 0))
-                    if self.win
-                    else None
-                ),
-                ("Down",),
-            )
-            self.create_action(
-                "toggle-mute",
-                lambda *_: self.win.toggle_mute() if self.win else ...,
-                ("m",),
-            )
-
-            self.create_action(
-                "backwards",
-                lambda *_: (
-                    (play := self.win.play).seek(max(0, play.get_position() - 1e10))
-                    if self.win
-                    else None
-                ),
-                ("Left",),
-            )
-            self.create_action(
-                "forwards",
-                lambda *_: (
-                    (play := self.win.play).seek(play.get_position() + 1e10)
-                    if self.win
-                    else None
-                ),
-                ("Right",),
-            )
-            self.create_action(
-                "close-window",
-                lambda *_: self.win.close() if self.win else ...,
-                ("<primary>w", "q"),
-            )
-            self.create_action(
-                "quit",
-                lambda *_: self.quit(),
-                ("<primary>q",),
-            )
-            self.create_action(
-                "about",
-                self.on_about_action,
-            )
-            self.create_action(
-                "choose-subtitles",
-                lambda *_: self.win.choose_subtitles() if self.win else ...,
-            )
-
-            subs_action = Gio.SimpleAction.new_stateful(
-                "select-subtitles",
-                GLib.VariantType.new("q"),
-                GLib.Variant.new_uint16(0),
-            )
-            subs_action.connect(
-                "activate",
-                lambda *args: self.win.select_subtitles(*args) if self.win else ...,
-            )
-            self.add_action(subs_action)
-
-            lang_action = Gio.SimpleAction.new_stateful(
-                "select-language", GLib.VariantType.new("q"), GLib.Variant.new_uint16(0)
-            )
-            lang_action.connect(
-                "activate",
-                lambda *args: self.win.select_language(*args) if self.win else ...,
-            )
-            self.add_action(lang_action)
-
-            toggle_loop_action = Gio.SimpleAction.new_stateful(
-                "toggle-loop", None, GLib.Variant.new_boolean(False)
-            )
-            toggle_loop_action.connect("activate", self.__on_toggle_loop)
-            toggle_loop_action.connect("change-state", self.__on_toggle_loop)
-            self.add_action(toggle_loop_action)
 
         win = ShowtimeWindow(
             application=self, maximized=shared.state_schema.get_boolean("is-maximized")
@@ -363,11 +363,9 @@ class ShowtimeApplication(Adw.Application):
         else:
             win.present()
 
-        if self.mpris_active:
-            return
-
-        self.mpris_active = True
-        MPRIS(self)
+        if not self.mpris_active:
+            self.mpris_active = True
+            MPRIS(self)
 
     def do_open(  # type: ignore
         self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str
