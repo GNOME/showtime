@@ -80,8 +80,13 @@ class ShowtimeApplication(Adw.Application):
 
         Gst.init()
 
-        if shared.system == "Darwin":
+        # Prefer VAAPI if possible
+        reg = Gst.Registry.get()
+        for decoder in ["vaav1dec", "vah264dec", "vah265dec", "vah266dec", "vajpegdec", "vampeg2dec", "vavp8dec", "vavp9dec"]:
+            if vadec := reg.lookup_feature(decoder):
+                vadec.set_rank(Gst.Rank.PRIMARY + 2)
 
+        if shared.system == "Darwin":
             def setup_app_delegate() -> None:
                 NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
                 AppHelper.runEventLoop()  # type: ignore
