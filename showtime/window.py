@@ -525,11 +525,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 uri = gfile.get_uri()
 
         logging.debug("Playing video: %s.", uri)
+
         self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.__select_subtitles(0)
-
         self.default_speed_button.set_active(True)
 
         self.play.set_uri(uri)
