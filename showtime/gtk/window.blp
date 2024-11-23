@@ -294,23 +294,28 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                         ]
                       }
 
-                      Button play_button {
-                        name: "play-button";
-                        margin-start: 12;
-                        margin-end: 12;
-                        valign: center;
-                        icon-name: "media-playback-start-symbolic";
-                        action-name: "app.toggle-playback";
+                      Revealer play_button_revealer {
+                        transition-type: crossfade;
+                        reveal-child: bind spinner_revealer.reveal-child inverted;
 
-                        accessibility {
-                          label: _("Play");
+                        Button play_button {
+                          name: "play-button";
+                          margin-start: 12;
+                          margin-end: 12;
+                          valign: center;
+                          icon-name: "media-playback-start-symbolic";
+                          action-name: "app.toggle-playback";
+
+                          accessibility {
+                            label: _("Play");
+                          }
+
+                          styles [
+                            "circular",
+                            "bouncy",
+                            "overlaid"
+                          ]
                         }
-
-                        styles [
-                          "circular",
-                          "bouncy",
-                          "overlaid"
-                        ]
                       }
 
                       Button forwards_button {
@@ -465,6 +470,11 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
               transition-type: crossfade;
 
               Adw.Spinner {
+                halign: center;
+                valign: center;
+                width-request: 42;
+                height-request: 42;
+
                 styles [
                   "overlaid"
                 ]
