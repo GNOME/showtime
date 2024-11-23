@@ -504,14 +504,35 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
-        logging.debug("Playing video: %s.", gfile.get_uri())
+        try:
+            file_info = gfile.query_info(
+                ",".join(
+                    (
+                        Gio.FILE_ATTRIBUTE_STANDARD_IS_SYMLINK,
+                        Gio.FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET,
+                    )
+                ),
+                Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
+            )
+        except GLib.Error:
+            uri = gfile.get_uri()
+        else:
+            if file_info.get_is_symlink() and (
+                target := file_info.get_symlink_target()
+            ):
+                uri = target
+            else:
+                uri = gfile.get_uri()
+
+        logging.debug("Playing video: %s.", uri)
         self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.__select_subtitles(0)
 
         self.default_speed_button.set_active(True)
-        self.play.set_uri(gfile.get_uri())
+
+        self.play.set_uri(uri)
         self.pause()
         self.__on_motion()
 
