@@ -807,21 +807,17 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             volume = self.play.get_volume() or 0.0
 
         self.mute_button.set_active(muted)
-        self.volume_menu_button.set_icon_name(
-            (
-                "audio-volume-muted-symbolic"
-                if muted
-                else (
-                    "audio-volume-high-symbolic"
-                    if volume > 0.7
-                    else (
-                        "audio-volume-medium-symbolic"
-                        if volume > 0.3
-                        else "audio-volume-low-symbolic"
-                    )
-                )
-            ),
-        )
+
+        if muted:
+            icon = "audio-volume-muted-symbolic"
+        elif volume > 0.7:
+            icon = "audio-volume-high-symbolic"
+        elif volume > 0.3:
+            icon = "audio-volume-medium-symbolic"
+        else:
+            icon = "audio-volume-low-symbolic"
+
+        self.volume_menu_button.set_icon_name(icon)
 
     def __get_previous_play_position(self) -> Optional[float]:
         if not (uri := self.play.get_uri()):
