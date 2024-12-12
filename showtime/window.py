@@ -83,8 +83,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     seek_scale: Gtk.Scale = Gtk.Template.Child()
     end_timestamp_button: Gtk.Button = Gtk.Template.Child()
 
+    volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    volume_scale: Gtk.Scale = Gtk.Template.Child()
     mute_button: Gtk.ToggleButton = Gtk.Template.Child()
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
@@ -96,8 +96,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
-
-    volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
 
     overlay_motions: set = set()
     overlay_revealers: set = set()
