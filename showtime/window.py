@@ -22,6 +22,7 @@
 """The main application window."""
 import logging
 import pickle
+from functools import partial
 from gettext import ngettext
 from hashlib import sha256
 from math import sqrt
@@ -31,7 +32,7 @@ from time import time
 from typing import Any, Optional
 
 from gi.repository import GstPlay  # type: ignore
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstPbutils, Gtk
+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstAudio, GstPbutils, Gtk
 
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
@@ -95,6 +96,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_revealer: Gtk.Revealer = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
+
+    volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
 
     overlay_motions: set = set()
     overlay_revealers: set = set()
@@ -287,12 +290,19 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             "changed::end-timestamp-type", self.__on_end_timestamp_type_changed
         )
 
-        self.volume_scale.connect(
-            "change-value",
-            lambda _obj, _scroll, val: self.play.set_volume(max(val, 0)),
-        )
+        self.volume_adjustment.connect("notify::value", self._schedule_volume_change)
+        self._prev_volume = -1
 
         self.connect("realize", self.__on_realize)
+
+    def _schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
+        GLib.idle_add(
+            partial(
+                self.pipeline.set_volume,
+                GstAudio.StreamVolumeFormat.CUBIC,
+                adj.get_value(),
+            )
+        )
 
     def __on_realize(self, *_args: Any) -> None:
         if not (surface := self.get_surface()):
@@ -383,10 +393,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 self.emit("media-info-updated")
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
-                vol = GstPlay.PlayMessage.parse_volume_changed(msg)
+                vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)
 
-                self.__set_volume_display(volume=vol)
-                self.volume_scale.set_value(vol)
+                if self._prev_volume != vol:
+                    self._prev_volume = vol
+                    self.__set_volume_display(volume=vol)
+                    self.volume_adjustment.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
                 if not self.looping:
