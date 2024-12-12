@@ -290,12 +290,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             "changed::end-timestamp-type", self.__on_end_timestamp_type_changed
         )
 
-        self.volume_adjustment.connect("notify::value", self._schedule_volume_change)
+        self.volume_adjustment.connect("notify::value", self.__schedule_volume_change)
         self._prev_volume = -1
 
         self.connect("realize", self.__on_realize)
 
-    def _schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
+    def __schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
         GLib.idle_add(
             partial(
                 self.pipeline.set_volume,
