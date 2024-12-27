@@ -20,6 +20,7 @@
 # pyright: reportAssignmentType=none
 
 """The main application window."""
+
 import logging
 import pickle
 from functools import partial
@@ -31,9 +32,18 @@ from pathlib import Path
 from time import time
 from typing import Any, Optional
 
-from gi.repository import GstPlay  # type: ignore
-from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gst, GstAudio, GstPbutils, Gtk
-
+from gi.repository import (
+    Adw,
+    Gdk,
+    Gio,
+    GLib,
+    GObject,
+    Gst,
+    GstAudio,
+    GstPbutils,
+    GstPlay,  # type: ignore
+    Gtk,
+)
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
 from showtime.utils import get_title, nanoseconds_to_timestamp, screenshot
@@ -48,9 +58,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     drag_overlay: ShowtimeDragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
-
-    context_menu: Gio.Menu = Gtk.Template.Child()
-    context_menu_popover: Gtk.PopoverMenu = Gtk.Template.Child()
 
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
     placeholder_stack: Gtk.Stack = Gtk.Template.Child()
@@ -142,8 +149,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             label = _("Pause")
             icon_name = "media-playback-pause-symbolic"
 
-        self.context_menu.remove(0)
-        self.context_menu.prepend(label, "app.toggle-playback")
         self.play_button.update_property((Gtk.AccessibleProperty.LABEL,), (label,))
         self.play_button.set_icon_name(icon_name)
 
@@ -173,13 +178,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Set up GstPlay
 
         sink = Gst.ElementFactory.make("gtk4paintablesink")
-        paintable = sink.props.paintable  # type: ignore
+        self.paintable = sink.props.paintable  # type: ignore
 
-        paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
-        self.picture.set_paintable(paintable)
+        self.paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
+        self.picture.set_paintable(self.paintable)
 
         # OpenGL doesn't work on macOS properly
-        if paintable.props.gl_context and shared.system != "Darwin":
+        if self.paintable.props.gl_context and shared.system != "Darwin":
             gl_sink = Gst.ElementFactory.make("glsinkbin")
             gl_sink.props.sink = sink  # type: ignore
             sink = gl_sink
@@ -761,7 +766,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 else _("Undetermined")
             )
 
-            if (title != None) and (title == language):
+            if (title is not None) and (title == language):
                 title = None
 
             self.language_menu.append(
@@ -976,6 +981,32 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             case _:
                 self.rate = 1
 
+    @Gtk.Template.Callback()
+    def _rotate_left(self, *_args: Any) -> None:
+        props = self.paintable.props
+        match int(props.orientation):
+            case 0:
+                props.orientation = 4
+            case 1:
+                props.orientation = 4
+            case 5:
+                props.orientation = 8
+            case _:
+                props.orientation -= 1
+
+    @Gtk.Template.Callback()
+    def _rotate_right(self, *_args: Any) -> None:
+        props = self.paintable.props
+        match int(props.orientation):
+            case 0:
+                props.orientation = 2
+            case 4:
+                props.orientation = 1
+            case 8:
+                props.orientation = 5
+            case _:
+                props.orientation += 1
+
     def __on_stack_child_changed(self, *_args: Any) -> None:
         self.__on_motion()
 
@@ -1020,13 +1051,28 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
-        self.context_menu_popover.unparent()
-        self.context_menu_popover.set_parent(self)
+        self.options_popover.unparent()
+        self.options_popover.set_parent(self)
+        self.options_popover.set_has_arrow(False)
+        self.options_popover.set_halign(Gtk.Align.START)
 
         rectangle = Gdk.Rectangle()
         rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
-        self.context_menu_popover.set_pointing_to(rectangle)
-        self.context_menu_popover.popup()
+        self.options_popover.set_pointing_to(rectangle)
+
+        self.options_popover.popup()
+
+        def closed(*_args: Any) -> None:
+            self.options_popover.unparent()
+            self.options_menu_button.set_popover(self.options_popover)
+            self.options_popover.set_pointing_to(None)
+
+            self.options_popover.set_has_arrow(True)
+            self.options_popover.set_halign(Gtk.Align.FILL)
+
+            self.options_popover.disconnect_by_func(closed)
+
+        self.options_popover.connect("closed", closed)
 
     def __on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(

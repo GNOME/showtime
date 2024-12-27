@@ -26,7 +26,6 @@ import re
 from typing import Any, Optional
 
 from gi.repository import Gio, GLib, GstPlay  # type: ignore
-
 from showtime import shared
 from showtime.utils import get_title
 from showtime.window import ShowtimeWindow
@@ -433,7 +432,6 @@ class MPRIS(DBusInterface):
 
     def _get_all(self, interface_name: str) -> Optional[dict]:
         if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
-            application_id = self._app.props.application_id
             return {
                 "CanQuit": GLib.Variant("b", True),
                 "Fullscreen": GLib.Variant("b", False),

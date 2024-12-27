@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 """The main application singleton class."""
+
 import logging
 import lzma
 import pickle
@@ -37,9 +38,7 @@ gi.require_version("GstPbutils", "1.0")
 # pylint: disable=wrong-import-order
 
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
-
 from showtime import shared
-from showtime.drag_overlay import ShowtimeDragOverlay
 from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
@@ -47,7 +46,6 @@ from showtime.window import ShowtimeWindow
 if shared.system == "Darwin":
     from AppKit import NSApp  # type: ignore
     from PyObjCTools import AppHelper
-
     from showtime.application_delegate import ApplicationDelegate
 
 

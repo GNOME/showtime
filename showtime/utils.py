@@ -18,10 +18,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 """Utilities used across the app."""
+
 import datetime
 import logging
 from pathlib import Path
-from typing import Any, Optional
+from typing import Optional
 from urllib.parse import unquote, urlparse
 
 from gi.repository import Gdk, Graphene, GstPlay, Gtk  # type: ignore

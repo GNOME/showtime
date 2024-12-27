@@ -36,6 +36,19 @@ menu options {
   }
 
   section {
+    label: _("Rotate");
+    display-hint: "inline-buttons";
+
+    item {
+      custom: "rotate-left";
+    }
+
+    item {
+      custom: "rotate-right";
+    }
+  }
+
+  section {
     submenu language_menu {
       label: _("_Language");
     }
@@ -111,6 +124,28 @@ PopoverMenu options_popover {
       ]
     }
   }
+
+  [rotate-left]
+  Button {
+    icon-name: "object-rotate-left-symbolic";
+    tooltip-text: _("Rotate Left");
+    clicked => $_rotate_left();
+
+    styles [
+      "flat",
+    ]
+  }
+
+  [rotate-right]
+  Button {
+    icon-name: "object-rotate-right-symbolic";
+    tooltip-text: _("Rotate Right");
+    clicked => $_rotate_right();
+
+    styles [
+      "flat",
+    ]
+  }
 }
 
 Popover volume_popover {
@@ -146,44 +181,6 @@ Popover volume_popover {
       };
     }
   }
-}
-
-menu context_menu {
-  section {
-    item (_("Go Back 10 Seconds"), "app.backwards")
-    item (_("Go Forward 10 Seconds"), "app.forwards")
-  }
-
-  section {
-    item (_("Mute/Unmute"), "app.toggle-mute")
-    item (_("_Repeat"), "app.toggle-loop")
-  }
-
-  section {
-    item {
-      label: _("Take _Screenshot");
-      action: "app.screenshot";
-      hidden-when: "action-disabled";
-    }
-  }
-
-  section {
-    item {
-      label: _("Show in _Files");
-      action: "app.show-in-files";
-      hidden-when: "action-disabled";
-    }
-  }
-
-  section {
-    item (_("_Open…"), "app.open-video")
-  }
-}
-
-PopoverMenu context_menu_popover {
-  halign: start;
-  menu-model: context_menu;
-  has-arrow: false;
 }
 
 template $ShowtimeWindow: Adw.ApplicationWindow {
