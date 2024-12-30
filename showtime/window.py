@@ -116,7 +116,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     reveal_timestamp: float = 0.0
     menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
-    prev_focused_widget: Optional[Gtk.Widget] = None
 
     @GObject.Property(type=float)
     def rate(self) -> float:
@@ -1097,8 +1096,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if self.restore_revealer.get_reveal_child():
             return
 
-        self.prev_focused_widget = self.get_focus()
-
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(False)
 
@@ -1120,9 +1117,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         for revealer in self.overlay_revealers:
             revealer.set_reveal_child(True)
-
-        if not self.get_focus():
-            self.set_focus(self.prev_focused_widget)
 
         self.reveal_timestamp = time()
         GLib.timeout_add_seconds(2, self.__hide_revealers, self.reveal_timestamp)
