@@ -72,15 +72,14 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     graphics_offload: Gtk.GraphicsOffload = Gtk.Template.Child()
     picture: Gtk.Picture = Gtk.Template.Child()
 
-    header_revealer_start: Gtk.Revealer = Gtk.Template.Child()
-    header_revealer_end: Gtk.Revealer = Gtk.Template.Child()
+    header_handle_start: Gtk.WindowHandle = Gtk.Template.Child()
+    header_handle_end: Gtk.WindowHandle = Gtk.Template.Child()
     header_start: Gtk.Box = Gtk.Template.Child()
     header_end: Gtk.Box = Gtk.Template.Child()
     button_fullscreen: Gtk.Button = Gtk.Template.Child()
     video_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
 
-    toolbar_revealer: Gtk.Revealer = Gtk.Template.Child()
-    toolbar_box: Gtk.Box = Gtk.Template.Child()
+    toolbar_clamp: Adw.Clamp = Gtk.Template.Child()
     controls_box: Gtk.Box = Gtk.Template.Child()
     bottom_overlay_box: Gtk.Box = Gtk.Template.Child()
 
@@ -100,12 +99,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
-    spinner_revealer: Gtk.Revealer = Gtk.Template.Child()
-    restore_revealer: Gtk.Revealer = Gtk.Template.Child()
+    spinner: Adw.Spinner = Gtk.Template.Child()
+    restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
     overlay_motions: set = set()
-    overlay_revealers: set = set()
     overlay_menu_buttons: set = set()
 
     _paused: bool = True
@@ -114,6 +112,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     looping: bool = False
     _toplevel_focused: bool = False
     reveal_timestamp: float = 0.0
+    reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
+    hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
     menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
 
@@ -253,10 +253,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             widget.add_controller(motion := Gtk.EventControllerMotion())
             self.overlay_motions.add(motion)
 
-        self.overlay_revealers = {
-            self.toolbar_revealer,
-            self.header_revealer_start,
-            self.header_revealer_end,
+        self.overlay_widgets = {
+            self.toolbar_clamp,
+            self.header_handle_start,
+            self.header_handle_end,
         }
 
         self.overlay_menu_buttons = {
@@ -307,6 +307,31 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             )
         )
 
+    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool):
+        animations = self.reveal_animations if reveal else self.hide_animations
+
+        if (
+            animation := animations.get(widget)
+        ) and animation.get_state() == Adw.AnimationState.PLAYING:
+            return
+
+        animations[widget] = Adw.TimedAnimation.new(
+            widget,
+            widget.get_opacity(),
+            int(reveal),
+            250,
+            Adw.PropertyAnimationTarget.new(widget, "opacity"),
+        )
+
+        widget.set_can_target(reveal)
+        animations[widget].play()
+
+    def __reveal_overlay(self, widget: Gtk.Widget):
+        self.__set_overlay_revealed(widget, True)
+
+    def __hide_overlay(self, widget: Gtk.Widget):
+        self.__set_overlay_revealed(widget, False)
+
     def __on_realize(self, *_args: Any) -> None:
         if not (surface := self.get_surface()):
             return
@@ -323,7 +348,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         if not focused:
-            self.__hide_revealers(self.reveal_timestamp)
+            self.__hide_overlays(self.reveal_timestamp)
 
         self._toplevel_focused = bool(focused)
 
@@ -338,7 +363,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     GLib.timeout_add_seconds(
                         1,
                         lambda *_: (
-                            self.spinner_revealer.set_reveal_child(True)
+                            self.__reveal_overlay(self.spinner)
                             if self.buffering
                             else None
                         ),
@@ -346,7 +371,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     return
 
                 self.buffering = False
-                self.spinner_revealer.set_reveal_child(False)
+                self.__hide_overlay(self.spinner)
 
                 match state:
                     case GstPlay.PlayState.PAUSED:
@@ -565,7 +590,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         logging.debug("Previous play position restored: %i.", pos)
 
         def setup_cb(*_args: Any) -> None:
-            self.restore_revealer.set_reveal_child(True)
+            self.__reveal_overlay(self.restore_breakpoint_bin)
             self.play.seek(pos)
 
             self.pipeline.disconnect_by_func(setup_cb)
@@ -620,7 +645,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def unpause(self) -> None:
         """Starts playing the current video."""
-        self.restore_revealer.set_reveal_child(False)
+        self.__hide_overlay(self.restore_breakpoint_bin)
         self.play.play()
         logging.debug("Video unpaused.")
 
@@ -1081,7 +1106,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             else "view-fullscreen-symbolic"
         )
 
-    def __hide_revealers(self, timestamp: float) -> None:
+    def __hide_overlays(self, timestamp: float) -> None:
         if timestamp != self.reveal_timestamp:
             return
 
@@ -1093,11 +1118,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             if button.get_active():
                 return
 
-        if self.restore_revealer.get_reveal_child():
+        if self.restore_breakpoint_bin.get_can_target():
             return
 
-        for revealer in self.overlay_revealers:
-            revealer.set_reveal_child(False)
+        for widget in self.overlay_widgets:
+            self.__hide_overlay(widget)
 
         if not self.overlay_motion.contains_pointer():
             return
@@ -1115,8 +1140,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.set_cursor_from_name(None)
 
-        for revealer in self.overlay_revealers:
-            revealer.set_reveal_child(True)
+        for widget in self.overlay_widgets:
+            self.__reveal_overlay(widget)
 
         self.reveal_timestamp = time()
-        GLib.timeout_add_seconds(2, self.__hide_revealers, self.reveal_timestamp)
+        GLib.timeout_add_seconds(2, self.__hide_overlays, self.reveal_timestamp)
