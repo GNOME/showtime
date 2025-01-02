@@ -196,7 +196,24 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         )
 
         self.pipeline = self.play.get_pipeline()
-        self.pipeline.props.subtitle_font_desc = self.get_settings().props.gtk_font_name
+
+        settings = self.get_settings()
+
+        scaled_font_name = settings.props.gtk_font_name
+        try:
+            size_str = scaled_font_name.rsplit(" ", 1)[1]
+            size = float(size_str)
+        except (ValueError, IndexError):
+            pass
+        else:
+            # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
+            new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)
+
+            scaled_font_name = scaled_font_name[
+                : len(scaled_font_name) - len(size_str)
+            ] + str(round(new_size))
+
+        self.pipeline.props.subtitle_font_desc = scaled_font_name
 
         (bus := self.play.get_message_bus()).add_signal_watch()
         bus.connect("message", self.__on_play_bus_message)
