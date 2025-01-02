@@ -261,7 +261,6 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                 margin-bottom: 12;
 
                 Box controls_box {
-                  can-target: bind restore_breakpoint_bin.can-target inverted;
                   hexpand: true;
                   vexpand: true;
                   halign: center;
@@ -446,6 +445,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
             [overlay]
             Adw.Spinner spinner {
+              opacity: 0;
               can-target: false;
               hexpand: true;
               vexpand: true;
@@ -458,6 +458,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
 
             [overlay]
             Adw.BreakpointBin restore_breakpoint_bin {
+              opacity: 0;
+              can-target: false;
               margin-bottom: 60;
               width-request: 1;
               height-request: 1;

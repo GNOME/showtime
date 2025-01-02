@@ -591,6 +591,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         def setup_cb(*_args: Any) -> None:
             self.__reveal_overlay(self.restore_breakpoint_bin)
+            self.__hide_overlay(self.controls_box)
             self.play.seek(pos)
 
             self.pipeline.disconnect_by_func(setup_cb)
@@ -646,6 +647,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def unpause(self) -> None:
         """Starts playing the current video."""
         self.__hide_overlay(self.restore_breakpoint_bin)
+        self.__reveal_overlay(self.controls_box)
         self.play.play()
         logging.debug("Video unpaused.")
 
@@ -945,16 +947,19 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             ):
                 return
 
+        nat_width = round(nat_width)
+        nat_height = round(nat_height)
+
         for prop, init, target in (
-            ("default-width", init_width, int(nat_width)),
-            ("default-height", init_height, int(nat_height)),
+            ("default-width", init_width, nat_width),
+            ("default-height", init_height, nat_height),
         ):
             anim = Adw.TimedAnimation.new(
                 self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
             )
             anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
             (anim.skip if initial else anim.play)()
-            logging.debug("Resized window to %i×%i.", int(nat_width), int(nat_height))
+            logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
     def __on_end_timestamp_type_changed(self, *_args: Any) -> None:
         shared.end_timestamp_type = shared.state_schema.get_enum("end-timestamp-type")
