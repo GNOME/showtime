@@ -44,6 +44,7 @@ showtime_sources = [
   'drag_overlay.py',
   'main.py',
   'mpris.py',
+  'play.py',
   'utils.py',
   'window.py',
   configure_file(input: 'shared.py.in', output: 'shared.py', configuration: conf),

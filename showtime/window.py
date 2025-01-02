@@ -1,6 +1,6 @@
 # window.py
 #
-# Copyright 2024 kramo
+# Copyright 2024-2025 kramo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,6 +46,7 @@ from gi.repository import (
 )
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
+from showtime.play import gst_play_setup
 from showtime.utils import get_title, nanoseconds_to_timestamp, screenshot
 
 
@@ -177,43 +178,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         # Set up GstPlay
 
-        sink = Gst.ElementFactory.make("gtk4paintablesink")
-        self.paintable = sink.props.paintable  # type: ignore
-
+        self.paintable, self.play, self.pipeline = gst_play_setup(self.picture)
         self.paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
-        self.picture.set_paintable(self.paintable)
-
-        # OpenGL doesn't work on macOS properly
-        if self.paintable.props.gl_context and shared.system != "Darwin":
-            gl_sink = Gst.ElementFactory.make("glsinkbin")
-            gl_sink.props.sink = sink  # type: ignore
-            sink = gl_sink
-
-        self.play = GstPlay.Play(
-            video_renderer=GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(
-                None, sink
-            )
-        )
-
-        self.pipeline = self.play.get_pipeline()
-
-        settings = self.get_settings()
-
-        scaled_font_name = settings.props.gtk_font_name
-        try:
-            size_str = scaled_font_name.rsplit(" ", 1)[1]
-            size = float(size_str)
-        except (ValueError, IndexError):
-            pass
-        else:
-            # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
-            new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)
-
-            scaled_font_name = scaled_font_name[
-                : len(scaled_font_name) - len(size_str)
-            ] + str(round(new_size))
-
-        self.pipeline.props.subtitle_font_desc = scaled_font_name
 
         (bus := self.play.get_message_bus()).add_signal_watch()
         bus.connect("message", self.__on_play_bus_message)
