@@ -2,14 +2,14 @@
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>,  2024.
+# Yuri Chornoivan <yurchor@ukr.net>,  2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/iss"
 "ues\n"
-"POT-Creation-Date: 2024-09-11 13:31+0000\n"
-"PO-Revision-Date: 2024-09-11 16:44+0300\n"
+"POT-Creation-Date: 2025-01-11 11:39+0000\n"
+"PO-Revision-Date: 2025-01-11 23:06+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,8 +21,8 @@ msgstr ""
 "X-Generator: Lokalize 23.04.3\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
-#: showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:463
+#: showtime/gtk/window.blp:191
 msgid "Showtime"
 msgstr "Шоутайм"
 
@@ -34,7 +34,13 @@ msgstr "Відеопрогравач"
 msgid "Play videos"
 msgstr "Відтворення відео"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:11
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr ""
+"Video;Movie;Film;Clip;Player;Showtime;відео;фільм;кіно;кліп;програвач;плеєр;ш"
+"оутайм;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
 msgid "New Window"
 msgstr "Нове вікно"
 
@@ -56,7 +62,7 @@ msgstr ""
 "відтворення, вибрати одну з кількох звукових доріжок і доріжок субтитрів, а "
 "також робити знімки екрана — усе, що потрібно для простого перегляду."
 
-#: data/org.gnome.Showtime.metainfo.xml.in:35
+#: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Програма відтворює відео"
 
@@ -68,77 +74,77 @@ msgstr "Перегляд у позиції кінцевої часової по�
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Наприклад, загальна тривалість відео або обсяг часу, що лишився"
 
-#: showtime/main.py:140
+#: showtime/main.py:151
 msgid "Playing a video"
 msgstr "Відтворюємо відео"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:427
+#: showtime/main.py:438
 msgid "translator_credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: showtime/mpris.py:289 showtime/window.py:593
+#: showtime/mpris.py:288 showtime/window.py:606
 msgid "Unknown Title"
 msgstr "Невідома назва"
 
-#: showtime/window.py:140 showtime/gtk/window.blp:479
+#: showtime/window.py:147 showtime/gtk/window.blp:295
 msgid "Play"
 msgstr "Пуск"
 
-#: showtime/window.py:143
+#: showtime/window.py:150
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/window.py:449
+#: showtime/window.py:439
 msgid "Details copied"
 msgstr "Подробиці скопійовано"
 
-#: showtime/window.py:452
+#: showtime/window.py:442
 msgid "Copy Technical Details"
 msgstr "Копіювати технічні параметри"
 
-#: showtime/window.py:478
+#: showtime/window.py:468
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Кодеки «{}», які потрібні для відтворення цього відео, не знайдено"
 
-#: showtime/window.py:499
+#: showtime/window.py:489
 msgid "No plugin available for this media type"
 msgstr "Немає додатка для цього типу мультимедійних даних"
 
-#: showtime/window.py:505
+#: showtime/window.py:495
 msgid "Unable to install the required plugin"
 msgstr "Не вдалося встановити потрібний додаток"
 
-#: showtime/window.py:508
+#: showtime/window.py:498
 msgid "Install Plugin"
 msgstr "Встановити додаток"
 
-#: showtime/window.py:516
+#: showtime/window.py:506
 msgid "Installing…"
 msgstr "Встановлення…"
 
-#: showtime/window.py:524
+#: showtime/window.py:514
 msgid "“{}” codecs are required to play this video"
 msgstr "Для відтворення цього відео потрібні кодеки «{}»"
 
-#: showtime/window.py:604
+#: showtime/window.py:617
 msgid "Screenshot captured"
 msgstr "Знімок зроблено"
 
-#: showtime/window.py:606
+#: showtime/window.py:619
 msgid "Show in Files"
 msgstr "Показати у «Файлах»"
 
-#: showtime/window.py:668
+#: showtime/window.py:682
 msgid "Video"
 msgstr "Відео"
 
-#: showtime/window.py:687
+#: showtime/window.py:705
 msgid "Subtitles"
 msgstr "Субтитри"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:753
+#: showtime/window.py:771
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Не визначено, {} канал"
@@ -146,23 +152,23 @@ msgstr[1] "Не визначено, {} канали"
 msgstr[2] "Не визначено, {} каналів"
 msgstr[3] "Не визначено, {} канал"
 
-#: showtime/window.py:758
+#: showtime/window.py:776
 msgid "Undetermined"
 msgstr "невизначена"
 
-#: showtime/window.py:765
+#: showtime/window.py:789
 msgid "No Audio"
 msgstr "Немає звукових даних"
 
-#: showtime/window.py:770
+#: showtime/window.py:794
 msgid "None"
 msgstr "Немає"
 
-#: showtime/window.py:776
+#: showtime/window.py:800
 msgid "Undetermined Language"
 msgstr "Невизначена мова"
 
-#: showtime/window.py:784
+#: showtime/window.py:811
 msgid "Add Subtitle File…"
 msgstr "Додати файл субтитрів…"
 
@@ -202,8 +208,7 @@ msgstr "Збільшити гучність"
 msgid "Decrease Volume"
 msgstr "Зменшити гучність"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
-#: showtime/gtk/window.blp:157
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:165
 msgid "Mute/Unmute"
 msgstr "Вимкнути/Увімкнути звук"
 
@@ -211,7 +216,7 @@ msgstr "Вимкнути/Увімкнути звук"
 msgid "View"
 msgstr "Перегляд"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:619
 msgid "Toggle Fullscreen"
 msgstr "Увімкнути/Вимкнути повноекранний режим"
 
@@ -227,25 +232,23 @@ msgstr "Відтворення"
 msgid "Play/Pause"
 msgstr "Пуск/Пауза"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
-#: showtime/gtk/window.blp:469
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:276
 msgid "Go Back 10 Seconds"
 msgstr "Перемотати назад на 10 секунд"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
-#: showtime/gtk/window.blp:488
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:311
 msgid "Go Forward 10 Seconds"
 msgstr "Перемотати вперед на 10 секунд"
 
-#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
+#: showtime/gtk/window.blp:6
 msgid "_Open…"
 msgstr "_Відкрити…"
 
-#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
+#: showtime/gtk/window.blp:11
 msgid "Show in _Files"
 msgstr "Показати у «_Файлах»"
 
-#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
+#: showtime/gtk/window.blp:19
 msgid "Take _Screenshot"
 msgstr "З_робити знімок екрана"
 
@@ -258,61 +261,73 @@ msgid "_About Showtime"
 msgstr "_Про «Шоутайм»"
 
 #: showtime/gtk/window.blp:39
+msgid "Rotate"
+msgstr "Обертати"
+
+#: showtime/gtk/window.blp:53
 msgid "_Language"
 msgstr "_Мова"
 
-#: showtime/gtk/window.blp:43
+#: showtime/gtk/window.blp:57
 msgid "_Subtitles"
 msgstr "С_убтитри"
 
-#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+#: showtime/gtk/window.blp:62
 msgid "_Repeat"
 msgstr "Пов_торювати"
 
-#: showtime/gtk/window.blp:66
+#: showtime/gtk/window.blp:80
 msgid "Playback Speed"
 msgstr "Швидкість програвання"
 
-#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+#: showtime/gtk/window.blp:131
+msgid "Rotate Left"
+msgstr "Обернути ліворуч"
+
+#: showtime/gtk/window.blp:142
+msgid "Rotate Right"
+msgstr "Обернути праворуч"
+
+#: showtime/gtk/window.blp:211 showtime/gtk/window.blp:649
 msgid "Main Menu"
 msgstr "Головне меню"
 
-#: showtime/gtk/window.blp:221
+#: showtime/gtk/window.blp:220
 msgid "Watch Videos"
 msgstr "Переглянути відео"
 
-#: showtime/gtk/window.blp:222
+#: showtime/gtk/window.blp:221
 msgid "Drag and drop videos here"
 msgstr "Перетягніть сюди відео і скиньте їх"
 
-#: showtime/gtk/window.blp:225
+#: showtime/gtk/window.blp:224
 msgid "Open…"
 msgstr "Відкрити…"
 
-#: showtime/gtk/window.blp:238
+#: showtime/gtk/window.blp:237
 msgid "Unable to Play Video"
 msgstr "Не вдалося відтворити відео"
 
-#: showtime/gtk/window.blp:243
+#: showtime/gtk/window.blp:242
 msgid "Missing Plugin"
 msgstr "Не знайдено додатка"
 
-#: showtime/gtk/window.blp:285
-msgid "Resume"
-msgstr "Продовжити"
-
-#: showtime/gtk/window.blp:317
-msgid "Start Again"
-msgstr "Розпочати знову"
-
-#: showtime/gtk/window.blp:422
-msgid "Toggle Duration/Remaining"
-msgstr "Перемкнути між тривалістю і залишковим часом"
-
-#: showtime/gtk/window.blp:458
+#: showtime/gtk/window.blp:350
 msgid "Adjust Volume"
 msgstr "Регулювання гучності"
 
-#: showtime/gtk/window.blp:501
+#: showtime/gtk/window.blp:368
 msgid "Playback Options"
 msgstr "Параметри відтворення"
+
+#: showtime/gtk/window.blp:425
+msgid "Toggle Duration/Remaining"
+msgstr "Перемкнути між тривалістю і залишковим часом"
+
+#: showtime/gtk/window.blp:494
+msgid "Resume"
+msgstr "Продовжити"
+
+#: showtime/gtk/window.blp:534
+msgid "Start Again"
+msgstr "Розпочати знову"
