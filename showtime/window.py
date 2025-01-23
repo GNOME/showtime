@@ -412,7 +412,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     self.volume_adjustment.set_value(vol)
 
             case GstPlay.PlayMessage.END_OF_STREAM:
-                if not self.looping:
+                if not self.__class__.looping:
                     self.pause()
 
                 self.play.seek(0)
@@ -645,7 +645,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def set_looping(self, looping: bool) -> None:
         """Sets the looping state of the currently playing video."""
-        self.looping = looping
+        self.__class__.looping = looping
 
     def toggle_mute(self) -> None:
         """Mutes/unmutes the player."""
