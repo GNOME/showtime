@@ -602,9 +602,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         logging.debug("External subtitle added: %s.", gfile.get_uri())
 
     def __select_subtitles(self, index: int) -> None:
-        if (app := self.get_application()) and (
-            action := app.lookup_action("select-subtitles")
-        ):
+        if action := lookup_action(self.get_application(), "select-subtitles"):
             action.activate(GLib.Variant.new_uint16(index))
 
     def __set_volume_display(
@@ -1023,22 +1021,20 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def __on_stack_child_changed(self, *_args: Any) -> None:
         self.__on_motion()
 
+        app = self.get_application()
+
         # TODO: Make this per-window instead of app-wide
-        if (self.stack.get_visible_child() != self.video_page) or not (
-            app := self.get_application()
-        ):
+        if (self.stack.get_visible_child() != self.video_page) or not app:
             return
 
         if (
-            isinstance(action := app.lookup_action("screenshot"), Gio.SimpleAction)
-            and shared.system != "Darwin"
-        ):
+            action := lookup_action(app, "select-subtitles")
+        ) and shared.system != "Darwin":
             action.set_enabled(True)
 
         if (
-            isinstance(action := app.lookup_action("show-in-files"), Gio.SimpleAction)
-            and shared.system != "Darwin"
-        ):
+            action := lookup_action(app, "show-in-files")
+        ) and shared.system != "Darwin":
             action.set_enabled(True)
 
     def __on_primary_click_released(
