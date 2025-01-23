@@ -1,6 +1,6 @@
 # main.py
 #
-# Copyright 2024 kramo
+# Copyright 2024-2025 kramo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ from showtime import shared
 from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.window import ShowtimeWindow
+from showtime.utils import lookup_action
 
 if shared.system == "Darwin":
     from AppKit import NSApp  # type: ignore
@@ -119,10 +120,10 @@ class ShowtimeApplication(Adw.Application):
         self.connect("shutdown", self.__on_shutdown)
 
     @property
-    def win(self) -> Optional[ShowtimeWindow]:
+    def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
         """The currently active window."""
         return (
-            win if isinstance(win := self.get_active_window(), ShowtimeWindow) else None
+            win if isinstance(win := self.get_active_window(), ShowtimeWindow) else None  # type: ignore
         )
 
     def __on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant):
@@ -131,17 +132,17 @@ class ShowtimeApplication(Adw.Application):
 
         self.win.set_looping(value) if self.win else ...
 
-    def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:
+    def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:  # type: ignore
         self.save_play_position(win)
         self.uninhibit_win(win)
         del win.play
 
     def __on_shutdown(self, *_args: Any) -> None:
         for win in self.get_windows():
-            if isinstance(win, ShowtimeWindow):
+            if isinstance(win, ShowtimeWindow):  # type: ignore
                 self.__on_window_removed(None, win)
 
-    def inhibit_win(self, win: ShowtimeWindow) -> None:
+    def inhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
         """
         Tries to add an inhibitor associated with `win`.
 
@@ -151,14 +152,14 @@ class ShowtimeApplication(Adw.Application):
             win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
         )
 
-    def uninhibit_win(self, win: ShowtimeWindow) -> None:
+    def uninhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
         """Removes the inhibitor associated with `win` if one exists."""
         if not (cookie := self.inhibit_cookies.pop(win, 0)):
             return
 
         self.uninhibit(cookie)
 
-    def save_play_position(self, win: ShowtimeWindow) -> None:
+    def save_play_position(self, win: ShowtimeWindow) -> None:  # type: ignore
         """Saves the play position of the currently playing file in the window to restore later."""
         if not (uri := win.play.get_uri()):
             return
@@ -220,16 +221,13 @@ class ShowtimeApplication(Adw.Application):
             lambda *_: self.win.save_screenshot() if self.win else ...,
             ("<primary><alt>s",),
         )
-        (
-            a.set_enabled(False)
-            if isinstance(a := self.lookup_action("screenshot"), Gio.SimpleAction)
-            else ...
-        )
-        (
-            a.set_enabled(False)
-            if isinstance(a := self.lookup_action("show-in-files"), Gio.SimpleAction)
-            else ...
-        )
+
+        if action := lookup_action(self, "screenshot"):
+            action.set_enabled(False)
+
+        if action := lookup_action(self, "show-in-files"):
+            action.set_enabled(False)
+
         self.create_action(
             "toggle-fullscreen",
             lambda *_: self.win.toggle_fullscreen() if self.win else ...,
@@ -338,7 +336,8 @@ class ShowtimeApplication(Adw.Application):
         """
 
         win = ShowtimeWindow(
-            application=self, maximized=shared.state_schema.get_boolean("is-maximized")
+            application=self,  # type: ignore
+            maximized=shared.state_schema.get_boolean("is-maximized"),  # type: ignore
         )
         shared.state_schema.bind(
             "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
@@ -380,9 +379,7 @@ class ShowtimeApplication(Adw.Application):
             self.mpris_active = True
             MPRIS(self)
 
-    def do_open(  # type: ignore
-        self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str
-    ) -> None:
+    def do_open(self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str) -> None:  # type: ignore
         """Opens the given files."""
         for gfile in gfiles:
             self.do_activate(gfile)
@@ -419,7 +416,7 @@ class ShowtimeApplication(Adw.Application):
                 if path.name.endswith(".xz")
                 else open(path, "r", encoding="utf-8")
             )
-            debug_str += log_file.read()
+            debug_str += data if isinstance(data := log_file.read(), str) else ""
             log_file.close()
 
         about = Adw.AboutDialog.new_from_appdata(

@@ -1,7 +1,7 @@
 # mpris.py
 #
 # Copyright 2019 The GNOME Music developers
-# Copyright 2024 kramo
+# Copyright 2024-2025 kramo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,11 @@ import logging
 import re
 from typing import Any, Optional
 
-from gi.repository import Gio, GLib, GstPlay  # type: ignore
+from gi.repository import (
+    Gio,
+    GLib,
+    GstPlay,  # type: ignore
+)
 from showtime import shared
 from showtime.utils import get_title
 from showtime.window import ShowtimeWindow
@@ -241,7 +245,7 @@ class MPRIS(DBusInterface):
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
-    def win(self) -> Optional[ShowtimeWindow]:
+    def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
         return self._app.get_active_window()
 
     @property
@@ -417,12 +421,14 @@ class MPRIS(DBusInterface):
         """
         ...
 
-    def _get(self, interface_name: str, property_name: str) -> dict:
+    def _get(self, interface_name: str, property_name: str) -> Any:
         # Some clients (for example GSConnect) try to access the volume
         # property. This results in a crash at startup.
         # Return nothing to prevent it.
         try:
-            return self._get_all(interface_name)[property_name]  # type: ignore
+            return (
+                all[property_name] if (all := self._get_all(interface_name)) else None
+            )
         except KeyError:
             msg = "MPRIS does not handle {} property from {} interface".format(
                 property_name, interface_name

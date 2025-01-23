@@ -43,6 +43,7 @@ showtime_sources = [
   'application_delegate.py',
   'drag_overlay.py',
   'main.py',
+  'messenger.py',
   'mpris.py',
   'play.py',
   'utils.py',

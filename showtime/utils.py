@@ -25,7 +25,13 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import unquote, urlparse
 
-from gi.repository import Gdk, Graphene, GstPlay, Gtk  # type: ignore
+from gi.repository import (
+    Gdk,
+    Graphene,
+    GstPlay,  # type: ignore
+    Gtk,
+    Gio,
+)
 
 
 def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Texture]:
@@ -91,13 +97,24 @@ def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) ->
 
 def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
     """Gets the title of the video from a `GstPlayMediaInfo`."""
-    title = None
+    return (
+        (
+            title
+            if (title := media_info.get_title())
+            and title
+            not in (
+                "Video",
+                "Audio",
+            )
+            else Path(unquote(urlparse(media_info.get_uri()).path)).stem
+        )
+        if media_info
+        else None
+    )
 
-    if media_info:
-        if not (title := media_info.get_title()) or title in (
-            "Video",
-            "Audio",
-        ):
-            title = Path(unquote(urlparse(media_info.get_uri()).path)).stem
 
-    return title
+def lookup_action(
+    app: Optional[Gio.Application], name: str
+) -> Optional[Gio.SimpleAction]:
+    if app and isinstance(action := app.lookup_action(name), Gio.SimpleAction):
+        return action

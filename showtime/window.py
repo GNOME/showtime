@@ -27,7 +27,6 @@ from functools import partial
 from gettext import ngettext
 from hashlib import sha256
 from math import sqrt
-from os import sep
 from pathlib import Path
 from time import time
 from typing import Any, Optional
@@ -39,15 +38,21 @@ from gi.repository import (
     GLib,
     GObject,
     Gst,
-    GstAudio,
+    GstAudio,  # type: ignore
     GstPbutils,
     GstPlay,  # type: ignore
     Gtk,
 )
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
+from showtime.messenger import ShowtimeMessenger
 from showtime.play import gst_play_setup
-from showtime.utils import get_title, nanoseconds_to_timestamp, screenshot
+from showtime.utils import (
+    get_title,
+    nanoseconds_to_timestamp,
+    screenshot,
+    lookup_action,
+)
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
@@ -100,7 +105,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
-    spinner: Adw.Spinner = Gtk.Template.Child()
+    spinner: Adw.Spinner = Gtk.Template.Child()  # type: ignore
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
@@ -126,7 +131,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     @rate.setter
     def rate(self, rate: float) -> None:
         self.play.set_rate(rate)
-        # self.speed_menu_button.get_child().set_label(f"{round(rate, 2)}×")
 
     @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
@@ -135,31 +139,27 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     @paused.setter
     def paused(self, paused: bool) -> None:
-        if not paused:
-            self.stopped = False
+        self.stopped = self.stopped and paused
 
         if self._paused == paused:
             return
 
         self._paused = paused
 
-        if paused:
-            label = _("Play")
-            icon_name = "media-playback-start-symbolic"
-        else:
-            label = _("Pause")
-            icon_name = "media-playback-pause-symbolic"
-
-        self.play_button.update_property((Gtk.AccessibleProperty.LABEL,), (label,))
-        self.play_button.set_icon_name(icon_name)
+        self.play_button.update_property(
+            (Gtk.AccessibleProperty.LABEL,),
+            (_("Play") if paused else _("Pause"),),
+        )
+        self.play_button.set_icon_name(
+            "media-playback-start-symbolic"
+            if paused
+            else "media-playback-pause-symbolic"
+        )
 
         if not (app := self.get_application()):
             return
 
-        if paused:
-            app.uninhibit_win(self)  # type: ignore
-        else:
-            app.inhibit_win(self)  # type: ignore
+        (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
 
     @GObject.Signal(name="media-info-updated")
     def __media_info_updated(self) -> None:
@@ -181,11 +181,17 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.paintable, self.play, self.pipeline = gst_play_setup(self.picture)
         self.paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
 
-        (bus := self.play.get_message_bus()).add_signal_watch()
-        bus.connect("message", self.__on_play_bus_message)
-
-        (bus := self.pipeline.get_bus()).add_signal_watch()
-        bus.connect("message", self.__on_pipeline_bus_message)
+        messenger = ShowtimeMessenger(self.play, self.pipeline)
+        messenger.connect("state-changed", self.__on_playback_state_changed)
+        messenger.connect("duration-changed", self.__on_duration_changed)
+        messenger.connect("position-updated", self.__on_position_updated)
+        messenger.connect("seek-done", self.__on_seek_done)
+        messenger.connect("media-info-updated", self.__on_media_info_updated)
+        messenger.connect("volume-changed", self.__on_volume_changed)
+        messenger.connect("end-of-stream", self.__on_end_of_stream)
+        messenger.connect("warning", self.__on_warning)
+        messenger.connect("error", self.__on_error)
+        messenger.connect("missing-plugin", self.__on_missing_plugin)
 
         # Limit the size of the options popover
 
@@ -281,250 +287,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.connect("realize", self.__on_realize)
 
-    def __schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
-        GLib.idle_add(
-            partial(
-                self.pipeline.set_volume,
-                GstAudio.StreamVolumeFormat.CUBIC,
-                adj.get_value(),
-            )
-        )
-
-    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool):
-        animations = self.reveal_animations if reveal else self.hide_animations
-
-        if (
-            animation := animations.get(widget)
-        ) and animation.get_state() == Adw.AnimationState.PLAYING:
-            return
-
-        animations[widget] = Adw.TimedAnimation.new(
-            widget,
-            widget.get_opacity(),
-            int(reveal),
-            250,
-            Adw.PropertyAnimationTarget.new(widget, "opacity"),
-        )
-
-        widget.set_can_target(reveal)
-        animations[widget].play()
-
-    def __reveal_overlay(self, widget: Gtk.Widget):
-        self.__set_overlay_revealed(widget, True)
-
-    def __hide_overlay(self, widget: Gtk.Widget):
-        self.__set_overlay_revealed(widget, False)
-
-    def __on_realize(self, *_args: Any) -> None:
-        if not (surface := self.get_surface()):
-            return
-
-        if not isinstance(surface, Gdk.Toplevel):
-            return
-
-        surface.connect("notify::state", self.__on_toplevel_state_changed)
-
-    def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
-        if (
-            focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
-        ) == self._toplevel_focused:
-            return
-
-        if not focused:
-            self.__hide_overlays(self.reveal_timestamp)
-
-        self._toplevel_focused = bool(focused)
-
-    def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
-        match GstPlay.PlayMessage.parse_type(msg):
-            case GstPlay.PlayMessage.STATE_CHANGED:
-                state = GstPlay.PlayMessage.parse_state_changed(msg)
-
-                # Only show a spinner if buffering for more than a second
-                if state == GstPlay.PlayState.BUFFERING:
-                    self.buffering = True
-                    GLib.timeout_add_seconds(
-                        1,
-                        lambda *_: (
-                            self.__reveal_overlay(self.spinner)
-                            if self.buffering
-                            else None
-                        ),
-                    )
-                    return
-
-                self.buffering = False
-                self.__hide_overlay(self.spinner)
-
-                match state:
-                    case GstPlay.PlayState.PAUSED:
-                        self.paused = True
-                    case GstPlay.PlayState.STOPPED:
-                        self.paused = True
-                        self.stopped = True
-                    case GstPlay.PlayState.PLAYING:
-                        self.paused = False
-
-            case GstPlay.PlayMessage.DURATION_CHANGED:
-                pos = self.play.get_position()
-                dur = GstPlay.PlayMessage.parse_duration_updated(msg)
-
-                self.__set_end_timestamp_label(pos, dur)
-
-            case GstPlay.PlayMessage.POSITION_UPDATED:
-                pos = GstPlay.PlayMessage.parse_position_updated(msg)
-                dur = self.play.get_duration()
-
-                self.seek_scale.set_value(pos / dur)
-
-                # TODO: This can probably be done only every second instead
-                self.position_label.set_label(nanoseconds_to_timestamp(pos))
-                self.__set_end_timestamp_label(pos, dur)
-
-            case GstPlay.PlayMessage.SEEK_DONE:
-                pos = self.play.get_position()
-                dur = self.play.get_duration()
-
-                self.seek_scale.set_value(pos / dur)
-                self.position_label.set_label(nanoseconds_to_timestamp(pos))
-                self.__set_end_timestamp_label(pos, dur)
-                logging.debug("Seeked to %i.", pos)
-
-            case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
-                media_info = GstPlay.PlayMessage.parse_media_info_updated(msg)
-
-                self.title_label.set_label(
-                    get_title(media_info) or "",
-                )
-
-                # Add a timeout to reduce the things happening at once while the video is loading
-                # since the user won't want to change languages/subtitles within 500ms anyway
-                self.menus_building += 1
-                GLib.timeout_add(500, self.build_menus, media_info)
-                self.emit("media-info-updated")
-
-            case GstPlay.PlayMessage.VOLUME_CHANGED:
-                vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)
-
-                if self._prev_volume != vol:
-                    self._prev_volume = vol
-                    self.__set_volume_display(volume=vol)
-                    self.volume_adjustment.set_value(vol)
-
-            case GstPlay.PlayMessage.END_OF_STREAM:
-                if not self.__class__.looping:
-                    self.pause()
-
-                self.play.seek(0)
-
-            case GstPlay.PlayMessage.WARNING:
-                logging.warning(GstPlay.PlayMessage.parse_warning(msg))
-
-            case GstPlay.PlayMessage.ERROR:
-                error, _details = GstPlay.PlayMessage.parse_error(msg)
-                logging.error(error.message)
-
-                if (
-                    self.placeholder_stack.get_visible_child()
-                    == self.missing_plugin_status_page
-                ):
-                    return
-
-                def copy_details(*_args: Any) -> None:
-                    if not (display := Gdk.Display.get_default()):
-                        return
-
-                    display.get_clipboard().set(error.message)
-
-                    self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
-
-                button = Gtk.Button(
-                    halign=Gtk.Align.CENTER, label=_("Copy Technical Details")
-                )
-                button.add_css_class("pill")
-                button.connect("clicked", copy_details)
-
-                self.error_status_page.set_child(button)
-
-                self.placeholder_stack.set_visible_child(self.error_status_page)
-                self.stack.set_visible_child(self.placeholder_page)
-
-    def __on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
-        if not GstPbutils.is_missing_plugin_message(msg):
-            return
-
-        # This is so media that is still partially playable doesn't get interrupted
-        # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
-        if (
-            self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
-            != Gst.StateChangeReturn.FAILURE
-        ):
-            return
-
-        desc = GstPbutils.missing_plugin_message_get_description(msg)
-        detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
-
-        self.missing_plugin_status_page.set_description(
-            _("The “{}” codecs required to play this video could not be found").format(
-                desc
-            )
-        )
-
-        if not GstPbutils.install_plugins_supported():
-            self.missing_plugin_status_page.set_child(None)
-            self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
-            self.stack.set_visible_child(self.placeholder_page)
-            return
-
-        def on_install_done(result) -> None:
-            match result:
-                case GstPbutils.InstallPluginsReturn.SUCCESS:
-                    logging.debug("Plugin installed.")
-                    self.stack.set_visible_child(self.video_page)
-                    self.pause()
-
-                case GstPbutils.InstallPluginsReturn.NOT_FOUND:
-                    logging.error("Plugin installation failed: Not found.")
-                    self.missing_plugin_status_page.set_description(
-                        _("No plugin available for this media type")
-                    )
-
-                case _:
-                    logging.error("Plugin installation failed, result: %d", int(result))
-                    self.missing_plugin_status_page.set_description(
-                        _("Unable to install the required plugin")
-                    )
-
-        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
-        button.add_css_class("pill")
-        button.add_css_class("suggested-action")
-
-        def install_plugin(*_args: Any) -> None:
-            GstPbutils.install_plugins_async(
-                (detail,) if detail else tuple(), None, on_install_done
-            )
-            self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
-            button.set_sensitive(False)
-
-        button.connect("clicked", install_plugin)
-
-        self.missing_plugin_status_page.set_child(button)
-
-        self.missing_plugin_status_page.set_description(
-            _("“{}” codecs are required to play this video").format(desc)
-        )
-        self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
-        self.stack.set_visible_child(self.placeholder_page)
-
-    def __on_paintable_invalidate_size(
-        self, paintable: Gdk.Paintable, *_args: Any
-    ) -> None:
-        if self.is_visible():
-            # Add a timeout to not interfere with loading the stream too much
-            GLib.timeout_add(100, self.__resize_window, None, paintable)
-        else:
-            self.connect("map", self.__resize_window, paintable, True)
-
     def play_video(self, gfile: Gio.File) -> None:
         """Starts playing the given `GFile`."""
         try:
@@ -540,12 +302,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         except GLib.Error:
             uri = gfile.get_uri()
         else:
-            if file_info.get_is_symlink() and (
-                target := file_info.get_symlink_target()
-            ):
-                uri = target
-            else:
-                uri = gfile.get_uri()
+            uri = (
+                target
+                if file_info.get_is_symlink()
+                and (target := file_info.get_symlink_target())
+                else gfile.get_uri()
+            )
 
         logging.debug("Playing video: %s.", uri)
 
@@ -596,21 +358,16 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if not (texture := screenshot(paintable, self)):
             return
 
-        if pictures := GLib.get_user_special_dir(
-            GLib.USER_DIRECTORY_PICTURES  # type: ignore
-        ):
-            path = GLib.build_pathv(sep, (pictures, "Screenshots"))
-        else:
-            path = GLib.get_home_dir()
+        path = (
+            str(Path(pictures, "Screenshots"))
+            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # type: ignore
+            else GLib.get_home_dir()
+        )
 
         title = get_title(self.play.get_media_info()) or _("Unknown Title")
-
         timestamp = nanoseconds_to_timestamp(self.play.get_position(), False)
 
-        path = GLib.build_pathv(
-            sep,
-            (path, f"{Path(title).stem} {timestamp}.png"),
-        )
+        path = str(Path(path, f"{title} {timestamp}.png"))
 
         texture.save_to_png(path)
 
@@ -654,46 +411,22 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def toggle_fullscreen(self) -> None:
         """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
-        if self.is_fullscreen():
-            self.unfullscreen()
-            return
-
-        self.fullscreen()
-
-    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
-        try:
-            if not (gfile := dialog.open_finish(res)):
-                return
-
-        except GLib.Error:
-            return
-
-        if app := self.get_application():
-            app.save_play_position(self)  # type: ignore
-
-        self.play_video(gfile)
+        (self.unfullscreen if self.is_fullscreen() else self.fullscreen)()
 
     def choose_video(self) -> None:
         """Opens a file dialog to pick a video to play."""
-        dialog = Gtk.FileDialog()
-
-        file_filter = Gtk.FileFilter()
+        (file_filter := Gtk.FileFilter()).set_name(_("Video"))
         file_filter.add_mime_type("video/*")
-        file_filter.set_name(_("Video"))
 
-        filters = Gio.ListStore()
-        filters.append(file_filter)
-        dialog.set_filters(filters)
+        (filters := Gio.ListStore()).append(file_filter)
+        (dialog := Gtk.FileDialog()).set_filters(filters)
         dialog.set_default_filter(file_filter)
 
         dialog.open(self, callback=self.__choose_video_cb)
 
-    def choose_subtitles(
-        self,
-    ) -> None:
+    def choose_subtitles(self) -> None:
         """Opens a file dialog to pick a subtitle."""
-        dialog = Gtk.FileDialog()
-
+        (file_filter := Gtk.FileFilter()).set_name(_("Subtitles"))
         file_filter = Gtk.FileFilter()
         file_filter.add_mime_type("application/x-subrip")
         file_filter.add_suffix("srt")
@@ -702,38 +435,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         file_filter.add_suffix("ass")
         file_filter.add_mime_type("text/vtt")
         file_filter.add_suffix("vtt")
-        file_filter.set_name(_("Subtitles"))
 
-        filters = Gio.ListStore()
-        filters.append(file_filter)
-        dialog.set_filters(filters)
+        (filters := Gio.ListStore()).append(file_filter)
+        (dialog := Gtk.FileDialog()).set_filters(filters)
         dialog.set_default_filter(file_filter)
 
         dialog.open(self, callback=self.__choose_subtitles_cb)
-
-    def __choose_subtitles_cb(
-        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
-    ) -> None:
-        try:
-            if not (gfile := dialog.open_finish(res)):
-                return
-
-        except GLib.Error:
-            return
-
-        self.play.set_subtitle_uri(gfile.get_uri())
-        self.__select_subtitles(0)
-        logging.debug("External subtitle added: %s.", gfile.get_uri())
-
-    def __select_subtitles(self, index: int) -> None:
-        if not (app := self.get_application()):
-            return
-
-        (
-            a.activate(GLib.Variant.new_uint16(index))
-            if (a := app.lookup_action("select-subtitles"))
-            else ...
-        )
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Selects the given subtitles for the video."""
@@ -810,11 +517,101 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
 
+    @Gtk.Template.Callback()
+    def _cycle_end_timestamp_type(self, *_args: Any) -> None:
+        shared.state_schema.set_enum(
+            "end-timestamp-type", int(not shared.end_timestamp_type)
+        )
+
+        self.__set_end_timestamp_label(
+            self.play.get_position(), self.play.get_duration()
+        )
+
+    @Gtk.Template.Callback()
+    def _resume(self, *_args: Any) -> None:
+        self.unpause()
+
+    @Gtk.Template.Callback()
+    def _play_again(self, *_args: Any) -> None:
+        self.play.seek(0)
+        self.unpause()
+
+    @Gtk.Template.Callback()
+    def _set_rate(self, button: Gtk.ToggleButton) -> None:
+        match button.get_label():
+            case "0.5×":
+                self.rate = 0.5
+            case "1.25×":
+                self.rate = 1.25
+            case "1.5×":
+                self.rate = 1.5
+            case "2.0×":
+                self.rate = 2
+            case _:
+                self.rate = 1
+
+    @Gtk.Template.Callback()
+    def _rotate_left(self, *_args: Any) -> None:
+        match int((props := self.paintable.props).orientation):
+            case 0:
+                props.orientation = 4
+            case 1:
+                props.orientation = 4
+            case 5:
+                props.orientation = 8
+            case _:
+                props.orientation -= 1
+
+    @Gtk.Template.Callback()
+    def _rotate_right(self, *_args: Any) -> None:
+        match int((props := self.paintable.props).orientation):
+            case 0:
+                props.orientation = 2
+            case 4:
+                props.orientation = 1
+            case 8:
+                props.orientation = 5
+            case _:
+                props.orientation += 1
+
+    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
+        try:
+            gfile = dialog.open_finish(res)
+        except GLib.Error:
+            return
+
+        if not gfile or not (app := self.get_application()):
+            return
+
+        app.save_play_position(self)  # type: ignore
+        self.play_video(gfile)
+
+    def __choose_subtitles_cb(
+        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
+    ) -> None:
+        try:
+            gfile = dialog.open_finish(res)
+        except GLib.Error:
+            return
+
+        if not gfile:
+            return
+
+        self.play.set_subtitle_uri(gfile.get_uri())
+        self.__select_subtitles(0)
+        logging.debug("External subtitle added: %s.", gfile.get_uri())
+
+    def __select_subtitles(self, index: int) -> None:
+        if (app := self.get_application()) and (
+            action := app.lookup_action("select-subtitles")
+        ):
+            action.activate(GLib.Variant.new_uint16(index))
+
     def __set_volume_display(
         self, muted: Optional[bool] = None, volume: Optional[float] = None
     ) -> None:
         if muted is None:
-            muted = self.play.get_mute()
+            muted: bool = self.play.get_mute()
 
         if volume is None:
             volume = self.play.get_volume() or 0.0
@@ -959,66 +756,269 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     "-" + nanoseconds_to_timestamp(dur - pos)
                 )
 
-    @Gtk.Template.Callback()
-    def _cycle_end_timestamp_type(self, *_args: Any) -> None:
-        match shared.end_timestamp_type:
-            case 0:
-                shared.state_schema.set_enum("end-timestamp-type", 1)
-            case 1:
-                shared.state_schema.set_enum("end-timestamp-type", 0)
-
-        self.__set_end_timestamp_label(
-            self.play.get_position(), self.play.get_duration()
+    def __schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
+        GLib.idle_add(
+            partial(
+                self.pipeline.set_volume,  # type: ignore
+                GstAudio.StreamVolumeFormat.CUBIC,
+                adj.get_value(),
+            )
         )
 
-    @Gtk.Template.Callback()
-    def _resume(self, *_args: Any) -> None:
-        self.unpause()
+    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool):
+        animations = self.reveal_animations if reveal else self.hide_animations
 
-    @Gtk.Template.Callback()
-    def _play_again(self, *_args: Any) -> None:
+        if (
+            animation := animations.get(widget)
+        ) and animation.get_state() == Adw.AnimationState.PLAYING:
+            return
+
+        animations[widget] = Adw.TimedAnimation.new(
+            widget,
+            widget.get_opacity(),
+            int(reveal),
+            250,
+            Adw.PropertyAnimationTarget.new(widget, "opacity"),
+        )
+
+        widget.set_can_target(reveal)
+        animations[widget].play()
+
+    def __reveal_overlay(self, widget: Gtk.Widget):
+        self.__set_overlay_revealed(widget, True)
+
+    def __hide_overlay(self, widget: Gtk.Widget):
+        self.__set_overlay_revealed(widget, False)
+
+    def __hide_overlays(self, timestamp: float) -> None:
+        if (
+            # Cursor moved
+            timestamp != self.reveal_timestamp
+            # Cursor is hovering controls
+            or any(motion.contains_pointer() for motion in self.overlay_motions)
+            # Active popover
+            or any(button.get_active() for button in self.overlay_menu_buttons)
+            # Active restore buttons
+            or self.restore_breakpoint_bin.get_can_target()
+        ):
+            return
+
+        for widget in self.overlay_widgets:
+            self.__hide_overlay(widget)
+
+        if self.overlay_motion.contains_pointer():
+            self.set_cursor_from_name("none")
+
+    def __on_realize(self, *_args: Any) -> None:
+        if not (surface := self.get_surface()):
+            return
+
+        if not isinstance(surface, Gdk.Toplevel):
+            return
+
+        surface.connect("notify::state", self.__on_toplevel_state_changed)
+
+    def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
+        if (
+            focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
+        ) == self._toplevel_focused:
+            return
+
+        if not focused:
+            self.__hide_overlays(self.reveal_timestamp)
+
+        self._toplevel_focused = bool(focused)
+
+    def __on_paintable_invalidate_size(
+        self, paintable: Gdk.Paintable, *_args: Any
+    ) -> None:
+        if self.is_visible():
+            # Add a timeout to not interfere with loading the stream too much
+            GLib.timeout_add(100, self.__resize_window, None, paintable)
+        else:
+            self.connect("map", self.__resize_window, paintable, True)
+
+    def __on_motion(
+        self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
+    ) -> None:
+        if None not in (x, y):
+            if (x, y) == self.prev_motion_xy:
+                return
+
+            self.prev_motion_xy = (x, y)
+
+        self.set_cursor_from_name(None)
+
+        for widget in self.overlay_widgets:
+            self.__reveal_overlay(widget)
+
+        self.reveal_timestamp = time()
+        GLib.timeout_add_seconds(2, self.__hide_overlays, self.reveal_timestamp)
+
+    def __on_playback_state_changed(self, _obj: Any, state: GstPlay.PlayState) -> None:
+        # Only show a spinner if buffering for more than a second
+        if state == GstPlay.PlayState.BUFFERING:
+            self.buffering = True
+            GLib.timeout_add_seconds(
+                1,
+                lambda *_: (
+                    self.__reveal_overlay(self.spinner) if self.buffering else None
+                ),
+            )
+            return
+
+        self.buffering = False
+        self.__hide_overlay(self.spinner)
+
+        match state:
+            case GstPlay.PlayState.PAUSED:
+                self.paused = True
+            case GstPlay.PlayState.STOPPED:
+                self.paused = True
+                self.stopped = True
+            case GstPlay.PlayState.PLAYING:
+                self.paused = False
+
+    def __on_duration_changed(self, _obj: Any, dur: int) -> None:
+        self.__set_end_timestamp_label(self.play.get_position(), dur)
+
+    def __on_position_updated(self, _obj: Any, pos: int) -> None:
+        dur = self.play.get_duration()
+
+        self.seek_scale.set_value(pos / dur)
+
+        # TODO: This can probably be done only every second instead
+        self.position_label.set_label(nanoseconds_to_timestamp(pos))
+        self.__set_end_timestamp_label(pos, dur)
+
+    def __on_seek_done(self, _obj: Any) -> None:
+        pos = self.play.get_position()
+        dur = self.play.get_duration()
+
+        self.seek_scale.set_value(pos / dur)
+        self.position_label.set_label(nanoseconds_to_timestamp(pos))
+        self.__set_end_timestamp_label(pos, dur)
+        logging.debug("Seeked to %i.", pos)
+
+    def __on_media_info_updated(
+        self, _obj: Any, media_info: GstPlay.PlayMediaInfo
+    ) -> None:
+        self.title_label.set_label(
+            get_title(media_info) or "",
+        )
+
+        # Add a timeout to reduce the things happening at once while the video is loading
+        # since the user won't want to change languages/subtitles within 500ms anyway
+        self.menus_building += 1
+        GLib.timeout_add(500, self.build_menus, media_info)
+        self.emit("media-info-updated")
+
+    def __on_volume_changed(self, _obj: Any) -> None:
+        vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # type: ignore
+
+        if self._prev_volume != vol:
+            self._prev_volume = vol
+            self.__set_volume_display(volume=vol)
+            self.volume_adjustment.set_value(vol)
+
+    def __on_end_of_stream(self, _obj: Any) -> None:
+        if not self.__class__.looping:
+            self.pause()
+
         self.play.seek(0)
-        self.unpause()
 
-    @Gtk.Template.Callback()
-    def _set_rate(self, button: Gtk.ToggleButton) -> None:
-        match button.get_label():
-            case "0.5×":
-                self.rate = 0.5
-            case "1.25×":
-                self.rate = 1.25
-            case "1.5×":
-                self.rate = 1.5
-            case "2.0×":
-                self.rate = 2
-            case _:
-                self.rate = 1
+    def __on_warning(self, _obj: Any, warning: GLib.Error) -> None:
+        logging.warning(warning)
 
-    @Gtk.Template.Callback()
-    def _rotate_left(self, *_args: Any) -> None:
-        props = self.paintable.props
-        match int(props.orientation):
-            case 0:
-                props.orientation = 4
-            case 1:
-                props.orientation = 4
-            case 5:
-                props.orientation = 8
-            case _:
-                props.orientation -= 1
+    def __on_error(self, _obj: Any, error: GLib.Error) -> None:
+        logging.error(error.message)
 
-    @Gtk.Template.Callback()
-    def _rotate_right(self, *_args: Any) -> None:
-        props = self.paintable.props
-        match int(props.orientation):
-            case 0:
-                props.orientation = 2
-            case 4:
-                props.orientation = 1
-            case 8:
-                props.orientation = 5
-            case _:
-                props.orientation += 1
+        if (
+            self.placeholder_stack.get_visible_child()
+            == self.missing_plugin_status_page
+        ):
+            return
+
+        def copy_details(*_args: Any) -> None:
+            if not (display := Gdk.Display.get_default()):
+                return
+
+            display.get_clipboard().set(error.message)
+
+            self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
+
+        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Copy Technical Details"))
+        button.add_css_class("pill")
+        button.connect("clicked", copy_details)
+
+        self.error_status_page.set_child(button)
+
+        self.placeholder_stack.set_visible_child(self.error_status_page)
+        self.stack.set_visible_child(self.placeholder_page)
+
+    def __on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
+        # This is so media that is still partially playable doesn't get interrupted
+        # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
+        if (
+            self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
+            != Gst.StateChangeReturn.FAILURE
+        ):
+            return
+
+        desc = GstPbutils.missing_plugin_message_get_description(msg)
+        detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
+
+        self.missing_plugin_status_page.set_description(
+            _("The “{}” codecs required to play this video could not be found").format(
+                desc
+            )
+        )
+
+        if not GstPbutils.install_plugins_supported():
+            self.missing_plugin_status_page.set_child(None)
+            self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
+            self.stack.set_visible_child(self.placeholder_page)
+            return
+
+        def on_install_done(result) -> None:
+            match result:
+                case GstPbutils.InstallPluginsReturn.SUCCESS:
+                    logging.debug("Plugin installed.")
+                    self.stack.set_visible_child(self.video_page)
+                    self.pause()
+
+                case GstPbutils.InstallPluginsReturn.NOT_FOUND:
+                    logging.error("Plugin installation failed: Not found.")
+                    self.missing_plugin_status_page.set_description(
+                        _("No plugin available for this media type")
+                    )
+
+                case _:
+                    logging.error("Plugin installation failed, result: %d", int(result))
+                    self.missing_plugin_status_page.set_description(
+                        _("Unable to install the required plugin")
+                    )
+
+        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
+        button.add_css_class("pill")
+        button.add_css_class("suggested-action")
+
+        def install_plugin(*_args: Any) -> None:
+            GstPbutils.install_plugins_async(
+                (detail,) if detail else tuple(), None, on_install_done
+            )
+            self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
+            button.set_sensitive(False)
+
+        button.connect("clicked", install_plugin)
+
+        self.missing_plugin_status_page.set_child(button)
+
+        self.missing_plugin_status_page.set_description(
+            _("“{}” codecs are required to play this video").format(desc)
+        )
+        self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
+        self.stack.set_visible_child(self.placeholder_page)
 
     def __on_stack_child_changed(self, *_args: Any) -> None:
         self.__on_motion()
@@ -1029,25 +1029,20 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         ):
             return
 
-        (
-            a.set_enabled(True)
-            if isinstance(a := app.lookup_action("screenshot"), Gio.SimpleAction)
+        if (
+            isinstance(action := app.lookup_action("screenshot"), Gio.SimpleAction)
             and shared.system != "Darwin"
-            else ...
-        )
-        (
-            a.set_enabled(True)
-            if isinstance(a := app.lookup_action("show-in-files"), Gio.SimpleAction)
+        ):
+            action.set_enabled(True)
+
+        if (
+            isinstance(action := app.lookup_action("show-in-files"), Gio.SimpleAction)
             and shared.system != "Darwin"
-            else ...
-        )
+        ):
+            action.set_enabled(True)
 
     def __on_primary_click_released(
-        self,
-        gesture: Gtk.Gesture,
-        n: int,
-        _x: int,
-        _y: int,
+        self, gesture: Gtk.Gesture, n: int, _x: int, _y: int
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
         self.__on_motion()
@@ -1093,43 +1088,3 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             if self.is_fullscreen()
             else "view-fullscreen-symbolic"
         )
-
-    def __hide_overlays(self, timestamp: float) -> None:
-        if timestamp != self.reveal_timestamp:
-            return
-
-        for motion in self.overlay_motions:
-            if motion.contains_pointer():
-                return
-
-        for button in self.overlay_menu_buttons:
-            if button.get_active():
-                return
-
-        if self.restore_breakpoint_bin.get_can_target():
-            return
-
-        for widget in self.overlay_widgets:
-            self.__hide_overlay(widget)
-
-        if not self.overlay_motion.contains_pointer():
-            return
-
-        self.set_cursor_from_name("none")
-
-    def __on_motion(
-        self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
-    ) -> None:
-        if None not in (x, y):
-            if (x, y) == self.prev_motion_xy:
-                return
-
-            self.prev_motion_xy = (x, y)
-
-        self.set_cursor_from_name(None)
-
-        for widget in self.overlay_widgets:
-            self.__reveal_overlay(widget)
-
-        self.reveal_timestamp = time()
-        GLib.timeout_add_seconds(2, self.__hide_overlays, self.reveal_timestamp)

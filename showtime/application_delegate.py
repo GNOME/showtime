@@ -1,6 +1,6 @@
 # application_delegate.py
 #
-# Copyright 2024 kramo
+# Copyright 2024-2025 kramo
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,12 +24,12 @@ from typing import Any
 
 from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
 from Foundation import NSObject  # type: ignore
-from gi.repository import Gio  # type: ignore
+from gi.repository import Gio
 
 from showtime import shared
 
 
-class ApplicationDelegate(NSObject):  # type: ignore
+class ApplicationDelegate(NSObject):
     """A set of methods that manage your app’s life cycle and its interaction
     with common system services."""
 

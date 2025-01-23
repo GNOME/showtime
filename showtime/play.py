@@ -17,7 +17,12 @@
 
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gdk, Gst, GstPlay, Gtk  # type: ignore
+from gi.repository import (
+    Gdk,
+    Gst,
+    GstPlay,  # type: ignore
+    Gtk,
+)
 from showtime import shared
 
 
@@ -43,7 +48,7 @@ def gst_play_setup(
 
     settings = Gtk.Settings.get_default()
 
-    scaled_font_name = settings.props.gtk_font_name
+    scaled_font_name = settings.props.gtk_font_name  # type: ignore
     try:
         size_str = scaled_font_name.rsplit(" ", 1)[1]
         size = float(size_str)
@@ -51,7 +56,7 @@ def gst_play_setup(
         pass
     else:
         # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
-        new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)
+        new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)  # type: ignore
 
         scaled_font_name = scaled_font_name[
             : len(scaled_font_name) - len(size_str)
