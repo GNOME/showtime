@@ -17,13 +17,14 @@
 
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+from typing import Any
 from gi.repository import (
     Gdk,
     Gst,
     GstPlay,  # type: ignore
     Gtk,
 )
-from showtime import shared
+from showtime import shared, utils
 
 
 def gst_play_setup(
@@ -46,22 +47,12 @@ def gst_play_setup(
 
     pipeline = play.get_pipeline()
 
-    settings = Gtk.Settings.get_default()
+    def set_subtitle_font_desc(*_args: Any) -> None:
+        pipeline.props.subtitle_font_desc = utils.get_subtitle_font_desc()
 
-    scaled_font_name = settings.props.gtk_font_name  # type: ignore
-    try:
-        size_str = scaled_font_name.rsplit(" ", 1)[1]
-        size = float(size_str)
-    except (ValueError, IndexError):
-        pass
-    else:
-        # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
-        new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)  # type: ignore
+    if settings := Gtk.Settings.get_default():
+        settings.connect("notify::gtk-xft-dpi", set_subtitle_font_desc)
 
-        scaled_font_name = scaled_font_name[
-            : len(scaled_font_name) - len(size_str)
-        ] + str(round(new_size))
-
-    pipeline.props.subtitle_font_desc = scaled_font_name
+    set_subtitle_font_desc()
 
     return paintable, play, pipeline

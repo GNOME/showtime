@@ -116,5 +116,24 @@ def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
 def lookup_action(
     app: Optional[Gio.Application], name: str
 ) -> Optional[Gio.SimpleAction]:
+    """A shorthand for looking up an action in `app` with type checking."""
     if app and isinstance(action := app.lookup_action(name), Gio.SimpleAction):
         return action
+
+
+def get_subtitle_font_desc() -> Optional[str]:
+    """Gets a font description ideal for rendering subtitles, scaled to the user's preferences."""
+    if not (settings := Gtk.Settings.get_default()):
+        return None
+
+    font_name = settings.props.gtk_font_name
+
+    try:
+        size_str = font_name.rsplit(" ", 1)[1]
+        size = float(size_str)
+    except (ValueError, IndexError):
+        return font_name
+    else:
+        # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
+        new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)
+        return font_name[: len(font_name) - len(size_str)] + str(round(new_size))
