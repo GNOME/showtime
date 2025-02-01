@@ -39,16 +39,16 @@
 		</screenshot>
 	</screenshots>
 	<releases>
-		<release version="48.beta" date="2025-02-01">
+		<release version="48.beta.1" date="2025-02-01">
 			<description>
-				<li>
-					<ul>Redesigned the user interface</ul>
-					<ul>Added the option to manually rotate videos</ul>
-					<ul>Improved keyboard navigation</ul>
-					<ul>Improved volume adjustment</ul>
-					<ul>Improved hardware acceleration</ul>
-					<ul>Fixed numerous bugs</ul>
-				</li>
+				<ul>
+					<li>Redesigned the user interface</li>
+					<li>Added the option to manually rotate videos</li>
+					<li>Improved keyboard navigation</li>
+					<li>Improved volume adjustment</li>
+					<li>Improved hardware acceleration</li>
+					<li>Fixed numerous bugs</li>
+				</ul>
 			</description>
 		</release>
 		<release version="46.3" date="2024-07-09">
