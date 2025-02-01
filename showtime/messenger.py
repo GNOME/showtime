@@ -87,7 +87,14 @@ class ShowtimeMessenger(GObject.Object):
             case GstPlay.PlayMessage.DURATION_CHANGED:
                 self.emit(
                     "duration-changed",
-                    GstPlay.PlayMessage.parse_duration_changed(msg),
+                    (
+                        GstPlay.PlayMessage.parse_duration_changed
+                        if (
+                            (((version := Gst.version())[0] == 1) and (version[1] > 24))
+                            or version[0] > 1
+                        )
+                        else GstPlay.PlayMessage.parse_duration_changed
+                    )(msg),
                 )
 
             case GstPlay.PlayMessage.POSITION_UPDATED:

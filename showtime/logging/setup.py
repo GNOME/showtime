@@ -25,7 +25,7 @@ import platform
 import subprocess
 import sys
 
-from gi.repository import GstPbutils
+from gi.repository import Gst
 
 from showtime import shared
 
@@ -85,10 +85,7 @@ def log_system_info() -> None:
 
     logging.debug("Starting %s v%s (%s)", shared.APP_ID, shared.VERSION, shared.PROFILE)
     logging.debug("Python version: %s", sys.version)
-    logging.debug(
-        "GStreamer version: %s",
-        ".".join(str(v) for v in GstPbutils.plugins_base_version()),
-    )
+    logging.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
     if os.getenv("FLATPAK_ID") == shared.APP_ID:
         process = subprocess.run(
             ("flatpak-spawn", "--host", "flatpak", "--version"),

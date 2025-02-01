@@ -70,14 +70,14 @@ class ShowtimeApplication(Adw.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
+        Gst.init()
+
         try:
             setup_logging()
         except ValueError:
             pass
 
         log_system_info()
-
-        Gst.init()
 
         # Prefer VAAPI if possible
         reg = Gst.Registry.get()
