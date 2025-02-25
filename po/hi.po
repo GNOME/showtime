@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-08-23 13:41+0000\n"
-"PO-Revision-Date: 2024-08-24 11:30+0800\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
+"PO-Revision-Date: 2024-09-24 21:47-0700\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -20,7 +20,8 @@ msgstr ""
 "X-Generator: Gtranslator 46.1\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:193
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
+#: showtime/gtk/window.blp:193
 msgid "Showtime"
 msgstr "शोटाइम"
 
@@ -73,86 +74,92 @@ msgstr "वीडियो चलाते समय"
 msgid "translator_credits"
 msgstr "Scrambled777 <weblate.scrambled777@simplelogin.com>"
 
-#: showtime/mpris.py:289 showtime/window.py:587
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "अज्ञात शीर्षक"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "चलाएं"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "रोकें"
 
-#: showtime/window.py:443
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "विवरण कॉपी किया गया"
 
-#: showtime/window.py:446
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "तकनीकी विवरण कॉपी करें"
 
-#: showtime/window.py:472
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "इस वीडियो को चलाने के लिए आवश्यक “{}” कोडेक नहीं मिले"
 
-#: showtime/window.py:493
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "इस मीडिया प्रकार के लिए कोई प्लगइन उपलब्ध नहीं है"
 
-#: showtime/window.py:499
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "आवश्यक प्लगइन स्थापित करने में असमर्थ"
 
-#: showtime/window.py:502
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "प्लगइन स्थापित करें"
 
-#: showtime/window.py:510
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "स्थापना की जा रही है…"
 
-#: showtime/window.py:518
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "इस वीडियो को चलाने के लिए “{}” कोडेक की आवश्यकता है"
 
-#: showtime/window.py:598
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "स्क्रीनशॉट लिया गया"
 
-#: showtime/window.py:600
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "फाइल्स में दिखाएं"
 
-#: showtime/window.py:662
+#: showtime/window.py:668
 msgid "Video"
 msgstr "वीडियो"
 
-#: showtime/window.py:681
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "उपशीर्षक"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:746
-msgid "Undetermined, {} Channels"
-msgstr "अनिर्धारित, {} चैनल"
+#: showtime/window.py:753
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "अनिर्धारित, {} चैनल"
+msgstr[1] "अनिर्धारित, {} चैनल"
 
-#: showtime/window.py:748
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "अनिर्धारित"
 
-#: showtime/window.py:755
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "कोई ऑडियो नहीं"
 
-#: showtime/window.py:760
+#: showtime/window.py:770
 msgid "None"
 msgstr "कोई नहीं"
 
-#: showtime/window.py:766
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "अनिर्धारित भाषा"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "उपशीर्षक फाइल जोड़ें…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
