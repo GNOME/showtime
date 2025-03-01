@@ -1,0 +1,329 @@
+# Punjabi translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# SPDX-FileCopyrightText: 2025 A S Alam <amanpreet.alam@gmail.com>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issu"
+"es\n"
+"POT-Creation-Date: 2025-02-27 09:16+0000\n"
+"PO-Revision-Date: 2025-03-01 10:32-0600\n"
+"Last-Translator: A S Alam <aman@punlinux.org>\n"
+"Language-Team: pa\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 24.12.2\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:460
+#: showtime/gtk/window.blp:192
+msgid "Showtime"
+msgstr "ਸ਼ੋਅਟਾਈਮ"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "ਵਿਡੀਓ ਪਲੇਅਰ"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "ਵਿਡੀਓ ਨੂੰ ਚਲਾਓ"
+
+#: data/org.gnome.Showtime.desktop.in:11
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "ਵਿਡੀਓ;ਵੀਡਿਓ;ਮੂਵੀ;ਫਿਲਮ;ਕਲਿੱਪ;ਪਲੇਅਰ;ਸ਼ੋਅਟਾਈਮ;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "ਨਵੀਂ ਵਿੰਡੋ"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "ਬਿਨਾਂ ਰੁਕਾਵਟ ਦੇ ਵੇਖੋ"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"ਬਿਨਾਂ ਝੰਜਟ ਦੇ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਮੂਵੀ ਅਤੇ ਵਿਡੀਓ ਫ਼ਾਇਲਾਂ ਨੂੰ ਚਲਾਓ। ਸ਼ੋਅਟਾਈਮ (Showtime)"
+" ਵਿੱਚ ਸਰਲ ਜਿਹੇ ਪਲੇਅਬੈਕ ਕੰਟਰੋਲ ਹਨ, ਜੋ ਕਿ ਤੁਹਾਡੇ ਵਲੋਂ ਵੇਖਣ ਦੇ ਦੌਰਾਨ ਅਲੋਪ ਹੋ ਜਾਂਦ"
+"ੇ ਹਨ, ਪੂਰੀ ਸਕਰੀਨ, ਪਲੇਅਬੈਕ ਦੀ ਸਪੀਡ ਨੂੰ ਬਦਲਣਾ, ਕਈ ਭਾਸ਼ਾਵਾਂ ਅਤੇ ਸਬਟਾਈਟਲ ਟਰੈਕ, ਸਕਰੀ"
+"ਨਸ਼ਾਟ — ਸਿੱਧੇ ਤੇ ਸਰਲ ਵੇਖਣ ਦੇ ਤਜਰਬੇ ਲਈ ਤੁਹਾਨੂੰ ਚਾਹੀਦੀ ਹਰ ਚੀਜ਼ ਹੈ।"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "ਵਿਡੀਓ ਚਲਾਉਣ ਵਾਲੀ ਐਪ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "ਸਮਾਂ ਹੱਦ ਖਤਮ ਹੋਣ ਦੀ ਸਥਿਤੀ ਉੱਤੇ ਕੀ ਦਿਖਾਉਣਾ ਹੈ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "ਜਿਵੇਂ ਕਿ ਵੀਡੀਓ ਦਾ ਕੁੱਲ ਸਮਾਂ ਜਾਂ ਬਾਕੀ ਰਹਿੰਦਾ ਸਮਾਂ"
+
+#: showtime/main.py:152
+msgid "Playing a video"
+msgstr "ਵੀਡੀਓ ਚੱਲ ਰਹੀ ਹੈ"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:435
+msgid "translator_credits"
+msgstr ""
+"ਅ ਸ ਆਲਮ -੨੦੨੫ "
+"aman@punlinux.org"
+
+#: showtime/mpris.py:292 showtime/window.py:367
+msgid "Unknown Title"
+msgstr "ਅਣਪਛਾਤਾ ਟਾਈਟਲ"
+
+#: showtime/window.py:151 showtime/gtk/window.blp:296
+msgid "Play"
+msgstr "ਚਲਾਓ"
+
+#: showtime/window.py:151
+msgid "Pause"
+msgstr "ਰੋਕੋ"
+
+#: showtime/window.py:374
+msgid "Screenshot captured"
+msgstr "ਸ਼ਕਰੀਨਸ਼ਾਟ ਲਿਆ ਗਿਆ"
+
+#: showtime/window.py:376
+msgid "Show in Files"
+msgstr "ਫ਼ਾਇਲਾਂ ਵਿੱਚ ਵੇਖਾਓ"
+
+#: showtime/window.py:418
+msgid "Video"
+msgstr "ਵਿਡੀਓ"
+
+#: showtime/window.py:429
+msgid "Subtitles"
+msgstr "ਸਬ-ਟਾਈਟਲ"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:478
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "ਨਾ-ਪਛਾਣਿਆ, {} ਚੈਨਲ"
+msgstr[1] "ਨਾ-ਪਛਾਣਿਆ, {} ਚੈਨਲ"
+
+#: showtime/window.py:483
+msgid "Undetermined"
+msgstr "ਨਾ-ਪਛਾਣਿਆ"
+
+#: showtime/window.py:496
+msgid "No Audio"
+msgstr "ਕੋਈ ਆਡੀਓ ਨਹੀਂ"
+
+#: showtime/window.py:501
+msgid "None"
+msgstr "ਕੋਈ ਨਹੀਂ"
+
+#: showtime/window.py:507
+msgid "Undetermined Language"
+msgstr "ਨਾ-ਪਛਾਣੀ ਭਾਸ਼ਾ"
+
+#: showtime/window.py:518
+msgid "Add Subtitle File…"
+msgstr "…ਸਬ-ਟਾਈਟਲ ਫ਼ਾਇਲ ਨੂੰ ਜੋੜੋ"
+
+#: showtime/window.py:946
+msgid "Details copied"
+msgstr "ਵੇਰਵਿਆਂ ਨੂੰ ਕਾਪੀ ਕੀਤਾ"
+
+#: showtime/window.py:948
+msgid "Copy Technical Details"
+msgstr "ਤਕਨੀਕੀ ਵੇਰਵਿਆਂ ਨੂੰ ਕਾਪੀ ਕਰੋ"
+
+#: showtime/window.py:970
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "ਇਸ ਵਿਡੀਓ ਨੂੰ ਚਲਾਉਣ ਲਈ ਚਾਹੀਦੇ “{}” ਕੋਡਕੇਕਸ ਨਹੀਂ ਲੱਭੇ"
+
+#: showtime/window.py:991
+msgid "No plugin available for this media type"
+msgstr "ਇਸ ਮੀਡਿਆ ਕਿਸਮ ਵਾਸਤੇ ਕੋਈ ਪਲੱਗਇਨ ਨਹੀਂ ਹੈ"
+
+#: showtime/window.py:997
+msgid "Unable to install the required plugin"
+msgstr "ਚਾਹੀਦੀ ਪਲੱਗਇਨ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
+
+#: showtime/window.py:1000
+msgid "Install Plugin"
+msgstr "ਪਲੱਗਇਨ ਨੂੰ ਇੰਸਟਾਲ ਕਰੋ"
+
+#: showtime/window.py:1008
+msgid "Installing…"
+msgstr "…ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ"
+
+#: showtime/window.py:1016
+msgid "“{}” codecs are required to play this video"
+msgstr "ਇਸ ਵਿਡੀਓ ਨੂੰ ਚਲਾਉਣ ਲਈ “{}” ਕੋਡਕਸ ਚਾਹੀਦੇ ਹਨ"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "ਆਮ"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "ਸ਼ਾਰਟਕੱਟ ਨੂੰ ਵੇਖਾਓ"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "ਵਿਡੀਓ ਨੂੰ ਖੋਲ੍ਹੋ"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "ਸਕਰੀਨਸ਼ਾਟ ਲਵੋ"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "ਵਿੰਡੋ ਨੂੰ ਬੰਦ ਕਰੋ"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "ਬਾਹਰ"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "ਵਾਲੀਅਮ"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "ਵਾਲੀਅਮ ਨੂੰ ਵਧਾਓ"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "ਵਾਲੀਅਮ ਨੂੰ ਘਟਾਓ"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+msgid "Mute/Unmute"
+msgstr "ਚੁੱਪ/ਨਾ-ਚੁੱਪ"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "ਵੇਖੋ"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:620
+msgid "Toggle Fullscreen"
+msgstr "ਪੂਰੀ ਸਕਰੀਨ ਲਈ ਬਦਲੋ"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "ਪੂਰੀ ਸਕਰੀਨ ਤੋਂ ਬਾਹਰ"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "ਚਲਾਓ"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "ਚਲਾਓ/ਰੋਕੋ"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:277
+msgid "Go Back 10 Seconds"
+msgstr "10 ਸਕਿੰਟ ਪਿੱਛੇ ਜਾਓ"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:312
+msgid "Go Forward 10 Seconds"
+msgstr "10 ਸਕਿੰਟ ਅੱਗੇ ਜਾਓ"
+
+#: showtime/gtk/window.blp:6
+msgid "_Open…"
+msgstr "…ਖੋਲ੍ਹੋ(_O)"
+
+#: showtime/gtk/window.blp:11
+msgid "Show in _Files"
+msgstr "ਫ਼ਾਇਲਾਂ ਵਿੱਚ ਵੇਖਾਓ(_F)"
+
+#: showtime/gtk/window.blp:19
+msgid "Take _Screenshot"
+msgstr "ਸਕਰੀਨਸ਼ਾਟ ਲਵੋ(_S)"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ(_K)"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "ਸ਼ੋਅਟਾਈਮ ਬਾਰੇ(_A)"
+
+#: showtime/gtk/window.blp:39
+msgid "Rotate"
+msgstr "ਘੁੰਮਾਓ"
+
+#: showtime/gtk/window.blp:53
+msgid "_Language"
+msgstr "ਭਾਸ਼ਾ(_L)"
+
+#: showtime/gtk/window.blp:57
+msgid "_Subtitles"
+msgstr "ਸਬਟਾਈਟਲ(_S)"
+
+#: showtime/gtk/window.blp:62
+msgid "_Repeat"
+msgstr "ਦੁਹਰਾਓ(_R)"
+
+#: showtime/gtk/window.blp:81
+msgid "Playback Speed"
+msgstr "ਚਲਾਉਣ ਦੀ ਗਤੀ"
+
+#: showtime/gtk/window.blp:132
+msgid "Rotate Left"
+msgstr "ਖੱਬੇ ਘੁੰਮਾਓ"
+
+#: showtime/gtk/window.blp:143
+msgid "Rotate Right"
+msgstr "ਸੱਜੇ ਘੁੰਮਾਓ"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:650
+msgid "Main Menu"
+msgstr "ਮੁੱਖ ਮੇਨੂ"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "ਵਿਡੀਓ ਨੂੰ ਵੇਖੋ"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "ਵਿਡੀਓ ਨੂੰ ਇੱਥੇ ਲਿਆਓ"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "…ਖੋਲ੍ਹੋ"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "ਵਿਡੀਓ ਚਲਾਉਣ ਲਈ ਅਸਮਰੱਥ ਹੈ"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "ਪਲੱਗਇਨ ਮੌਜੂਦ ਨਹੀਂ ਹੈ"
+
+#: showtime/gtk/window.blp:351
+msgid "Adjust Volume"
+msgstr "ਵਾਲੀਅਮ ਨੂੰ ਠੀਕ ਕਰੋ"
+
+#: showtime/gtk/window.blp:369
+msgid "Playback Options"
+msgstr "ਪਲੇਅਬੈਕ ਚੋਣਾਂ"
+
+#: showtime/gtk/window.blp:426
+msgid "Toggle Duration/Remaining"
+msgstr "ਪੂਰਾ ਸਮੇਂ/ਬਾਕੀ ਰਹਿੰਦੇ ਸਮੇਂ ਵਿੱਚ ਬਦਲੋ"
+
+#: showtime/gtk/window.blp:495
+msgid "Resume"
+msgstr "ਮੁੜ-ਚਲਾਓ"
+
+#: showtime/gtk/window.blp:535
+msgid "Start Again"
+msgstr "ਫੇਰ ਸ਼ੁਰੂ ਕਰੋ"
