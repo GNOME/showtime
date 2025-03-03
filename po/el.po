@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
 "issues\n"
-"POT-Creation-Date: 2024-08-31 06:21+0000\n"
+"POT-Creation-Date: 2024-09-11 13:31+0000\n"
 "PO-Revision-Date: 2024-09-01 02:43+0300\n"
-"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
+"Last-Translator: Giannis Antypas <gianni.antypas@gmail.com>\n"
 "Language-Team: Greek <Greek>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -81,88 +81,95 @@ msgstr ""
 "Για περισσότερες πληροφορίες, επισκεφθείτε τη σελίδα\n"
 "http://gnome.gr/"
 
-#: showtime/mpris.py:289 showtime/window.py:590
+#: showtime/mpris.py:289 showtime/window.py:593
 msgid "Unknown Title"
 msgstr "Άγνωστος τίτλος"
 
-#: showtime/window.py:139 showtime/gtk/window.blp:479
+#: showtime/window.py:140 showtime/gtk/window.blp:479
 msgid "Play"
 msgstr "Αναπαραγωγή"
 
-#: showtime/window.py:142
+#: showtime/window.py:143
 msgid "Pause"
 msgstr "Παύση"
 
-#: showtime/window.py:446
+#: showtime/window.py:449
 msgid "Details copied"
 msgstr "Οι λεπτομέρειες αντιγράφηκαν"
 
-#: showtime/window.py:449
+#: showtime/window.py:452
 msgid "Copy Technical Details"
 msgstr "Αντιγραφή τεχνικών λεπτομερειών"
 
-#: showtime/window.py:475
+#: showtime/window.py:478
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
-"Δεν βρέθηκαν οι κωδικοποιητές «{}» που απαιτούνται για την αναπαραγωγή "
-"αυτού του βίντεο"
+"Δεν βρέθηκαν οι κωδικοποιητές «{}» που απαιτούνται για την αναπαραγωγή αυτού "
+"του βίντεο"
 
-#: showtime/window.py:496
+#: showtime/window.py:499
 msgid "No plugin available for this media type"
 msgstr "Δεν υπάρχει διαθέσιμο πρόσθετο για αυτόν τον τύπο πολυμέσων"
 
-#: showtime/window.py:502
+#: showtime/window.py:505
 msgid "Unable to install the required plugin"
 msgstr "Δεν είναι δυνατή η εγκατάσταση του απαιτούμενου πρόσθετου"
 
-#: showtime/window.py:505
+#: showtime/window.py:508
 msgid "Install Plugin"
 msgstr "Εγκατάσταση πρόσθετου"
 
-#: showtime/window.py:513
+#: showtime/window.py:516
 msgid "Installing…"
 msgstr "Εγκατάσταση…"
 
-#: showtime/window.py:521
+#: showtime/window.py:524
 msgid "“{}” codecs are required to play this video"
 msgstr "Απαιτούνται κωδικοποιητές «{}» για την αναπαραγωγή αυτού του βίντεο"
 
-#: showtime/window.py:601
+#: showtime/window.py:604
 msgid "Screenshot captured"
 msgstr "Λήψη στιγμιότυπου οθόνης"
 
-#: showtime/window.py:603
+#: showtime/window.py:606
 msgid "Show in Files"
 msgstr "Εμφάνιση στην εφαρμογή Αρχεία"
 
-#: showtime/window.py:665
+#: showtime/window.py:668
 msgid "Video"
 msgstr "Βίντεο"
 
-#: showtime/window.py:684
+#: showtime/window.py:687
 msgid "Subtitles"
 msgstr "Υπότιτλοι"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:749
-msgid "Undetermined, {} Channels"
-msgstr "Απροσδιόριστα, {} Κανάλια"
+#: showtime/window.py:753
+#| msgid "Undetermined, {} Channels"
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Απροσδιόριστo, {} Κανάλι"
+msgstr[1] "Απροσδιόριστα, {} Κανάλια"
 
-#: showtime/window.py:751
+#: showtime/window.py:758
 msgid "Undetermined"
 msgstr "Απροσδιόριστο"
 
-#: showtime/window.py:758
+#: showtime/window.py:765
 msgid "No Audio"
 msgstr "Χωρίς ήχο"
 
-#: showtime/window.py:763
+#: showtime/window.py:770
 msgid "None"
 msgstr "Kανένα"
 
-#: showtime/window.py:769
+#: showtime/window.py:776
 msgid "Undetermined Language"
 msgstr "Απροσδιόριστη γλώσσα"
+
+#: showtime/window.py:784
+msgid "Add Subtitle File…"
+msgstr "Προσθήκη αρχείου υποτίτλων…"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
