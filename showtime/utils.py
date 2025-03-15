@@ -27,16 +27,15 @@ from urllib.parse import unquote, urlparse
 
 from gi.repository import (
     Gdk,
+    Gio,
     Graphene,
     GstPlay,  # type: ignore
     Gtk,
-    Gio,
 )
 
 
 def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Texture]:
-    """Takes a screenshot of the current image of a `GdkPaintable`."""
-
+    """Take a screenshot of the current image of a `GdkPaintable`."""
     # Copied from Workbench
     # https://github.com/workbenchdev/Workbench/blob/1ebbe1e3915aabfd172c166c88ca23ad08861d15/src/Previewer/previewer.vala#L36
 
@@ -68,13 +67,10 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Optional[Gdk.Tex
 
 
 def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) -> str:
-    """
-    Converts `nanoseconds` to a human readable time stamp
-    in the format 1∶23 or 1∶23∶45 depending on the length.
+    """Convert `nanoseconds` to a human readable time stamp in the format 1∶23 or 1∶23∶45 depending on the length.
 
     If `format` is set to False, always returns a string in the format 01∶23∶45.
     """
-
     str = (
         (
             datetime.datetime.min
@@ -96,7 +92,7 @@ def nanoseconds_to_timestamp(nanoseconds: int, format: Optional[bool] = True) ->
 
 
 def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
-    """Gets the title of the video from a `GstPlayMediaInfo`."""
+    """Get the title of the video from a `GstPlayMediaInfo`."""
     return (
         (
             title
@@ -116,13 +112,13 @@ def get_title(media_info: Optional[GstPlay.PlayMediaInfo]) -> Optional[str]:
 def lookup_action(
     app: Optional[Gio.Application], name: str
 ) -> Optional[Gio.SimpleAction]:
-    """A shorthand for looking up an action in `app` with type checking."""
+    """Look up an action in `app` with type checking."""
     if app and isinstance(action := app.lookup_action(name), Gio.SimpleAction):
         return action
 
 
 def get_subtitle_font_desc() -> Optional[str]:
-    """Gets a font description ideal for rendering subtitles, scaled to the user's preferences."""
+    """Get a font description ideal for rendering subtitles, scaled to the user's preferences."""
     if not (settings := Gtk.Settings.get_default()):
         return None
 

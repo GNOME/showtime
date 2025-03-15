@@ -124,9 +124,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     menus_building: int = 0
     prev_motion_xy: tuple = (0, 0)
 
+    media_info_updated = GObject.Signal(name="media-info-updated")
+
     @GObject.Property(type=float)
     def rate(self) -> float:
-        """The playback rate."""
+        """Get the playback rate."""
         return self.play.get_rate()
 
     @rate.setter
@@ -161,10 +163,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
-
-    @GObject.Signal(name="media-info-updated")
-    def __media_info_updated(self) -> None:
-        """Emitted when the currently playing video's media info is updated."""
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(
@@ -289,7 +287,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.connect("realize", self.__on_realize)
 
     def play_video(self, gfile: Gio.File) -> None:
-        """Starts playing the given `GFile`."""
+        """Start playing the given `GFile`."""
         try:
             file_info = gfile.query_info(
                 ",".join(
@@ -345,8 +343,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.pipeline.connect("source-setup", setup_cb)
 
     def save_screenshot(self) -> None:
-        """
-        Saves a screenshot of the current frame of the video being played in PNG format.
+        """Save a screenshot of the current frame of the video being played in PNG format.
 
         It tries saving it to `xdg-pictures/Screenshot` and falls back to `~`.
         """
@@ -386,36 +383,36 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         logging.debug("Screenshot saved.")
 
     def unpause(self) -> None:
-        """Starts playing the current video."""
+        """Start playing the current video."""
         self.__hide_overlay(self.restore_breakpoint_bin)
         self.__reveal_overlay(self.controls_box)
         self.play.play()
         logging.debug("Video unpaused.")
 
     def pause(self, *_args: Any) -> None:
-        """Pauses the currently playing video."""
+        """Pause the currently playing video."""
         self.play.pause()
         logging.debug("Video paused.")
 
     def toggle_playback(self) -> None:
-        """Pauses/unpauses the currently playing video."""
+        """Pause/unpause the currently playing video."""
         (self.unpause if self.paused else self.pause)()
 
     def set_looping(self, looping: bool) -> None:
-        """Sets the looping state of the currently playing video."""
+        """Set the looping state of the currently playing video."""
         self.__class__.looping = looping
 
     def toggle_mute(self) -> None:
-        """Mutes/unmutes the player."""
+        """Mute/unmute the player."""
         self.play.set_mute(muted := not self.play.get_mute())
         self.__set_volume_display(muted)
 
     def toggle_fullscreen(self) -> None:
-        """Fullscreens `self` if not already in fullscreen, otherwise unfullscreens."""
+        """Fullscreen `self` if not already in fullscreen, otherwise unfullscreens."""
         (self.unfullscreen if self.is_fullscreen() else self.fullscreen)()
 
     def choose_video(self) -> None:
-        """Opens a file dialog to pick a video to play."""
+        """Open a file dialog to pick a video to play."""
         (file_filter := Gtk.FileFilter()).set_name(_("Video"))
         file_filter.add_mime_type("video/*")
 
@@ -426,7 +423,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         dialog.open(self, callback=self.__choose_video_cb)
 
     def choose_subtitles(self) -> None:
-        """Opens a file dialog to pick a subtitle."""
+        """Open a file dialog to pick a subtitle."""
         (file_filter := Gtk.FileFilter()).set_name(_("Subtitles"))
         file_filter = Gtk.FileFilter()
         file_filter.add_mime_type("application/x-subrip")
@@ -444,7 +441,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         dialog.open(self, callback=self.__choose_subtitles_cb)
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
-        """Selects the given subtitles for the video."""
+        """Select the given subtitles for the video."""
         action.set_state(state)
         if (index := state.get_uint16()) == shared.MAX_UINT16:
             self.play.set_subtitle_track_enabled(False)
@@ -454,12 +451,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.play.set_subtitle_track_enabled(True)
 
     def select_language(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
-        """Selects the given language for the video."""
+        """Select the given language for the video."""
         action.set_state(state)
         self.play.set_audio_track(state.get_uint16())
 
     def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
-        """(Re)builds the Subtitles and Language menus for the currently playing video."""
+        """(Re)build the Subtitles and Language menus for the currently playing video."""
         self.menus_building -= 1
 
         # Don't try to rebuild the menu multiple times when the media info has many changes
@@ -764,7 +761,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             )
         )
 
-    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool):
+    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
         animations = self.reveal_animations if reveal else self.hide_animations
 
         if (
@@ -783,10 +780,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         widget.set_can_target(reveal)
         animations[widget].play()
 
-    def __reveal_overlay(self, widget: Gtk.Widget):
+    def __reveal_overlay(self, widget: Gtk.Widget) -> None:
         self.__set_overlay_revealed(widget, True)
 
-    def __hide_overlay(self, widget: Gtk.Widget):
+    def __hide_overlay(self, widget: Gtk.Widget) -> None:
         self.__set_overlay_revealed(widget, False)
 
     def __hide_overlays(self, timestamp: float) -> None:
@@ -979,7 +976,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.stack.set_visible_child(self.placeholder_page)
             return
 
-        def on_install_done(result) -> None:
+        def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
                     logging.debug("Plugin installed.")
@@ -1004,7 +1001,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         def install_plugin(*_args: Any) -> None:
             GstPbutils.install_plugins_async(
-                (detail,) if detail else tuple(), None, on_install_done
+                (detail,) if detail else (), None, on_install_done
             )
             self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
             button.set_sensitive(False)

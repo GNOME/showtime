@@ -24,7 +24,7 @@ import lzma
 import pickle
 import sys
 from hashlib import sha256
-from typing import Any, Optional, Sequence
+from typing import Any, Callable, Optional, Sequence
 
 import gi
 
@@ -38,15 +38,17 @@ gi.require_version("GstPbutils", "1.0")
 # pylint: disable=wrong-import-order
 
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
+
 from showtime import shared
 from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
-from showtime.window import ShowtimeWindow
 from showtime.utils import lookup_action
+from showtime.window import ShowtimeWindow
 
 if shared.system == "Darwin":
     from AppKit import NSApp  # type: ignore
     from PyObjCTools import AppHelper
+
     from showtime.application_delegate import ApplicationDelegate
 
 
@@ -56,15 +58,10 @@ class ShowtimeApplication(Adw.Application):
     inhibit_cookies: dict = {}
     mpris_active: bool = False
 
-    @GObject.Signal(name="media-info-updated")
-    def __media_info_updated(self) -> None:
-        """Emitted when the currently active video's media info is updated."""
+    media_info_updated = GObject.Signal(name="media-info-updated")
+    state_changed = GObject.Signal(name="state-changed")
 
-    @GObject.Signal(name="state-changed")
-    def __state_changed(self) -> None:
-        """Emitted when the currently active video's state changes."""
-
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(
             application_id=shared.APP_ID,
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
@@ -126,7 +123,7 @@ class ShowtimeApplication(Adw.Application):
             win if isinstance(win := self.get_active_window(), ShowtimeWindow) else None  # type: ignore
         )
 
-    def __on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant):
+    def __on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
 
@@ -143,8 +140,7 @@ class ShowtimeApplication(Adw.Application):
                 self.__on_window_removed(None, win)
 
     def inhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
-        """
-        Tries to add an inhibitor associated with `win`.
+        """Try to add an inhibitor associated with `win`.
 
         This will automatically be removed when `win` is closed.
         """
@@ -153,14 +149,14 @@ class ShowtimeApplication(Adw.Application):
         )
 
     def uninhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
-        """Removes the inhibitor associated with `win` if one exists."""
+        """Remove the inhibitor associated with `win` if one exists."""
         if not (cookie := self.inhibit_cookies.pop(win, 0)):
             return
 
         self.uninhibit(cookie)
 
     def save_play_position(self, win: ShowtimeWindow) -> None:  # type: ignore
-        """Saves the play position of the currently playing file in the window to restore later."""
+        """Save the play position of the currently playing file in the window to restore later."""
         if not (uri := win.play.get_uri()):
             return
 
@@ -191,7 +187,8 @@ class ShowtimeApplication(Adw.Application):
         with hist_path.open("wb") as hist_file:
             pickle.dump(hist, hist_file)
 
-    def do_startup(self):
+    def do_startup(self) -> None:
+        """Set up actions."""
         Adw.Application.do_startup(self)
 
         Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
@@ -329,12 +326,7 @@ class ShowtimeApplication(Adw.Application):
     def do_activate(  # pylint: disable=arguments-differ
         self, gfile: Optional[Gio.File] = None
     ) -> None:
-        """
-        Called when the application is activated.
-
-        Creates a new window, sets up MPRIS.
-        """
-
+        """Create a new window, set up MPRIS."""
         win = ShowtimeWindow(
             application=self,  # type: ignore
             maximized=shared.state_schema.get_boolean("is-maximized"),  # type: ignore
@@ -343,13 +335,13 @@ class ShowtimeApplication(Adw.Application):
             "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
         )
 
-        def emit_media_info_updated(win) -> None:
+        def emit_media_info_updated(win: ShowtimeWindow) -> None:  #  type: ignore
             if win == self.get_active_window():
                 self.emit("media-info-updated")
 
         win.connect("media-info-updated", emit_media_info_updated)
 
-        def emit_state_changed(win, _args: Any) -> None:
+        def emit_state_changed(win: ShowtimeWindow, *_args: Any) -> None:  # type: ignore
             if win == self.get_active_window():
                 self.emit("state-changed")
 
@@ -380,14 +372,14 @@ class ShowtimeApplication(Adw.Application):
             MPRIS(self)
 
     def do_open(self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str) -> None:  # type: ignore
-        """Opens the given files."""
+        """Open the given files."""
         for gfile in gfiles:
             self.do_activate(gfile)
 
     def do_handle_local_options(  # pylint: disable=arguments-differ
         self, options: GLib.VariantDict
     ) -> int:
-        """Handles local command line arguments."""
+        """Handle local command line arguments."""
         self.register()  # This is so get_is_remote works
         if self.get_is_remote():
             if options.contains("new-window"):
@@ -402,8 +394,7 @@ class ShowtimeApplication(Adw.Application):
         return -1
 
     def on_about_action(self, *_args: Any) -> None:
-        """Callback for the app.about action."""
-
+        """Show the about dialog."""
         # Get the debug info from the log files
         debug_str = ""
         for index, path in enumerate(shared.log_files):
@@ -437,7 +428,12 @@ class ShowtimeApplication(Adw.Application):
         about.set_debug_info_filename("showtime.log")
         about.present(self.get_active_window())
 
-    def create_action(self, name, callback, shortcuts=None):
+    def create_action(
+        self,
+        name: str,
+        callback: Callable,
+        shortcuts: Sequence[str] | None = None,
+    ) -> None:
         """Add an application action.
 
         Args:
@@ -445,6 +441,7 @@ class ShowtimeApplication(Adw.Application):
             callback: the function to be called when the action is
               activated
             shortcuts: an optional list of accelerators
+
         """
         action = Gio.SimpleAction.new(name, None)
         action.connect("activate", callback)
@@ -455,8 +452,8 @@ class ShowtimeApplication(Adw.Application):
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
-def main():
-    """The application's entry point."""
+def main() -> int:
+    """Run the application."""
     GLib.set_application_name(_("Showtime"))
 
     shared.app = ShowtimeApplication()

@@ -17,8 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""A set of methods that manage your app’s life cycle and its interaction
-with common system services."""
+"""A set of methods that manage the app’s life cycle and its interaction with common system services."""
 
 from typing import Any
 
@@ -30,10 +29,10 @@ from showtime import shared
 
 
 class ApplicationDelegate(NSObject):
-    """A set of methods that manage your app’s life cycle and its interaction
-    with common system services."""
+    """A set of methods that manage the app’s life cycle and its interaction with common system services."""
 
     def applicationDidFinishLaunching_(self, *_args: Any) -> None:
+        """Set up menu bar actions."""
         main_menu = NSApp.mainMenu()
 
         new_window_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
@@ -82,18 +81,21 @@ class ApplicationDelegate(NSObject):
         NSApp.setHelpMenu_(help_menu)
 
     def new_(self, *_args: Any) -> None:
+        """Create a new window."""
         if not shared.app:
             return
 
         shared.app.do_activate()
 
     def open_(self, *_args: Any) -> None:
+        """Show the file chooser for opening a video."""
         if (not (shared.app)) or (not (win := shared.app.win)):
             return
 
         win.choose_video()
 
     def shortcuts_(self, *_args: Any) -> None:
+        """Open the shortcuts dialog."""
         if (
             (not (shared.app))
             or (not (win := shared.app.win))
@@ -106,6 +108,7 @@ class ApplicationDelegate(NSObject):
     def application_openFile_(
         self, _theApplication: NSApplication, filename: str
     ) -> bool:
+        """Open a file."""
         if (not shared.app) or (not (win := shared.app.win)):
             return False
 

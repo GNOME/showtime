@@ -18,18 +18,21 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from typing import Any
+
 from gi.repository import (
     Gdk,
     Gst,
     GstPlay,  # type: ignore
     Gtk,
 )
+
 from showtime import shared, utils
 
 
 def gst_play_setup(
     picture: Gtk.Picture,
 ) -> tuple[Gdk.Paintable, GstPlay.Play, Gst.Element]:
+    """Set up `GstPlay`."""
     sink = Gst.ElementFactory.make("gtk4paintablesink")
     paintable = sink.props.paintable  # type: ignore
 

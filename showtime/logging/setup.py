@@ -32,7 +32,6 @@ from showtime import shared
 
 def setup_logging() -> None:
     """Intitate the app's logging."""
-
     is_dev = shared.PROFILE == "development"
     profile_app_log_level = "DEBUG" if is_dev else "INFO"
     profile_lib_log_level = "INFO" if is_dev else "WARNING"
@@ -82,7 +81,6 @@ def setup_logging() -> None:
 
 def log_system_info() -> None:
     """Log system debug information."""
-
     logging.debug("Starting %s v%s (%s)", shared.APP_ID, shared.VERSION, shared.PROFILE)
     logging.debug("Python version: %s", sys.version)
     logging.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))

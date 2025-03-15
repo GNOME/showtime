@@ -20,7 +20,6 @@
 from typing import Any
 
 from gi.repository import (
-    GLib,
     GObject,
     Gst,
     GstPbutils,
@@ -29,37 +28,20 @@ from gi.repository import (
 
 
 class ShowtimeMessenger(GObject.Object):
+    """A messenger between GStreamer and the app."""
+
     __gtype_name__ = "ShowtimeMessenger"
 
-    @GObject.Signal(name="state-changed", arg_types=(object,))
-    def state_changed(self, state: GstPlay.PlayState) -> None: ...
-
-    @GObject.Signal(name="duration-changed", arg_types=(object,))
-    def duration_changed(self, dur: int) -> None: ...
-
-    @GObject.Signal(name="position-updated", arg_types=(object,))
-    def position_updated(self, pos: int) -> None: ...
-
-    @GObject.Signal(name="seek-done")
-    def seek_done(self) -> None: ...
-
-    @GObject.Signal(name="media-info-updated", arg_types=(object,))
-    def media_info_updated(self, media_info: GstPlay.PlayMediaInfo) -> None: ...
-
-    @GObject.Signal(name="volume-changed")
-    def volume_changed(self) -> None: ...
-
-    @GObject.Signal(name="end-of-stream")
-    def end_of_stream(self) -> None: ...
-
-    @GObject.Signal(name="warning", arg_types=(object,))
-    def warning(self, warning: GLib.Error) -> None: ...
-
-    @GObject.Signal(name="error", arg_types=(object,))
-    def error(self, error: GLib.Error) -> None: ...
-
-    @GObject.Signal(name="missing-plugin", arg_types=(object,))
-    def missing_plugin(self, msg: Gst.Message) -> None: ...
+    state_changed = GObject.Signal(name="state-changed", arg_types=(object,))
+    duration_changed = GObject.Signal(name="duration-changed", arg_types=(object,))
+    position_updated = GObject.Signal(name="position-updated", arg_types=(object,))
+    seek_done = GObject.Signal(name="seek-done")
+    media_info_updated = GObject.Signal(name="media-info-updated", arg_types=(object,))
+    volume_changed = GObject.Signal(name="volume-changed")
+    end_of_stream = GObject.Signal(name="end-of-stream")
+    warning = GObject.Signal(name="warning", arg_types=(object,))
+    error = GObject.Signal(name="error", arg_types=(object,))
+    missing_plugin = GObject.Signal(name="missing-plugin", arg_types=(object,))
 
     def __init__(
         self,

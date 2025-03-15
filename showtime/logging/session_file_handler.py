@@ -29,8 +29,8 @@ from showtime import shared
 
 
 class SessionFileHandler(StreamHandler):
-    """
-    A logging handler that writes to a new file on every app restart.
+    """A logging handler that writes to a new file on every app restart.
+
     The files are compressed and older sessions logs are kept up to a small limit.
     """
 
@@ -41,13 +41,15 @@ class SessionFileHandler(StreamHandler):
     log_file: Optional[TextIOWrapper] = None
 
     def create_dir(self) -> None:
-        """Create the log dir if needed"""
+        """Create the log dir if needed."""
         self.filename.parent.mkdir(exist_ok=True, parents=True)
 
     def path_is_logfile(self, path: Path) -> bool:
+        """Whether the path is a log file."""
         return path.is_file() and path.name.startswith(self.filename.stem)
 
     def path_has_number(self, path: Path) -> bool:
+        """Whether the path has a number."""
         try:
             int(path.suffixes[self.NUMBER_SUFFIX_POSITION][1:])
         except (ValueError, IndexError):
@@ -55,7 +57,7 @@ class SessionFileHandler(StreamHandler):
         return True
 
     def get_path_number(self, path: Path) -> int:
-        """Get the number extension in the filename as an int"""
+        """Get the number extension in the filename as an int."""
         suffixes = path.suffixes
         number = (
             0
@@ -65,7 +67,7 @@ class SessionFileHandler(StreamHandler):
         return number
 
     def set_path_number(self, path: Path, number: int) -> str:
-        """Set or add the number extension in the filename"""
+        """Set or add the number extension in the filename."""
         suffixes = path.suffixes
         if self.path_has_number(path):
             suffixes.pop(self.NUMBER_SUFFIX_POSITION)
@@ -75,18 +77,17 @@ class SessionFileHandler(StreamHandler):
         return new_name
 
     def file_sort_key(self, path: Path) -> int:
-        """Key function used to sort files"""
+        """Key function used to sort files."""
         return self.get_path_number(path) if self.path_has_number(path) else 0
 
     def get_logfiles(self) -> list[Path]:
-        """Get the log files"""
+        """Get the log files."""
         logfiles = list(filter(self.path_is_logfile, self.filename.parent.iterdir()))
         logfiles.sort(key=self.file_sort_key, reverse=True)
         return logfiles
 
     def rotate_file(self, path: Path) -> None:
-        """Rotate a file's number suffix and remove it if it's too old"""
-
+        """Rotate a file's number suffix and remove it if it's too old."""
         # If uncompressed, compress
         if not path.name.endswith(".xz"):
             try:
@@ -121,7 +122,7 @@ class SessionFileHandler(StreamHandler):
             return
 
     def rotate(self) -> None:
-        """Rotate the numbered suffix on the log files and remove old ones"""
+        """Rotate the numbered suffix on the log files and remove old ones."""
         for path in self.get_logfiles():
             self.rotate_file(path)
 
@@ -135,6 +136,7 @@ class SessionFileHandler(StreamHandler):
         super().__init__(self.log_file)
 
     def close(self) -> None:
+        """Close the log file."""
         if self.log_file:
             self.log_file.close()
         super().close()

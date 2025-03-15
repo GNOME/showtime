@@ -31,6 +31,7 @@ class ColorLogFormatter(Formatter):
     YELLOW = "\033[33m"
 
     def format(self, record: LogRecord) -> str:
+        """Format log messages."""
         super_format = super().format(record)
         match record.levelname:
             case "CRITICAL":

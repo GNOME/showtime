@@ -29,15 +29,19 @@ from gi.repository import (
     Gio,
     GLib,
     GstPlay,  # type: ignore
+    Gtk,
 )
+
 from showtime import shared
 from showtime.utils import get_title
 from showtime.window import ShowtimeWindow
 
 
 class DBusInterface:
+    """A D-Bus interface."""
+
     def __init__(self, name: str, path: str, _application: Any) -> None:
-        """Etablish a D-Bus session connection
+        """Etablish a D-Bus session connection.
 
         :param str name: interface name
         :param str path: object path
@@ -152,6 +156,7 @@ class DBusInterface:
 
     @staticmethod
     def camelcase_to_snake_case(name: str) -> str:
+        """Convert `name` from camelCase to snake_case."""
         s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
         return "_" + re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
 
@@ -239,23 +244,25 @@ class MPRIS(DBusInterface):
             <property name='CanControl' type='b' access='read'/>
         </interface>
     </node>
-    """
+    """  # noqa
 
     MEDIA_PLAYER2_IFACE = "org.mpris.MediaPlayer2"
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
     def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
+        """Get the active application window."""
         return self._app.get_active_window()
 
     @property
     def play(self) -> Optional[GstPlay.Play]:
+        """Play the video."""
         if not self.win:
             return None
 
         return getattr(self.win, "play", None)
 
-    def __init__(self, app) -> None:
+    def __init__(self, app: Gtk.Application) -> None:
         name = f"org.mpris.MediaPlayer2.{shared.APP_ID}"
         path = "/org/mpris/MediaPlayer2"
         super().__init__(name, path, app)
@@ -402,7 +409,7 @@ class MPRIS(DBusInterface):
         self.play.seek(max(0, self.play.get_position() + (offset_msecond * 1e6)))
 
     def _set_position(self, _track_id: str, position_msecond: int) -> None:
-        """Set the current track position in microseconds (MPRIS Method)
+        """Set the current track position in microseconds (MPRIS Method).
 
         :param str track_id: The currently playing track's identifier
         :param int position_msecond: new position in microseconds
@@ -413,7 +420,7 @@ class MPRIS(DBusInterface):
         self.play.seek(position_msecond * 1e6)
 
     def _open_uri(self, _uri: str) -> None:
-        """Opens the Uri given as an argument (MPRIS Method).
+        """Open the Uri given as an argument (MPRIS Method).
 
         Not implemented.
 
