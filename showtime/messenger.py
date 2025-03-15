@@ -18,12 +18,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from typing import Any
+
 from gi.repository import (
+    GLib,
     GObject,
     Gst,
     GstPbutils,
     GstPlay,  # type: ignore
-    GLib,
 )
 
 
@@ -93,7 +94,7 @@ class ShowtimeMessenger(GObject.Object):
                             (((version := Gst.version())[0] == 1) and (version[1] > 24))
                             or version[0] > 1
                         )
-                        else GstPlay.PlayMessage.parse_duration_changed
+                        else GstPlay.PlayMessage.parse_duration_updated
                     )(msg),
                 )
 
