@@ -43,15 +43,16 @@ from gi.repository import (
     GstPlay,  # type: ignore
     Gtk,
 )
+
 from showtime import shared
 from showtime.drag_overlay import ShowtimeDragOverlay
 from showtime.messenger import ShowtimeMessenger
 from showtime.play import gst_play_setup
 from showtime.utils import (
     get_title,
+    lookup_action,
     nanoseconds_to_timestamp,
     screenshot,
-    lookup_action,
 )
 
 
@@ -487,7 +488,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                 title = None
 
             self.language_menu.append(
-                f'{language}{ (" - " + title) if (has_title and title) else "" }',
+                f"{language}{(' - ' + title) if (has_title and title) else ''}",
                 f"app.select-language(uint16 {index})",
             )
             langs += 1
@@ -507,7 +508,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             language = stream.get_language() or _("Undetermined Language")
 
             self.subtitles_menu.append(
-                f'{language}{ (" - " + title) if (has_title and title) else "" }',
+                f"{language}{(' - ' + title) if (has_title and title) else ''}",
                 f"app.select-subtitles(uint16 {index})",
             )
             subs += 1
@@ -1055,7 +1056,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
-        self.options_popover.unparent()
+        self.options_menu_button.set_popover(None)
         self.options_popover.set_parent(self)
         self.options_popover.set_has_arrow(False)
         self.options_popover.set_halign(Gtk.Align.START)
