@@ -1,0 +1,328 @@
+# Indonesian translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Andika Triwidada <atriwidada@gnome.org>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
+"issues\n"
+"POT-Creation-Date: 2025-03-12 10:17+0000\n"
+"PO-Revision-Date: 2025-03-13 21:27+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: Indonesian <Indonesian>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.5\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:460
+#: showtime/gtk/window.blp:192
+msgid "Showtime"
+msgstr "Showtime"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Video Player"
+msgstr "Pemutar Video"
+
+#: data/org.gnome.Showtime.desktop.in:5
+msgid "Play videos"
+msgstr "Memutar video"
+
+#: data/org.gnome.Showtime.desktop.in:11
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;Film;Klip;Pemutar;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "Jendela Baru"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Menonton tanpa gangguan"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Showtime features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle "
+"tracks, and screenshots — everything you need for a straightforward viewing "
+"experience."
+msgstr ""
+"Putar film dan berkas video favorit Anda tanpa kesulitan. Showtime "
+"menampilkan kontrol pemutaran sederhana yang tidak memudar saat Anda "
+"menonton, layar penuh, kecepatan pemutaran yang dapat disesuaikan, berbagai "
+"bahasa dan trek subtitle, dan tangkapan layar - semua yang Anda butuhkan "
+"untuk pengalaman menonton yang mudah."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "Aplikasi memutar video"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Apa yang harus ditampilkan di posisi stempel waktu akhir"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Misalnya total durasi video atau banyaknya waktu yang tersisa"
+
+#: showtime/main.py:152
+msgid "Playing a video"
+msgstr "Memutar video"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:435
+msgid "translator_credits"
+msgstr "Andika Triwidada <andika@gmail.com>, 2025."
+
+#: showtime/mpris.py:292 showtime/window.py:367
+msgid "Unknown Title"
+msgstr "Judul Tidak Diketahui"
+
+#: showtime/window.py:151 showtime/gtk/window.blp:296
+msgid "Play"
+msgstr "Putar"
+
+#: showtime/window.py:151
+msgid "Pause"
+msgstr "Jeda"
+
+#: showtime/window.py:374
+msgid "Screenshot captured"
+msgstr "Cuplikan layar ditangkap"
+
+#: showtime/window.py:376
+msgid "Show in Files"
+msgstr "Tampilkan dalam Berkas"
+
+#: showtime/window.py:418
+msgid "Video"
+msgstr "Video"
+
+#: showtime/window.py:429
+msgid "Subtitles"
+msgstr "Subtitel"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:478
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Tidak ditentukan, {} Kanal"
+
+#: showtime/window.py:483
+msgid "Undetermined"
+msgstr "Tidak ditentukan"
+
+#: showtime/window.py:496
+msgid "No Audio"
+msgstr "Tidak Ada Audio"
+
+#: showtime/window.py:501
+msgid "None"
+msgstr "Nihil"
+
+#: showtime/window.py:507
+msgid "Undetermined Language"
+msgstr "Bahasa Tidak Ditentukan"
+
+#: showtime/window.py:518
+msgid "Add Subtitle File…"
+msgstr "Menambahkan Berkas Subtitel…"
+
+#: showtime/window.py:946
+msgid "Details copied"
+msgstr "Rincian disalin"
+
+#: showtime/window.py:948
+msgid "Copy Technical Details"
+msgstr "Salin Rincian Teknis"
+
+#: showtime/window.py:970
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"Codec \"{}\" yang diperlukan untuk memutar video ini tidak dapat ditemukan"
+
+#: showtime/window.py:991
+msgid "No plugin available for this media type"
+msgstr "Tidak ada plugin yang tersedia untuk jenis media ini"
+
+#: showtime/window.py:997
+msgid "Unable to install the required plugin"
+msgstr "Tidak dapat memasang plugin yang diperlukan"
+
+#: showtime/window.py:1000
+msgid "Install Plugin"
+msgstr "Pasang Plugin"
+
+#: showtime/window.py:1008
+msgid "Installing…"
+msgstr "Memasang…"
+
+#: showtime/window.py:1016
+msgid "“{}” codecs are required to play this video"
+msgstr "codec \"{}\" diperlukan untuk memutar video ini"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "Umum"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "Tampilkan Pintasan"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "Buka Video"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "Ambil Cuplikan Layar"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "Tutup Jendela"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "Keluar"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "Volume"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "Tingkatkan Volume"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "Kurangi Volume"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+msgid "Mute/Unmute"
+msgstr "Bisu/Bunyi"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "Tampilan"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:620
+msgid "Toggle Fullscreen"
+msgstr "Jungkitkan Layar Penuh"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "Keluar dari Layar Penuh"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "Putar"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "Putar/Jeda"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:277
+msgid "Go Back 10 Seconds"
+msgstr "Mundur 10 Detik"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:312
+msgid "Go Forward 10 Seconds"
+msgstr "Maju 10 Detik"
+
+#: showtime/gtk/window.blp:6
+msgid "_Open…"
+msgstr "_Buka…"
+
+#: showtime/gtk/window.blp:11
+msgid "Show in _Files"
+msgstr "Tampilkan dalam _Berkas"
+
+#: showtime/gtk/window.blp:19
+msgid "Take _Screenshot"
+msgstr "Ambil _Tangkapan Layar"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "Pintasan Papan Ti_k"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Showtime"
+msgstr "Tent_ang Showtime"
+
+#: showtime/gtk/window.blp:39
+msgid "Rotate"
+msgstr "Putar"
+
+#: showtime/gtk/window.blp:53
+msgid "_Language"
+msgstr "_Bahasa"
+
+#: showtime/gtk/window.blp:57
+msgid "_Subtitles"
+msgstr "_Subtitel"
+
+#: showtime/gtk/window.blp:62
+msgid "_Repeat"
+msgstr "_Ulangi"
+
+#: showtime/gtk/window.blp:81
+msgid "Playback Speed"
+msgstr "Kecepatan Pemutaran"
+
+#: showtime/gtk/window.blp:132
+msgid "Rotate Left"
+msgstr "Putar ke Kiri"
+
+#: showtime/gtk/window.blp:143
+msgid "Rotate Right"
+msgstr "Putar ke Kanan"
+
+#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:650
+msgid "Main Menu"
+msgstr "Menu Utama"
+
+#: showtime/gtk/window.blp:221
+msgid "Watch Videos"
+msgstr "Tonton Video"
+
+#: showtime/gtk/window.blp:222
+msgid "Drag and drop videos here"
+msgstr "Seret dan jatuhkan video di sini"
+
+#: showtime/gtk/window.blp:225
+msgid "Open…"
+msgstr "Buka…"
+
+#: showtime/gtk/window.blp:238
+msgid "Unable to Play Video"
+msgstr "Tidak Dapat Memutar Video"
+
+#: showtime/gtk/window.blp:243
+msgid "Missing Plugin"
+msgstr "Kurang Plugin"
+
+#: showtime/gtk/window.blp:351
+msgid "Adjust Volume"
+msgstr "Setel Volume"
+
+#: showtime/gtk/window.blp:369
+msgid "Playback Options"
+msgstr "Opsi Pemutaran"
+
+#: showtime/gtk/window.blp:426
+msgid "Toggle Duration/Remaining"
+msgstr "Jungkitkan Durasi/Sisa"
+
+#: showtime/gtk/window.blp:495
+msgid "Resume"
+msgstr "Lanjutkan"
+
+#: showtime/gtk/window.blp:535
+msgid "Start Again"
+msgstr "Mulai Lagi"
