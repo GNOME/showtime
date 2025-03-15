@@ -192,12 +192,11 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         messenger.connect("error", self.__on_error)
         messenger.connect("missing-plugin", self.__on_missing_plugin)
 
-        # Limit the size of the options popover
-
-        if (child := self.options_popover.get_first_child()) and isinstance(
-            (scroll := child.get_first_child()), Gtk.ScrolledWindow
-        ):
-            scroll.set_max_content_height(300)
+        # HACK: Limit the size of the options popover
+        # if (child := self.options_popover.get_first_child()) and isinstance(
+        #     (scroll := child.get_first_child()), Gtk.ScrolledWindow
+        # ):
+        #     scroll.set_max_content_height(300)
 
         # Devel stripes
 
@@ -1065,8 +1064,6 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.options_popover.popup()
 
         def closed(*_args: Any) -> None:
-            self.options_popover.unparent()
-            self.options_menu_button.set_popover(self.options_popover)
             self.options_popover.set_pointing_to(None)
 
             self.options_popover.set_has_arrow(True)
