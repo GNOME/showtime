@@ -76,21 +76,6 @@ class ShowtimeApplication(Adw.Application):
 
         log_system_info()
 
-        # Prefer VAAPI if possible
-        reg = Gst.Registry.get()
-        for decoder in (
-            "vaav1dec",
-            "vah264dec",
-            "vah265dec",
-            "vah266dec",
-            "vajpegdec",
-            "vampeg2dec",
-            "vavp8dec",
-            "vavp9dec",
-        ):
-            if vadec := reg.lookup_feature(decoder):
-                vadec.set_rank(Gst.Rank.PRIMARY + 2)
-
         if shared.system == "Darwin":
 
             def setup_app_delegate() -> None:
