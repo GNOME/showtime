@@ -8,22 +8,10 @@
   --accent-bg-color: var(--window-fg-color);
 }
 
-scale.highlighted slider {
-  transition: transform 0.3s;
-}
-
 button.highlighted:hover,
 menubutton.highlighted > button:hover,
 windowcontrols.overlaid > button:hover > image {
   background-color: alpha(white, 0.15);
-}
-
-scale.highlighted slider:hover {
-  transform: scale(1.2);
-}
-
-scale.highlighted slider:active {
-  transform: scale(0.9);
 }
 
 button.highlighted,
@@ -32,39 +20,78 @@ windowcontrols.overlaid > button > image {
   background-color: transparent;
 }
 
+windowcontrols.overlaid > button > image {
+  transition: background-color 0.2s;
+}
+
+scale.highlighted slider:hover {
+  transform: scale(1.2);
+}
+
+button.highlighted:active,
+menubutton.highlighted > button:active {
+  transform: scale(0.8);
+}
+
+scale.highlighted slider:active {
+  transform: scale(0.9);
+}
+
+button.highlighted,
+menubutton.highlighted > button {
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+scale.highlighted slider {
+  transition: transform 0.3s;
+}
+
+/* Strong Shadow */
+image.overlaid,
+label.overlaid,
+spinner.overlaid,
 button.overlaid > image,
 button.overlaid > label,
 menubutton.overlaid > button > box > image,
-menubutton.overlaid > button > box > label,
 menubutton.overlaid > button > box > arrow,
-image.overlaid,
-label.overlaid,
-windowcontrols.overlaid > button > image,
-.spinner.overlaid {
+menubutton.overlaid > button > box > label,
+windowcontrols.overlaid > button > image {
   color: white;
-  filter: drop-shadow(0 0 18px black);
+  filter: drop-shadow(0 0 1px alpha(black, 0.4))
+    drop-shadow(0 0 3px alpha(black, 0.1))
+    drop-shadow(0 0 9px alpha(black, 0.3));
 }
 
-scale.overlaid trough {
-  color: white;
+#play-button.overlaid > image {
+  filter: drop-shadow(0 0 1px alpha(black, 0.5))
+    drop-shadow(0 0 3px alpha(black, 0.1))
+    drop-shadow(0 0 6px alpha(black, 0.2));
+}
+
+#backwards-button > image,
+#forwards-button > image {
+  filter: drop-shadow(0 0 1px alpha(black, 0.5))
+    drop-shadow(0 0 6px alpha(black, 0.4));
+}
+
+scale.overlaid {
+  filter: drop-shadow(0 0 6px alpha(black, 0.3));
 }
 
 scale.overlaid trough highlight,
 scale.overlaid slider {
   background-color: white;
-}
-
-#play-button.overlaid > image {
-  filter: drop-shadow(0 0 18px alpha(black, 0.4));
+  filter: initial;
 }
 
 .shade {
   background-image: linear-gradient(
-    alpha(black, 0.3),
-    alpha(black, 0.4),
-    alpha(black, 0.5),
-    alpha(black, 0.6),
-    alpha(black, 0.7)
+    alpha(black, 0.3) 0%,
+    alpha(black, 0.15) 15%,
+    alpha(black, 0.1) 25%,
+    alpha(black, 0.1) 60%,
+    alpha(black, 0.15) 75%,
+    alpha(black, 0.3) 100%
   );
 }
 

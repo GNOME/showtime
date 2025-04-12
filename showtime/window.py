@@ -113,16 +113,20 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     overlay_motions: set = set()
     overlay_menu_buttons: set = set()
 
-    _paused: bool = True
     stopped: bool = True
     buffering: bool = False
     looping: bool = False
-    _toplevel_focused: bool = False
+
     reveal_timestamp: float = 0.0
+
     reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
     hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
+
     menus_building: int = 0
-    prev_motion_xy: tuple = (0, 0)
+
+    _paused: bool = True
+    _prev_motion_xy: tuple = (0, 0)
+    _toplevel_focused: bool = False
 
     media_info_updated = GObject.Signal(name="media-info-updated")
 
@@ -203,12 +207,12 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         if shared.PROFILE == "development":
             self.add_css_class("devel")
 
-        # Primary and secondary click
+        # Primary and secondary clicks
 
         primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-        secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-
         primary_click.connect("released", self.__on_primary_click_released)
+
+        secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
         secondary_click.connect("pressed", self.__on_secondary_click_pressed)
 
         self.video_overlay.add_controller(primary_click)
@@ -344,7 +348,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def save_screenshot(self) -> None:
         """Save a screenshot of the current frame of the video being played in PNG format.
 
-        It tries saving it to `xdg-pictures/Screenshot` and falls back to `~`.
+        It tries saving it to `xdg-pictures/Screenshots` and falls back to `~`.
         """
         logging.debug("Saving screenshot…")
 
@@ -837,10 +841,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
         if None not in (x, y):
-            if (x, y) == self.prev_motion_xy:
+            if (x, y) == self._prev_motion_xy:
                 return
 
-            self.prev_motion_xy = (x, y)
+            self._prev_motion_xy = (x, y)
 
         self.set_cursor_from_name(None)
 
@@ -1035,7 +1039,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             action.set_enabled(True)
 
     def __on_primary_click_released(
-        self, gesture: Gtk.Gesture, n: int, _x: int, _y: int
+        self, gesture: Gtk.Gesture, n: int, *_args: Any
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
         self.__on_motion()

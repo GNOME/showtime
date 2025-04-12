@@ -269,6 +269,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                   margin-top: 48;
 
                   Button {
+                    name: "backwards-button";
                     valign: center;
                     icon-name: "skip-backwards-10-symbolic";
                     action-name: "app.backwards";
@@ -303,7 +304,8 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                     ]
                   }
 
-                  Button forwards_button {
+                  Button {
+                    name: "forwards-button";
                     valign: center;
                     icon-name: "skip-forward-10-symbolic";
                     action-name: "app.forwards";
@@ -410,7 +412,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                       margin-end: 3;
 
                       styles [
-                        "caption",
+                        "caption-heading",
                         "numeric",
                         "timestamp",
                         "overlaid"
@@ -427,10 +429,9 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
                       clicked => $_cycle_end_timestamp_type();
 
                       styles [
-                        "caption",
+                        "caption-heading",
                         "numeric",
                         "timestamp",
-                        "dim-label",
                         "highlighted",
                         "overlaid"
                       ]
