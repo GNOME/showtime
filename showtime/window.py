@@ -182,19 +182,19 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Set up GstPlay
 
         self.paintable, self.play, self.pipeline = gst_play_setup(self.picture)
-        self.paintable.connect("invalidate-size", self.__on_paintable_invalidate_size)
+        self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
 
         messenger = ShowtimeMessenger(self.play, self.pipeline)
-        messenger.connect("state-changed", self.__on_playback_state_changed)
-        messenger.connect("duration-changed", self.__on_duration_changed)
-        messenger.connect("position-updated", self.__on_position_updated)
-        messenger.connect("seek-done", self.__on_seek_done)
-        messenger.connect("media-info-updated", self.__on_media_info_updated)
-        messenger.connect("volume-changed", self.__on_volume_changed)
-        messenger.connect("end-of-stream", self.__on_end_of_stream)
-        messenger.connect("warning", self.__on_warning)
-        messenger.connect("error", self.__on_error)
-        messenger.connect("missing-plugin", self.__on_missing_plugin)
+        messenger.connect("state-changed", self._on_playback_state_changed)
+        messenger.connect("duration-changed", self._on_duration_changed)
+        messenger.connect("position-updated", self._on_position_updated)
+        messenger.connect("seek-done", self._on_seek_done)
+        messenger.connect("media-info-updated", self._on_media_info_updated)
+        messenger.connect("volume-changed", self._on_volume_changed)
+        messenger.connect("end-of-stream", self._on_end_of_stream)
+        messenger.connect("warning", self._on_warning)
+        messenger.connect("error", self._on_error)
+        messenger.connect("missing-plugin", self._on_missing_plugin)
 
         # HACK: Limit the size of the options popover
         # if (child := self.options_popover.get_first_child()) and isinstance(
@@ -210,10 +210,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Primary and secondary clicks
 
         primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-        primary_click.connect("released", self.__on_primary_click_released)
+        primary_click.connect("released", self._on_primary_click_released)
 
         secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        secondary_click.connect("pressed", self.__on_secondary_click_pressed)
+        secondary_click.connect("pressed", self._on_secondary_click_pressed)
 
         self.video_overlay.add_controller(primary_click)
         self.video_overlay.add_controller(secondary_click)
@@ -231,7 +231,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         # Hide the toolbar on motion
 
         self.overlay_motion = Gtk.EventControllerMotion()
-        self.overlay_motion.connect("motion", self.__on_motion)
+        self.overlay_motion.connect("motion", self._on_motion)
         self.video_overlay.add_controller(self.overlay_motion)
 
         for widget in (
@@ -256,7 +256,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        self.connect("move-focus", self.__on_motion)
+        self.connect("move-focus", self._on_motion)
 
         # Drag and drop
 
@@ -268,10 +268,10 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         # Connect signals
 
-        self.stack.connect("notify::visible-child", self.__on_stack_child_changed)
-        self.__on_stack_child_changed()
+        self.stack.connect("notify::visible-child", self._on_stack_child_changed)
+        self._on_stack_child_changed()
 
-        self.connect("notify::fullscreened", self.__on_fullscreen)
+        self.connect("notify::fullscreened", self._on_fullscreen)
 
         self.seek_scale.connect(
             "change-value",
@@ -281,13 +281,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         )
 
         shared.state_schema.connect(
-            "changed::end-timestamp-type", self.__on_end_timestamp_type_changed
+            "changed::end-timestamp-type", self._on_end_timestamp_type_changed
         )
 
-        self.volume_adjustment.connect("notify::value", self.__schedule_volume_change)
+        self.volume_adjustment.connect("notify::value", self._schedule_volume_change)
         self._prev_volume = -1
 
-        self.connect("realize", self.__on_realize)
+        self.connect("realize", self._on_realize)
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
@@ -316,14 +316,14 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.media_info_updated = False
         self.stack.set_visible_child(self.video_page)
         self.placeholder_stack.set_visible_child(self.error_status_page)
-        self.__select_subtitles(0)
+        self._select_subtitles(0)
         self.default_speed_button.set_active(True)
 
         self.play.set_uri(uri)
         self.pause()
-        self.__on_motion()
+        self._on_motion()
 
-        if not (pos := self.__get_previous_play_position()):
+        if not (pos := self._get_previous_play_position()):
             self.unpause()
             logging.debug("No previous play position.")
             return
@@ -337,8 +337,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         logging.debug("Previous play position restored: %i.", pos)
 
         def setup_cb(*_args: Any) -> None:
-            self.__reveal_overlay(self.restore_breakpoint_bin)
-            self.__hide_overlay(self.controls_box)
+            self._reveal_overlay(self.restore_breakpoint_bin)
+            self._hide_overlay(self.controls_box)
             self.play.seek(pos)
 
             self.pipeline.disconnect_by_func(setup_cb)
@@ -387,8 +387,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
     def unpause(self) -> None:
         """Start playing the current video."""
-        self.__hide_overlay(self.restore_breakpoint_bin)
-        self.__reveal_overlay(self.controls_box)
+        self._hide_overlay(self.restore_breakpoint_bin)
+        self._reveal_overlay(self.controls_box)
         self.play.play()
         logging.debug("Video unpaused.")
 
@@ -408,7 +408,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
         self.play.set_mute(muted := not self.play.get_mute())
-        self.__set_volume_display(muted)
+        self._set_volume_display(muted)
 
     def toggle_fullscreen(self) -> None:
         """Fullscreen `self` if not already in fullscreen, otherwise unfullscreens."""
@@ -423,7 +423,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         (dialog := Gtk.FileDialog()).set_filters(filters)
         dialog.set_default_filter(file_filter)
 
-        dialog.open(self, callback=self.__choose_video_cb)
+        dialog.open(self, callback=self._choose_video_cb)
 
     def choose_subtitles(self) -> None:
         """Open a file dialog to pick a subtitle."""
@@ -441,7 +441,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         (dialog := Gtk.FileDialog()).set_filters(filters)
         dialog.set_default_filter(file_filter)
 
-        dialog.open(self, callback=self.__choose_subtitles_cb)
+        dialog.open(self, callback=self._choose_subtitles_cb)
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Select the given subtitles for the video."""
@@ -514,7 +514,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             subs += 1
 
         if not subs:
-            self.__select_subtitles(shared.MAX_UINT16)
+            self._select_subtitles(shared.MAX_UINT16)
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
 
@@ -524,7 +524,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             "end-timestamp-type", int(not shared.end_timestamp_type)
         )
 
-        self.__set_end_timestamp_label(
+        self._set_end_timestamp_label(
             self.play.get_position(), self.play.get_duration()
         )
 
@@ -575,7 +575,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             case _:
                 props.orientation += 1
 
-    def __choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
+    def _choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
             gfile = dialog.open_finish(res)
         except GLib.Error:
@@ -587,7 +587,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         app.save_play_position(self)  # type: ignore
         self.play_video(gfile)
 
-    def __choose_subtitles_cb(
+    def _choose_subtitles_cb(
         self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
     ) -> None:
         try:
@@ -599,14 +599,14 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         self.play.set_subtitle_uri(gfile.get_uri())
-        self.__select_subtitles(0)
+        self._select_subtitles(0)
         logging.debug("External subtitle added: %s.", gfile.get_uri())
 
-    def __select_subtitles(self, index: int) -> None:
+    def _select_subtitles(self, index: int) -> None:
         if action := lookup_action(self.get_application(), "select-subtitles"):
             action.activate(GLib.Variant.new_uint16(index))
 
-    def __set_volume_display(
+    def _set_volume_display(
         self, muted: Optional[bool] = None, volume: Optional[float] = None
     ) -> None:
         if muted is None:
@@ -628,7 +628,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.volume_menu_button.set_icon_name(icon)
 
-    def __get_previous_play_position(self) -> Optional[float]:
+    def _get_previous_play_position(self) -> Optional[float]:
         if not (uri := self.play.get_uri()):
             return None
 
@@ -648,13 +648,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
-    def __resize_window(
+    def _resize_window(
         self, _obj: Any, paintable: Gdk.Paintable, initial: Optional[bool] = False
     ) -> None:
         logging.debug("Resizing window…")
 
         if initial:
-            self.disconnect_by_func(self.__resize_window)
+            self.disconnect_by_func(self._resize_window)
 
         if not (video_width := paintable.get_intrinsic_width()) or not (
             video_height := paintable.get_intrinsic_height()
@@ -740,13 +740,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             (anim.skip if initial else anim.play)()
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
-    def __on_end_timestamp_type_changed(self, *_args: Any) -> None:
+    def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
         shared.end_timestamp_type = shared.state_schema.get_enum("end-timestamp-type")
-        self.__set_end_timestamp_label(
+        self._set_end_timestamp_label(
             self.play.get_position(), self.play.get_duration()
         )
 
-    def __set_end_timestamp_label(self, pos: int, dur: int) -> None:
+    def _set_end_timestamp_label(self, pos: int, dur: int) -> None:
         match shared.end_timestamp_type:
             case 0:  # Duration
                 self.end_timestamp_button.set_label(nanoseconds_to_timestamp(dur))
@@ -755,7 +755,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
                     "-" + nanoseconds_to_timestamp(dur - pos)
                 )
 
-    def __schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
+    def _schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
         GLib.idle_add(
             partial(
                 self.pipeline.set_volume,  # type: ignore
@@ -764,7 +764,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             )
         )
 
-    def __set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
+    def _set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
         animations = self.reveal_animations if reveal else self.hide_animations
 
         if (
@@ -783,13 +783,13 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         widget.set_can_target(reveal)
         animations[widget].play()
 
-    def __reveal_overlay(self, widget: Gtk.Widget) -> None:
-        self.__set_overlay_revealed(widget, True)
+    def _reveal_overlay(self, widget: Gtk.Widget) -> None:
+        self._set_overlay_revealed(widget, True)
 
-    def __hide_overlay(self, widget: Gtk.Widget) -> None:
-        self.__set_overlay_revealed(widget, False)
+    def _hide_overlay(self, widget: Gtk.Widget) -> None:
+        self._set_overlay_revealed(widget, False)
 
-    def __hide_overlays(self, timestamp: float) -> None:
+    def _hide_overlays(self, timestamp: float) -> None:
         if (
             # Cursor moved
             timestamp != self.reveal_timestamp
@@ -803,41 +803,41 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             return
 
         for widget in self.overlay_widgets:
-            self.__hide_overlay(widget)
+            self._hide_overlay(widget)
 
         if self.overlay_motion.contains_pointer():
             self.set_cursor_from_name("none")
 
-    def __on_realize(self, *_args: Any) -> None:
+    def _on_realize(self, *_args: Any) -> None:
         if not (surface := self.get_surface()):
             return
 
         if not isinstance(surface, Gdk.Toplevel):
             return
 
-        surface.connect("notify::state", self.__on_toplevel_state_changed)
+        surface.connect("notify::state", self._on_toplevel_state_changed)
 
-    def __on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
+    def _on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
         if (
             focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
         ) == self._toplevel_focused:
             return
 
         if not focused:
-            self.__hide_overlays(self.reveal_timestamp)
+            self._hide_overlays(self.reveal_timestamp)
 
         self._toplevel_focused = bool(focused)
 
-    def __on_paintable_invalidate_size(
+    def _on_paintable_invalidate_size(
         self, paintable: Gdk.Paintable, *_args: Any
     ) -> None:
         if self.is_visible():
             # Add a timeout to not interfere with loading the stream too much
-            GLib.timeout_add(100, self.__resize_window, None, paintable)
+            GLib.timeout_add(100, self._resize_window, None, paintable)
         else:
-            self.connect("map", self.__resize_window, paintable, True)
+            self.connect("map", self._resize_window, paintable, True)
 
-    def __on_motion(
+    def _on_motion(
         self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
         if None not in (x, y):
@@ -849,25 +849,25 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.set_cursor_from_name(None)
 
         for widget in self.overlay_widgets:
-            self.__reveal_overlay(widget)
+            self._reveal_overlay(widget)
 
         self.reveal_timestamp = time()
-        GLib.timeout_add_seconds(2, self.__hide_overlays, self.reveal_timestamp)
+        GLib.timeout_add_seconds(2, self._hide_overlays, self.reveal_timestamp)
 
-    def __on_playback_state_changed(self, _obj: Any, state: GstPlay.PlayState) -> None:
+    def _on_playback_state_changed(self, _obj: Any, state: GstPlay.PlayState) -> None:
         # Only show a spinner if buffering for more than a second
         if state == GstPlay.PlayState.BUFFERING:
             self.buffering = True
             GLib.timeout_add_seconds(
                 1,
                 lambda *_: (
-                    self.__reveal_overlay(self.spinner) if self.buffering else None
+                    self._reveal_overlay(self.spinner) if self.buffering else None
                 ),
             )
             return
 
         self.buffering = False
-        self.__hide_overlay(self.spinner)
+        self._hide_overlay(self.spinner)
 
         match state:
             case GstPlay.PlayState.PAUSED:
@@ -878,28 +878,28 @@ class ShowtimeWindow(Adw.ApplicationWindow):
             case GstPlay.PlayState.PLAYING:
                 self.paused = False
 
-    def __on_duration_changed(self, _obj: Any, dur: int) -> None:
-        self.__set_end_timestamp_label(self.play.get_position(), dur)
+    def _on_duration_changed(self, _obj: Any, dur: int) -> None:
+        self._set_end_timestamp_label(self.play.get_position(), dur)
 
-    def __on_position_updated(self, _obj: Any, pos: int) -> None:
+    def _on_position_updated(self, _obj: Any, pos: int) -> None:
         dur = self.play.get_duration()
 
         self.seek_scale.set_value(pos / dur)
 
         # TODO: This can probably be done only every second instead
         self.position_label.set_label(nanoseconds_to_timestamp(pos))
-        self.__set_end_timestamp_label(pos, dur)
+        self._set_end_timestamp_label(pos, dur)
 
-    def __on_seek_done(self, _obj: Any) -> None:
+    def _on_seek_done(self, _obj: Any) -> None:
         pos = self.play.get_position()
         dur = self.play.get_duration()
 
         self.seek_scale.set_value(pos / dur)
         self.position_label.set_label(nanoseconds_to_timestamp(pos))
-        self.__set_end_timestamp_label(pos, dur)
+        self._set_end_timestamp_label(pos, dur)
         logging.debug("Seeked to %i.", pos)
 
-    def __on_media_info_updated(
+    def _on_media_info_updated(
         self, _obj: Any, media_info: GstPlay.PlayMediaInfo
     ) -> None:
         self.title_label.set_label(
@@ -912,24 +912,24 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         GLib.timeout_add(500, self.build_menus, media_info)
         self.emit("media-info-updated")
 
-    def __on_volume_changed(self, _obj: Any) -> None:
+    def _on_volume_changed(self, _obj: Any) -> None:
         vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # type: ignore
 
         if self._prev_volume != vol:
             self._prev_volume = vol
-            self.__set_volume_display(volume=vol)
+            self._set_volume_display(volume=vol)
             self.volume_adjustment.set_value(vol)
 
-    def __on_end_of_stream(self, _obj: Any) -> None:
+    def _on_end_of_stream(self, _obj: Any) -> None:
         if not self.__class__.looping:
             self.pause()
 
         self.play.seek(0)
 
-    def __on_warning(self, _obj: Any, warning: GLib.Error) -> None:
+    def _on_warning(self, _obj: Any, warning: GLib.Error) -> None:
         logging.warning(warning)
 
-    def __on_error(self, _obj: Any, error: GLib.Error) -> None:
+    def _on_error(self, _obj: Any, error: GLib.Error) -> None:
         logging.error(error.message)
 
         if (
@@ -955,7 +955,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.placeholder_stack.set_visible_child(self.error_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
-    def __on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
+    def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
         # This is so media that is still partially playable doesn't get interrupted
         # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
         if (
@@ -1019,8 +1019,8 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
-    def __on_stack_child_changed(self, *_args: Any) -> None:
-        self.__on_motion()
+    def _on_stack_child_changed(self, *_args: Any) -> None:
+        self._on_motion()
 
         app = self.get_application()
 
@@ -1038,16 +1038,16 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         ) and shared.system != "Darwin":
             action.set_enabled(True)
 
-    def __on_primary_click_released(
+    def _on_primary_click_released(
         self, gesture: Gtk.Gesture, n: int, *_args: Any
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-        self.__on_motion()
+        self._on_motion()
 
         if not n % 2:
             self.toggle_fullscreen()
 
-    def __on_secondary_click_pressed(
+    def _on_secondary_click_pressed(
         self,
         gesture: Gtk.Gesture,
         _n: Any,
@@ -1077,7 +1077,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
 
         self.options_popover.connect("closed", closed)
 
-    def __on_fullscreen(self, *_args: Any) -> None:
+    def _on_fullscreen(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
             "view-restore-symbolic"
             if self.is_fullscreen()

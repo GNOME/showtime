@@ -53,13 +53,13 @@ class ShowtimeMessenger(GObject.Object):
 
         if bus := play.get_message_bus():
             bus.add_signal_watch()
-            bus.connect("message", self.__on_play_bus_message)
+            bus.connect("message", self._on_play_bus_message)
 
         if bus := pipeline.get_bus():
             bus.add_signal_watch()
-            bus.connect("message", self.__on_pipeline_bus_message)
+            bus.connect("message", self._on_pipeline_bus_message)
 
-    def __on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
+    def _on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
             case GstPlay.PlayMessage.STATE_CHANGED:
                 self.emit(
@@ -108,6 +108,6 @@ class ShowtimeMessenger(GObject.Object):
                 error, _details = GstPlay.PlayMessage.parse_error(msg)
                 self.emit("error", error)
 
-    def __on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
+    def _on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
         if GstPbutils.is_missing_plugin_message(msg):
             self.emit("missing-plugin", msg)

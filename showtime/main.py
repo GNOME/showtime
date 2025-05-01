@@ -98,8 +98,8 @@ class ShowtimeApplication(Adw.Application):
         if shared.system == "Darwin" and (settings := Gtk.Settings.get_default()):
             settings.props.gtk_decoration_layout = "close,minimize:"
 
-        self.connect("window-removed", self.__on_window_removed)
-        self.connect("shutdown", self.__on_shutdown)
+        self.connect("window-removed", self._on_window_removed)
+        self.connect("shutdown", self._on_shutdown)
 
     @property
     def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
@@ -107,22 +107,6 @@ class ShowtimeApplication(Adw.Application):
         return (
             win if isinstance(win := self.get_active_window(), ShowtimeWindow) else None  # type: ignore
         )
-
-    def __on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
-        value = not action.props.state.get_boolean()
-        action.set_state(GLib.Variant.new_boolean(value))
-
-        self.win.set_looping(value) if self.win else ...
-
-    def __on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:  # type: ignore
-        self.save_play_position(win)
-        self.uninhibit_win(win)
-        del win.play
-
-    def __on_shutdown(self, *_args: Any) -> None:
-        for win in self.get_windows():
-            if isinstance(win, ShowtimeWindow):  # type: ignore
-                self.__on_window_removed(None, win)
 
     def inhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
         """Try to add an inhibitor associated with `win`.
@@ -304,8 +288,8 @@ class ShowtimeApplication(Adw.Application):
         toggle_loop_action = Gio.SimpleAction.new_stateful(
             "toggle-loop", None, GLib.Variant.new_boolean(False)
         )
-        toggle_loop_action.connect("activate", self.__on_toggle_loop)
-        toggle_loop_action.connect("change-state", self.__on_toggle_loop)
+        toggle_loop_action.connect("activate", self._on_toggle_loop)
+        toggle_loop_action.connect("change-state", self._on_toggle_loop)
         self.add_action(toggle_loop_action)
 
     def do_activate(  # pylint: disable=arguments-differ
@@ -435,6 +419,22 @@ class ShowtimeApplication(Adw.Application):
             if shared.system == "Darwin":
                 shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
             self.set_accels_for_action(f"app.{name}", shortcuts)
+
+    def _on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
+        value = not action.props.state.get_boolean()
+        action.set_state(GLib.Variant.new_boolean(value))
+
+        self.win.set_looping(value) if self.win else ...
+
+    def _on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:  # type: ignore
+        self.save_play_position(win)
+        self.uninhibit_win(win)
+        del win.play
+
+    def _on_shutdown(self, *_args: Any) -> None:
+        for win in self.get_windows():
+            if isinstance(win, ShowtimeWindow):  # type: ignore
+                self._on_window_removed(None, win)
 
 
 def main() -> int:
