@@ -1,23 +1,7 @@
-# drag_overlay.py
-#
-# Copyright 2023 FineFindus
-# Copyright 2023-2024 Sophie Herold
-# Copyright 2024-2025 kramo
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
 # SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: Copyright 2023-2024 Sophie Herold
+# SPDX-FileCopyrightText: Copyright 2023 FineFindus
+# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
 # Taken from Loupe, rewritten in PyGObject
 # https://gitlab.gnome.org/GNOME/loupe/-/blob/d66dd0f16bf45b3cd46e3a084409513eaa1c9af5/src/widgets/drag_overlay.rs
