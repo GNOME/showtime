@@ -138,6 +138,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
     @rate.setter
     def rate(self, rate: float) -> None:
         self.play.set_rate(rate)
+        self.options_popover.popdown()
 
     @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
