@@ -15,17 +15,19 @@ from showtime import shared, utils
 
 def gst_play_setup(
     picture: Gtk.Picture,
-) -> tuple[Gdk.Paintable, GstPlay.Play, Gst.Element]:
+) -> tuple[Gdk.Paintable, GstPlay.Play, Gst.Element, Gst.Element]:
     """Set up `GstPlay`."""
-    sink = Gst.ElementFactory.make("gtk4paintablesink")
-    paintable = sink.props.paintable  # type: ignore
+    sink = paintable_sink = Gst.ElementFactory.make("gtk4paintablesink")
+    if not paintable_sink:
+        raise RuntimeError("Cannot make gtk4paintablesink")
 
+    paintable = paintable_sink.props.paintable  # type: ignore
     picture.set_paintable(paintable)
 
     # OpenGL doesn't work on macOS properly
     if paintable.props.gl_context and shared.system != "Darwin":
         gl_sink = Gst.ElementFactory.make("glsinkbin")
-        gl_sink.props.sink = sink  # type: ignore
+        gl_sink.props.sink = paintable_sink  # type: ignore
         sink = gl_sink
 
     play = GstPlay.Play(
@@ -42,4 +44,4 @@ def gst_play_setup(
 
     set_subtitle_font_desc()
 
-    return paintable, play, pipeline
+    return paintable, play, pipeline, paintable_sink

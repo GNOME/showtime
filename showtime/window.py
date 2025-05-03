@@ -165,7 +165,7 @@ class Window(Adw.ApplicationWindow):
 
         # Set up GstPlay
 
-        self.paintable, self.play, self.pipeline = gst_play_setup(self.picture)
+        self.paintable, self.play, self.pipeline, sink = gst_play_setup(self.picture)
         self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
 
         messenger = Messenger(self.play, self.pipeline)
@@ -234,6 +234,20 @@ class Window(Adw.ApplicationWindow):
             self.play.seek(max(self.play.get_duration() * val, 0))
 
         self.seek_scale.connect("change-value", seek)
+
+        # Set window size for sink
+
+        def window_resized(*_args: Any) -> None:
+            sink.props.window_width = (  # type: ignore
+                self.props.default_width * self.get_scale_factor()
+            )
+            sink.props.window_height = (  # type: ignore
+                self.props.default_height * self.get_scale_factor()
+            )
+
+        self.connect("notify::default-width", window_resized)
+        self.connect("notify::default-height", window_resized)
+        window_resized()
 
         # Init
 
