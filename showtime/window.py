@@ -239,7 +239,7 @@ class Window(Adw.ApplicationWindow):
 
         self._on_stack_child_changed()
 
-        shared.state_schema.connect(
+        shared.state_settings.connect(
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
         )
@@ -475,7 +475,7 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args: Any) -> None:
-        shared.state_schema.set_enum(
+        shared.state_settings.set_enum(
             "end-timestamp-type", int(not shared.end_timestamp_type)
         )
 
@@ -700,7 +700,7 @@ class Window(Adw.ApplicationWindow):
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
-        shared.end_timestamp_type = shared.state_schema.get_enum("end-timestamp-type")
+        shared.end_timestamp_type = shared.state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
             self.play.get_position(), self.play.get_duration()
         )

@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <schemalist gettext-domain="showtime">
 	<schema id="@APP_ID@" path="@PREFIX@/">
 	</schema>
 	<enum id="@APP_ID@.end-timestamp-types">
-		<value nick="Duration" value="0"/>
-		<value nick="Remaining" value="1"/>
+		<value nick="Duration" value="0" />
+		<value nick="Remaining" value="1" />
 	</enum>
 	<schema id="@APP_ID@.State" path="@PREFIX@/State/">
 		<key name="end-timestamp-type" enum="@APP_ID@.end-timestamp-types">
@@ -17,4 +17,3 @@
 		</key>
 	</schema>
 </schemalist>
-

@@ -283,9 +283,9 @@ class Application(Adw.Application):
         """Create a new window, set up MPRIS."""
         win = Window(
             application=self,  # type: ignore
-            maximized=shared.state_schema.get_boolean("is-maximized"),  # type: ignore
+            maximized=shared.state_settings.get_boolean("is-maximized"),  # type: ignore
         )
-        shared.state_schema.bind(
+        shared.state_settings.bind(
             "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
         )
 
