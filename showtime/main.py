@@ -424,7 +424,5 @@ class Application(Adw.Application):
 
 def main() -> int:
     """Run the application."""
-    GLib.set_application_name(_("Showtime"))
-
     shared.app = Application()
     return shared.app.run(sys.argv)
