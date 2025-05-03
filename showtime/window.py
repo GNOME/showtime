@@ -252,6 +252,16 @@ class Window(Adw.ApplicationWindow):
         self.add_controller(drop_target)
         self.drag_overlay.drop_target = drop_target
 
+        # Seeking
+
+        def seek(_obj: Any, _scroll: Any, val: float) -> None:
+            if not self.paused:
+                self.pause()
+
+            self.play.seek(max(self.play.get_duration() * val, 0))
+
+        self.seek_scale.connect("change-value", seek)
+
         # Connect signals
 
         self.stack.connect("notify::visible-child", self._on_stack_child_changed)
@@ -259,15 +269,9 @@ class Window(Adw.ApplicationWindow):
 
         self.connect("notify::fullscreened", self._on_fullscreen)
 
-        self.seek_scale.connect(
-            "change-value",
-            lambda _obj, _scroll, val: self.play.seek(
-                max(self.play.get_duration() * val, 0)
-            ),
-        )
-
         shared.state_schema.connect(
-            "changed::end-timestamp-type", self._on_end_timestamp_type_changed
+            "changed::end-timestamp-type",
+            self._on_end_timestamp_type_changed,
         )
 
         self.volume_adjustment.connect("notify::value", self._schedule_volume_change)
