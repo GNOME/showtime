@@ -184,7 +184,7 @@ Popover volume_popover {
   }
 }
 
-template $ShowtimeWindow: Adw.ApplicationWindow {
+template $Window: Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
   height-request: 202; // For a 16∶9 aspect ratio
@@ -192,7 +192,7 @@ template $ShowtimeWindow: Adw.ApplicationWindow {
   title: _("Showtime");
 
   content: Adw.ToastOverlay toast_overlay {
-    $ShowtimeDragOverlay drag_overlay {
+    $DragOverlay drag_overlay {
       overlayed: Adw.Bin {
         can-target: false;
 

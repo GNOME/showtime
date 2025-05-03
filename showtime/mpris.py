@@ -18,7 +18,7 @@ from gi.repository import (
 
 from showtime import shared
 from showtime.utils import get_title
-from showtime.window import ShowtimeWindow
+from showtime.window import Window
 
 
 class DBusInterface:
@@ -234,9 +234,9 @@ class MPRIS(DBusInterface):
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
-    def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
+    def win(self) -> Optional[Window]:  # type: ignore
         """Get the active application window."""
-        return self._app.get_active_window()
+        return win if isinstance(win := self._app.get_active_window(), Window) else None
 
     @property
     def play(self) -> Optional[GstPlay.Play]:

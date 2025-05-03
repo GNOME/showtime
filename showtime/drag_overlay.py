@@ -13,10 +13,10 @@ from typing import Any, Optional
 from gi.repository import Adw, GObject, Gtk
 
 
-class ShowtimeDragOverlay(Adw.Bin):
+class DragOverlay(Adw.Bin):
     """A widget that shows an overlay when dragging a video over the window."""
 
-    __gtype_name__ = "ShowtimeDragOverlay"
+    __gtype_name__ = "DragOverlay"
 
     _drop_target: Optional[Gtk.DropTarget] = None
 

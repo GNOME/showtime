@@ -11,10 +11,10 @@ from gi.repository import (
 )
 
 
-class ShowtimeMessenger(GObject.Object):
+class Messenger(GObject.Object):
     """A messenger between GStreamer and the app."""
 
-    __gtype_name__ = "ShowtimeMessenger"
+    __gtype_name__ = "Messenger"
 
     state_changed = GObject.Signal(name="state-changed", arg_types=(object,))
     duration_changed = GObject.Signal(name="duration-changed", arg_types=(object,))

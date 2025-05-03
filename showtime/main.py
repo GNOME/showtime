@@ -27,7 +27,7 @@ from showtime import shared
 from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.utils import lookup_action
-from showtime.window import ShowtimeWindow
+from showtime.window import Window
 
 if shared.system == "Darwin":
     from AppKit import NSApp  # type: ignore
@@ -36,7 +36,7 @@ if shared.system == "Darwin":
     from showtime.application_delegate import ApplicationDelegate
 
 
-class ShowtimeApplication(Adw.Application):
+class Application(Adw.Application):
     """The main application singleton class."""
 
     inhibit_cookies: dict = {}
@@ -86,13 +86,13 @@ class ShowtimeApplication(Adw.Application):
         self.connect("shutdown", self._on_shutdown)
 
     @property
-    def win(self) -> Optional[ShowtimeWindow]:  # type: ignore
+    def win(self) -> Optional[Window]:  # type: ignore
         """The currently active window."""
         return (
-            win if isinstance(win := self.get_active_window(), ShowtimeWindow) else None  # type: ignore
+            win if isinstance(win := self.get_active_window(), Window) else None  # type: ignore
         )
 
-    def inhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
+    def inhibit_win(self, win: Window) -> None:  # type: ignore
         """Try to add an inhibitor associated with `win`.
 
         This will automatically be removed when `win` is closed.
@@ -101,14 +101,14 @@ class ShowtimeApplication(Adw.Application):
             win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
         )
 
-    def uninhibit_win(self, win: ShowtimeWindow) -> None:  # type: ignore
+    def uninhibit_win(self, win: Window) -> None:  # type: ignore
         """Remove the inhibitor associated with `win` if one exists."""
         if not (cookie := self.inhibit_cookies.pop(win, 0)):
             return
 
         self.uninhibit(cookie)
 
-    def save_play_position(self, win: ShowtimeWindow) -> None:  # type: ignore
+    def save_play_position(self, win: Window) -> None:  # type: ignore
         """Save the play position of the currently playing file in the window to restore later."""
         if not (uri := win.play.get_uri()):
             return
@@ -280,7 +280,7 @@ class ShowtimeApplication(Adw.Application):
         self, gfile: Optional[Gio.File] = None
     ) -> None:
         """Create a new window, set up MPRIS."""
-        win = ShowtimeWindow(
+        win = Window(
             application=self,  # type: ignore
             maximized=shared.state_schema.get_boolean("is-maximized"),  # type: ignore
         )
@@ -288,13 +288,13 @@ class ShowtimeApplication(Adw.Application):
             "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
         )
 
-        def emit_media_info_updated(win: ShowtimeWindow) -> None:  #  type: ignore
+        def emit_media_info_updated(win: Window) -> None:  #  type: ignore
             if win == self.get_active_window():
                 self.emit("media-info-updated")
 
         win.connect("media-info-updated", emit_media_info_updated)
 
-        def emit_state_changed(win: ShowtimeWindow, *_args: Any) -> None:  # type: ignore
+        def emit_state_changed(win: Window, *_args: Any) -> None:  # type: ignore
             if win == self.get_active_window():
                 self.emit("state-changed")
 
@@ -410,14 +410,14 @@ class ShowtimeApplication(Adw.Application):
 
         self.win.set_looping(value) if self.win else ...
 
-    def _on_window_removed(self, _obj: Any, win: ShowtimeWindow) -> None:  # type: ignore
+    def _on_window_removed(self, _obj: Any, win: Window) -> None:  # type: ignore
         self.save_play_position(win)
         self.uninhibit_win(win)
         del win.play
 
     def _on_shutdown(self, *_args: Any) -> None:
         for win in self.get_windows():
-            if isinstance(win, ShowtimeWindow):  # type: ignore
+            if isinstance(win, Window):  # type: ignore
                 self._on_window_removed(None, win)
 
 
@@ -425,5 +425,5 @@ def main() -> int:
     """Run the application."""
     GLib.set_application_name(_("Showtime"))
 
-    shared.app = ShowtimeApplication()
+    shared.app = Application()
     return shared.app.run(sys.argv)

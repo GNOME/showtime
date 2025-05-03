@@ -29,8 +29,8 @@ from gi.repository import (
 )
 
 from showtime import shared
-from showtime.drag_overlay import ShowtimeDragOverlay
-from showtime.messenger import ShowtimeMessenger
+from showtime.drag_overlay import DragOverlay
+from showtime.messenger import Messenger
 from showtime.play import gst_play_setup
 from showtime.utils import (
     get_title,
@@ -41,12 +41,12 @@ from showtime.utils import (
 
 
 @Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
-class ShowtimeWindow(Adw.ApplicationWindow):
+class Window(Adw.ApplicationWindow):
     """The main application window."""
 
-    __gtype_name__ = "ShowtimeWindow"
+    __gtype_name__ = "Window"
 
-    drag_overlay: ShowtimeDragOverlay = Gtk.Template.Child()
+    drag_overlay: DragOverlay = Gtk.Template.Child()
     toast_overlay: Adw.ToastOverlay = Gtk.Template.Child()
     stack: Gtk.Stack = Gtk.Template.Child()
 
@@ -169,7 +169,7 @@ class ShowtimeWindow(Adw.ApplicationWindow):
         self.paintable, self.play, self.pipeline = gst_play_setup(self.picture)
         self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
 
-        messenger = ShowtimeMessenger(self.play, self.pipeline)
+        messenger = Messenger(self.play, self.pipeline)
         messenger.connect("state-changed", self._on_playback_state_changed)
         messenger.connect("duration-changed", self._on_duration_changed)
         messenger.connect("position-updated", self._on_position_updated)
