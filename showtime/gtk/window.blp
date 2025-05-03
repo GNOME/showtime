@@ -446,19 +446,6 @@ template $Window: Adw.ApplicationWindow {
             }
 
             [overlay]
-            Adw.Spinner spinner {
-              opacity: 0;
-              can-target: false;
-              hexpand: true;
-              vexpand: true;
-              margin-bottom: 46;
-
-              styles [
-                "overlaid"
-              ]
-            }
-
-            [overlay]
             Adw.BreakpointBin restore_breakpoint_bin {
               opacity: 0;
               can-target: false;
@@ -641,11 +628,21 @@ template $Window: Adw.ApplicationWindow {
                 margin-end: 6;
                 margin-start: 3;
                 spacing: 6;
+                
+                Adw.Spinner spinner {
+                  width-request: 18;
+                  height-request: 18;
+                  margin-end: 9;
+                  opacity: 0;
+                  can-target: false;
+                
+                  styles [
+                    "overlaid"
+                  ]
+                }
 
                 MenuButton video_primary_menu_button {
                   hexpand: true;
-                  margin-bottom: 24;
-                  margin-start: 24;
                   primary: true;
                   icon-name: "open-menu-symbolic";
                   tooltip-text: _("Main Menu");
@@ -689,7 +686,6 @@ template $Window: Adw.ApplicationWindow {
       toolbar_box.margin-bottom: 24;
       toolbar_box.margin-start: 24;
       toolbar_box.margin-end: 24;
-      spinner.margin-bottom: 58;
       restore_breakpoint_bin.margin-bottom: 90;
     }
   }

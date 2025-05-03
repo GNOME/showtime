@@ -163,6 +163,7 @@ class Window(Adw.ApplicationWindow):
         if shared.system == "Darwin":
             self.placeholder_primary_menu_button.set_visible(False)
             self.video_primary_menu_button.set_visible(False)
+            self.spinner.set_margin_top(6)
 
         # Set up GstPlay
 
