@@ -7,7 +7,7 @@
 
 import logging
 import re
-from typing import Any, Optional
+from typing import Any
 
 from gi.repository import (
     Gio,
@@ -234,12 +234,12 @@ class MPRIS(DBusInterface):
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
-    def win(self) -> Optional[Window]:  # type: ignore
+    def win(self) -> Window | None:  # type: ignore
         """Get the active application window."""
         return win if isinstance(win := self._app.get_active_window(), Window) else None
 
     @property
-    def play(self) -> Optional[GstPlay.Play]:
+    def play(self) -> GstPlay.Play | None:
         """Play the video."""
         if not self.win:
             return None
@@ -427,7 +427,7 @@ class MPRIS(DBusInterface):
             logging.warning(msg)
             raise ValueError(msg)
 
-    def _get_all(self, interface_name: str) -> Optional[dict]:
+    def _get_all(self, interface_name: str) -> dict | None:
         if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
             return {
                 "CanQuit": GLib.Variant("b", True),
@@ -497,5 +497,5 @@ class MPRIS(DBusInterface):
         }
         self._dbus_emit_signal("PropertiesChanged", parameters)
 
-    def _introspect(self) -> Optional[str]:
+    def _introspect(self) -> str | None:
         return self.__doc__

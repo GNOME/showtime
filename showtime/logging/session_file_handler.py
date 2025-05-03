@@ -8,7 +8,6 @@ from logging import StreamHandler
 from lzma import FORMAT_XZ, PRESET_DEFAULT
 from os import PathLike
 from pathlib import Path
-from typing import Optional
 
 from showtime import shared
 
@@ -23,7 +22,7 @@ class SessionFileHandler(StreamHandler):
 
     backup_count: int
     filename: Path
-    log_file: Optional[TextIOWrapper] = None
+    log_file: TextIOWrapper | None = None
 
     def create_dir(self) -> None:
         """Create the log dir if needed."""

@@ -13,7 +13,7 @@ from hashlib import sha256
 from math import sqrt
 from pathlib import Path
 from time import time
-from typing import Any, Optional
+from typing import Any
 
 from gi.repository import (
     Adw,
@@ -570,7 +570,7 @@ class Window(Adw.ApplicationWindow):
             action.activate(GLib.Variant.new_uint16(index))
 
     def _set_volume_display(
-        self, muted: Optional[bool] = None, volume: Optional[float] = None
+        self, muted: bool | None = None, volume: float | None = None
     ) -> None:
         if muted is None:
             muted: bool = self.play.get_mute()
@@ -591,7 +591,7 @@ class Window(Adw.ApplicationWindow):
 
         self.volume_menu_button.set_icon_name(icon)
 
-    def _get_previous_play_position(self) -> Optional[float]:
+    def _get_previous_play_position(self) -> float | None:
         if not (uri := self.play.get_uri()):
             return None
 
@@ -612,7 +612,7 @@ class Window(Adw.ApplicationWindow):
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
     def _resize_window(
-        self, _obj: Any, paintable: Gdk.Paintable, initial: Optional[bool] = False
+        self, _obj: Any, paintable: Gdk.Paintable, initial: bool | None = False
     ) -> None:
         logging.debug("Resizing window…")
 
@@ -804,7 +804,7 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _on_motion(
-        self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
+        self, _obj: Any = None, x: float | None = None, y: float | None = None
     ) -> None:
         if None not in (x, y):
             if (x, y) == self._prev_motion_xy:

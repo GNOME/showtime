@@ -7,8 +7,9 @@ import logging
 import lzma
 import pickle
 import sys
+from collections.abc import Callable, Sequence
 from hashlib import sha256
-from typing import Any, Callable, Optional, Sequence
+from typing import Any
 
 import gi
 
@@ -86,7 +87,7 @@ class Application(Adw.Application):
         self.connect("shutdown", self._on_shutdown)
 
     @property
-    def win(self) -> Optional[Window]:  # type: ignore
+    def win(self) -> Window | None:  # type: ignore
         """The currently active window."""
         return (
             win if isinstance(win := self.get_active_window(), Window) else None  # type: ignore
@@ -277,7 +278,7 @@ class Application(Adw.Application):
         self.add_action(toggle_loop_action)
 
     def do_activate(  # pylint: disable=arguments-differ
-        self, gfile: Optional[Gio.File] = None
+        self, gfile: Gio.File | None = None
     ) -> None:
         """Create a new window, set up MPRIS."""
         win = Window(

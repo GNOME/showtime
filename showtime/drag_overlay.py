@@ -8,7 +8,7 @@
 
 """A widget that shows an overlay when dragging a video over the window."""
 
-from typing import Any, Optional
+from typing import Any
 
 from gi.repository import Adw, GObject, Gtk
 
@@ -18,13 +18,13 @@ class DragOverlay(Adw.Bin):
 
     __gtype_name__ = "DragOverlay"
 
-    _drop_target: Optional[Gtk.DropTarget] = None
+    _drop_target: Gtk.DropTarget | None = None
 
     overlay: Gtk.Overlay
     revealer: Gtk.Revealer
 
     @GObject.Property(type=Gtk.Widget)
-    def child(self) -> Optional[Gtk.Widget]:
+    def child(self) -> Gtk.Widget | None:
         """Usual content."""
         return self.overlay.get_child()
 
@@ -33,7 +33,7 @@ class DragOverlay(Adw.Bin):
         self.overlay.set_child(child)
 
     @GObject.Property(type=Gtk.Widget)
-    def overlayed(self) -> Optional[Gtk.Widget]:
+    def overlayed(self) -> Gtk.Widget | None:
         """Widget overlayed when dragging over child."""
         return self.revealer.get_child()
 
@@ -42,7 +42,7 @@ class DragOverlay(Adw.Bin):
         self.revealer.set_child(overlayed)
 
     @GObject.Property(type=Gtk.DropTarget)
-    def drop_target(self) -> Optional[Gtk.DropTarget]:
+    def drop_target(self) -> Gtk.DropTarget | None:
         """Get the drop target."""
         return self._drop_target
 
