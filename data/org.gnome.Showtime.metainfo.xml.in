@@ -39,6 +39,17 @@
 		</screenshot>
 	</screenshots>
 	<releases>
+		<release version="48.1" date="2025-05-03">
+			<description>
+				<ul>
+					<li>Improved the styling of the overlay. You should now be able to see more of the video.</li>
+					<li>Subtitles now render at the display’s native resolution.</li>
+					<li>Moved the spinner for buffering videos to the top right to be less distracting.</li>
+					<li>Made sure to pause the video while seeking.</li>
+					<li>Fixed the options popover not going away after picking a playback speed.</li>
+				</ul>
+			</description>
+		</release>
 		<release version="48.0" date="2025-02-01">
 			<description>
 				<ul>
