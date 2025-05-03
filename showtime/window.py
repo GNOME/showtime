@@ -225,14 +225,6 @@ class Window(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        # Drag and drop
-
-        (drop_target := Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)).connect(
-            "drop", lambda _target, gfile, _x, _y: self.play_video(gfile)
-        )
-        self.add_controller(drop_target)
-        self.drag_overlay.drop_target = drop_target
-
         # Seeking
 
         def seek(_obj: Any, _scroll: Any, val: float) -> None:
@@ -537,6 +529,10 @@ class Window(Adw.ApplicationWindow):
                 props.orientation = 5
             case _:
                 props.orientation += 1
+
+    @Gtk.Template.Callback()
+    def _on_drop(self, _target: Any, gfile: Gio.File, _x: Any, _y: Any) -> None:
+        self.play_video(gfile)
 
     def _choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
