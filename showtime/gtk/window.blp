@@ -180,6 +180,7 @@ Popover volume_popover {
         lower: 0;
         upper: 1;
         value: 1;
+        notify::value => $_schedule_volume_change();
       };
     }
   }
@@ -191,6 +192,9 @@ template $Window: Adw.ApplicationWindow {
   height-request: 202; // For a 16∶9 aspect ratio
   width-request: 360;
   title: _("Showtime");
+  realize => $_on_realize();
+  move-focus => $_on_motion();
+  notify::fullscreened => $_on_fullscreened();
 
   content: Adw.ToastOverlay toast_overlay {
     $DragOverlay drag_overlay {
@@ -203,6 +207,8 @@ template $Window: Adw.ApplicationWindow {
       };
 
       child: Stack stack {
+        notify::visible-child => $_on_stack_child_changed();
+        
         Adw.ToolbarView placeholder_page {
           [top]
           Adw.HeaderBar header_bar {
@@ -673,6 +679,20 @@ template $Window: Adw.ApplicationWindow {
               child: Picture picture {};
 
               black-background: true;
+            }
+
+            GestureClick {
+              button: 1;
+              released => $_on_primary_click_released();
+            }
+
+            GestureClick {
+              button: 3;
+              pressed => $_on_secondary_click_pressed();
+            }
+            
+            EventControllerMotion overlay_motion {
+              motion => $_on_motion();
             }
           }
         }

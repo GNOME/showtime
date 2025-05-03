@@ -53,14 +53,11 @@ class Window(Adw.ApplicationWindow):
     placeholder_page: Adw.ToolbarView = Gtk.Template.Child()
     placeholder_stack: Gtk.Stack = Gtk.Template.Child()
     placeholder_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    open_status_page: Adw.StatusPage = Gtk.Template.Child()
     error_status_page: Adw.StatusPage = Gtk.Template.Child()
     missing_plugin_status_page: Adw.StatusPage = Gtk.Template.Child()
-    button_open: Gtk.Button = Gtk.Template.Child()
 
     video_page: Gtk.WindowHandle = Gtk.Template.Child()
-    video_overlay: Gtk.Overlay = Gtk.Template.Child()
-    graphics_offload: Gtk.GraphicsOffload = Gtk.Template.Child()
+    overlay_motion: Gtk.EventControllerMotion = Gtk.Template.Child()
     picture: Gtk.Picture = Gtk.Template.Child()
 
     header_handle_start: Gtk.WindowHandle = Gtk.Template.Child()
@@ -110,6 +107,7 @@ class Window(Adw.ApplicationWindow):
 
     _paused: bool = True
     _prev_motion_xy: tuple = (0, 0)
+    _prev_volume = -1
     _toplevel_focused: bool = False
 
     media_info_updated = GObject.Signal(name="media-info-updated")
@@ -193,17 +191,6 @@ class Window(Adw.ApplicationWindow):
         if shared.PROFILE == "development":
             self.add_css_class("devel")
 
-        # Primary and secondary clicks
-
-        primary_click = Gtk.GestureClick(button=Gdk.BUTTON_PRIMARY)
-        primary_click.connect("released", self._on_primary_click_released)
-
-        secondary_click = Gtk.GestureClick(button=Gdk.BUTTON_SECONDARY)
-        secondary_click.connect("pressed", self._on_secondary_click_pressed)
-
-        self.video_overlay.add_controller(primary_click)
-        self.video_overlay.add_controller(secondary_click)
-
         # Unfullscreen on Escape
 
         (esc := Gtk.ShortcutController()).add_shortcut(
@@ -215,10 +202,6 @@ class Window(Adw.ApplicationWindow):
         self.add_controller(esc)
 
         # Hide the toolbar on motion
-
-        self.overlay_motion = Gtk.EventControllerMotion()
-        self.overlay_motion.connect("motion", self._on_motion)
-        self.video_overlay.add_controller(self.overlay_motion)
 
         for widget in (
             self.controls_box,
@@ -242,8 +225,6 @@ class Window(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        self.connect("move-focus", self._on_motion)
-
         # Drag and drop
 
         (drop_target := Gtk.DropTarget.new(Gio.File, Gdk.DragAction.COPY)).connect(
@@ -262,22 +243,14 @@ class Window(Adw.ApplicationWindow):
 
         self.seek_scale.connect("change-value", seek)
 
-        # Connect signals
+        # Init
 
-        self.stack.connect("notify::visible-child", self._on_stack_child_changed)
         self._on_stack_child_changed()
-
-        self.connect("notify::fullscreened", self._on_fullscreen)
 
         shared.state_schema.connect(
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
         )
-
-        self.volume_adjustment.connect("notify::value", self._schedule_volume_change)
-        self._prev_volume = -1
-
-        self.connect("realize", self._on_realize)
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
@@ -745,6 +718,7 @@ class Window(Adw.ApplicationWindow):
                     "-" + nanoseconds_to_timestamp(dur - pos)
                 )
 
+    @Gtk.Template.Callback()
     def _schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
         GLib.idle_add(
             partial(
@@ -798,6 +772,7 @@ class Window(Adw.ApplicationWindow):
         if self.overlay_motion.contains_pointer():
             self.set_cursor_from_name("none")
 
+    @Gtk.Template.Callback()
     def _on_realize(self, *_args: Any) -> None:
         if not (surface := self.get_surface()):
             return
@@ -827,6 +802,7 @@ class Window(Adw.ApplicationWindow):
         else:
             self.connect("map", self._resize_window, paintable, True)
 
+    @Gtk.Template.Callback()
     def _on_motion(
         self, _obj: Any = None, x: Optional[float] = None, y: Optional[float] = None
     ) -> None:
@@ -905,10 +881,12 @@ class Window(Adw.ApplicationWindow):
     def _on_volume_changed(self, _obj: Any) -> None:
         vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # type: ignore
 
-        if self._prev_volume != vol:
-            self._prev_volume = vol
-            self._set_volume_display(volume=vol)
-            self.volume_adjustment.set_value(vol)
+        if self._prev_volume == vol:
+            return
+
+        self._prev_volume = vol
+        self._set_volume_display(volume=vol)
+        self.volume_adjustment.set_value(vol)
 
     def _on_end_of_stream(self, _obj: Any) -> None:
         if not self.__class__.looping:
@@ -1009,6 +987,7 @@ class Window(Adw.ApplicationWindow):
         self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
         self.stack.set_visible_child(self.placeholder_page)
 
+    @Gtk.Template.Callback()
     def _on_stack_child_changed(self, *_args: Any) -> None:
         self._on_motion()
 
@@ -1028,6 +1007,7 @@ class Window(Adw.ApplicationWindow):
         ) and shared.system != "Darwin":
             action.set_enabled(True)
 
+    @Gtk.Template.Callback()
     def _on_primary_click_released(
         self, gesture: Gtk.Gesture, n: int, *_args: Any
     ) -> None:
@@ -1037,6 +1017,7 @@ class Window(Adw.ApplicationWindow):
         if not n % 2:
             self.toggle_fullscreen()
 
+    @Gtk.Template.Callback()
     def _on_secondary_click_pressed(
         self,
         gesture: Gtk.Gesture,
@@ -1067,7 +1048,8 @@ class Window(Adw.ApplicationWindow):
 
         self.options_popover.connect("closed", closed)
 
-    def _on_fullscreen(self, *_args: Any) -> None:
+    @Gtk.Template.Callback()
+    def _on_fullscreened(self, *_args: Any) -> None:
         self.button_fullscreen.set_icon_name(
             "view-restore-symbolic"
             if self.is_fullscreen()
