@@ -36,6 +36,8 @@ if shared.system == "Darwin":
 
     from showtime.application_delegate import ApplicationDelegate
 
+MAX_HIST_ITEMS = 1000
+
 
 class Application(Adw.Application):
     """The main application singleton class."""
@@ -132,8 +134,6 @@ class Application(Adw.Application):
             hist_file.close()
 
         hist[digest] = win.play.get_position()
-
-        MAX_HIST_ITEMS = 1000
 
         for _extra in range(max(len(hist) - MAX_HIST_ITEMS, 0)):
             del hist[next(iter(hist))]
@@ -359,7 +359,7 @@ class Application(Adw.Application):
             log_file = (
                 lzma.open(path, "rt", encoding="utf-8")
                 if path.name.endswith(".xz")
-                else open(path, "r", encoding="utf-8")
+                else path.open("r", encoding="utf-8")
             )
             debug_str += data if isinstance(data := log_file.read(), str) else ""
             log_file.close()

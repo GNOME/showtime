@@ -78,9 +78,9 @@ class DBusInterface:
 
     def _on_method_call(
         self,
-        connection: Gio.DBusConnection,
-        sender: str,
-        object_path: str,
+        _connection: Gio.DBusConnection,
+        _sender: str,
+        _object_path: str,
         interface_name: str,
         method_name: str,
         parameters: GLib.Variant,

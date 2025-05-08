@@ -21,7 +21,7 @@ schema = Gio.Settings.new(APP_ID)
 state_settings = Gio.Settings.new(APP_ID + ".State")
 
 cache_path = Path(GLib.get_user_cache_dir()) / "showtime"
-log_files = []
+log_files: list[Path] = []
 
 end_timestamp_type = state_settings.get_enum("end-timestamp-type")
 

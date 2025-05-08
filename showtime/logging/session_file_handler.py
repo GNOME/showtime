@@ -115,7 +115,7 @@ class SessionFileHandler(StreamHandler):
         self.backup_count = backup_count
         self.create_dir()
         self.rotate()
-        self.log_file = open(self.filename, "w", encoding="utf-8")
+        self.log_file = self.filename.open("w", encoding="utf-8")
         shared.log_files = self.get_logfiles()
         super().__init__(self.log_file)
 
