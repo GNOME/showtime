@@ -47,6 +47,9 @@ class Application(Adw.Application):
 
     media_info_updated = GObject.Signal(name="media-info-updated")
     state_changed = GObject.Signal(name="state-changed")
+    volume_changed = GObject.Signal(name="volume-changed")
+    rate_changed = GObject.Signal(name="rate-changed")
+    seeked = GObject.Signal(name="seeked")
 
     def __init__(self) -> None:
         super().__init__(
@@ -294,6 +297,24 @@ class Application(Adw.Application):
                 self.emit("media-info-updated")
 
         win.connect("media-info-updated", emit_media_info_updated)
+
+        def emit_volume_changed(win: Window) -> None:
+            if win == self.get_active_window():
+                self.emit("volume-changed")
+
+        win.connect("volume-changed", emit_volume_changed)
+
+        def emit_rate_changed(win: Window) -> None:
+            if win == self.get_active_window():
+                self.emit("rate-changed")
+
+        win.connect("rate-changed", emit_rate_changed)
+
+        def emit_seeked(win: Window) -> None:
+            if win == self.get_active_window():
+                self.emit("seeked")
+
+        win.connect("seeked", emit_seeked)
 
         def emit_state_changed(win: Window, *_args: Any) -> None:  # type: ignore
             if win == self.get_active_window():
