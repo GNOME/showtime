@@ -6,10 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2025-01-11 11:39+0000\n"
-"PO-Revision-Date: 2025-01-11 22:50+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-05-08 19:15+0000\n"
+"PO-Revision-Date: 2025-05-09 01:24+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <Czech>\n"
 "Language: cs\n"
@@ -17,27 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:463
-#: showtime/gtk/window.blp:191
-msgid "Showtime"
-msgstr "Showtime"
-
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:194
 msgid "Video Player"
 msgstr "Přehrávač videí"
 
-#: data/org.gnome.Showtime.desktop.in:5
+#: data/org.gnome.Showtime.desktop.in:4
 msgid "Play videos"
-msgstr "Přehrávání videí"
+msgstr "Přehrávejte videa"
 
-#: data/org.gnome.Showtime.desktop.in:11
+#: data/org.gnome.Showtime.desktop.in:10
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Film;Klip;Přehrávač;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
 msgid "New Window"
 msgstr "Nové okno"
 
@@ -47,17 +41,17 @@ msgstr "Sledujte bez rozptylování"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Přehrávejte své oblíbené filmy a video soubory bez potíží. Aplikace Showtime "
-"nabízí jednoduché ovládací prvky přehrávání, které vám při sledování zmizí z "
-"cesty, celou obrazovku, nastavitelnou rychlost přehrávání, vícejazyčné stopy "
-"a titulky, a snímky obrazovky – vše, co potřebujete pro přímý zážitek ze "
-"sledování."
+"Přehrávejte své oblíbené filmy a video soubory bez potíží. Aplikace "
+"Přehrávač videí nabízí jednoduché ovládací prvky přehrávání, které vám při "
+"sledování zmizí z cesty, celou obrazovku, nastavitelnou rychlost přehrávání, "
+"vícejazyčné stopy a titulky, a snímky obrazovky – vše, co potřebujete pro "
+"přímý zážitek ze sledování."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
@@ -71,102 +65,102 @@ msgstr "Co zobrazit na pozici koncového časového razítka"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Např. celkovou dobu trvání videa nebo zbývající čas"
 
-#: showtime/main.py:151
+#: showtime/main.py:109
 msgid "Playing a video"
 msgstr "Přehrávání videa"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:438
+#: showtime/main.py:401
 msgid "translator_credits"
 msgstr "Daniel Rusek <mail@asciiwolf.com>"
 
-#: showtime/mpris.py:288 showtime/window.py:606
+#: showtime/mpris.py:286 showtime/window.py:356
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
-#: showtime/window.py:147 showtime/gtk/window.blp:295
+#: showtime/window.py:161 showtime/gtk/window.blp:306
 msgid "Play"
 msgstr "Přehrát"
 
-#: showtime/window.py:150
+#: showtime/window.py:161
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: showtime/window.py:439
-msgid "Details copied"
-msgstr "Podrobnosti zkopírovány"
-
-#: showtime/window.py:442
-msgid "Copy Technical Details"
-msgstr "Zkopírovat technické podrobnosti"
-
-#: showtime/window.py:468
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Nebyly nalezeny kodeky „{}“ potřebné k přehrání tohoto videa"
-
-#: showtime/window.py:489
-msgid "No plugin available for this media type"
-msgstr "Pro tento typ médií není k dispozici žádný zásuvný modul"
-
-#: showtime/window.py:495
-msgid "Unable to install the required plugin"
-msgstr "Nelze nainstalovat požadovaný zásuvný modul"
-
-#: showtime/window.py:498
-msgid "Install Plugin"
-msgstr "Nainstalovat zásuvný modul"
-
-#: showtime/window.py:506
-msgid "Installing…"
-msgstr "Instaluje se…"
-
-#: showtime/window.py:514
-msgid "“{}” codecs are required to play this video"
-msgstr "K přehrání tohoto videa jsou vyžadovány kodeky „{}“."
-
-#: showtime/window.py:617
+#: showtime/window.py:363
 msgid "Screenshot captured"
 msgstr "Snímek obrazovky pořízen"
 
-#: showtime/window.py:619
+#: showtime/window.py:365
 msgid "Show in Files"
 msgstr "Zobrazit v Souborech"
 
-#: showtime/window.py:682
+#: showtime/window.py:429
 msgid "Video"
 msgstr "Video"
 
-#: showtime/window.py:705
+#: showtime/window.py:440
 msgid "Subtitles"
 msgstr "Titulky"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:771
+#: showtime/window.py:489
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Neurčeno, {} kanál"
 msgstr[1] "Neurčeno, {} kanály"
 msgstr[2] "Neurčeno, {} kanálů"
 
-#: showtime/window.py:776
+#: showtime/window.py:494
 msgid "Undetermined"
 msgstr "Neurčeno"
 
-#: showtime/window.py:789
+#: showtime/window.py:507
 msgid "No Audio"
 msgstr "Žádný zvuk"
 
-#: showtime/window.py:794
+#: showtime/window.py:512
 msgid "None"
 msgstr "Žádné"
 
-#: showtime/window.py:800
+#: showtime/window.py:518
 msgid "Undetermined Language"
 msgstr "Neurčený jazyk"
 
-#: showtime/window.py:811
+#: showtime/window.py:529
 msgid "Add Subtitle File…"
 msgstr "Přidat soubor s titulky…"
+
+#: showtime/window.py:969
+msgid "Details copied"
+msgstr "Podrobnosti zkopírovány"
+
+#: showtime/window.py:971
+msgid "Copy Technical Details"
+msgstr "Zkopírovat technické podrobnosti"
+
+#: showtime/window.py:993
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Nebyly nalezeny kodeky „{}“ potřebné k přehrání tohoto videa"
+
+#: showtime/window.py:1014
+msgid "No plugin available for this media type"
+msgstr "Pro tento typ médií není k dispozici žádný zásuvný modul"
+
+#: showtime/window.py:1020
+msgid "Unable to install the required plugin"
+msgstr "Nelze nainstalovat požadovaný zásuvný modul"
+
+#: showtime/window.py:1023
+msgid "Install Plugin"
+msgstr "Nainstalovat zásuvný modul"
+
+#: showtime/window.py:1031
+msgid "Installing…"
+msgstr "Instaluje se…"
+
+#: showtime/window.py:1039
+msgid "“{}” codecs are required to play this video"
+msgstr "K přehrání tohoto videa jsou vyžadovány kodeky „{}“"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -204,7 +198,7 @@ msgstr "Zvýšit hlasitost"
 msgid "Decrease Volume"
 msgstr "Snížit hlasitost"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:165
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
 msgid "Mute/Unmute"
 msgstr "Ztlumit / zrušit ztlumení"
 
@@ -212,7 +206,7 @@ msgstr "Ztlumit / zrušit ztlumení"
 msgid "View"
 msgstr "Zobrazit"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:619
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:617
 msgid "Toggle Fullscreen"
 msgstr "Přepnout režim celé obrazovky"
 
@@ -228,11 +222,11 @@ msgstr "Přehrávání"
 msgid "Play/Pause"
 msgstr "Přehrát / pozastavit"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:276
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:287
 msgid "Go Back 10 Seconds"
 msgstr "Přejít zpět o 10 sekund"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:311
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:323
 msgid "Go Forward 10 Seconds"
 msgstr "Přejít vpřed o 10 sekund"
 
@@ -253,8 +247,8 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové zkratky"
 
 #: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "O _aplikaci Showtime"
+msgid "_About Video Player"
+msgstr "O _aplikaci Přehrávač videí"
 
 #: showtime/gtk/window.blp:39
 msgid "Rotate"
@@ -272,58 +266,64 @@ msgstr "_Titulky"
 msgid "_Repeat"
 msgstr "_Opakovat"
 
-#: showtime/gtk/window.blp:80
+#: showtime/gtk/window.blp:81
 msgid "Playback Speed"
 msgstr "Rychlost přehrávání"
 
-#: showtime/gtk/window.blp:131
+#: showtime/gtk/window.blp:132
 msgid "Rotate Left"
 msgstr "Otočit doleva"
 
-#: showtime/gtk/window.blp:142
+#: showtime/gtk/window.blp:143
 msgid "Rotate Right"
 msgstr "Otočit doprava"
 
-#: showtime/gtk/window.blp:211 showtime/gtk/window.blp:649
+#: showtime/gtk/window.blp:221 showtime/gtk/window.blp:657
 msgid "Main Menu"
 msgstr "Hlavní nabídka"
 
-#: showtime/gtk/window.blp:220
+#: showtime/gtk/window.blp:230
 msgid "Watch Videos"
 msgstr "Sledujte videa"
 
-#: showtime/gtk/window.blp:221
+#: showtime/gtk/window.blp:231
 msgid "Drag and drop videos here"
 msgstr "Sem přetáhněte videa"
 
-#: showtime/gtk/window.blp:224
+#: showtime/gtk/window.blp:234
 msgid "Open…"
 msgstr "Otevřít…"
 
-#: showtime/gtk/window.blp:237
+#: showtime/gtk/window.blp:247
 msgid "Unable to Play Video"
 msgstr "Video nelze přehrát"
 
-#: showtime/gtk/window.blp:242
+#: showtime/gtk/window.blp:252
 msgid "Missing Plugin"
 msgstr "Chybí zásuvný modul"
 
-#: showtime/gtk/window.blp:350
+#: showtime/gtk/window.blp:362
 msgid "Adjust Volume"
 msgstr "Upravit hlasitost"
 
-#: showtime/gtk/window.blp:368
+#: showtime/gtk/window.blp:380
 msgid "Playback Options"
 msgstr "Možnosti přehrávání"
 
-#: showtime/gtk/window.blp:425
+#: showtime/gtk/window.blp:437
 msgid "Toggle Duration/Remaining"
 msgstr "Přepnout trvání / zbývající"
 
-#: showtime/gtk/window.blp:494
+#: showtime/gtk/window.blp:492
 msgid "Resume"
 msgstr "Pokračovat"
 
-#: showtime/gtk/window.blp:534
+#: showtime/gtk/window.blp:532
 msgid "Start Again"
 msgstr "Spustit znovu"
+
+#~ msgid "Showtime"
+#~ msgstr "Showtime"
+
+#~ msgid "_About Showtime"
+#~ msgstr "O _aplikaci Showtime"
