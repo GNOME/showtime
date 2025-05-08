@@ -45,11 +45,13 @@ scale.highlighted slider:active {
 button.highlighted,
 menubutton.highlighted > button,
 windowcontrols.overlaid > button > image {
-  transition: var(--focus-ring), transform 0.2s, background-color 0.2s;
+  transition: var(--focus-ring),
+  transform 0.2s var(--bezier-transition),
+  background-color 0.2s var(--bezier-transition);
 }
 
 scale.highlighted slider {
-  transition: var(--focus-ring), transform 0.3s;
+  transition: var(--focus-ring), transform 0.3s var(--bezier-transition);
 }
 
 /* Strong Shadow */
