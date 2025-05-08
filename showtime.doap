@@ -5,15 +5,15 @@
          xmlns:gnome="http://api.gnome.org/doap-extensions#"
          xmlns="http://usefulinc.com/ns/doap#">
 
-  <name>Showtime</name>
-  <shortdesc xml:lang="en">Play videos</shortdesc>
+  <name>Video Player</name>
+  <shortdesc xml:lang="en">Watch without distraction</shortdesc>
   <description xml:lang="en">
-Watch your favorite movies and videos without hassle using this elegant video player.
+Play your favorite movies and video files without hassle. Video Player features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.
   </description>
 
-  <homepage rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime" />
-  <download-page rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime" />
-  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues" />
+  <homepage rdf:resource="https://gitlab.gnome.org/GNOME/showtime" />
+  <download-page rdf:resource="https://gitlab.gnome.org/GNOME/showtime" />
+  <bug-database rdf:resource="https://gitlab.gnome.org/GNOME/showtime/-/issues" />
 
   <programming-language>Python</programming-language>
   <platform>GTK 4</platform>

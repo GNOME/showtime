@@ -24,7 +24,7 @@ menu primary_menu {
 
   section {
     item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("_About Showtime"), "app.about")
+    item (_("_About Video Player"), "app.about")
   }
 }
 
@@ -191,7 +191,7 @@ template $Window: Adw.ApplicationWindow {
   default-height: 500;
   height-request: 202; // For a 16∶9 aspect ratio
   width-request: 360;
-  title: _("Showtime");
+  title: _("Video Player");
   realize => $_on_realize();
   move-focus => $_on_motion();
   notify::fullscreened => $_on_fullscreened();

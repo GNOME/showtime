@@ -1,7 +1,7 @@
 <div align="center">
   <img src="data/icons/hicolor/scalable/apps/org.gnome.Showtime.svg" width="128" height="128">
 
-  # Showtime
+  # Video Player
 
   Watch without distraction
 

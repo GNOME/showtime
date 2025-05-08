@@ -435,7 +435,7 @@ class MPRIS(DBusInterface):
                 "CanSetFullscreen": GLib.Variant("b", False),
                 "CanRaise": GLib.Variant("b", False),
                 "HasTrackList": GLib.Variant("b", False),
-                "Identity": GLib.Variant("s", "Showtime"),
+                "Identity": GLib.Variant("s", "Video Player"),
                 "DesktopEntry": GLib.Variant("s", shared.APP_ID),
                 "SupportedUriSchemes": GLib.Variant("as", ["file"]),
                 "SupportedMimeTypes": GLib.Variant(

@@ -1,6 +1,5 @@
 [Desktop Entry]
-Name=Showtime
-GenericName=Video Player
+Name=Video Player
 Comment=Play videos
 Exec=showtime --new-window %U
 Icon=@APP_ID@

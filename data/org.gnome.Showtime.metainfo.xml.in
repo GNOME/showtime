@@ -3,10 +3,10 @@
 	<id>@APP_ID@</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
-	<name>Showtime</name>
+	<name>Video Player</name>
 	<summary>Watch without distraction</summary>
 	<description>
-	  <p>Play your favorite movies and video files without hassle. Showtime features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
+	  <p>Play your favorite movies and video files without hassle. Video Player features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
 	<translation type="gettext">showtime</translation>
@@ -14,14 +14,14 @@
 		<color type="primary" scheme_preference="light">#9aa9ee</color>
 		<color type="primary" scheme_preference="dark">#4b3e81</color>
 	</branding>
-	<developer id="page.kramo">
-		<name translate="no">kramo</name>
+	<developer id="org.gnome">
+		<name translate="no">The GNOME Project</name>
 	</developer>
 	<url type="homepage">https://apps.gnome.org/Showtime/</url>
-	<url type="bugtracker">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/issues</url>
+	<url type="bugtracker">https://gitlab.gnome.org/GNOME/showtime/-/issues</url>
 	<url type="contribute">https://welcome.gnome.org/app/Showtime/</url>
 	<url type="translate">https://l10n.gnome.org/module/showtime/</url>
-	<url type="vcs-browser">https://gitlab.gnome.org/GNOME/Incubator/showtime</url>
+	<url type="vcs-browser">https://gitlab.gnome.org/GNOME/showtime</url>
 	<project_group>GNOME</project_group>
 	<content_rating type="oars-1.1" />
 	<supports>
@@ -35,7 +35,7 @@
 	<screenshots>
 		<screenshot type="default">
 			<caption>The app playing a video</caption>
-			<image type="source" width="2540" height="1206">https://gitlab.gnome.org/GNOME/Incubator/showtime/-/raw/main/data/screenshots/1.png</image>
+			<image type="source" width="2540" height="1206">https://gitlab.gnome.org/GNOME/showtime/-/raw/main/data/screenshots/1.png</image>
 		</screenshot>
 	</screenshots>
 	<releases>
