@@ -89,7 +89,7 @@ PopoverMenu options_popover {
       spacing: 9;
       homogeneous: true;
 
-      ToggleButton {
+      ToggleButton half_speed_button {
         label: "0.5×";
         group: default_speed_button;
         clicked => $_set_rate();
@@ -101,19 +101,19 @@ PopoverMenu options_popover {
         clicked => $_set_rate();
       }
 
-      ToggleButton {
+      ToggleButton speed_1_25_button {
         label: "1.25×";
         group: default_speed_button;
         clicked => $_set_rate();
       }
 
-      ToggleButton {
+      ToggleButton speed_1_5_button {
         label: "1.5×";
         group: default_speed_button;
         clicked => $_set_rate();
       }
 
-      ToggleButton {
+      ToggleButton double_speed_button {
         label: "2.0×";
         group: default_speed_button;
         clicked => $_set_rate();
