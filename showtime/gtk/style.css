@@ -1,3 +1,11 @@
+:root {
+  --bezier-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --focus-ring:
+    outline-color 200ms var(--bezier-transition),
+    outline-width 200ms var(--bezier-transition),
+    outline-offset 200ms var(--bezier-transition);
+}
+
 #video-page {
   --accent-color: white;
   --accent-bg-color: white;
@@ -37,11 +45,11 @@ scale.highlighted slider:active {
 button.highlighted,
 menubutton.highlighted > button,
 windowcontrols.overlaid > button > image {
-  transition: transform 0.2s, background-color 0.2s;
+  transition: var(--focus-ring), transform 0.2s, background-color 0.2s;
 }
 
 scale.highlighted slider {
-  transition: transform 0.3s;
+  transition: var(--focus-ring), transform 0.3s;
 }
 
 /* Strong Shadow */
