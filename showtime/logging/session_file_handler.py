@@ -9,7 +9,7 @@ from lzma import FORMAT_XZ, PRESET_DEFAULT
 from os import PathLike
 from pathlib import Path
 
-from showtime import shared
+import showtime
 
 
 class SessionFileHandler(StreamHandler):
@@ -75,7 +75,7 @@ class SessionFileHandler(StreamHandler):
         # If uncompressed, compress
         if not path.name.endswith(".xz"):
             try:
-                with open(path, "r", encoding="utf-8") as original_file:
+                with path.open("r", encoding="utf-8") as original_file:
                     original_data = original_file.read()
             except UnicodeDecodeError:
                 # If the file is corrupted, throw it away
@@ -116,7 +116,7 @@ class SessionFileHandler(StreamHandler):
         self.create_dir()
         self.rotate()
         self.log_file = self.filename.open("w", encoding="utf-8")
-        shared.log_files = self.get_logfiles()
+        showtime.log_files = self.get_logfiles()
         super().__init__(self.log_file)
 
     def close(self) -> None:

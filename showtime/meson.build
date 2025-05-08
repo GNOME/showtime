@@ -39,7 +39,7 @@ configure_file(
 )
 
 showtime_sources = [
-  '__init__.py',
+  configure_file(input: '__init__.py.in', output: '__init__.py', configuration: conf),
   'application_delegate.py',
   'drag_overlay.py',
   'main.py',
@@ -48,7 +48,6 @@ showtime_sources = [
   'play.py',
   'utils.py',
   'window.py',
-  configure_file(input: 'shared.py.in', output: 'shared.py', configuration: conf),
 ]
 
 install_data(showtime_sources, install_dir: moduledir)

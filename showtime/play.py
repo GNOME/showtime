@@ -10,7 +10,7 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import shared, utils
+from showtime import system, utils
 
 
 def gst_play_setup(
@@ -25,7 +25,7 @@ def gst_play_setup(
     picture.set_paintable(paintable)
 
     # OpenGL doesn't work on macOS properly
-    if paintable.props.gl_context and shared.system != "Darwin":
+    if paintable.props.gl_context and system != "Darwin":
         gl_sink = Gst.ElementFactory.make("glsinkbin")
         gl_sink.props.sink = paintable_sink  # type: ignore
         sink = gl_sink

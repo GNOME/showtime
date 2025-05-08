@@ -17,6 +17,7 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Gst", "1.0")
 gi.require_version("GstPlay", "1.0")
+gi.require_version("GstAudio", "1.0")
 gi.require_version("GstPbutils", "1.0")
 
 # pylint: disable=wrong-import-position
@@ -24,13 +25,14 @@ gi.require_version("GstPbutils", "1.0")
 
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
-from showtime import shared
+import showtime
+from showtime import APP_ID, PREFIX, VERSION, state_settings, system
 from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
 from showtime.utils import lookup_action
 from showtime.window import Window
 
-if shared.system == "Darwin":
+if system == "Darwin":
     from AppKit import NSApp  # type: ignore
     from PyObjCTools import AppHelper
 
@@ -53,7 +55,7 @@ class Application(Adw.Application):
 
     def __init__(self) -> None:
         super().__init__(
-            application_id=shared.APP_ID,
+            application_id=APP_ID,
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
@@ -66,7 +68,7 @@ class Application(Adw.Application):
 
         log_system_info()
 
-        if shared.system == "Darwin":
+        if system == "Darwin":
 
             def setup_app_delegate() -> None:
                 NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
@@ -85,7 +87,7 @@ class Application(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
-        if shared.system == "Darwin" and (settings := Gtk.Settings.get_default()):
+        if system == "Darwin" and (settings := Gtk.Settings.get_default()):
             settings.props.gtk_decoration_layout = "close,minimize:"
 
         self.connect("window-removed", self._on_window_removed)
@@ -121,8 +123,8 @@ class Application(Adw.Application):
 
         digest = sha256(uri.encode("utf-8")).hexdigest()
 
-        shared.cache_path.mkdir(parents=True, exist_ok=True)
-        hist_path = shared.cache_path / "playback_history"
+        showtime.cache_path.mkdir(parents=True, exist_ok=True)
+        hist_path = showtime.cache_path / "playback_history"
 
         try:
             hist_file = hist_path.open("rb")
@@ -286,11 +288,9 @@ class Application(Adw.Application):
         """Create a new window, set up MPRIS."""
         win = Window(
             application=self,  # type: ignore
-            maximized=shared.state_settings.get_boolean("is-maximized"),  # type: ignore
+            maximized=state_settings.get_boolean("is-maximized"),  # type: ignore
         )
-        shared.state_settings.bind(
-            "is-maximized", win, "maximized", Gio.SettingsBindFlags.SET
-        )
+        state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
 
         def emit_media_info_updated(win: Window) -> None:  #  type: ignore
             if win == self.get_active_window():
@@ -372,7 +372,7 @@ class Application(Adw.Application):
         """Show the about dialog."""
         # Get the debug info from the log files
         debug_str = ""
-        for index, path in enumerate(shared.log_files):
+        for index, path in enumerate(showtime.log_files):
             # Add a horizontal line between runs
             if index > 0:
                 debug_str += "─" * 37 + "\n"
@@ -386,7 +386,7 @@ class Application(Adw.Application):
             log_file.close()
 
         about = Adw.AboutDialog.new_from_appdata(
-            shared.PREFIX + "/" + shared.APP_ID + ".metainfo.xml", shared.VERSION
+            PREFIX + "/" + APP_ID + ".metainfo.xml", VERSION
         )
         about.set_developers(("kramo https://kramo.page",))
         about.set_designers(
@@ -422,7 +422,7 @@ class Application(Adw.Application):
         action.connect("activate", callback)
         self.add_action(action)
         if shortcuts:
-            if shared.system == "Darwin":
+            if system == "Darwin":
                 shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
@@ -445,5 +445,5 @@ class Application(Adw.Application):
 
 def main() -> int:
     """Run the application."""
-    shared.app = Application()
-    return shared.app.run(sys.argv)
+    showtime.app = Application()
+    return showtime.app.run(sys.argv)

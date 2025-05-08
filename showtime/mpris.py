@@ -18,7 +18,7 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import shared
+from showtime import APP_ID, PREFIX
 from showtime.utils import get_title
 from showtime.window import Window
 
@@ -249,7 +249,7 @@ class MPRIS(DBusInterface):
         return getattr(self.win, "play", None)
 
     def __init__(self, app: Gtk.Application) -> None:
-        name = f"org.mpris.MediaPlayer2.{shared.APP_ID}"
+        name = f"org.mpris.MediaPlayer2.{APP_ID}"
         path = "/org/mpris/MediaPlayer2"
         super().__init__(name, path, app)
 
@@ -274,9 +274,7 @@ class MPRIS(DBusInterface):
     def _get_metadata(self) -> dict:
         if (not self.play) or (not (media_info := self.play.get_media_info())):
             return {
-                "mpris:trackid": GLib.Variant(
-                    "o", f"{shared.PREFIX}/TrackList/CurrentTrack"
-                )
+                "mpris:trackid": GLib.Variant("o", f"{PREFIX}/TrackList/CurrentTrack")
             }
 
         length = int(self.play.get_duration() / 1e3)
@@ -475,7 +473,7 @@ class MPRIS(DBusInterface):
                 "CanRaise": GLib.Variant("b", False),
                 "HasTrackList": GLib.Variant("b", False),
                 "Identity": GLib.Variant("s", "Video Player"),
-                "DesktopEntry": GLib.Variant("s", shared.APP_ID),
+                "DesktopEntry": GLib.Variant("s", APP_ID),
                 "SupportedUriSchemes": GLib.Variant("as", ["file"]),
                 "SupportedMimeTypes": GLib.Variant(
                     "as",

@@ -11,18 +11,19 @@ import sys
 
 from gi.repository import Gst
 
-from showtime import shared
+import showtime
+from showtime import APP_ID, PROFILE, VERSION
 
 
 def setup_logging() -> None:
     """Intitate the app's logging."""
-    is_dev = shared.PROFILE == "development"
+    is_dev = PROFILE == "development"
     profile_app_log_level = "DEBUG" if is_dev else "INFO"
     profile_lib_log_level = "INFO" if is_dev else "WARNING"
     app_log_level = os.environ.get("LOGLEVEL", profile_app_log_level).upper()
     lib_log_level = os.environ.get("LIBLOGLEVEL", profile_lib_log_level).upper()
 
-    log_filename = shared.cache_path / "logs" / "showtime.log"
+    log_filename = showtime.cache_path / "logs" / "showtime.log"
 
     config = {
         "version": 1,
@@ -65,10 +66,10 @@ def setup_logging() -> None:
 
 def log_system_info() -> None:
     """Log system debug information."""
-    logging.debug("Starting %s v%s (%s)", shared.APP_ID, shared.VERSION, shared.PROFILE)
+    logging.debug("Starting %s v%s (%s)", APP_ID, VERSION, PROFILE)
     logging.debug("Python version: %s", sys.version)
     logging.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
-    if os.getenv("FLATPAK_ID") == shared.APP_ID:
+    if os.getenv("FLATPAK_ID") == APP_ID:
         process = subprocess.run(
             ("flatpak-spawn", "--host", "flatpak", "--version"),
             capture_output=True,

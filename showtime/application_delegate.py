@@ -9,13 +9,13 @@ from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
 from Foundation import NSObject  # type: ignore
 from gi.repository import Gio
 
-from showtime import shared
+from showtime import app
 
 
 class ApplicationDelegate(NSObject):
     """A set of methods that manage the app’s life cycle and its interaction with common system services."""
 
-    def applicationDidFinishLaunching_(self, *_args: Any) -> None:
+    def applicationDidFinishLaunching_(self, *_args: Any) -> None:  # noqa: N802
         """Set up menu bar actions."""
         main_menu = NSApp.mainMenu()
 
@@ -66,35 +66,37 @@ class ApplicationDelegate(NSObject):
 
     def new_(self, *_args: Any) -> None:
         """Create a new window."""
-        if not shared.app:
+        if not app:
             return
 
-        shared.app.do_activate()
+        app.do_activate()
 
     def open_(self, *_args: Any) -> None:
         """Show the file chooser for opening a video."""
-        if (not (shared.app)) or (not (win := shared.app.win)):
+        if (not (app)) or (not app.win):
             return
 
-        win.choose_video()
+        app.win.choose_video()
 
     def shortcuts_(self, *_args: Any) -> None:
         """Open the shortcuts dialog."""
         if (
-            (not (shared.app))
-            or (not (win := shared.app.win))
-            or (not (overlay := win.get_help_overlay()))
+            (not (app))
+            or (not app.win)
+            or (not (overlay := app.win.get_help_overlay()))
         ):
             return
 
         overlay.present()
 
-    def application_openFile_(
-        self, _theApplication: NSApplication, filename: str
+    def application_openFile_(  # noqa: N802
+        self,
+        _theApplication: NSApplication,  # noqa: N803
+        filename: str,
     ) -> bool:
         """Open a file."""
-        if (not shared.app) or (not (win := shared.app.win)):
+        if (not app) or (not app.win):
             return False
 
-        win.play_video(Gio.File.new_for_path(filename))
+        app.win.play_video(Gio.File.new_for_path(filename))
         return True

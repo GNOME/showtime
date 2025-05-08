@@ -28,7 +28,17 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import shared
+import showtime
+from showtime import (
+    DEFAULT_OCCUPY_SCREEN,
+    MAX_UINT16,
+    PREFIX,
+    PROFILE,
+    SMALL_OCCUPY_SCREEN,
+    SMALL_SCREEN_AREA,
+    state_settings,
+    system,
+)
 from showtime.drag_overlay import DragOverlay
 from showtime.messenger import Messenger
 from showtime.play import gst_play_setup
@@ -40,7 +50,7 @@ from showtime.utils import (
 )
 
 
-@Gtk.Template(resource_path=f"{shared.PREFIX}/gtk/window.ui")
+@Gtk.Template(resource_path=f"{PREFIX}/gtk/window.ui")
 class Window(Adw.ApplicationWindow):
     """The main application window."""
 
@@ -162,13 +172,11 @@ class Window(Adw.ApplicationWindow):
         (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(
-            decorated=False if shared.system == "Darwin" else True, **kwargs
-        )
+        super().__init__(decorated=False if system == "Darwin" else True, **kwargs)
 
         # Remove redundant main menu on macOS
 
-        if shared.system == "Darwin":
+        if system == "Darwin":
             self.placeholder_primary_menu_button.set_visible(False)
             self.video_primary_menu_button.set_visible(False)
             self.spinner.set_margin_top(6)
@@ -198,7 +206,7 @@ class Window(Adw.ApplicationWindow):
 
         # Devel stripes
 
-        if shared.PROFILE == "development":
+        if PROFILE == "development":
             self.add_css_class("devel")
 
         # Unfullscreen on Escape
@@ -264,7 +272,7 @@ class Window(Adw.ApplicationWindow):
 
         self._on_stack_child_changed()
 
-        shared.state_settings.connect(
+        state_settings.connect(
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
         )
@@ -448,7 +456,7 @@ class Window(Adw.ApplicationWindow):
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Select the given subtitles for the video."""
         action.set_state(state)
-        if (index := state.get_uint16()) == shared.MAX_UINT16:
+        if (index := state.get_uint16()) == MAX_UINT16:
             self.play.set_subtitle_track_enabled(False)
             return
 
@@ -501,7 +509,7 @@ class Window(Adw.ApplicationWindow):
             # I don't know if there is a better way to do this
 
         self.subtitles_menu.append(
-            _("None"), f"app.select-subtitles(uint16 {shared.MAX_UINT16})"
+            _("None"), f"app.select-subtitles(uint16 {MAX_UINT16})"
         )
 
         subs = 0
@@ -516,14 +524,15 @@ class Window(Adw.ApplicationWindow):
             subs += 1
 
         if not subs:
-            self._select_subtitles(shared.MAX_UINT16)
+            self._select_subtitles(MAX_UINT16)
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
 
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args: Any) -> None:
-        shared.state_settings.set_enum(
-            "end-timestamp-type", int(not shared.end_timestamp_type)
+        state_settings.set_enum(
+            "end-timestamp-type",
+            int(not showtime.end_timestamp_type),
         )
 
         self._set_end_timestamp_label(
@@ -639,7 +648,7 @@ class Window(Adw.ApplicationWindow):
             return None
 
         try:
-            hist_file = (shared.cache_path / "playback_history").open("rb")
+            hist_file = (showtime.cache_path / "playback_history").open("rb")
         except FileNotFoundError:
             logging.info("Cannot restore play positon, no playback history file.")
             return None
@@ -693,9 +702,9 @@ class Window(Adw.ApplicationWindow):
             logical_monitor_area = monitor_area * pow(hidpi_scale, 2)
 
             occupy_area_factor = (
-                shared.SMALL_OCCUPY_SCREEN
-                if logical_monitor_area <= shared.SMALL_SCREEN_AREA
-                else shared.DEFAULT_OCCUPY_SCREEN
+                SMALL_OCCUPY_SCREEN
+                if logical_monitor_area <= SMALL_SCREEN_AREA
+                else DEFAULT_OCCUPY_SCREEN
             )
 
             size_scale = sqrt(monitor_area / video_area * occupy_area_factor)
@@ -747,13 +756,13 @@ class Window(Adw.ApplicationWindow):
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
-        shared.end_timestamp_type = shared.state_settings.get_enum("end-timestamp-type")
+        showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
             self.play.get_position(), self.play.get_duration()
         )
 
     def _set_end_timestamp_label(self, pos: int, dur: int) -> None:
-        match shared.end_timestamp_type:
+        match showtime.end_timestamp_type:
             case 0:  # Duration
                 self.end_timestamp_button.set_label(nanoseconds_to_timestamp(dur))
             case 1:  # Remaining
@@ -1042,14 +1051,10 @@ class Window(Adw.ApplicationWindow):
         if (self.stack.get_visible_child() != self.video_page) or not app:
             return
 
-        if (
-            action := lookup_action(app, "select-subtitles")
-        ) and shared.system != "Darwin":
+        if (action := lookup_action(app, "select-subtitles")) and system != "Darwin":
             action.set_enabled(True)
 
-        if (
-            action := lookup_action(app, "show-in-files")
-        ) and shared.system != "Darwin":
+        if (action := lookup_action(app, "show-in-files")) and system != "Darwin":
             action.set_enabled(True)
 
     @Gtk.Template.Callback()
