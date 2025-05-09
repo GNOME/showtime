@@ -107,8 +107,8 @@ class Window(Adw.ApplicationWindow):
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
-    overlay_motions: set = set()
-    overlay_menu_buttons: set = set()
+    overlay_motions: set[Gtk.EventControllerMotion] = set()
+    overlay_menu_buttons: set[Gtk.MenuButton] = set()
 
     stopped: bool = True
     buffering: bool = False
