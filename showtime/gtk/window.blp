@@ -152,7 +152,7 @@ PopoverMenu options_popover {
 Popover volume_popover {
   width-request: 250;
 
-  Box {
+  child: Box {
     margin-top: 6;
     margin-bottom: 6;
     margin-start: 6;
@@ -183,7 +183,7 @@ Popover volume_popover {
         notify::value => $_schedule_volume_change();
       };
     }
-  }
+  };
 }
 
 template $Window: Adw.ApplicationWindow {
@@ -197,7 +197,7 @@ template $Window: Adw.ApplicationWindow {
   notify::fullscreened => $_on_fullscreened();
 
   content: Adw.ToastOverlay toast_overlay {
-    $DragOverlay drag_overlay {
+    child: $DragOverlay drag_overlay {
       drop_target: drop_target;
 
       overlayed: Adw.Bin {
@@ -210,7 +210,7 @@ template $Window: Adw.ApplicationWindow {
 
       child: Stack stack {
         notify::visible-child => $_on_stack_child_changed();
-        
+
         Adw.ToolbarView placeholder_page {
           [top]
           Adw.HeaderBar header_bar {
@@ -224,13 +224,13 @@ template $Window: Adw.ApplicationWindow {
           }
 
           content: WindowHandle {
-            Stack placeholder_stack {
+            child: Stack placeholder_stack {
               Adw.StatusPage open_status_page {
                 icon-name: "video-x-generic-symbolic";
                 title: _("Watch Videos");
                 description: _("Drag and drop videos here");
 
-                Button button_open {
+                child: Button button_open {
                   label: _("Open…");
                   halign: center;
                   action-name: "app.open-video";
@@ -239,7 +239,7 @@ template $Window: Adw.ApplicationWindow {
                     "pill",
                     "suggested-action",
                   ]
-                }
+                };
               }
 
               Adw.StatusPage error_status_page {
@@ -251,20 +251,20 @@ template $Window: Adw.ApplicationWindow {
                 icon-name: "puzzle-piece-symbolic";
                 title: _("Missing Plugin");
               }
-            }
+            };
           };
         }
 
         WindowHandle video_page {
           name: "video-page";
 
-          Overlay video_overlay {
+          child: Overlay video_overlay {
             [overlay]
             Adw.Clamp toolbar_clamp {
               maximum-size: 1920;
               tightening-threshold: 1920;
 
-              Box toolbar_box {
+              child: Box toolbar_box {
                 orientation: vertical;
                 margin-start: 12;
                 margin-end: 12;
@@ -447,7 +447,7 @@ template $Window: Adw.ApplicationWindow {
                     }
                   }
                 }
-              }
+              };
 
               styles [
                 "shade",
@@ -462,7 +462,7 @@ template $Window: Adw.ApplicationWindow {
               width-request: 1;
               height-request: 1;
 
-              Box restore_box {
+              child: Box restore_box {
                 halign: center;
                 valign: center;
                 spacing: 9;
@@ -470,7 +470,7 @@ template $Window: Adw.ApplicationWindow {
                 margin-end: 3;
 
                 Button resume_button {
-                  Box resume_box {
+                  child: Box resume_box {
                     margin-top: 9;
                     margin-bottom: 9;
                     margin-start: 18;
@@ -495,7 +495,7 @@ template $Window: Adw.ApplicationWindow {
                         "overlaid",
                       ]
                     }
-                  }
+                  };
 
                   clicked => $_resume();
 
@@ -510,7 +510,7 @@ template $Window: Adw.ApplicationWindow {
                 }
 
                 Button restart_button {
-                  Box restart_box {
+                  child: Box restart_box {
                     margin-top: 9;
                     margin-bottom: 9;
                     margin-start: 18;
@@ -535,7 +535,7 @@ template $Window: Adw.ApplicationWindow {
                         "overlaid",
                       ]
                     }
-                  }
+                  };
 
                   clicked => $_play_again();
 
@@ -548,7 +548,7 @@ template $Window: Adw.ApplicationWindow {
                     "highlighted",
                   ]
                 }
-              }
+              };
 
               Adw.Breakpoint {
                 condition ("max-height: 320px and max-width: 720px")
@@ -591,7 +591,7 @@ template $Window: Adw.ApplicationWindow {
               valign: start;
               halign: start;
 
-              Box header_start {
+              child: Box header_start {
                 margin-top: 6;
                 margin-bottom: 3;
                 margin-start: 6;
@@ -623,7 +623,7 @@ template $Window: Adw.ApplicationWindow {
                     "overlaid",
                   ]
                 }
-              }
+              };
             }
 
             [overlay]
@@ -631,7 +631,7 @@ template $Window: Adw.ApplicationWindow {
               valign: start;
               halign: end;
 
-              Box header_end {
+              child: Box header_end {
                 margin-top: 6;
                 margin-bottom: 3;
                 margin-end: 6;
@@ -674,14 +674,14 @@ template $Window: Adw.ApplicationWindow {
                     "overlaid",
                   ]
                 }
-              }
+              };
             }
 
-            GraphicsOffload graphics_offload {
+            child: GraphicsOffload graphics_offload {
               child: Picture picture {};
 
               black-background: true;
-            }
+            };
 
             GestureClick {
               button: 1;
@@ -692,16 +692,16 @@ template $Window: Adw.ApplicationWindow {
               button: 3;
               pressed => $_on_secondary_click_pressed();
             }
-            
+
             EventControllerMotion overlay_motion {
               motion => $_on_motion();
             }
-          }
+          };
         }
       };
-    }
+    };
   };
-  
+
   DropTarget drop_target {
     formats: "GFile";
     actions: copy;
