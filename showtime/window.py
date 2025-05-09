@@ -1089,10 +1089,12 @@ class Window(Adw.ApplicationWindow):
         self.options_popover.popup()
 
         def closed(*_args: Any) -> None:
-            self.options_popover.set_pointing_to(None)
-
+            self.options_popover.unparent()
             self.options_popover.set_has_arrow(True)
             self.options_popover.set_halign(Gtk.Align.FILL)
+
+            self.options_popover.set_pointing_to(None)
+            self.options_menu_button.set_popover(self.options_popover)
 
             self.options_popover.disconnect_by_func(closed)
 
