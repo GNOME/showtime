@@ -134,11 +134,11 @@ class Window(Adw.ApplicationWindow):
     @GObject.Property(type=float)
     def rate(self) -> float:
         """Get the playback rate."""
-        return self.play.get_rate()
+        return self.play.props.rate
 
     @rate.setter
     def rate(self, rate: float) -> None:
-        self.play.set_rate(rate)
+        self.play.props.rate = rate
         self.options_popover.popdown()
         self.emit("rate-changed")
 
@@ -160,13 +160,13 @@ class Window(Adw.ApplicationWindow):
             (Gtk.AccessibleProperty.LABEL,),
             (_("Play") if paused else _("Pause"),),
         )
-        self.play_button.set_icon_name(
+        self.play_button.props.icon_name = (
             "media-playback-start-symbolic"
             if paused
             else "media-playback-pause-symbolic"
         )
 
-        if not (app := self.get_application()):
+        if not (app := self.props.application):
             return
 
         (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
@@ -177,9 +177,9 @@ class Window(Adw.ApplicationWindow):
         # Remove redundant main menu on macOS
 
         if system == "Darwin":
-            self.placeholder_primary_menu_button.set_visible(False)
-            self.video_primary_menu_button.set_visible(False)
-            self.spinner.set_margin_top(6)
+            self.placeholder_primary_menu_button.props.visible = False
+            self.video_primary_menu_button.props.visible = False
+            self.spinner.props.margin_top = 6
 
         # Set up GstPlay
 
@@ -258,10 +258,10 @@ class Window(Adw.ApplicationWindow):
 
         def window_resized(*_args: Any) -> None:
             sink.props.window_width = (  # type: ignore
-                self.props.default_width * self.get_scale_factor()
+                self.props.default_width * self.props.scale_factor
             )
             sink.props.window_height = (  # type: ignore
-                self.props.default_height * self.get_scale_factor()
+                self.props.default_height * self.props.scale_factor
             )
 
         self.connect("notify::default-width", window_resized)
@@ -302,12 +302,12 @@ class Window(Adw.ApplicationWindow):
         logging.debug("Playing video: %s.", uri)
 
         self.media_info_updated = False
-        self.stack.set_visible_child(self.video_page)
-        self.placeholder_stack.set_visible_child(self.error_status_page)
+        self.stack.props.visible_child = self.video_page
+        self.placeholder_stack.props.visible_child = self.error_status_page
         self._select_subtitles(0)
-        self.default_speed_button.set_active(True)
+        self.default_speed_button.props.active = True
 
-        self.play.set_uri(uri)
+        self.play.props.uri = uri
         self.pause()
         self._on_motion()
 
@@ -340,7 +340,7 @@ class Window(Adw.ApplicationWindow):
         """
         logging.debug("Saving screenshot…")
 
-        if not (paintable := self.picture.get_paintable()):
+        if not (paintable := self.picture.props.paintable):
             logging.warning("Cannot save screenshot, no paintable.")
             return
 
@@ -361,8 +361,8 @@ class Window(Adw.ApplicationWindow):
         texture.save_to_png(path)
 
         toast = Adw.Toast.new(_("Screenshot captured"))
-        toast.set_priority(Adw.ToastPriority.HIGH)
-        toast.set_button_label(_("Show in Files"))
+        toast.props.priority = Adw.ToastPriority.HIGH
+        toast.props.button_label = _("Show in Files")
         toast.connect(
             "button-clicked",
             lambda *_: Gtk.FileLauncher.new(
@@ -397,27 +397,29 @@ class Window(Adw.ApplicationWindow):
         """Set the playback rate of the currently playing video."""
         if rate < 0.75:
             self.rate = 0.5
-            self.half_speed_button.set_active(True)
+            self.half_speed_button.props.active = True
 
         elif rate < 1.125:
             self.rate = 1
-            self.default_speed_button.set_active(True)
+            self.default_speed_button.props.active = True
 
         elif rate < 1.375:
             self.rate = 1.25
-            self.speed_1_25_button.set_active(True)
+            self.speed_1_25_button.props.active = True
 
         elif rate < 1.75:
             self.rate = 1.5
-            self.speed_1_5_button.set_active(True)
+            self.speed_1_5_button.props.active = True
 
         else:
             self.rate = 2
-            self.double_speed_button.set_active(True)
+            self.double_speed_button.props.active = True
 
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
-        self.play.set_mute(muted := not self.play.get_mute())
+        muted = not self.play.props.mute
+
+        self.play.props.mute = muted
         self._set_volume_display(muted)
 
     def toggle_fullscreen(self) -> None:
@@ -455,7 +457,7 @@ class Window(Adw.ApplicationWindow):
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Select the given subtitles for the video."""
-        action.set_state(state)
+        action.props.state = state
         if (index := state.get_uint16()) == MAX_UINT16:
             self.play.set_subtitle_track_enabled(False)
             return
@@ -465,7 +467,7 @@ class Window(Adw.ApplicationWindow):
 
     def select_language(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Select the given language for the video."""
-        action.set_state(state)
+        action.props.state = state
         self.play.set_audio_track(state.get_uint16())
 
     def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
@@ -536,7 +538,7 @@ class Window(Adw.ApplicationWindow):
         )
 
         self._set_end_timestamp_label(
-            self.play.get_position(), self.play.get_duration()
+            self.play.props.position, self.play.props.duration
         )
 
     @Gtk.Template.Callback()
@@ -596,7 +598,7 @@ class Window(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
-        if not gfile or not (app := self.get_application()):
+        if not gfile or not (app := self.props.application):
             return
 
         app.save_play_position(self)  # type: ignore
@@ -613,24 +615,24 @@ class Window(Adw.ApplicationWindow):
         if not gfile:
             return
 
-        self.play.set_subtitle_uri(gfile.get_uri())
+        self.play.props.suburi = gfile.get_uri()
         self._select_subtitles(0)
         logging.debug("External subtitle added: %s.", gfile.get_uri())
 
     def _select_subtitles(self, index: int) -> None:
-        if action := lookup_action(self.get_application(), "select-subtitles"):
+        if action := lookup_action(self.props.application, "select-subtitles"):
             action.activate(GLib.Variant.new_uint16(index))
 
     def _set_volume_display(
         self, muted: bool | None = None, volume: float | None = None
     ) -> None:
         if muted is None:
-            muted: bool = self.play.get_mute()
+            muted: bool = self.play.props.mute
 
         if volume is None:
-            volume = self.play.get_volume() or 0.0
+            volume = self.play.props.volume or 0.0
 
-        self.mute_button.set_active(muted)
+        self.mute_button.props.active = muted
 
         if muted:
             icon = "audio-volume-muted-symbolic"
@@ -641,10 +643,10 @@ class Window(Adw.ApplicationWindow):
         else:
             icon = "audio-volume-low-symbolic"
 
-        self.volume_menu_button.set_icon_name(icon)
+        self.volume_menu_button.props.icon_name = icon
 
     def _get_previous_play_position(self) -> float | None:
-        if not (uri := self.play.get_uri()):
+        if not (uri := self.play.props.uri):
             return None
 
         try:
@@ -691,9 +693,9 @@ class Window(Adw.ApplicationWindow):
             # Algorithm copied from Loupe
             # https://gitlab.gnome.org/GNOME/loupe/-/blob/4ca5f9e03d18667db5d72325597cebc02887777a/src/widgets/image/rendering.rs#L151
 
-            hidpi_scale = surface.get_scale_factor()
+            hidpi_scale = surface.props.scale_factor
 
-            monitor_rect = monitor.get_geometry()
+            monitor_rect = monitor.props.geometry
 
             monitor_width = monitor_rect.width
             monitor_height = monitor_rect.height
@@ -751,23 +753,23 @@ class Window(Adw.ApplicationWindow):
             anim = Adw.TimedAnimation.new(
                 self, init, target, 500, Adw.PropertyAnimationTarget.new(self, prop)
             )
-            anim.set_easing(Adw.Easing.EASE_OUT_EXPO)
+            anim.props.easing = Adw.Easing.EASE_OUT_EXPO
             (anim.skip if initial else anim.play)()
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
-            self.play.get_position(), self.play.get_duration()
+            self.play.props.position, self.play.props.duration
         )
 
     def _set_end_timestamp_label(self, pos: int, dur: int) -> None:
         match showtime.end_timestamp_type:
             case 0:  # Duration
-                self.end_timestamp_button.set_label(nanoseconds_to_timestamp(dur))
+                self.end_timestamp_button.props.label = nanoseconds_to_timestamp(dur)
             case 1:  # Remaining
-                self.end_timestamp_button.set_label(
-                    "-" + nanoseconds_to_timestamp(dur - pos)
+                self.end_timestamp_button.props.label = "-" + nanoseconds_to_timestamp(
+                    dur - pos
                 )
 
     @Gtk.Template.Callback()
@@ -790,13 +792,13 @@ class Window(Adw.ApplicationWindow):
 
         animations[widget] = Adw.TimedAnimation.new(
             widget,
-            widget.get_opacity(),
+            widget.props.opacity,
             int(reveal),
             250,
             Adw.PropertyAnimationTarget.new(widget, "opacity"),
         )
 
-        widget.set_can_target(reveal)
+        widget.props.can_target = reveal
         animations[widget].play()
 
     def _reveal_overlay(self, widget: Gtk.Widget) -> None:
@@ -810,11 +812,11 @@ class Window(Adw.ApplicationWindow):
             # Cursor moved
             timestamp != self.reveal_timestamp
             # Cursor is hovering controls
-            or any(motion.contains_pointer() for motion in self.overlay_motions)
+            or any(motion.props.contains_pointer for motion in self.overlay_motions)
             # Active popover
-            or any(button.get_active() for button in self.overlay_menu_buttons)
+            or any(button.props.active for button in self.overlay_menu_buttons)
             # Active restore buttons
-            or self.restore_breakpoint_bin.get_can_target()
+            or self.restore_breakpoint_bin.props.can_target
         ):
             return
 
@@ -897,32 +899,30 @@ class Window(Adw.ApplicationWindow):
                 self.paused = False
 
     def _on_duration_changed(self, _obj: Any, dur: int) -> None:
-        self._set_end_timestamp_label(self.play.get_position(), dur)
+        self._set_end_timestamp_label(self.play.props.position, dur)
 
     def _on_position_updated(self, _obj: Any, pos: int) -> None:
-        dur = self.play.get_duration()
+        dur = self.play.props.duration
 
         self.seek_scale.set_value(pos / dur)
 
         # TODO: This can probably be done only every second instead
-        self.position_label.set_label(nanoseconds_to_timestamp(pos))
+        self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
 
     def _on_seek_done(self, _obj: Any) -> None:
-        pos = self.play.get_position()
-        dur = self.play.get_duration()
+        pos = self.play.props.position
+        dur = self.play.props.duration
 
         self.seek_scale.set_value(pos / dur)
-        self.position_label.set_label(nanoseconds_to_timestamp(pos))
+        self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
         logging.debug("Seeked to %i.", pos)
 
     def _on_media_info_updated(
         self, _obj: Any, media_info: GstPlay.PlayMediaInfo
     ) -> None:
-        self.title_label.set_label(
-            get_title(media_info) or "",
-        )
+        self.title_label.props.label = get_title(media_info) or ""
 
         # Add a timeout to reduce the things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
@@ -938,7 +938,7 @@ class Window(Adw.ApplicationWindow):
 
         self._prev_volume = vol
         self._set_volume_display(volume=vol)
-        self.volume_adjustment.set_value(vol)
+        self.volume_adjustment.props.value = vol
 
         self.emit("volume-changed")
 
@@ -972,10 +972,10 @@ class Window(Adw.ApplicationWindow):
         button.add_css_class("pill")
         button.connect("clicked", copy_details)
 
-        self.error_status_page.set_child(button)
+        self.error_status_page.props.child = button
 
-        self.placeholder_stack.set_visible_child(self.error_status_page)
-        self.stack.set_visible_child(self.placeholder_page)
+        self.placeholder_stack.props.visible_child = self.error_status_page
+        self.stack.props.visible_child = self.placeholder_page
 
     def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
         # This is so media that is still partially playable doesn't get interrupted
@@ -989,35 +989,33 @@ class Window(Adw.ApplicationWindow):
         desc = GstPbutils.missing_plugin_message_get_description(msg)
         detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
 
-        self.missing_plugin_status_page.set_description(
-            _("The “{}” codecs required to play this video could not be found").format(
-                desc
-            )
-        )
+        self.missing_plugin_status_page.props.description = _(
+            "The “{}” codecs required to play this video could not be found"
+        ).format(desc)
 
         if not GstPbutils.install_plugins_supported():
-            self.missing_plugin_status_page.set_child(None)
-            self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
-            self.stack.set_visible_child(self.placeholder_page)
+            self.missing_plugin_status_page.props.child = None
+            self.placeholder_stack.props.visible_child = self.missing_plugin_status_page
+            self.stack.props.visible_child = self.placeholder_page
             return
 
         def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
                     logging.debug("Plugin installed.")
-                    self.stack.set_visible_child(self.video_page)
+                    self.stack.props.visible_child = self.video_page
                     self.pause()
 
                 case GstPbutils.InstallPluginsReturn.NOT_FOUND:
                     logging.error("Plugin installation failed: Not found.")
-                    self.missing_plugin_status_page.set_description(
-                        _("No plugin available for this media type")
+                    self.missing_plugin_status_page.props.description = _(
+                        "No plugin available for this media type"
                     )
 
                 case _:
                     logging.error("Plugin installation failed, result: %d", int(result))
-                    self.missing_plugin_status_page.set_description(
-                        _("Unable to install the required plugin")
+                    self.missing_plugin_status_page.props.description = _(
+                        "Unable to install the required plugin"
                     )
 
         button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
@@ -1029,33 +1027,33 @@ class Window(Adw.ApplicationWindow):
                 (detail,) if detail else (), None, on_install_done
             )
             self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
-            button.set_sensitive(False)
+            button.props.sensitive = False
 
         button.connect("clicked", install_plugin)
 
-        self.missing_plugin_status_page.set_child(button)
+        self.missing_plugin_status_page.props.child = button
 
-        self.missing_plugin_status_page.set_description(
-            _("“{}” codecs are required to play this video").format(desc)
-        )
-        self.placeholder_stack.set_visible_child(self.missing_plugin_status_page)
-        self.stack.set_visible_child(self.placeholder_page)
+        self.missing_plugin_status_page.props.description = _(
+            "“{}” codecs are required to play this video"
+        ).format(desc)
+        self.placeholder_stack.props.visible_child = self.missing_plugin_status_page
+        self.stack.props.visible_child = self.placeholder_page
 
     @Gtk.Template.Callback()
     def _on_stack_child_changed(self, *_args: Any) -> None:
         self._on_motion()
 
-        app = self.get_application()
+        app = self.props.application
 
         # TODO: Make this per-window instead of app-wide
-        if (self.stack.get_visible_child() != self.video_page) or not app:
+        if (self.stack.props.visible_child != self.video_page) or not app:
             return
 
         if (action := lookup_action(app, "select-subtitles")) and system != "Darwin":
-            action.set_enabled(True)
+            action.props.enabled = True
 
         if (action := lookup_action(app, "show-in-files")) and system != "Darwin":
-            action.set_enabled(True)
+            action.props.enabled = True
 
     @Gtk.Template.Callback()
     def _on_primary_click_released(
@@ -1077,24 +1075,24 @@ class Window(Adw.ApplicationWindow):
     ) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
 
-        self.options_menu_button.set_popover(None)
+        self.options_menu_button.props.popover = None
         self.options_popover.set_parent(self)
-        self.options_popover.set_has_arrow(False)
-        self.options_popover.set_halign(Gtk.Align.START)
+        self.options_popover.props.has_arrow = False
+        self.options_popover.props.halign = Gtk.Align.START
 
         rectangle = Gdk.Rectangle()
         rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
-        self.options_popover.set_pointing_to(rectangle)
+        self.options_popover.props.pointing_to = rectangle
 
         self.options_popover.popup()
 
         def closed(*_args: Any) -> None:
             self.options_popover.unparent()
-            self.options_popover.set_has_arrow(True)
-            self.options_popover.set_halign(Gtk.Align.FILL)
+            self.options_popover.props.has_arrow = True
+            self.options_popover.props.halign = Gtk.Align.FILL
 
-            self.options_popover.set_pointing_to(None)
-            self.options_menu_button.set_popover(self.options_popover)
+            self.options_popover.props.pointing_to = None  # type: ignore
+            self.options_menu_button.props.popover = self.options_popover
 
             self.options_popover.disconnect_by_func(closed)
 
@@ -1102,7 +1100,7 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _on_fullscreened(self, *_args: Any) -> None:
-        self.button_fullscreen.set_icon_name(
+        self.button_fullscreen.props.icon_name = (
             "view-restore-symbolic"
             if self.is_fullscreen()
             else "view-fullscreen-symbolic"

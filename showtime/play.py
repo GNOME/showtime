@@ -22,7 +22,7 @@ def gst_play_setup(
         raise RuntimeError("Cannot make gtk4paintablesink")
 
     paintable = paintable_sink.props.paintable  # type: ignore
-    picture.set_paintable(paintable)
+    picture.props.paintable = paintable
 
     # OpenGL doesn't work on macOS properly
     if paintable.props.gl_context and system != "Darwin":
@@ -34,7 +34,7 @@ def gst_play_setup(
         video_renderer=GstPlay.PlayVideoOverlayVideoRenderer.new_with_sink(None, sink)
     )
 
-    pipeline = play.get_pipeline()
+    pipeline = play.props.pipeline
 
     def set_subtitle_font_desc(*_args: Any) -> None:
         pipeline.props.subtitle_font_desc = utils.get_subtitle_font_desc()
