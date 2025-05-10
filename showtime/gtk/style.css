@@ -10,7 +10,7 @@
 
 button.highlighted:hover,
 menubutton.highlighted > button:hover,
-windowcontrols.overlaid > button:hover {
+windowcontrols.overlaid > button:hover > image {
   background-color: alpha(white, 0.15);
 }
 
@@ -20,17 +20,13 @@ windowcontrols.overlaid > button > image {
   background-color: transparent;
 }
 
-windowcontrols.overlaid > button {
-  border-radius: 50%;
-}
-
 scale.highlighted slider:hover {
   transform: scale(1.2);
 }
 
 button.highlighted:active,
 menubutton.highlighted > button:active,
-windowcontrols.overlaid > button:active {
+windowcontrols.overlaid > button:active > image {
   transform: scale(0.8);
 }
 
@@ -40,7 +36,7 @@ scale.highlighted slider:active {
 
 button.highlighted,
 menubutton.highlighted > button,
-windowcontrols.overlaid > button {
+windowcontrols.overlaid > button > image {
   transition: transform 0.2s, background-color 0.2s;
 }
 
