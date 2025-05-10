@@ -340,13 +340,13 @@ class MPRIS(DBusInterface):
         )
 
     def _on_rate_changed(self, *_args: Any) -> None:
-        if not self.win:
+        if not self.play:
             return
 
         self._properties_changed(
             MPRIS.MEDIA_PLAYER2_PLAYER_IFACE,
             {
-                "Rate": GLib.Variant("d", self.win.rate),
+                "Rate": GLib.Variant("d", self.play.props.rate),
             },
             [],
         )
@@ -487,7 +487,7 @@ class MPRIS(DBusInterface):
             return {
                 "PlaybackStatus": GLib.Variant("s", self._get_playback_status()),
                 "LoopStatus": GLib.Variant("s", "None"),
-                "Rate": GLib.Variant("d", self.win.rate if self.win else 0.0),
+                "Rate": GLib.Variant("d", self.play.props.rate if self.play else 0.0),
                 "Shuffle": GLib.Variant("b", False),
                 "Metadata": GLib.Variant("a{sv}", self._get_metadata()),
                 "Volume": GLib.Variant("d", volume),
