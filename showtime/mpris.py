@@ -508,34 +508,39 @@ class MPRIS(DBusInterface):
         else:
             logging.warning("MPRIS does not implement %s interface", interface_name)
 
-    def _set(self, interface_name: str, property_name: str, _new_value: Any) -> None:
-        if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
-            if property_name == "Fullscreen":
-                pass
-
-        elif interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
-            if property_name == "Rate":
-                if self.win:
-                    self.win.set_rate(_new_value)
-
-            elif property_name == "Volume":
-                if self.win:
-                    GLib.idle_add(
-                        partial(
-                            self.win.pipeline.set_volume,  # type: ignore
-                            GstAudio.StreamVolumeFormat.CUBIC,
-                            _new_value,
-                        )
-                    )
-
-            elif property_name == "LoopStatus":
-                pass
-
-            elif property_name == "Shuffle":
-                pass
-
-        else:
+    def _set(self, interface_name: str, property_name: str, value: Any) -> None:
+        if not interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
             logging.warning("MPRIS does not implement %s interface", interface_name)
+            return
+
+        if not self.win:
+            return
+
+        match property_name:
+            case "Rate":
+                self.win.rate = (
+                    "0.5"
+                    if value < 0.75
+                    else "1.0"
+                    if value < 1.125
+                    else "1.25"
+                    if value < 1.375
+                    else "1.5"
+                    if value < 1.75
+                    else "2.0"
+                )
+            case "Volume":
+                GLib.idle_add(
+                    partial(
+                        self.win.pipeline.set_volume,  # type: ignore
+                        GstAudio.StreamVolumeFormat.CUBIC,
+                        value,
+                    )
+                )
+            case "LoopStatus":
+                pass
+            case "Shuffle":
+                pass
 
     def _properties_changed(
         self,

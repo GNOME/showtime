@@ -390,20 +390,6 @@ class Window(Adw.ApplicationWindow):
         """Set the looping state of the currently playing video."""
         self.__class__.looping = looping
 
-    def set_rate(self, rate: float) -> None:
-        """Set the playback rate of the currently playing video."""
-        self.rate = (
-            "0.5"
-            if rate < 0.75
-            else "1.0"
-            if rate < 1.125
-            else "1.25"
-            if rate < 1.375
-            else "1.5"
-            if rate < 1.75
-            else "2.0"
-        )
-
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
         muted = not self.play.props.mute
