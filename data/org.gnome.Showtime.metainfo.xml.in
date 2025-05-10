@@ -15,7 +15,7 @@
 		<color type="primary" scheme_preference="dark">#4b3e81</color>
 	</branding>
 	<developer id="org.gnome">
-		<name translate="no">The GNOME Project</name>
+		<name>The GNOME Project</name>
 	</developer>
 	<url type="homepage">https://apps.gnome.org/Showtime/</url>
 	<url type="bugtracker">https://gitlab.gnome.org/GNOME/showtime/-/issues</url>
