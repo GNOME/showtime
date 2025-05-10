@@ -426,32 +426,19 @@ class Window(Adw.ApplicationWindow):
 
     def choose_video(self) -> None:
         """Open a file dialog to pick a video to play."""
-        (file_filter := Gtk.FileFilter()).set_name(_("Video"))
-        file_filter.add_mime_type("video/*")
-
-        (filters := Gio.ListStore()).append(file_filter)
-        (dialog := Gtk.FileDialog()).set_filters(filters)
-        dialog.set_default_filter(file_filter)
-
-        dialog.open(self, callback=self._choose_video_cb)
+        Gtk.FileDialog(
+            default_filter=Gtk.FileFilter(name=_("Video"), mime_types=("video/*",))
+        ).open(self, callback=self._choose_video_cb)
 
     def choose_subtitles(self) -> None:
         """Open a file dialog to pick a subtitle."""
-        (file_filter := Gtk.FileFilter()).set_name(_("Subtitles"))
-        file_filter = Gtk.FileFilter()
-        file_filter.add_mime_type("application/x-subrip")
-        file_filter.add_suffix("srt")
-        file_filter.add_mime_type("text/x-ssa")
-        file_filter.add_suffix("ssa")
-        file_filter.add_suffix("ass")
-        file_filter.add_mime_type("text/vtt")
-        file_filter.add_suffix("vtt")
-
-        (filters := Gio.ListStore()).append(file_filter)
-        (dialog := Gtk.FileDialog()).set_filters(filters)
-        dialog.set_default_filter(file_filter)
-
-        dialog.open(self, callback=self._choose_subtitles_cb)
+        Gtk.FileDialog(
+            default_filter=Gtk.FileFilter(
+                name=_("Subtitles"),
+                mime_types=("application/x-subrip", "text/x-ssa", "text/vtt"),
+                suffixes=("srt", "ssa", "ass", "vtt"),
+            )
+        ).open(self, callback=self._choose_subtitles_cb)
 
     def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
         """Select the given subtitles for the video."""
