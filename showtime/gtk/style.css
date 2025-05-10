@@ -20,16 +20,13 @@ windowcontrols.overlaid > button > image {
   background-color: transparent;
 }
 
-windowcontrols.overlaid > button > image {
-  transition: background-color 0.2s;
-}
-
 scale.highlighted slider:hover {
   transform: scale(1.2);
 }
 
 button.highlighted:active,
-menubutton.highlighted > button:active {
+menubutton.highlighted > button:active,
+windowcontrols.overlaid > button:active > image {
   transform: scale(0.8);
 }
 
@@ -38,7 +35,8 @@ scale.highlighted slider:active {
 }
 
 button.highlighted,
-menubutton.highlighted > button {
+menubutton.highlighted > button,
+windowcontrols.overlaid > button > image {
   transition: transform 0.2s, background-color 0.2s;
 }
 
