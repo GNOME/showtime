@@ -110,14 +110,17 @@ class Window(Adw.ApplicationWindow):
     buffering: bool = False
     looping: bool = False
 
-    reveal_timestamp: float = 0.0
-
-    reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
-    hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
-
     menus_building: int = 0
 
+    _reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
+    _hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
+
+    _last_reveal: float = 0.0
+    _last_seek: float = 0.0
+
     _paused: bool = True
+    _seeking: bool = False
+    _seek_paused: bool = False
     _prev_motion_xy: tuple = (0, 0)
     _prev_volume = -1
     _toplevel_focused: bool = False
@@ -724,7 +727,7 @@ class Window(Adw.ApplicationWindow):
         )
 
     def _set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
-        animations = self.reveal_animations if reveal else self.hide_animations
+        animations = self._reveal_animations if reveal else self._hide_animations
 
         if (
             animation := animations.get(widget)
@@ -751,7 +754,7 @@ class Window(Adw.ApplicationWindow):
     def _hide_overlays(self, timestamp: float) -> None:
         if (
             # Cursor moved
-            timestamp != self.reveal_timestamp
+            timestamp != self._last_reveal
             # Cursor is hovering controls
             or any(motion.props.contains_pointer for motion in self.overlay_motions)
             # Active popover
@@ -784,7 +787,7 @@ class Window(Adw.ApplicationWindow):
             return
 
         if not focused:
-            self._hide_overlays(self.reveal_timestamp)
+            self._hide_overlays(self._last_reveal)
 
         self._toplevel_focused = bool(focused)
 
@@ -812,8 +815,8 @@ class Window(Adw.ApplicationWindow):
         for widget in self.overlay_widgets:
             self._reveal_overlay(widget)
 
-        self.reveal_timestamp = time()
-        GLib.timeout_add_seconds(2, self._hide_overlays, self.reveal_timestamp)
+        self._last_reveal = time()
+        GLib.timeout_add_seconds(2, self._hide_overlays, self._last_reveal)
 
     def _on_playback_state_changed(self, _obj: Any, state: GstPlay.PlayState) -> None:
         # Only show a spinner if buffering for more than a second
@@ -853,11 +856,27 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _seek(self, _obj: Any, _scroll: Any, val: float) -> None:
+        if not self._seeking:
+            self._seeking = True
+            self._seek_paused = self.paused
+
         if not self.paused:
             self.pause()
 
         self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
         self.emit("seeked")
+
+        def post_seek(seeked: float) -> None:
+            if seeked != self._last_seek:
+                return
+
+            if not self._seek_paused:
+                self.unpause()
+
+            self._seeking = False
+
+        self._last_seek = time()
+        GLib.timeout_add(250, post_seek, self._last_seek)
 
     def _on_seek_done(self, _obj: Any) -> None:
         pos = self.play.props.position
