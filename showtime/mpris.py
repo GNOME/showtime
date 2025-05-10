@@ -340,13 +340,13 @@ class MPRIS(DBusInterface):
         )
 
     def _on_rate_changed(self, *_args: Any) -> None:
-        if not self.win:
+        if not self.play:
             return
 
         self._properties_changed(
             MPRIS.MEDIA_PLAYER2_PLAYER_IFACE,
             {
-                "Rate": GLib.Variant("d", self.win.rate),
+                "Rate": GLib.Variant("d", self.play.props.rate),
             },
             [],
         )
@@ -487,7 +487,7 @@ class MPRIS(DBusInterface):
             return {
                 "PlaybackStatus": GLib.Variant("s", self._get_playback_status()),
                 "LoopStatus": GLib.Variant("s", "None"),
-                "Rate": GLib.Variant("d", self.win.rate if self.win else 0.0),
+                "Rate": GLib.Variant("d", self.play.props.rate if self.play else 0.0),
                 "Shuffle": GLib.Variant("b", False),
                 "Metadata": GLib.Variant("a{sv}", self._get_metadata()),
                 "Volume": GLib.Variant("d", volume),
@@ -508,34 +508,39 @@ class MPRIS(DBusInterface):
         else:
             logging.warning("MPRIS does not implement %s interface", interface_name)
 
-    def _set(self, interface_name: str, property_name: str, _new_value: Any) -> None:
-        if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
-            if property_name == "Fullscreen":
-                pass
-
-        elif interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
-            if property_name == "Rate":
-                if self.win:
-                    self.win.set_rate(_new_value)
-
-            elif property_name == "Volume":
-                if self.win:
-                    GLib.idle_add(
-                        partial(
-                            self.win.pipeline.set_volume,  # type: ignore
-                            GstAudio.StreamVolumeFormat.CUBIC,
-                            _new_value,
-                        )
-                    )
-
-            elif property_name == "LoopStatus":
-                pass
-
-            elif property_name == "Shuffle":
-                pass
-
-        else:
+    def _set(self, interface_name: str, property_name: str, value: Any) -> None:
+        if not interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
             logging.warning("MPRIS does not implement %s interface", interface_name)
+            return
+
+        if not self.win:
+            return
+
+        match property_name:
+            case "Rate":
+                self.win.rate = (
+                    "0.5"
+                    if value < 0.75
+                    else "1.0"
+                    if value < 1.125
+                    else "1.25"
+                    if value < 1.375
+                    else "1.5"
+                    if value < 1.75
+                    else "2.0"
+                )
+            case "Volume":
+                GLib.idle_add(
+                    partial(
+                        self.win.pipeline.set_volume,  # type: ignore
+                        GstAudio.StreamVolumeFormat.CUBIC,
+                        value,
+                    )
+                )
+            case "LoopStatus":
+                pass
+            case "Shuffle":
+                pass
 
     def _properties_changed(
         self,

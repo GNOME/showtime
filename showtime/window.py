@@ -93,12 +93,6 @@ class Window(Adw.ApplicationWindow):
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    half_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
-
-    default_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
-    speed_1_25_button: Gtk.ToggleButton = Gtk.Template.Child()
-    speed_1_5_button: Gtk.ToggleButton = Gtk.Template.Child()
-    double_speed_button: Gtk.ToggleButton = Gtk.Template.Child()
 
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
@@ -131,14 +125,17 @@ class Window(Adw.ApplicationWindow):
     rate_changed = GObject.Signal(name="rate-changed")
     seeked = GObject.Signal(name="seeked")
 
-    @GObject.Property(type=float)
-    def rate(self) -> float:
+    @GObject.Property(type=str)
+    def rate(self) -> str:
         """Get the playback rate."""
-        return self.play.props.rate
+        try:
+            return str(self.play.props.rate)
+        except AttributeError:
+            return "1.0"
 
     @rate.setter
-    def rate(self, rate: float) -> None:
-        self.play.props.rate = rate
+    def rate(self, rate: str) -> None:
+        self.play.props.rate = float(rate)
         self.options_popover.popdown()
         self.emit("rate-changed")
 
@@ -287,7 +284,7 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
         self._select_subtitles(0)
-        self.default_speed_button.props.active = True
+        self.rate = "1.0"
 
         self.play.props.uri = uri
         self.pause()
@@ -374,28 +371,6 @@ class Window(Adw.ApplicationWindow):
     def set_looping(self, looping: bool) -> None:
         """Set the looping state of the currently playing video."""
         self.__class__.looping = looping
-
-    def set_rate(self, rate: float) -> None:
-        """Set the playback rate of the currently playing video."""
-        if rate < 0.75:
-            self.rate = 0.5
-            self.half_speed_button.props.active = True
-
-        elif rate < 1.125:
-            self.rate = 1
-            self.default_speed_button.props.active = True
-
-        elif rate < 1.375:
-            self.rate = 1.25
-            self.speed_1_25_button.props.active = True
-
-        elif rate < 1.75:
-            self.rate = 1.5
-            self.speed_1_5_button.props.active = True
-
-        else:
-            self.rate = 2
-            self.double_speed_button.props.active = True
 
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
@@ -518,20 +493,6 @@ class Window(Adw.ApplicationWindow):
     def _play_again(self, *_args: Any) -> None:
         self.play.seek(0)
         self.unpause()
-
-    @Gtk.Template.Callback()
-    def _set_rate(self, button: Gtk.ToggleButton) -> None:
-        match button:
-            case self.half_speed_button:
-                self.rate = 0.5
-            case self.speed_1_25_button:
-                self.rate = 1.25
-            case self.speed_1_5_button:
-                self.rate = 1.5
-            case self.double_speed_button:
-                self.rate = 2
-            case _:
-                self.rate = 1
 
     @Gtk.Template.Callback()
     def _rotate_left(self, *_args: Any) -> None:
