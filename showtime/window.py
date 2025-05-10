@@ -133,10 +133,7 @@ class Window(Adw.ApplicationWindow):
     @GObject.Property(type=str)
     def rate(self) -> str:
         """Get the playback rate."""
-        try:
-            return str(self.play.props.rate)
-        except AttributeError:
-            return "1.0"
+        return str(self.play.props.rate)
 
     @rate.setter
     def rate(self, rate: str) -> None:
