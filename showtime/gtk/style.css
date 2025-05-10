@@ -83,6 +83,7 @@ windowcontrols.overlaid > button > image {
 }
 
 scale.overlaid {
+  color: white;
   filter: drop-shadow(0 0 6px alpha(black, 0.3));
 }
 
