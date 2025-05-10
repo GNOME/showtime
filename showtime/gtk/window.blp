@@ -392,9 +392,8 @@ template $Window: Adw.ApplicationWindow {
                     change-value => $_seek();
 
                     adjustment: Adjustment {
-                      step-increment: 0.1;
                       lower: 0;
-                      upper: 1;
+                      upper: 500; // ×500 so that seeking isn't too rough
                       value: 0;
                     };
 

@@ -49,6 +49,8 @@ from showtime.utils import (
     screenshot,
 )
 
+SCALE_MULT = 500  # This is so that seeking isn't too rough
+
 
 @Gtk.Template(resource_path=f"{PREFIX}/gtk/window.ui")
 class Window(Adw.ApplicationWindow):
@@ -843,7 +845,7 @@ class Window(Adw.ApplicationWindow):
     def _on_position_updated(self, _obj: Any, pos: int) -> None:
         dur = self.play.props.duration
 
-        self.seek_scale.set_value(pos / dur)
+        self.seek_scale.set_value((pos / dur) * SCALE_MULT)
 
         # TODO: This can probably be done only every second instead
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
@@ -854,14 +856,14 @@ class Window(Adw.ApplicationWindow):
         if not self.paused:
             self.pause()
 
-        self.play.seek(max(self.play.props.duration * val, 0))
+        self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
         self.emit("seeked")
 
     def _on_seek_done(self, _obj: Any) -> None:
         pos = self.play.props.position
         dur = self.play.props.duration
 
-        self.seek_scale.set_value(pos / dur)
+        self.seek_scale.set_value((pos / dur) * SCALE_MULT)
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
         logging.debug("Seeked to %i.", pos)
