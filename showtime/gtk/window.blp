@@ -195,6 +195,8 @@ template $Window: Adw.ApplicationWindow {
   realize => $_on_realize();
   move-focus => $_on_motion();
   notify::fullscreened => $_on_fullscreened();
+  notify::default-width => $_window_resized();
+  notify::default-height => $_window_resized();
 
   content: Adw.ToastOverlay toast_overlay {
     child: $DragOverlay drag_overlay {
@@ -391,6 +393,7 @@ template $Window: Adw.ApplicationWindow {
                   Scale seek_scale {
                     hexpand: true;
                     valign: end;
+                    change-value => $_seek();
 
                     adjustment: Adjustment {
                       step-increment: 0.1;

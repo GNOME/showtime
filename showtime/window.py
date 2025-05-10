@@ -183,7 +183,13 @@ class Window(Adw.ApplicationWindow):
 
         # Set up GstPlay
 
-        self.paintable, self.play, self.pipeline, sink = gst_play_setup(self.picture)
+        (
+            self.paintable,
+            self.play,
+            self.pipeline,
+            self.sink,
+        ) = gst_play_setup(self.picture)
+
         self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
 
         messenger = Messenger(self.play, self.pipeline)
@@ -243,33 +249,9 @@ class Window(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        # Seeking
-
-        def seek(_obj: Any, _scroll: Any, val: float) -> None:
-            if not self.paused:
-                self.pause()
-
-            self.play.seek(max(self.play.get_duration() * val, 0))
-            self.emit("seeked")
-
-        self.seek_scale.connect("change-value", seek)
-
-        # Set window size for sink
-
-        def window_resized(*_args: Any) -> None:
-            sink.props.window_width = (  # type: ignore
-                self.props.default_width * self.props.scale_factor
-            )
-            sink.props.window_height = (  # type: ignore
-                self.props.default_height * self.props.scale_factor
-            )
-
-        self.connect("notify::default-width", window_resized)
-        self.connect("notify::default-height", window_resized)
-        window_resized()
-
         # Init
 
+        self._window_resized()
         self._on_stack_child_changed()
 
         state_settings.connect(
@@ -744,6 +726,15 @@ class Window(Adw.ApplicationWindow):
             (anim.skip if initial else anim.play)()
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
 
+    @Gtk.Template.Callback()
+    def _window_resized(self, *_args: Any) -> None:
+        self.sink.props.window_width = (  # type: ignore
+            self.props.default_width * self.props.scale_factor
+        )
+        self.sink.props.window_height = (  # type: ignore
+            self.props.default_height * self.props.scale_factor
+        )
+
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
@@ -896,6 +887,14 @@ class Window(Adw.ApplicationWindow):
         # TODO: This can probably be done only every second instead
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
+
+    @Gtk.Template.Callback()
+    def _seek(self, _obj: Any, _scroll: Any, val: float) -> None:
+        if not self.paused:
+            self.pause()
+
+        self.play.seek(max(self.play.props.duration * val, 0))
+        self.emit("seeked")
 
     def _on_seek_done(self, _obj: Any) -> None:
         pos = self.play.props.position
