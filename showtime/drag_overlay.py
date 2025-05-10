@@ -26,20 +26,20 @@ class DragOverlay(Adw.Bin):
     @GObject.Property(type=Gtk.Widget)
     def child(self) -> Gtk.Widget | None:
         """Usual content."""
-        return self.overlay.get_child()
+        return self.overlay.props.child
 
     @child.setter
     def child(self, child: Gtk.Widget) -> None:
-        self.overlay.set_child(child)
+        self.overlay.props.child = child
 
     @GObject.Property(type=Gtk.Widget)
     def overlayed(self) -> Gtk.Widget | None:
         """Widget overlayed when dragging over child."""
-        return self.revealer.get_child()
+        return self.revealer.props.child
 
     @overlayed.setter
     def overlayed(self, overlayed: Gtk.Widget) -> None:
-        self.revealer.set_child(overlayed)
+        self.revealer.props.child = overlayed
 
     @GObject.Property(type=Gtk.DropTarget)
     def drop_target(self) -> Gtk.DropTarget | None:
@@ -56,7 +56,7 @@ class DragOverlay(Adw.Bin):
         drop_target.connect(
             "notify::current-drop",
             lambda *_: self.revealer.set_reveal_child(
-                bool(drop_target.get_current_drop())
+                bool(drop_target.props.current_drop)
             ),
         )
 
@@ -70,6 +70,6 @@ class DragOverlay(Adw.Bin):
         self.overlay.set_parent(self)
         self.overlay.add_overlay(self.revealer)
 
-        self.revealer.set_can_target(False)
-        self.revealer.set_transition_type(Gtk.RevealerTransitionType.CROSSFADE)
-        self.revealer.set_reveal_child(False)
+        self.revealer.props.can_target = False
+        self.revealer.props.transition_type = Gtk.RevealerTransitionType.CROSSFADE
+        self.revealer.props.reveal_child = False

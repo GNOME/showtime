@@ -97,7 +97,7 @@ class Application(Adw.Application):
     def win(self) -> Window | None:  # type: ignore
         """The currently active window."""
         return (
-            win if isinstance(win := self.get_active_window(), Window) else None  # type: ignore
+            win if isinstance(win := self.props.active_window, Window) else None  # type: ignore
         )
 
     def inhibit_win(self, win: Window) -> None:  # type: ignore
@@ -118,7 +118,7 @@ class Application(Adw.Application):
 
     def save_play_position(self, win: Window) -> None:  # type: ignore
         """Save the play position of the currently playing file in the window to restore later."""
-        if not (uri := win.play.get_uri()):
+        if not (uri := win.play.props.uri):
             return
 
         digest = sha256(uri.encode("utf-8")).hexdigest()
@@ -138,7 +138,7 @@ class Application(Adw.Application):
 
             hist_file.close()
 
-        hist[digest] = win.play.get_position()
+        hist[digest] = win.play.props.position
 
         for _extra in range(max(len(hist) - MAX_HIST_ITEMS, 0)):
             del hist[next(iter(hist))]
@@ -150,7 +150,7 @@ class Application(Adw.Application):
         """Set up actions."""
         Adw.Application.do_startup(self)
 
-        Adw.StyleManager.get_default().set_color_scheme(Adw.ColorScheme.PREFER_DARK)
+        Adw.StyleManager.get_default().props.color_scheme = Adw.ColorScheme.PREFER_DARK
 
         self.create_action(
             "new-window",
@@ -166,7 +166,7 @@ class Application(Adw.Application):
             "show-in-files",
             lambda *_: (
                 Gtk.FileLauncher.new(
-                    Gio.File.new_for_uri(self.win.play.get_uri())
+                    Gio.File.new_for_uri(self.win.play.props.uri)
                 ).open_containing_folder()
                 if self.win
                 else None
@@ -179,10 +179,10 @@ class Application(Adw.Application):
         )
 
         if action := lookup_action(self, "screenshot"):
-            action.set_enabled(False)
+            action.props.enabled = False
 
         if action := lookup_action(self, "show-in-files"):
-            action.set_enabled(False)
+            action.props.enabled = False
 
         self.create_action(
             "toggle-fullscreen",
@@ -197,7 +197,7 @@ class Application(Adw.Application):
         self.create_action(
             "increase-volume",
             lambda *_: (
-                (play := self.win.play).set_volume(min(play.get_volume() + 0.05, 1))
+                (play := self.win.play).set_volume(min(play.props.volume + 0.05, 1))
                 if self.win
                 else None
             ),
@@ -206,7 +206,7 @@ class Application(Adw.Application):
         self.create_action(
             "decrease-volume",
             lambda *_: (
-                (play := self.win.play).set_volume(max(play.get_volume() - 0.05, 0))
+                (play := self.win.play).set_volume(max(play.props.volume - 0.05, 0))
                 if self.win
                 else None
             ),
@@ -221,7 +221,7 @@ class Application(Adw.Application):
         self.create_action(
             "backwards",
             lambda *_: (
-                (play := self.win.play).seek(max(0, play.get_position() - 1e10))
+                (play := self.win.play).seek(max(0, play.props.position - 1e10))
                 if self.win
                 else None
             ),
@@ -230,7 +230,7 @@ class Application(Adw.Application):
         self.create_action(
             "forwards",
             lambda *_: (
-                (play := self.win.play).seek(play.get_position() + 1e10)
+                (play := self.win.play).seek(play.props.position + 1e10)
                 if self.win
                 else None
             ),
@@ -293,31 +293,31 @@ class Application(Adw.Application):
         state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
 
         def emit_media_info_updated(win: Window) -> None:  #  type: ignore
-            if win == self.get_active_window():
+            if win == self.props.active_window:
                 self.emit("media-info-updated")
 
         win.connect("media-info-updated", emit_media_info_updated)
 
         def emit_volume_changed(win: Window) -> None:
-            if win == self.get_active_window():
+            if win == self.props.active_window:
                 self.emit("volume-changed")
 
         win.connect("volume-changed", emit_volume_changed)
 
         def emit_rate_changed(win: Window) -> None:
-            if win == self.get_active_window():
+            if win == self.props.active_window:
                 self.emit("rate-changed")
 
         win.connect("rate-changed", emit_rate_changed)
 
         def emit_seeked(win: Window) -> None:
-            if win == self.get_active_window():
+            if win == self.props.active_window:
                 self.emit("seeked")
 
         win.connect("seeked", emit_seeked)
 
         def emit_state_changed(win: Window, *_args: Any) -> None:  # type: ignore
-            if win == self.get_active_window():
+            if win == self.props.active_window:
                 self.emit("state-changed")
 
         win.connect("notify::paused", emit_state_changed)
@@ -355,8 +355,8 @@ class Application(Adw.Application):
         self, options: GLib.VariantDict
     ) -> int:
         """Handle local command line arguments."""
-        self.register()  # This is so get_is_remote works
-        if self.get_is_remote():
+        self.register()  # This is so props.is_remote works
+        if self.props.is_remote:
             if options.contains("new-window"):
                 return -1
 
@@ -388,20 +388,18 @@ class Application(Adw.Application):
         about = Adw.AboutDialog.new_from_appdata(
             PREFIX + "/" + APP_ID + ".metainfo.xml", VERSION
         )
-        about.set_developers(("kramo https://kramo.page",))
-        about.set_designers(
-            (
-                "Tobias Bernard https://tobiasbernard.com/",
-                "Allan Day https://blogs.gnome.org/aday/",
-                "kramo https://kramo.page",
-            )
-        )
-        about.set_copyright("© 2024 kramo")
+        about.props.developers = ["kramo https://kramo.page"]
+        about.props.designers = [
+            "Tobias Bernard https://tobiasbernard.com/",
+            "Allan Day https://blogs.gnome.org/aday/",
+            "kramo https://kramo.page",
+        ]
+        about.props.copyright = "© 2024 kramo"
         # Translators: Replace this with your name for it to show up in the about dialog
-        about.set_translator_credits(_("translator_credits"))
-        about.set_debug_info(debug_str)
-        about.set_debug_info_filename("showtime.log")
-        about.present(self.get_active_window())
+        about.props.translator_credits = _("translator_credits")
+        about.props.debug_info = debug_str
+        about.props.debug_info_filename = "showtime.log"
+        about.present(self.props.active_window)
 
     def create_action(
         self,
