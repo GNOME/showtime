@@ -108,7 +108,7 @@ class Window(Adw.ApplicationWindow):
 
     stopped: bool = True
     buffering: bool = False
-    looping: bool = False
+    looping: bool = state_settings.get_boolean("looping")
 
     menus_building: int = 0
 
@@ -173,14 +173,10 @@ class Window(Adw.ApplicationWindow):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(decorated=False if system == "Darwin" else True, **kwargs)
 
-        # Remove redundant main menu on macOS
-
         if system == "Darwin":
             self.placeholder_primary_menu_button.props.visible = False
             self.video_primary_menu_button.props.visible = False
             self.spinner.props.margin_top = 6
-
-        # Set up GstPlay
 
         (
             self.paintable,
@@ -203,14 +199,6 @@ class Window(Adw.ApplicationWindow):
         messenger.connect("error", self._on_error)
         messenger.connect("missing-plugin", self._on_missing_plugin)
 
-        # HACK: Limit the size of the options popover
-        # if (child := self.options_popover.get_first_child()) and isinstance(
-        #     (scroll := child.get_first_child()), Gtk.ScrolledWindow
-        # ):
-        #     scroll.set_max_content_height(300)
-
-        # Devel stripes
-
         if PROFILE == "development":
             self.add_css_class("devel")
 
@@ -223,8 +211,6 @@ class Window(Adw.ApplicationWindow):
             )
         )
         self.add_controller(esc)
-
-        # Hide the toolbar on motion
 
         for widget in (
             self.controls_box,
@@ -247,8 +233,6 @@ class Window(Adw.ApplicationWindow):
             self.options_menu_button,
             self.volume_menu_button,
         }
-
-        # Init
 
         self._window_resized()
         self._on_stack_child_changed()
@@ -373,6 +357,7 @@ class Window(Adw.ApplicationWindow):
     def set_looping(self, looping: bool) -> None:
         """Set the looping state of the currently playing video."""
         self.__class__.looping = looping
+        state_settings.set_boolean("looping", looping)
 
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""

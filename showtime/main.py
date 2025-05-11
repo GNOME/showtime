@@ -276,7 +276,9 @@ class Application(Adw.Application):
         self.add_action(lang_action)
 
         toggle_loop_action = Gio.SimpleAction.new_stateful(
-            "toggle-loop", None, GLib.Variant.new_boolean(False)
+            "toggle-loop",
+            None,
+            GLib.Variant.new_boolean(state_settings.get_boolean("looping")),
         )
         toggle_loop_action.connect("activate", self._on_toggle_loop)
         toggle_loop_action.connect("change-state", self._on_toggle_loop)
