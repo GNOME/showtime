@@ -377,6 +377,15 @@ template $Window: Adw.ApplicationWindow {
                       accessibility {
                         label: _("Playback Options");
                       }
+                      
+                      ShortcutController {
+                        scope: managed;
+                      
+                        Shortcut {
+                          trigger: "<shift>F10";
+                          action: "activate";
+                        }
+                      }
 
                       styles [
                         "circular",
