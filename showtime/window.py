@@ -366,10 +366,6 @@ class Window(Adw.ApplicationWindow):
         self.play.props.mute = muted
         self._set_volume_display(muted)
 
-    def toggle_fullscreen(self) -> None:
-        """Fullscreen `self` if not already in fullscreen, otherwise unfullscreens."""
-        (self.unfullscreen if self.is_fullscreen() else self.fullscreen)()
-
     def choose_video(self) -> None:
         """Open a file dialog to pick a video to play."""
         Gtk.FileDialog(
@@ -1013,7 +1009,7 @@ class Window(Adw.ApplicationWindow):
         self._on_motion()
 
         if not n % 2:
-            self.toggle_fullscreen()
+            self.props.fullscreened = not self.props.fullscreened
 
     @Gtk.Template.Callback()
     def _on_secondary_click_pressed(
@@ -1052,6 +1048,6 @@ class Window(Adw.ApplicationWindow):
     def _on_fullscreened(self, *_args: Any) -> None:
         self.button_fullscreen.props.icon_name = (
             "view-restore-symbolic"
-            if self.is_fullscreen()
+            if self.props.fullscreened
             else "view-fullscreen-symbolic"
         )

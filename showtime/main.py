@@ -186,7 +186,13 @@ class Application(Adw.Application):
 
         self.create_action(
             "toggle-fullscreen",
-            lambda *_: self.win.toggle_fullscreen() if self.win else ...,
+            lambda *_: (
+                self.win.unfullscreen()
+                if self.win.props.fullscreened
+                else self.win.fullscreen()
+            )
+            if self.win
+            else ...,
             ("F11", "f"),
         )
         self.create_action(
