@@ -242,13 +242,19 @@ class Window(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        self._window_resized()
         self._on_stack_child_changed()
 
         state_settings.connect(
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
         )
+
+    def do_size_allocate(self, width: int, height: int, baseline: int) -> None:
+        """Call to set the allocation, if the widget does not have a layout manager."""
+        Adw.ApplicationWindow.do_size_allocate(self, width, height, baseline)
+
+        self.sink.props.window_width = self.get_width() * self.props.scale_factor  # type: ignore
+        self.sink.props.window_height = self.get_height() * self.props.scale_factor  # type: ignore
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
@@ -641,15 +647,6 @@ class Window(Adw.ApplicationWindow):
             anim.props.easing = Adw.Easing.EASE_OUT_EXPO
             (anim.skip if initial else anim.play)()
             logging.debug("Resized window to %i×%i.", nat_width, nat_height)
-
-    @Gtk.Template.Callback()
-    def _window_resized(self, *_args: Any) -> None:
-        self.sink.props.window_width = (  # type: ignore
-            self.props.default_width * self.props.scale_factor
-        )
-        self.sink.props.window_height = (  # type: ignore
-            self.props.default_height * self.props.scale_factor
-        )
 
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")

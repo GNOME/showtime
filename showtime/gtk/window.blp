@@ -190,8 +190,6 @@ template $Window: Adw.ApplicationWindow {
   title: _("Video Player");
   realize => $_on_realize();
   move-focus => $_on_motion();
-  notify::default-width => $_window_resized();
-  notify::default-height => $_window_resized();
 
   content: Adw.ToastOverlay toast_overlay {
     child: $DragOverlay drag_overlay {
