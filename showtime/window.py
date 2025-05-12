@@ -250,112 +250,7 @@ class Window(Adw.ApplicationWindow):
             self._on_end_timestamp_type_changed,
         )
 
-        self._create_action(
-            "open-video",
-            lambda *_: self.choose_video(),
-            ("<primary>o",),
-        )
-        self._create_action(
-            "show-in-files",
-            lambda *_: (
-                Gtk.FileLauncher.new(
-                    Gio.File.new_for_uri(self.play.props.uri)
-                ).open_containing_folder()
-            ),
-        )
-        self._create_action(
-            "screenshot",
-            lambda *_: self.save_screenshot(),
-            ("<primary><alt>s",),
-        )
-
-        if action := lookup_action(self, "screenshot"):
-            action.props.enabled = False
-
-        if action := lookup_action(self, "show-in-files"):
-            action.props.enabled = False
-
-        self._create_action(
-            "toggle-fullscreen",
-            lambda *_: self.unfullscreen()
-            if self.props.fullscreened
-            else self.fullscreen(),
-            ("F11", "f"),
-        )
-        self._create_action(
-            "toggle-playback",
-            lambda *_: self.unpause() if self.paused else self.pause(),
-            ("p", "k", "space"),
-        )
-        self._create_action(
-            "increase-volume",
-            lambda *_: self.play.set_volume(min(self.play.props.volume + 0.05, 1)),
-            ("Up",),
-        )
-        self._create_action(
-            "decrease-volume",
-            lambda *_: self.play.set_volume(max(self.play.props.volume - 0.05, 0)),
-            ("Down",),
-        )
-        self._create_action(
-            "toggle-mute",
-            lambda *_: self.set_property("mute", not self.mute),
-            ("m",),
-        )
-        self._create_action(
-            "backwards",
-            lambda *_: self.play.seek(max(0, self.play.props.position - 1e10)),
-            ("Left",),
-        )
-        self._create_action(
-            "forwards",
-            lambda *_: self.play.seek(self.play.props.position + 1e10),
-            ("Right",),
-        )
-        self._create_action(
-            "close-window",
-            lambda *_: self.close(),
-            ("<primary>w", "q"),
-        )
-        self._create_action(
-            "choose-subtitles",
-            lambda *_: self.choose_subtitles(),
-        )
-
-        subs_action = Gio.SimpleAction.new_stateful(
-            "select-subtitles",
-            GLib.VariantType.new("q"),
-            GLib.Variant.new_uint16(0),
-        )
-        subs_action.connect("activate", self.select_subtitles)
-        self.add_action(subs_action)
-
-        lang_action = Gio.SimpleAction.new_stateful(
-            "select-language",
-            GLib.VariantType.new("q"),
-            GLib.Variant.new_uint16(0),
-        )
-        lang_action.connect("activate", self.select_language)
-        self.add_action(lang_action)
-
-        def on_toggle_loop(action: Gio.SimpleAction, _state: GLib.Variant) -> None:
-            value = not action.props.state.get_boolean()
-            action.set_state(GLib.Variant.new_boolean(value))
-            state_settings.set_boolean("looping", value)
-
-        toggle_loop_action = Gio.SimpleAction.new_stateful(
-            "toggle-loop",
-            None,
-            GLib.Variant.new_boolean(state_settings.get_boolean("looping")),
-        )
-        toggle_loop_action.connect("activate", on_toggle_loop)
-        toggle_loop_action.connect("change-state", on_toggle_loop)
-        self.add_action(toggle_loop_action)
-
-        self._create_action(
-            "about",
-            lambda *_: self._present_about_dialog(),
-        )
+        self._create_actions()
 
     def do_size_allocate(self, width: int, height: int, baseline: int) -> None:
         """Call to set the allocation, if the widget does not have a layout manager."""
@@ -426,48 +321,6 @@ class Window(Adw.ApplicationWindow):
 
         self.pipeline.connect("source-setup", setup_cb)
 
-    def save_screenshot(self) -> None:
-        """Save a screenshot of the current frame of the video being played in PNG format.
-
-        It tries saving it to `xdg-pictures/Screenshots` and falls back to `~`.
-        """
-        logging.debug("Saving screenshot…")
-
-        if not (paintable := self.picture.props.paintable):
-            logging.warning("Cannot save screenshot, no paintable.")
-            return
-
-        if not (texture := screenshot(paintable, self)):
-            return
-
-        path = (
-            str(Path(pictures, "Screenshots"))
-            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # type: ignore
-            else GLib.get_home_dir()
-        )
-
-        title = get_title(self.play.get_media_info()) or _("Unknown Title")
-        timestamp = nanoseconds_to_timestamp(self.play.get_position(), False)
-
-        path = str(Path(path, f"{title} {timestamp}.png"))
-
-        texture.save_to_png(path)
-
-        toast = Adw.Toast(
-            title=_("Screenshot captured"),
-            priority=Adw.ToastPriority.HIGH,
-            button_label=_("Show in Files"),
-        )
-        toast.connect(
-            "button-clicked",
-            lambda *_: Gtk.FileLauncher.new(
-                Gio.File.new_for_path(path)
-            ).open_containing_folder(),
-        )
-        self.toast_overlay.add_toast(toast)
-
-        logging.debug("Screenshot saved.")
-
     def unpause(self) -> None:
         """Start playing the current video."""
         self._hide_overlay(self.restore_breakpoint_bin)
@@ -479,37 +332,6 @@ class Window(Adw.ApplicationWindow):
         """Pause the currently playing video."""
         self.play.pause()
         logging.debug("Video paused.")
-
-    def choose_video(self) -> None:
-        """Open a file dialog to pick a video to play."""
-        Gtk.FileDialog(
-            default_filter=Gtk.FileFilter(name=_("Video"), mime_types=("video/*",))
-        ).open(self, callback=self._choose_video_cb)
-
-    def choose_subtitles(self) -> None:
-        """Open a file dialog to pick a subtitle."""
-        Gtk.FileDialog(
-            default_filter=Gtk.FileFilter(
-                name=_("Subtitles"),
-                mime_types=("application/x-subrip", "text/x-ssa", "text/vtt"),
-                suffixes=("srt", "ssa", "ass", "vtt"),
-            )
-        ).open(self, callback=self._choose_subtitles_cb)
-
-    def select_subtitles(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
-        """Select the given subtitles for the video."""
-        action.props.state = state
-        if (index := state.get_uint16()) == MAX_UINT16:
-            self.play.set_subtitle_track_enabled(False)
-            return
-
-        self.play.set_subtitle_track(index)
-        self.play.set_subtitle_track_enabled(True)
-
-    def select_language(self, action: Gio.SimpleAction, state: GLib.Variant) -> None:
-        """Select the given language for the video."""
-        action.props.state = state
-        self.play.set_audio_track(state.get_uint16())
 
     def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
         """(Re)build the Subtitles and Language menus for the currently playing video."""
@@ -569,23 +391,7 @@ class Window(Adw.ApplicationWindow):
         if not subs:
             self._select_subtitles(MAX_UINT16)
 
-        self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
-
-    def _create_action(
-        self,
-        name: str,
-        callback: Callable,
-        shortcuts: Sequence[str] | None = None,
-    ) -> None:
-        action = Gio.SimpleAction.new(name, None)
-        action.connect("activate", callback)
-        self.add_action(action)
-
-        if shortcuts and (app := self.props.application):
-            if system == "Darwin":
-                shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
-
-            app.set_accels_for_action(f"win.{name}", shortcuts)
+        self.subtitles_menu.append(_("Add Subtitle File…"), "win.choose-subtitles")
 
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args: Any) -> None:
@@ -634,37 +440,6 @@ class Window(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def _on_drop(self, _target: Any, gfile: Gio.File, _x: Any, _y: Any) -> None:
         self.play_video(gfile)
-
-    def _choose_video_cb(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
-        try:
-            gfile = dialog.open_finish(res)
-        except GLib.Error:
-            return
-
-        if not gfile or not (app := self.props.application):
-            return
-
-        app.save_play_position(self)  # type: ignore
-        self.play_video(gfile)
-
-    def _choose_subtitles_cb(
-        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
-    ) -> None:
-        try:
-            gfile = dialog.open_finish(res)
-        except GLib.Error:
-            return
-
-        if not gfile:
-            return
-
-        self.play.props.suburi = gfile.get_uri()
-        self._select_subtitles(0)
-        logging.debug("External subtitle added: %s.", gfile.get_uri())
-
-    def _select_subtitles(self, index: int) -> None:
-        if action := lookup_action(self.props.application, "select-subtitles"):
-            action.activate(GLib.Variant.new_uint16(index))
 
     def _get_previous_play_position(self) -> float | None:
         if not (uri := self.play.props.uri):
@@ -1127,6 +902,162 @@ class Window(Adw.ApplicationWindow):
 
         self.options_popover.connect("closed", closed)
 
+    @Gtk.Template.Callback()
+    def _get_play_icon(self, _obj: Any, paused: bool) -> str:
+        return (
+            "media-playback-start-symbolic"
+            if paused
+            else "media-playback-pause-symbolic"
+        )
+
+    @Gtk.Template.Callback()
+    def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
+        return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
+
+    @Gtk.Template.Callback()
+    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
+        return (
+            "audio-volume-muted-symbolic"
+            if mute
+            else "audio-volume-high-symbolic"
+            if volume > 0.7
+            else "audio-volume-medium-symbolic"
+            if volume > 0.3
+            else "audio-volume-low-symbolic"
+        )
+
+    def _create_actions(self) -> None:
+        self._create_action(
+            "close-window",
+            lambda *_: self.close(),
+            ("<primary>w", "q"),
+        )
+
+        self._create_action(
+            "about",
+            lambda *_: self._present_about_dialog(),
+        )
+
+        self._create_action(
+            "toggle-fullscreen",
+            lambda *_: self.set_property("fullscreened", not self.props.fullscreened),
+            ("F11", "f"),
+        )
+
+        self._create_action(
+            "toggle-playback",
+            lambda *_: self.unpause() if self.paused else self.pause(),
+            ("p", "k", "space"),
+        )
+
+        self._create_action(
+            "increase-volume",
+            lambda *_: self.play.set_volume(min(self.play.props.volume + 0.05, 1)),
+            ("Up",),
+        )
+
+        self._create_action(
+            "decrease-volume",
+            lambda *_: self.play.set_volume(max(self.play.props.volume - 0.05, 0)),
+            ("Down",),
+        )
+
+        self._create_action(
+            "toggle-mute",
+            lambda *_: self.set_property("mute", not self.mute),
+            ("m",),
+        )
+
+        self._create_action(
+            "backwards",
+            lambda *_: self.play.seek(max(0, self.play.props.position - 1e10)),
+            ("Left",),
+        )
+
+        self._create_action(
+            "forwards",
+            lambda *_: self.play.seek(self.play.props.position + 1e10),
+            ("Right",),
+        )
+
+        self._create_action(
+            "screenshot",
+            lambda *_: self._save_screenshot(),
+            ("<primary><alt>s",),
+        ).props.enabled = False
+
+        self._create_action(
+            "show-in-files",
+            lambda *_: Gtk.FileLauncher.new(
+                Gio.File.new_for_uri(self.play.props.uri)
+            ).open_containing_folder(),
+        ).props.enabled = False
+
+        self._create_action(
+            "open-video",
+            lambda *_args: Gtk.FileDialog(
+                default_filter=Gtk.FileFilter(
+                    name=_("Video"),
+                    mime_types=("video/*",),
+                )
+            ).open(self, callback=self._on_open_video),
+            ("<primary>o",),
+        )
+
+        self._create_action(
+            "choose-subtitles",
+            lambda *_args: Gtk.FileDialog(
+                default_filter=Gtk.FileFilter(
+                    name=_("Subtitles"),
+                    mime_types=("application/x-subrip", "text/x-ssa", "text/vtt"),
+                    suffixes=("srt", "ssa", "ass", "vtt"),
+                )
+            ).open(self, callback=self._on_choose_subtitles),
+        )
+
+        subs_action = Gio.SimpleAction.new_stateful(
+            "select-subtitles",
+            GLib.VariantType.new("q"),
+            GLib.Variant.new_uint16(0),
+        )
+        subs_action.connect("activate", self._on_select_subtitles)
+        self.add_action(subs_action)
+
+        lang_action = Gio.SimpleAction.new_stateful(
+            "select-language",
+            GLib.VariantType.new("q"),
+            GLib.Variant.new_uint16(0),
+        )
+        lang_action.connect("activate", self._on_select_language)
+        self.add_action(lang_action)
+
+        toggle_loop_action = Gio.SimpleAction.new_stateful(
+            "toggle-loop",
+            None,
+            GLib.Variant.new_boolean(state_settings.get_boolean("looping")),
+        )
+        toggle_loop_action.connect("activate", self._on_toggle_loop)
+        toggle_loop_action.connect("change-state", self._on_toggle_loop)
+        self.add_action(toggle_loop_action)
+
+    def _create_action(
+        self,
+        name: str,
+        callback: Callable,
+        shortcuts: Sequence[str] | None = None,
+    ) -> Gio.SimpleAction:
+        action = Gio.SimpleAction.new(name, None)
+        action.connect("activate", callback)
+        self.add_action(action)
+
+        if shortcuts and (app := self.props.application):
+            if system == "Darwin":
+                shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
+
+            app.set_accels_for_action(f"win.{name}", shortcuts)
+
+        return action
+
     def _present_about_dialog(self) -> None:
         # Get the debug info from the log files
         debug_str = ""
@@ -1157,26 +1088,98 @@ class Window(Adw.ApplicationWindow):
         about.props.debug_info_filename = "showtime.log"
         about.present(self)
 
-    @Gtk.Template.Callback()
-    def _get_play_icon(self, _obj: Any, paused: bool) -> str:
-        return (
-            "media-playback-start-symbolic"
-            if paused
-            else "media-playback-pause-symbolic"
+    def _save_screenshot(self) -> None:
+        """Save a screenshot of the current frame of the video being played in PNG format.
+
+        It tries saving it to `xdg-pictures/Screenshots` and falls back to `~`.
+        """
+        logging.debug("Saving screenshot…")
+
+        if not (paintable := self.picture.props.paintable):
+            logging.warning("Cannot save screenshot, no paintable.")
+            return
+
+        if not (texture := screenshot(paintable, self)):
+            return
+
+        path = (
+            str(Path(pictures, "Screenshots"))
+            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # type: ignore
+            else GLib.get_home_dir()
         )
 
-    @Gtk.Template.Callback()
-    def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
-        return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
+        title = get_title(self.play.get_media_info()) or _("Unknown Title")
+        timestamp = nanoseconds_to_timestamp(self.play.get_position(), False)
 
-    @Gtk.Template.Callback()
-    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
-        return (
-            "audio-volume-muted-symbolic"
-            if mute
-            else "audio-volume-high-symbolic"
-            if volume > 0.7
-            else "audio-volume-medium-symbolic"
-            if volume > 0.3
-            else "audio-volume-low-symbolic"
+        path = str(Path(path, f"{title} {timestamp}.png"))
+
+        texture.save_to_png(path)
+
+        toast = Adw.Toast(
+            title=_("Screenshot captured"),
+            priority=Adw.ToastPriority.HIGH,
+            button_label=_("Show in Files"),
         )
+        toast.connect(
+            "button-clicked",
+            lambda *_: Gtk.FileLauncher.new(
+                Gio.File.new_for_path(path)
+            ).open_containing_folder(),
+        )
+        self.toast_overlay.add_toast(toast)
+
+        logging.debug("Screenshot saved.")
+
+    def _on_open_video(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
+        try:
+            gfile = dialog.open_finish(res)
+        except GLib.Error:
+            return
+
+        if not gfile or not (app := self.props.application):
+            return
+
+        app.save_play_position(self)  # type: ignore
+        self.play_video(gfile)
+
+    def _on_choose_subtitles(
+        self, dialog: Gtk.FileDialog, res: Gio.AsyncResult
+    ) -> None:
+        try:
+            gfile = dialog.open_finish(res)
+        except GLib.Error:
+            return
+
+        if not gfile:
+            return
+
+        self.play.props.suburi = gfile.get_uri()
+        self._select_subtitles(0)
+        logging.debug("External subtitle added: %s.", gfile.get_uri())
+
+    def _select_subtitles(self, index: int) -> None:
+        if action := lookup_action(self, "select-subtitles"):
+            action.activate(GLib.Variant.new_uint16(index))
+
+    def _on_select_subtitles(
+        self, action: Gio.SimpleAction, state: GLib.Variant
+    ) -> None:
+        """Select the given subtitles for the video."""
+        action.props.state = state
+        if (index := state.get_uint16()) == MAX_UINT16:
+            self.play.set_subtitle_track_enabled(False)
+            return
+
+        self.play.set_subtitle_track(index)
+        self.play.set_subtitle_track_enabled(True)
+
+    def _on_select_language(
+        self, action: Gio.SimpleAction, state: GLib.Variant
+    ) -> None:
+        action.props.state = state
+        self.play.set_audio_track(state.get_uint16())
+
+    def _on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
+        value = not action.props.state.get_boolean()
+        action.set_state(GLib.Variant.new_boolean(value))
+        state_settings.set_boolean("looping", value)
