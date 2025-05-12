@@ -107,7 +107,6 @@ class Window(Adw.ApplicationWindow):
 
     stopped: bool = True
     buffering: bool = False
-    looping: bool = state_settings.get_boolean("looping")
 
     menus_building: int = 0
 
@@ -352,11 +351,6 @@ class Window(Adw.ApplicationWindow):
     def toggle_playback(self) -> None:
         """Pause/unpause the currently playing video."""
         (self.unpause if self.paused else self.pause)()
-
-    def set_looping(self, looping: bool) -> None:
-        """Set the looping state of the currently playing video."""
-        self.__class__.looping = looping
-        state_settings.set_boolean("looping", looping)
 
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
@@ -888,7 +882,7 @@ class Window(Adw.ApplicationWindow):
         self.emit("volume-changed")
 
     def _on_end_of_stream(self, _obj: Any) -> None:
-        if not self.__class__.looping:
+        if not state_settings.get_boolean("looping"):
             self.pause()
 
         self.play.seek(0)

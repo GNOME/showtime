@@ -435,8 +435,7 @@ class Application(Adw.Application):
     def _on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
-
-        self.win.set_looping(value) if self.win else ...
+        state_settings.set_boolean("looping", value)
 
     def _on_window_removed(self, _obj: Any, win: Window) -> None:  # type: ignore
         self.save_play_position(win)
