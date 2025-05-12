@@ -222,7 +222,9 @@ class Application(Adw.Application):
         )
         self.create_action(
             "toggle-mute",
-            lambda *_: self.win.toggle_mute() if self.win else ...,
+            lambda *_: self.win.set_property("mute", not self.win.mute)
+            if self.win
+            else ...,
             ("m",),
         )
 

@@ -128,6 +128,17 @@ class Window(Adw.ApplicationWindow):
     rate_changed = GObject.Signal(name="rate-changed")
     seeked = GObject.Signal(name="seeked")
 
+    volume = GObject.Property(type=float)
+
+    @GObject.Property(type=bool, default=False)
+    def mute(self) -> bool:
+        """Get the mute state."""
+        return self.play.props.mute
+
+    @mute.setter
+    def mute(self, mute: bool) -> None:
+        self.play.props.mute = mute
+
     @GObject.Property(type=str)
     def rate(self) -> str:
         """Get the playback rate."""
@@ -347,13 +358,6 @@ class Window(Adw.ApplicationWindow):
         """Pause the currently playing video."""
         self.play.pause()
         logging.debug("Video paused.")
-
-    def toggle_mute(self) -> None:
-        """Mute/unmute the player."""
-        muted = not self.play.props.mute
-
-        self.play.props.mute = muted
-        self._set_volume_display(muted)
 
     def choose_video(self) -> None:
         """Open a file dialog to pick a video to play."""
