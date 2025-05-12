@@ -6,7 +6,9 @@
 """The main application window."""
 
 import logging
+import lzma
 import pickle
+from collections.abc import Callable, Sequence
 from functools import partial
 from gettext import ngettext
 from hashlib import sha256
@@ -30,6 +32,7 @@ from gi.repository import (
 
 import showtime
 from showtime import (
+    APP_ID,
     DEFAULT_OCCUPY_SCREEN,
     MAX_UINT16,
     PREFIX,
@@ -249,6 +252,113 @@ class Window(Adw.ApplicationWindow):
             self._on_end_timestamp_type_changed,
         )
 
+        self._create_action(
+            "open-video",
+            lambda *_: self.choose_video(),
+            ("<primary>o",),
+        )
+        self._create_action(
+            "show-in-files",
+            lambda *_: (
+                Gtk.FileLauncher.new(
+                    Gio.File.new_for_uri(self.play.props.uri)
+                ).open_containing_folder()
+            ),
+        )
+        self._create_action(
+            "screenshot",
+            lambda *_: self.save_screenshot(),
+            ("<primary><alt>s",),
+        )
+
+        if action := lookup_action(self, "screenshot"):
+            action.props.enabled = False
+
+        if action := lookup_action(self, "show-in-files"):
+            action.props.enabled = False
+
+        self._create_action(
+            "toggle-fullscreen",
+            lambda *_: self.unfullscreen()
+            if self.props.fullscreened
+            else self.fullscreen(),
+            ("F11", "f"),
+        )
+        self._create_action(
+            "toggle-playback",
+            lambda *_: self.unpause() if self.paused else self.pause(),
+            ("p", "k", "space"),
+        )
+        self._create_action(
+            "increase-volume",
+            lambda *_: self.play.set_volume(min(self.play.props.volume + 0.05, 1)),
+            ("Up",),
+        )
+        self._create_action(
+            "decrease-volume",
+            lambda *_: self.play.set_volume(max(self.play.props.volume - 0.05, 0)),
+            ("Down",),
+        )
+        self._create_action(
+            "toggle-mute",
+            lambda *_: self.set_property("mute", not self.mute),
+            ("m",),
+        )
+        self._create_action(
+            "backwards",
+            lambda *_: self.play.seek(max(0, self.play.props.position - 1e10)),
+            ("Left",),
+        )
+        self._create_action(
+            "forwards",
+            lambda *_: self.play.seek(self.play.props.position + 1e10),
+            ("Right",),
+        )
+        self._create_action(
+            "close-window",
+            lambda *_: self.close(),
+            ("<primary>w", "q"),
+        )
+        self._create_action(
+            "choose-subtitles",
+            lambda *_: self.choose_subtitles(),
+        )
+
+        subs_action = Gio.SimpleAction.new_stateful(
+            "select-subtitles",
+            GLib.VariantType.new("q"),
+            GLib.Variant.new_uint16(0),
+        )
+        subs_action.connect("activate", self.select_subtitles)
+        self.add_action(subs_action)
+
+        lang_action = Gio.SimpleAction.new_stateful(
+            "select-language",
+            GLib.VariantType.new("q"),
+            GLib.Variant.new_uint16(0),
+        )
+        lang_action.connect("activate", self.select_language)
+        self.add_action(lang_action)
+
+        def on_toggle_loop(action: Gio.SimpleAction, _state: GLib.Variant) -> None:
+            value = not action.props.state.get_boolean()
+            action.set_state(GLib.Variant.new_boolean(value))
+            state_settings.set_boolean("looping", value)
+
+        toggle_loop_action = Gio.SimpleAction.new_stateful(
+            "toggle-loop",
+            None,
+            GLib.Variant.new_boolean(state_settings.get_boolean("looping")),
+        )
+        toggle_loop_action.connect("activate", on_toggle_loop)
+        toggle_loop_action.connect("change-state", on_toggle_loop)
+        self.add_action(toggle_loop_action)
+
+        self._create_action(
+            "about",
+            lambda *_: self._present_about_dialog(),
+        )
+
     def do_size_allocate(self, width: int, height: int, baseline: int) -> None:
         """Call to set the allocation, if the widget does not have a layout manager."""
         Adw.ApplicationWindow.do_size_allocate(self, width, height, baseline)
@@ -289,6 +399,12 @@ class Window(Adw.ApplicationWindow):
         self.play.props.uri = uri
         self.pause()
         self._on_motion()
+
+        if action := lookup_action(self, "screenshot"):
+            action.props.enabled = True
+
+        if action := lookup_action(self, "show-in-files"):
+            action.props.enabled = True
 
         if not (pos := self._get_previous_play_position()):
             self.unpause()
@@ -456,6 +572,22 @@ class Window(Adw.ApplicationWindow):
             self._select_subtitles(MAX_UINT16)
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "app.choose-subtitles")
+
+    def _create_action(
+        self,
+        name: str,
+        callback: Callable,
+        shortcuts: Sequence[str] | None = None,
+    ) -> None:
+        action = Gio.SimpleAction.new(name, None)
+        action.connect("activate", callback)
+        self.add_action(action)
+
+        if shortcuts and (app := self.props.application):
+            if system == "Darwin":
+                shortcuts = tuple(s.replace("<primary>", "<meta>") for s in shortcuts)
+
+            app.set_accels_for_action(f"win.{name}", shortcuts)
 
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args: Any) -> None:
@@ -1012,6 +1144,36 @@ class Window(Adw.ApplicationWindow):
             self.options_popover.disconnect_by_func(closed)
 
         self.options_popover.connect("closed", closed)
+
+    def _present_about_dialog(self) -> None:
+        # Get the debug info from the log files
+        debug_str = ""
+        for index, path in enumerate(showtime.log_files):
+            # Add a horizontal line between runs
+            if index > 0:
+                debug_str += "─" * 37 + "\n"
+            # Add the run's logs
+            log_file = (
+                lzma.open(path, "rt", encoding="utf-8")
+                if path.name.endswith(".xz")
+                else path.open("r", encoding="utf-8")
+            )
+            debug_str += data if isinstance(data := log_file.read(), str) else ""
+            log_file.close()
+
+        about = Adw.AboutDialog.new_from_appdata(f"{PREFIX}/{APP_ID}.metainfo.xml")
+        about.props.developers = ["kramo https://kramo.page"]
+        about.props.designers = [
+            "Tobias Bernard https://tobiasbernard.com/",
+            "Allan Day https://blogs.gnome.org/aday/",
+            "kramo https://kramo.page",
+        ]
+        about.props.copyright = "© 2024 kramo"
+        # Translators: Replace this with your name for it to show up in the about dialog
+        about.props.translator_credits = _("translator_credits")
+        about.props.debug_info = debug_str
+        about.props.debug_info_filename = "showtime.log"
+        about.present(self)
 
     @Gtk.Template.Callback()
     def _get_play_icon(self, _obj: Any, paused: bool) -> str:
