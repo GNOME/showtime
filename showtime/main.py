@@ -19,9 +19,6 @@ gi.require_version("GstPlay", "1.0")
 gi.require_version("GstAudio", "1.0")
 gi.require_version("GstPbutils", "1.0")
 
-# pylint: disable=wrong-import-position
-# pylint: disable=wrong-import-order
-
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 import showtime
@@ -153,9 +150,7 @@ class Application(Adw.Application):
         self._create_action("new-window", lambda *_: self.activate(), ("<primary>n",))
         self._create_action("quit", lambda *_: self.quit(), ("<primary>q",))
 
-    def do_activate(  # pylint: disable=arguments-differ
-        self, gfile: Gio.File | None = None
-    ) -> None:
+    def do_activate(self, gfile: Gio.File | None = None) -> None:
         """Create a new window, set up MPRIS."""
         win = Window(
             application=self,  # type: ignore
@@ -222,9 +217,7 @@ class Application(Adw.Application):
         for gfile in gfiles:
             self.do_activate(gfile)
 
-    def do_handle_local_options(  # pylint: disable=arguments-differ
-        self, options: GLib.VariantDict
-    ) -> int:
+    def do_handle_local_options(self, options: GLib.VariantDict) -> int:
         """Handle local command line arguments."""
         self.register()  # This is so props.is_remote works
         if self.props.is_remote:
