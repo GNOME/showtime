@@ -1017,7 +1017,7 @@ class Window(Adw.ApplicationWindow):
         self.options_popover.connect("closed", closed)
 
     @Gtk.Template.Callback()
-    def _play_icon(self, _obj: Any, paused: bool) -> str:
+    def _get_play_icon(self, _obj: Any, paused: bool) -> str:
         return (
             "media-playback-start-symbolic"
             if paused
@@ -1025,11 +1025,11 @@ class Window(Adw.ApplicationWindow):
         )
 
     @Gtk.Template.Callback()
-    def _fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
+    def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
         return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
 
     @Gtk.Template.Callback()
-    def _volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
+    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
         return (
             "audio-volume-muted-symbolic"
             if mute

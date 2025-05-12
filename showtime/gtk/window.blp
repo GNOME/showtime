@@ -296,7 +296,7 @@ template $Window: Adw.ApplicationWindow {
                     margin-start: 12;
                     margin-end: 12;
                     valign: center;
-                    icon-name: bind $_play_icon(template.paused) as <string>;
+                    icon-name: bind $_get_play_icon(template.paused) as <string>;
                     action-name: "app.toggle-playback";
 
                     accessibility {
@@ -351,7 +351,7 @@ template $Window: Adw.ApplicationWindow {
 
                     MenuButton volume_menu_button {
                       valign: center;
-                      icon-name: bind $_volume_icon(template.mute, template.volume) as <string>;
+                      icon-name: bind $_get_volume_icon(template.mute, template.volume) as <string>;
                       popover: volume_popover;
                       direction: up;
 
@@ -619,7 +619,7 @@ template $Window: Adw.ApplicationWindow {
                   hexpand: true;
                   margin-bottom: 24;
                   margin-end: 24;
-                  icon-name: bind $_fullscreen_icon(template.fullscreened) as <string>;
+                  icon-name: bind $_get_fullscreen_icon(template.fullscreened) as <string>;
                   tooltip-text: _("Toggle Fullscreen");
                   action-name: "app.toggle-fullscreen";
 
