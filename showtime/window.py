@@ -90,7 +90,6 @@ class Window(Adw.ApplicationWindow):
 
     volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    mute_button: Gtk.ToggleButton = Gtk.Template.Child()
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
@@ -529,28 +528,6 @@ class Window(Adw.ApplicationWindow):
         if action := lookup_action(self.props.application, "select-subtitles"):
             action.activate(GLib.Variant.new_uint16(index))
 
-    def _set_volume_display(
-        self, muted: bool | None = None, volume: float | None = None
-    ) -> None:
-        if muted is None:
-            muted: bool = self.play.props.mute
-
-        if volume is None:
-            volume = self.play.props.volume or 0.0
-
-        self.mute_button.props.active = muted
-
-        if muted:
-            icon = "audio-volume-muted-symbolic"
-        elif volume > 0.7:
-            icon = "audio-volume-high-symbolic"
-        elif volume > 0.3:
-            icon = "audio-volume-medium-symbolic"
-        else:
-            icon = "audio-volume-low-symbolic"
-
-        self.volume_menu_button.props.icon_name = icon
-
     def _get_previous_play_position(self) -> float | None:
         if not (uri := self.play.props.uri):
             return None
@@ -876,7 +853,7 @@ class Window(Adw.ApplicationWindow):
             return
 
         self._prev_volume = vol
-        self._set_volume_display(volume=vol)
+        self.volume = vol
         self.volume_adjustment.props.value = vol
 
         self.emit("volume-changed")
@@ -1038,5 +1015,25 @@ class Window(Adw.ApplicationWindow):
         self.options_popover.connect("closed", closed)
 
     @Gtk.Template.Callback()
+    def _play_icon(self, _obj: Any, paused: bool) -> str:
+        return (
+            "media-playback-start-symbolic"
+            if paused
+            else "media-playback-pause-symbolic"
+        )
+
+    @Gtk.Template.Callback()
     def _fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
         return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
+
+    @Gtk.Template.Callback()
+    def _volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
+        return (
+            "audio-volume-muted-symbolic"
+            if mute
+            else "audio-volume-high-symbolic"
+            if volume > 0.7
+            else "audio-volume-medium-symbolic"
+            if volume > 0.3
+            else "audio-volume-low-symbolic"
+        )

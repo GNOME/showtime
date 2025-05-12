@@ -154,9 +154,9 @@ Popover volume_popover {
     margin-start: 6;
     margin-end: 6;
 
-    ToggleButton mute_button {
+    ToggleButton {
       icon-name: "audio-volume-muted-symbolic";
-      action-name: "app.toggle-mute";
+      active: bind template.mute bidirectional;
 
       accessibility {
         label: _("Mute/Unmute");
@@ -296,7 +296,7 @@ template $Window: Adw.ApplicationWindow {
                     margin-start: 12;
                     margin-end: 12;
                     valign: center;
-                    icon-name: "media-playback-start-symbolic";
+                    icon-name: bind $_play_icon(template.paused) as <string>;
                     action-name: "app.toggle-playback";
 
                     accessibility {
@@ -351,7 +351,7 @@ template $Window: Adw.ApplicationWindow {
 
                     MenuButton volume_menu_button {
                       valign: center;
-                      icon-name: "audio-volume-high-symbolic";
+                      icon-name: bind $_volume_icon(template.mute, template.volume) as <string>;
                       popover: volume_popover;
                       direction: up;
 
