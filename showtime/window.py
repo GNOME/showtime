@@ -542,7 +542,7 @@ class Window(Adw.ApplicationWindow):
 
             self.language_menu.append(
                 f"{language}{(' - ' + title) if (has_title and title) else ''}",
-                f"app.select-language(uint16 {index})",
+                f"win.select-language(uint16 {index})",
             )
             langs += 1
 
@@ -552,7 +552,7 @@ class Window(Adw.ApplicationWindow):
             # I don't know if there is a better way to do this
 
         self.subtitles_menu.append(
-            _("None"), f"app.select-subtitles(uint16 {MAX_UINT16})"
+            _("None"), f"win.select-subtitles(uint16 {MAX_UINT16})"
         )
 
         subs = 0
@@ -562,7 +562,7 @@ class Window(Adw.ApplicationWindow):
 
             self.subtitles_menu.append(
                 f"{language}{(' - ' + title) if (has_title and title) else ''}",
-                f"app.select-subtitles(uint16 {index})",
+                f"win.select-subtitles(uint16 {index})",
             )
             subs += 1
 
