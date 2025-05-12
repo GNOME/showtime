@@ -94,9 +94,9 @@ def get_title(media_info: GstPlay.PlayMediaInfo | None) -> str | None:
     )
 
 
-def lookup_action(app: Gio.Application | None, name: str) -> Gio.SimpleAction | None:
-    """Look up an action in `app` with type checking."""
-    if app and isinstance(action := app.lookup_action(name), Gio.SimpleAction):
+def lookup_action(map: Gio.ActionMap | None, name: str) -> Gio.SimpleAction | None:
+    """Look up an action in `map` with type checking."""
+    if map and isinstance(action := map.lookup_action(name), Gio.SimpleAction):
         return action
 
 

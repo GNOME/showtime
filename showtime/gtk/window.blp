@@ -3,13 +3,13 @@ using Adw 1;
 
 menu primary_menu {
   section {
-    item (_("_Open…"), "app.open-video")
+    item (_("_Open…"), "win.open-video")
   }
 
   section {
     item {
       label: _("Show in _Files");
-      action: "app.show-in-files";
+      action: "win.show-in-files";
       hidden-when: "action-disabled";
     }
   }
@@ -17,14 +17,14 @@ menu primary_menu {
   section {
     item {
       label: _("Take _Screenshot");
-      action: "app.screenshot";
+      action: "win.screenshot";
       hidden-when: "action-disabled";
     }
   }
 
   section {
     item (_("_Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("_About Video Player"), "app.about")
+    item (_("_About Video Player"), "win.about")
   }
 }
 
@@ -59,7 +59,7 @@ menu options {
   }
 
   section {
-    item (_("_Repeat"), "app.toggle-loop")
+    item (_("_Repeat"), "win.toggle-loop")
   }
 }
 
@@ -204,8 +204,6 @@ template $Window: Adw.ApplicationWindow {
       };
 
       child: Stack stack {
-        notify::visible-child => $_on_stack_child_changed();
-
         Adw.ToolbarView placeholder_page {
           [top]
           Adw.HeaderBar header_bar {
@@ -228,7 +226,7 @@ template $Window: Adw.ApplicationWindow {
                 child: Button button_open {
                   label: _("Open…");
                   halign: center;
-                  action-name: "app.open-video";
+                  action-name: "win.open-video";
 
                   styles [
                     "pill",
@@ -276,7 +274,7 @@ template $Window: Adw.ApplicationWindow {
                     name: "backwards-button";
                     valign: center;
                     icon-name: "skip-backwards-10-symbolic";
-                    action-name: "app.backwards";
+                    action-name: "win.backwards";
 
                     accessibility {
                       label: _("Go Back 10 Seconds");
@@ -295,7 +293,7 @@ template $Window: Adw.ApplicationWindow {
                     margin-end: 12;
                     valign: center;
                     icon-name: bind $_get_play_icon(template.paused) as <string>;
-                    action-name: "app.toggle-playback";
+                    action-name: "win.toggle-playback";
 
                     accessibility {
                       label: _("Play");
@@ -312,7 +310,7 @@ template $Window: Adw.ApplicationWindow {
                     name: "forwards-button";
                     valign: center;
                     icon-name: "skip-forward-10-symbolic";
-                    action-name: "app.forwards";
+                    action-name: "win.forwards";
 
                     accessibility {
                       label: _("Go Forward 10 Seconds");
@@ -619,7 +617,7 @@ template $Window: Adw.ApplicationWindow {
                   margin-end: 24;
                   icon-name: bind $_get_fullscreen_icon(template.fullscreened) as <string>;
                   tooltip-text: _("Toggle Fullscreen");
-                  action-name: "app.toggle-fullscreen";
+                  action-name: "win.toggle-fullscreen";
 
                   styles [
                     "circular",

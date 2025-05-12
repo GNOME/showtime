@@ -9,7 +9,7 @@ from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
 from Foundation import NSObject  # type: ignore
 from gi.repository import Gio
 
-from showtime import app
+from showtime import app, utils
 
 
 class ApplicationDelegate(NSObject):
@@ -73,21 +73,16 @@ class ApplicationDelegate(NSObject):
 
     def open_(self, *_args: Any) -> None:
         """Show the file chooser for opening a video."""
-        if (not (app)) or (not app.win):
+        if not (app and app.win):
             return
 
-        app.win.choose_video()
+        if action := utils.lookup_action(app.win, "open-video"):
+            action.activate()
 
     def shortcuts_(self, *_args: Any) -> None:
         """Open the shortcuts dialog."""
-        if (
-            (not (app))
-            or (not app.win)
-            or (not (overlay := app.win.get_help_overlay()))
-        ):
-            return
-
-        overlay.present()
+        if app and app.win and (overlay := app.win.get_help_overlay()):
+            overlay.present()
 
     def application_openFile_(  # noqa: N802
         self,
@@ -95,7 +90,7 @@ class ApplicationDelegate(NSObject):
         filename: str,
     ) -> bool:
         """Open a file."""
-        if (not app) or (not app.win):
+        if not (app and app.win):
             return False
 
         app.win.play_video(Gio.File.new_for_path(filename))
