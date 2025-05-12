@@ -154,9 +154,9 @@ Popover volume_popover {
     margin-start: 6;
     margin-end: 6;
 
-    ToggleButton mute_button {
+    ToggleButton {
       icon-name: "audio-volume-muted-symbolic";
-      action-name: "app.toggle-mute";
+      active: bind template.mute bidirectional;
 
       accessibility {
         label: _("Mute/Unmute");
@@ -190,7 +190,6 @@ template $Window: Adw.ApplicationWindow {
   title: _("Video Player");
   realize => $_on_realize();
   move-focus => $_on_motion();
-  notify::fullscreened => $_on_fullscreened();
   notify::default-width => $_window_resized();
   notify::default-height => $_window_resized();
 
@@ -297,7 +296,7 @@ template $Window: Adw.ApplicationWindow {
                     margin-start: 12;
                     margin-end: 12;
                     valign: center;
-                    icon-name: "media-playback-start-symbolic";
+                    icon-name: bind $_get_play_icon(template.paused) as <string>;
                     action-name: "app.toggle-playback";
 
                     accessibility {
@@ -352,7 +351,7 @@ template $Window: Adw.ApplicationWindow {
 
                     MenuButton volume_menu_button {
                       valign: center;
-                      icon-name: "audio-volume-high-symbolic";
+                      icon-name: bind $_get_volume_icon(template.mute, template.volume) as <string>;
                       popover: volume_popover;
                       direction: up;
 
@@ -377,10 +376,10 @@ template $Window: Adw.ApplicationWindow {
                       accessibility {
                         label: _("Playback Options");
                       }
-                      
+
                       ShortcutController {
                         scope: managed;
-                      
+
                         Shortcut {
                           trigger: "<shift>F10";
                           action: "activate";
@@ -616,11 +615,11 @@ template $Window: Adw.ApplicationWindow {
                   ]
                 }
 
-                Button button_fullscreen {
+                Button {
                   hexpand: true;
                   margin-bottom: 24;
                   margin-end: 24;
-                  icon-name: "view-fullscreen-symbolic";
+                  icon-name: bind $_get_fullscreen_icon(template.fullscreened) as <string>;
                   tooltip-text: _("Toggle Fullscreen");
                   action-name: "app.toggle-fullscreen";
 

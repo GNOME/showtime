@@ -76,7 +76,6 @@ class Window(Adw.ApplicationWindow):
     header_handle_end: Gtk.WindowHandle = Gtk.Template.Child()
     header_start: Gtk.Box = Gtk.Template.Child()
     header_end: Gtk.Box = Gtk.Template.Child()
-    button_fullscreen: Gtk.Button = Gtk.Template.Child()
     video_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
 
     toolbar_clamp: Adw.Clamp = Gtk.Template.Child()
@@ -91,7 +90,6 @@ class Window(Adw.ApplicationWindow):
 
     volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-    mute_button: Gtk.ToggleButton = Gtk.Template.Child()
 
     options_popover: Gtk.Popover = Gtk.Template.Child()
     options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
@@ -108,7 +106,6 @@ class Window(Adw.ApplicationWindow):
 
     stopped: bool = True
     buffering: bool = False
-    looping: bool = state_settings.get_boolean("looping")
 
     menus_building: int = 0
 
@@ -129,6 +126,17 @@ class Window(Adw.ApplicationWindow):
     volume_changed = GObject.Signal(name="volume-changed")
     rate_changed = GObject.Signal(name="rate-changed")
     seeked = GObject.Signal(name="seeked")
+
+    volume = GObject.Property(type=float)
+
+    @GObject.Property(type=bool, default=False)
+    def mute(self) -> bool:
+        """Get the mute state."""
+        return self.play.props.mute
+
+    @mute.setter
+    def mute(self, mute: bool) -> None:
+        self.play.props.mute = mute
 
     @GObject.Property(type=str)
     def rate(self) -> str:
@@ -325,17 +333,19 @@ class Window(Adw.ApplicationWindow):
 
         texture.save_to_png(path)
 
-        toast = Adw.Toast.new(_("Screenshot captured"))
-        toast.props.priority = Adw.ToastPriority.HIGH
-        toast.props.button_label = _("Show in Files")
+        toast = Adw.Toast(
+            title=_("Screenshot captured"),
+            priority=Adw.ToastPriority.HIGH,
+            button_label=_("Show in Files"),
+        )
         toast.connect(
             "button-clicked",
             lambda *_: Gtk.FileLauncher.new(
                 Gio.File.new_for_path(path)
             ).open_containing_folder(),
         )
-
         self.toast_overlay.add_toast(toast)
+
         logging.debug("Screenshot saved.")
 
     def unpause(self) -> None:
@@ -349,26 +359,6 @@ class Window(Adw.ApplicationWindow):
         """Pause the currently playing video."""
         self.play.pause()
         logging.debug("Video paused.")
-
-    def toggle_playback(self) -> None:
-        """Pause/unpause the currently playing video."""
-        (self.unpause if self.paused else self.pause)()
-
-    def set_looping(self, looping: bool) -> None:
-        """Set the looping state of the currently playing video."""
-        self.__class__.looping = looping
-        state_settings.set_boolean("looping", looping)
-
-    def toggle_mute(self) -> None:
-        """Mute/unmute the player."""
-        muted = not self.play.props.mute
-
-        self.play.props.mute = muted
-        self._set_volume_display(muted)
-
-    def toggle_fullscreen(self) -> None:
-        """Fullscreen `self` if not already in fullscreen, otherwise unfullscreens."""
-        (self.unfullscreen if self.is_fullscreen() else self.fullscreen)()
 
     def choose_video(self) -> None:
         """Open a file dialog to pick a video to play."""
@@ -539,28 +529,6 @@ class Window(Adw.ApplicationWindow):
     def _select_subtitles(self, index: int) -> None:
         if action := lookup_action(self.props.application, "select-subtitles"):
             action.activate(GLib.Variant.new_uint16(index))
-
-    def _set_volume_display(
-        self, muted: bool | None = None, volume: float | None = None
-    ) -> None:
-        if muted is None:
-            muted: bool = self.play.props.mute
-
-        if volume is None:
-            volume = self.play.props.volume or 0.0
-
-        self.mute_button.props.active = muted
-
-        if muted:
-            icon = "audio-volume-muted-symbolic"
-        elif volume > 0.7:
-            icon = "audio-volume-high-symbolic"
-        elif volume > 0.3:
-            icon = "audio-volume-medium-symbolic"
-        else:
-            icon = "audio-volume-low-symbolic"
-
-        self.volume_menu_button.props.icon_name = icon
 
     def _get_previous_play_position(self) -> float | None:
         if not (uri := self.play.props.uri):
@@ -887,13 +855,13 @@ class Window(Adw.ApplicationWindow):
             return
 
         self._prev_volume = vol
-        self._set_volume_display(volume=vol)
+        self.volume = vol
         self.volume_adjustment.props.value = vol
 
         self.emit("volume-changed")
 
     def _on_end_of_stream(self, _obj: Any) -> None:
-        if not self.__class__.looping:
+        if not state_settings.get_boolean("looping"):
             self.pause()
 
         self.play.seek(0)
@@ -1013,7 +981,7 @@ class Window(Adw.ApplicationWindow):
         self._on_motion()
 
         if not n % 2:
-            self.toggle_fullscreen()
+            self.props.fullscreened = not self.props.fullscreened
 
     @Gtk.Template.Callback()
     def _on_secondary_click_pressed(
@@ -1049,9 +1017,25 @@ class Window(Adw.ApplicationWindow):
         self.options_popover.connect("closed", closed)
 
     @Gtk.Template.Callback()
-    def _on_fullscreened(self, *_args: Any) -> None:
-        self.button_fullscreen.props.icon_name = (
-            "view-restore-symbolic"
-            if self.is_fullscreen()
-            else "view-fullscreen-symbolic"
+    def _get_play_icon(self, _obj: Any, paused: bool) -> str:
+        return (
+            "media-playback-start-symbolic"
+            if paused
+            else "media-playback-pause-symbolic"
+        )
+
+    @Gtk.Template.Callback()
+    def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
+        return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
+
+    @Gtk.Template.Callback()
+    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
+        return (
+            "audio-volume-muted-symbolic"
+            if mute
+            else "audio-volume-high-symbolic"
+            if volume > 0.7
+            else "audio-volume-medium-symbolic"
+            if volume > 0.3
+            else "audio-volume-low-symbolic"
         )

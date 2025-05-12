@@ -186,12 +186,20 @@ class Application(Adw.Application):
 
         self.create_action(
             "toggle-fullscreen",
-            lambda *_: self.win.toggle_fullscreen() if self.win else ...,
+            lambda *_: (
+                self.win.unfullscreen()
+                if self.win.props.fullscreened
+                else self.win.fullscreen()
+            )
+            if self.win
+            else ...,
             ("F11", "f"),
         )
         self.create_action(
             "toggle-playback",
-            lambda *_: self.win.toggle_playback() if self.win else ...,
+            lambda *_: (self.win.unpause() if self.win.paused else self.win.pause())
+            if self.win
+            else ...,
             ("p", "k", "space"),
         )
         self.create_action(
@@ -214,7 +222,9 @@ class Application(Adw.Application):
         )
         self.create_action(
             "toggle-mute",
-            lambda *_: self.win.toggle_mute() if self.win else ...,
+            lambda *_: self.win.set_property("mute", not self.win.mute)
+            if self.win
+            else ...,
             ("m",),
         )
 
@@ -429,8 +439,7 @@ class Application(Adw.Application):
     def _on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
-
-        self.win.set_looping(value) if self.win else ...
+        state_settings.set_boolean("looping", value)
 
     def _on_window_removed(self, _obj: Any, win: Window) -> None:  # type: ignore
         self.save_play_position(win)
