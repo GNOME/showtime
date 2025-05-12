@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-10 22:12+0000\n"
-"PO-Revision-Date: 2025-05-11 17:10+0800\n"
+"POT-Creation-Date: 2025-05-11 14:03+0000\n"
+"PO-Revision-Date: 2025-05-12 19:19+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -31,7 +31,7 @@ msgstr "播放视频"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;视频;电影;影片;片段;剪辑;播放器;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "新建窗口"
 
@@ -68,11 +68,11 @@ msgid "Playing a video"
 msgstr "播放视频"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:399
+#: showtime/main.py:401
 msgid "translator_credits"
 msgstr "lumingzh <lumingzh@qq.com>, 2024-2025."
 
-#: showtime/mpris.py:286 showtime/window.py:337
+#: showtime/mpris.py:286 showtime/window.py:321
 msgid "Unknown Title"
 msgstr "未知标题"
 
@@ -84,77 +84,77 @@ msgstr "播放"
 msgid "Pause"
 msgstr "暂停"
 
-#: showtime/window.py:344
+#: showtime/window.py:328
 msgid "Screenshot captured"
 msgstr "已获取截图"
 
-#: showtime/window.py:346
+#: showtime/window.py:330
 msgid "Show in Files"
 msgstr "在文件管理器中显示"
 
-#: showtime/window.py:391
+#: showtime/window.py:376
 msgid "Video"
 msgstr "视频"
 
-#: showtime/window.py:398
+#: showtime/window.py:383
 msgid "Subtitles"
 msgstr "字幕"
 
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:437
+#: showtime/window.py:422
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "未确定，{} 个声道"
 
-#: showtime/window.py:442
+#: showtime/window.py:427
 msgid "Undetermined"
 msgstr "未确定"
 
-#: showtime/window.py:455
+#: showtime/window.py:440
 msgid "No Audio"
 msgstr "无音频"
 
-#: showtime/window.py:460
+#: showtime/window.py:445
 msgid "None"
 msgstr "无"
 
-#: showtime/window.py:466
+#: showtime/window.py:451
 msgid "Undetermined Language"
 msgstr "未确定语言"
 
-#: showtime/window.py:477
+#: showtime/window.py:462
 msgid "Add Subtitle File…"
 msgstr "添加字幕文件…"
 
-#: showtime/window.py:934
+#: showtime/window.py:919
 msgid "Details copied"
 msgstr "详情已复制"
 
-#: showtime/window.py:936
+#: showtime/window.py:921
 msgid "Copy Technical Details"
 msgstr "复制技术详情"
 
-#: showtime/window.py:958
+#: showtime/window.py:943
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "无法找到播放该视频需要的“{}”解码器"
 
-#: showtime/window.py:977
+#: showtime/window.py:962
 msgid "No plugin available for this media type"
 msgstr "无可用于该媒体类型的插件"
 
-#: showtime/window.py:983
+#: showtime/window.py:968
 msgid "Unable to install the required plugin"
 msgstr "无法安装需要的插件"
 
-#: showtime/window.py:986
+#: showtime/window.py:971
 msgid "Install Plugin"
 msgstr "安装插件"
 
-#: showtime/window.py:994
+#: showtime/window.py:979
 msgid "Installing…"
 msgstr "正在安装…"
 
-#: showtime/window.py:1002
+#: showtime/window.py:987
 msgid "“{}” codecs are required to play this video"
 msgstr "播放该视频需要“{}”解码器"
 
@@ -171,58 +171,62 @@ msgid "Open Video"
 msgstr "打开视频"
 
 #: showtime/gtk/help-overlay.blp:24
+msgid "Video Options"
+msgstr "视频选项"
+
+#: showtime/gtk/help-overlay.blp:29
 msgid "Take Screenshot"
 msgstr "截图"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "关闭窗口"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
 msgstr "退出"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "音量"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "增大音量"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "减小音量"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:162
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
 msgid "Mute/Unmute"
 msgstr "静音/取消静音"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "视图"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:615
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:624
 msgid "Toggle Fullscreen"
 msgstr "切换全屏"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
 msgstr "退出全屏"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "播放"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "播放/暂停"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:285
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:285
 msgid "Go Back 10 Seconds"
 msgstr "快退 10 秒"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:321
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:321
 msgid "Go Forward 10 Seconds"
 msgstr "快进 10 秒"
 
@@ -274,7 +278,7 @@ msgstr "向左旋转"
 msgid "Rotate Right"
 msgstr "向右旋转"
 
-#: showtime/gtk/window.blp:219 showtime/gtk/window.blp:655
+#: showtime/gtk/window.blp:219 showtime/gtk/window.blp:664
 msgid "Main Menu"
 msgstr "主菜单"
 
@@ -306,15 +310,15 @@ msgstr "调整音量"
 msgid "Playback Options"
 msgstr "播放选项"
 
-#: showtime/gtk/window.blp:435
+#: showtime/gtk/window.blp:444
 msgid "Toggle Duration/Remaining"
 msgstr "切换总计时长/剩余时长"
 
-#: showtime/gtk/window.blp:490
+#: showtime/gtk/window.blp:499
 msgid "Resume"
 msgstr "恢复"
 
-#: showtime/gtk/window.blp:530
+#: showtime/gtk/window.blp:539
 msgid "Start Again"
 msgstr "再次播放"
 
