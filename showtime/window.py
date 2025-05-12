@@ -333,17 +333,19 @@ class Window(Adw.ApplicationWindow):
 
         texture.save_to_png(path)
 
-        toast = Adw.Toast.new(_("Screenshot captured"))
-        toast.props.priority = Adw.ToastPriority.HIGH
-        toast.props.button_label = _("Show in Files")
+        toast = Adw.Toast(
+            title=_("Screenshot captured"),
+            priority=Adw.ToastPriority.HIGH,
+            button_label=_("Show in Files"),
+        )
         toast.connect(
             "button-clicked",
             lambda *_: Gtk.FileLauncher.new(
                 Gio.File.new_for_path(path)
             ).open_containing_folder(),
         )
-
         self.toast_overlay.add_toast(toast)
+
         logging.debug("Screenshot saved.")
 
     def unpause(self) -> None:
