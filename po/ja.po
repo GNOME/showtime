@@ -1,0 +1,323 @@
+# Japanese translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Kusano Takayuki <https://bsky.app/profile/tkusano.jp>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-05-09 14:17+0000\n"
+"PO-Revision-Date: 2025-05-09 14:17+0000\n"
+"Last-Translator: Kusano Takayuki <https://bsky.app/profile/tkusano.jp>\n"
+"Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/org.gnome.Showtime.desktop.in:3
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:194
+msgid "Video Player"
+msgstr "ビデオプレイヤー"
+
+#: data/org.gnome.Showtime.desktop.in:4
+msgid "Play videos"
+msgstr "ビデオを再生"
+
+#: data/org.gnome.Showtime.desktop.in:10
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr ""
+"Video;Movie;Film;Clip;Player;Showtime;ビデオ;動画;ムービー;クリップ;プレイ"
+"ヤー;ショータイム;"
+
+#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+msgid "New Window"
+msgstr "新しいウィンドウ"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "気を散らさずに視聴"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr ""
+"お気に入りのムービーやビデオファイルを手間をかけずに再生します。ビデオプレイ"
+"ヤーは、視聴中にフェードアウトするシンプルな再生コントロール、フルスクリー"
+"ン、調整可能な再生速度、複数の言語と字幕トラック、スクリーンショットなど、直"
+"感的な視聴体験に必要なすべてを備えています。"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "ビデオを再生するアプリ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "最後のタイムスタンプ位置に何を表示するか"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "例: ビデオの合計時間や残り時間など"
+
+#: showtime/main.py:109
+msgid "Playing a video"
+msgstr "ビデオを再生中"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/main.py:401
+msgid "translator_credits"
+msgstr ""
+"Kusano Takayuki https://bsky.app/profile/tkusano.jp\n"
+"Japanese Translation Team https://l10n.gnome.org/teams/ja/"
+
+#: showtime/mpris.py:286 showtime/window.py:356
+msgid "Unknown Title"
+msgstr "不明なタイトル"
+
+#: showtime/window.py:161 showtime/gtk/window.blp:306
+msgid "Play"
+msgstr "再生"
+
+#: showtime/window.py:161
+msgid "Pause"
+msgstr "一時停止"
+
+#: showtime/window.py:363
+msgid "Screenshot captured"
+msgstr "スクリーンショットをキャプチャしました"
+
+#: showtime/window.py:365
+msgid "Show in Files"
+msgstr "「ファイル」で表示"
+
+#: showtime/window.py:429
+msgid "Video"
+msgstr "ビデオ"
+
+#: showtime/window.py:440
+msgid "Subtitles"
+msgstr "字幕"
+
+#. Translators: The variable is the number of channels in an audio track
+#: showtime/window.py:489
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "不明、{} チャンネル"
+
+#: showtime/window.py:494
+msgid "Undetermined"
+msgstr "不明"
+
+#: showtime/window.py:507
+msgid "No Audio"
+msgstr "オーディオなし"
+
+#: showtime/window.py:512
+msgid "None"
+msgstr "なし"
+
+#: showtime/window.py:518
+msgid "Undetermined Language"
+msgstr "言語は不明"
+
+#: showtime/window.py:529
+msgid "Add Subtitle File…"
+msgstr "字幕ファイルを追加…"
+
+#: showtime/window.py:969
+msgid "Details copied"
+msgstr "詳細をコピーしました"
+
+#: showtime/window.py:971
+msgid "Copy Technical Details"
+msgstr "技術的な詳細をコピー"
+
+#: showtime/window.py:993
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "このビデオを再生するために必要なコーデック「{}」が見つかりませんでした"
+
+#: showtime/window.py:1014
+msgid "No plugin available for this media type"
+msgstr "このメディアタイプに利用可能なプラグインがありません"
+
+#: showtime/window.py:1020
+msgid "Unable to install the required plugin"
+msgstr "必要なプラグインをインストールできません"
+
+#: showtime/window.py:1023
+msgid "Install Plugin"
+msgstr "プラグインをインストール"
+
+#: showtime/window.py:1031
+msgid "Installing…"
+msgstr "インストール中…"
+
+#: showtime/window.py:1039
+msgid "“{}” codecs are required to play this video"
+msgstr "コーデック「{}」がこのビデオを再生するために必要です"
+
+#: showtime/gtk/help-overlay.blp:11
+msgid "General"
+msgstr "一般"
+
+#: showtime/gtk/help-overlay.blp:14
+msgid "Show Shortcuts"
+msgstr "ショートカットを表示"
+
+#: showtime/gtk/help-overlay.blp:19
+msgid "Open Video"
+msgstr "ビデオを開く"
+
+#: showtime/gtk/help-overlay.blp:24
+msgid "Take Screenshot"
+msgstr "スクリーンショットを撮る"
+
+#: showtime/gtk/help-overlay.blp:34
+msgid "Close Window"
+msgstr "ウィンドウを閉じる"
+
+#: showtime/gtk/help-overlay.blp:39
+msgid "Quit"
+msgstr "終了"
+
+#: showtime/gtk/help-overlay.blp:45
+msgid "Volume"
+msgstr "音量"
+
+#: showtime/gtk/help-overlay.blp:48
+msgid "Increase Volume"
+msgstr "音量を上げる"
+
+#: showtime/gtk/help-overlay.blp:53
+msgid "Decrease Volume"
+msgstr "音量を下げる"
+
+#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+msgid "Mute/Unmute"
+msgstr "ミュート/ミュート解除"
+
+#: showtime/gtk/help-overlay.blp:64
+msgid "View"
+msgstr "表示"
+
+#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:617
+msgid "Toggle Fullscreen"
+msgstr "全画面表示を切り替え"
+
+#: showtime/gtk/help-overlay.blp:72
+msgid "Exit Fullscreen"
+msgstr "全画面表示を終了"
+
+#: showtime/gtk/help-overlay.blp:78
+msgid "Playback"
+msgstr "再生"
+
+#: showtime/gtk/help-overlay.blp:81
+msgid "Play/Pause"
+msgstr "再生/一時停止"
+
+#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:287
+msgid "Go Back 10 Seconds"
+msgstr "10秒戻る"
+
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:323
+msgid "Go Forward 10 Seconds"
+msgstr "10秒進む"
+
+#: showtime/gtk/window.blp:6
+msgid "_Open…"
+msgstr "開く(_O)…"
+
+#: showtime/gtk/window.blp:11
+msgid "Show in _Files"
+msgstr "「ファイル」で表示(_F)"
+
+#: showtime/gtk/window.blp:19
+msgid "Take _Screenshot"
+msgstr "スクリーンショットを撮る(_S)"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "キーボードショートカット(_K)"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Video Player"
+msgstr "ビデオプレイヤーについて(_A)"
+
+#: showtime/gtk/window.blp:39
+msgid "Rotate"
+msgstr "回転"
+
+#: showtime/gtk/window.blp:53
+msgid "_Language"
+msgstr "言語(_L)"
+
+#: showtime/gtk/window.blp:57
+msgid "_Subtitles"
+msgstr "字幕(_S)"
+
+#: showtime/gtk/window.blp:62
+msgid "_Repeat"
+msgstr "繰り返し(_R)"
+
+#: showtime/gtk/window.blp:81
+msgid "Playback Speed"
+msgstr "再生速度"
+
+#: showtime/gtk/window.blp:132
+msgid "Rotate Left"
+msgstr "左に回転"
+
+#: showtime/gtk/window.blp:143
+msgid "Rotate Right"
+msgstr "右に回転"
+
+#: showtime/gtk/window.blp:221 showtime/gtk/window.blp:657
+msgid "Main Menu"
+msgstr "メインメニュー"
+
+#: showtime/gtk/window.blp:230
+msgid "Watch Videos"
+msgstr "ビデオを見る"
+
+#: showtime/gtk/window.blp:231
+msgid "Drag and drop videos here"
+msgstr "ビデオをここにドラッグ＆ドロップ"
+
+#: showtime/gtk/window.blp:234
+msgid "Open…"
+msgstr "開く…"
+
+#: showtime/gtk/window.blp:247
+msgid "Unable to Play Video"
+msgstr "ビデオを再生できません"
+
+#: showtime/gtk/window.blp:252
+msgid "Missing Plugin"
+msgstr "プラグインがありません"
+
+#: showtime/gtk/window.blp:362
+msgid "Adjust Volume"
+msgstr "音量を調整"
+
+#: showtime/gtk/window.blp:380
+msgid "Playback Options"
+msgstr "再生オプション"
+
+#: showtime/gtk/window.blp:437
+msgid "Toggle Duration/Remaining"
+msgstr "長さ/残り時間を切り替え"
+
+#: showtime/gtk/window.blp:492
+msgid "Resume"
+msgstr "再開"
+
+#: showtime/gtk/window.blp:532
+msgid "Start Again"
+msgstr "再度開始"
