@@ -333,8 +333,7 @@ class Window(Adw.ApplicationWindow):
         self.play.pause()
         logging.debug("Video paused.")
 
-    def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
-        """(Re)build the Subtitles and Language menus for the currently playing video."""
+    def _build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
         self.menus_building -= 1
 
         # Don't try to rebuild the menu multiple times when the media info has many changes
@@ -747,7 +746,7 @@ class Window(Adw.ApplicationWindow):
         # Add a timeout to reduce the things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
         self.menus_building += 1
-        GLib.timeout_add(500, self.build_menus, media_info)
+        GLib.timeout_add(500, self._build_menus, media_info)
         self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj: Any) -> None:
