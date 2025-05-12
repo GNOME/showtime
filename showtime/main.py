@@ -197,7 +197,9 @@ class Application(Adw.Application):
         )
         self.create_action(
             "toggle-playback",
-            lambda *_: self.win.toggle_playback() if self.win else ...,
+            lambda *_: (self.win.unpause() if self.win.paused else self.win.pause())
+            if self.win
+            else ...,
             ("p", "k", "space"),
         )
         self.create_action(

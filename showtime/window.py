@@ -348,10 +348,6 @@ class Window(Adw.ApplicationWindow):
         self.play.pause()
         logging.debug("Video paused.")
 
-    def toggle_playback(self) -> None:
-        """Pause/unpause the currently playing video."""
-        (self.unpause if self.paused else self.pause)()
-
     def toggle_mute(self) -> None:
         """Mute/unmute the player."""
         muted = not self.play.props.mute
