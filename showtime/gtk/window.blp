@@ -190,7 +190,6 @@ template $Window: Adw.ApplicationWindow {
   title: _("Video Player");
   realize => $_on_realize();
   move-focus => $_on_motion();
-  notify::fullscreened => $_on_fullscreened();
   notify::default-width => $_window_resized();
   notify::default-height => $_window_resized();
 
@@ -377,10 +376,10 @@ template $Window: Adw.ApplicationWindow {
                       accessibility {
                         label: _("Playback Options");
                       }
-                      
+
                       ShortcutController {
                         scope: managed;
-                      
+
                         Shortcut {
                           trigger: "<shift>F10";
                           action: "activate";
@@ -616,11 +615,11 @@ template $Window: Adw.ApplicationWindow {
                   ]
                 }
 
-                Button button_fullscreen {
+                Button {
                   hexpand: true;
                   margin-bottom: 24;
                   margin-end: 24;
-                  icon-name: "view-fullscreen-symbolic";
+                  icon-name: bind $_fullscreen_icon(template.fullscreened) as <string>;
                   tooltip-text: _("Toggle Fullscreen");
                   action-name: "app.toggle-fullscreen";
 

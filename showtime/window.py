@@ -76,7 +76,6 @@ class Window(Adw.ApplicationWindow):
     header_handle_end: Gtk.WindowHandle = Gtk.Template.Child()
     header_start: Gtk.Box = Gtk.Template.Child()
     header_end: Gtk.Box = Gtk.Template.Child()
-    button_fullscreen: Gtk.Button = Gtk.Template.Child()
     video_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
 
     toolbar_clamp: Adw.Clamp = Gtk.Template.Child()
@@ -1045,9 +1044,5 @@ class Window(Adw.ApplicationWindow):
         self.options_popover.connect("closed", closed)
 
     @Gtk.Template.Callback()
-    def _on_fullscreened(self, *_args: Any) -> None:
-        self.button_fullscreen.props.icon_name = (
-            "view-restore-symbolic"
-            if self.props.fullscreened
-            else "view-fullscreen-symbolic"
-        )
+    def _fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
+        return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
