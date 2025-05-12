@@ -245,8 +245,6 @@ class Window(Adw.ApplicationWindow):
             self.volume_menu_button,
         }
 
-        self._on_stack_child_changed()
-
         state_settings.connect(
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
@@ -1085,22 +1083,6 @@ class Window(Adw.ApplicationWindow):
         ).format(desc)
         self.placeholder_stack.props.visible_child = self.missing_plugin_status_page
         self.stack.props.visible_child = self.placeholder_page
-
-    @Gtk.Template.Callback()
-    def _on_stack_child_changed(self, *_args: Any) -> None:
-        self._on_motion()
-
-        app = self.props.application
-
-        # TODO: Make this per-window instead of app-wide
-        if (self.stack.props.visible_child != self.video_page) or not app:
-            return
-
-        if (action := lookup_action(app, "select-subtitles")) and system != "Darwin":
-            action.props.enabled = True
-
-        if (action := lookup_action(app, "show-in-files")) and system != "Darwin":
-            action.props.enabled = True
 
     @Gtk.Template.Callback()
     def _on_primary_click_released(

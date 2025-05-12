@@ -204,8 +204,6 @@ template $Window: Adw.ApplicationWindow {
       };
 
       child: Stack stack {
-        notify::visible-child => $_on_stack_child_changed();
-
         Adw.ToolbarView placeholder_page {
           [top]
           Adw.HeaderBar header_bar {
