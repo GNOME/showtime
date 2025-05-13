@@ -7,10 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2025-02-13 05:13+0000\n"
-"PO-Revision-Date: 2025-02-18 14:07+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-05-12 20:31+0000\n"
+"PO-Revision-Date: 2025-05-13 10:09+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <yoseforb@gmail.com>\n"
 "Language: he\n"
@@ -19,29 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:460
-#: showtime/gtk/window.blp:192
-msgid "Showtime"
-msgstr "Showtime"
-
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:190
 msgid "Video Player"
 msgstr "נגן סרטים"
 
-#: data/org.gnome.Showtime.desktop.in:5
+#: data/org.gnome.Showtime.desktop.in:4
 msgid "Play videos"
 msgstr "ניגון סרטים"
 
-#: data/org.gnome.Showtime.desktop.in:11
+#: data/org.gnome.Showtime.desktop.in:10
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
-msgstr ""
-"סרטון;סרט;וידאו;ווידאו;וידיאו;קולנוע;הסרטה;קליפ;נגן;נגינה;הצגה;הופעה;"
-"Showtime;"
+msgstr "סרטון;סרט;וידאו;ווידאו;וידיאו;קולנוע;הסרטה;קליפ;נגן;נגינה;הצגה;הופעה;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "חלון חדש"
 
@@ -51,13 +43,13 @@ msgstr "לצפות ללא הפרעה"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"לנגן את הסרטים המועדפים עליך ללא מאמץ. בין תכונות Showtime: בקרי נגינה "
+"לנגן את הסרטים המועדפים עליך ללא מאמץ. בין תכונות נגן הווידאו: בקרי נגינה "
 "פשוטים שנעלמים ברגע הצפייה, מסך מלא, התאמת מהירות הנגינה, ריבוי שפות "
 "וכתוביות, וצילומי מסך - כל מה שצריך לחוויית צפייה נוחה."
 
@@ -73,47 +65,24 @@ msgstr "מה להציג במיקום של סוף חותמת הזמן"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "למשל, את האורך הכולל של הסרטון או את הזמן שנותר עד לסופו"
 
-#: showtime/main.py:152
+#: showtime/main.py:104
 msgid "Playing a video"
 msgstr "מנגן סרט"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:435
-msgid "translator_credits"
-msgstr ""
-"יוסף אור בוצ׳קו <yoseforb@gmail.com>\n"
-"מיזם תרגום GNOME לעברית https://l10n.gnome.org/teams/he/"
-
-#: showtime/mpris.py:292 showtime/window.py:367
+#: showtime/mpris.py:286 showtime/window.py:1110
 msgid "Unknown Title"
 msgstr "כותרת לא ידועה"
 
-#: showtime/window.py:151 showtime/gtk/window.blp:296
+#: showtime/window.py:171 showtime/gtk/window.blp:299
 msgid "Play"
 msgstr "נגינה"
 
-#: showtime/window.py:151
+#: showtime/window.py:171
 msgid "Pause"
 msgstr "השהיה"
 
-#: showtime/window.py:374
-msgid "Screenshot captured"
-msgstr "המסך צולם"
-
-#: showtime/window.py:376
-msgid "Show in Files"
-msgstr "הצגה בקבצים"
-
-#: showtime/window.py:418
-msgid "Video"
-msgstr "סרט"
-
-#: showtime/window.py:429
-msgid "Subtitles"
-msgstr "כתוביות"
-
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:478
+#: showtime/window.py:353
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "לא מזוהה, ערוץ"
@@ -121,57 +90,80 @@ msgstr[1] "לא מזוהה, שני ערוצים"
 msgstr[2] "לא מזוהה, {} ערוצים"
 msgstr[3] "לא מזוהה, {} ערוצים"
 
-#: showtime/window.py:483
+#: showtime/window.py:358
 msgid "Undetermined"
 msgstr "לא מזוהה"
 
-#: showtime/window.py:496
+#: showtime/window.py:371
 msgid "No Audio"
 msgstr "אין שמע"
 
-#: showtime/window.py:501
+#: showtime/window.py:376
 msgid "None"
 msgstr "ללא"
 
-#: showtime/window.py:507
+#: showtime/window.py:382
 msgid "Undetermined Language"
 msgstr "שפה לא מזוהה"
 
-#: showtime/window.py:518
+#: showtime/window.py:393
 msgid "Add Subtitle File…"
 msgstr "הוספת קובץ כתוביות…"
 
-#: showtime/window.py:946
+#: showtime/window.py:788
 msgid "Details copied"
 msgstr "הפרטים הועתקו"
 
-#: showtime/window.py:948
+#: showtime/window.py:790
 msgid "Copy Technical Details"
 msgstr "העתקת פרטים טכניים"
 
-#: showtime/window.py:970
+#: showtime/window.py:812
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "לא נמצאו המקודדים „{}”, הנדרשים על מנת לנגן סרט זה"
 
-#: showtime/window.py:991
+#: showtime/window.py:831
 msgid "No plugin available for this media type"
 msgstr "אין תוסף זמין עבור סוג מדיה זה"
 
-#: showtime/window.py:997
+#: showtime/window.py:837
 msgid "Unable to install the required plugin"
 msgstr "לא ניתן להתקין את התוסף הדרוש"
 
-#: showtime/window.py:1000
+#: showtime/window.py:840
 msgid "Install Plugin"
 msgstr "התקנת תוסף"
 
-#: showtime/window.py:1008
+#: showtime/window.py:848
 msgid "Installing…"
 msgstr "מתבצעת התקנה…"
 
-#: showtime/window.py:1016
+#: showtime/window.py:856
 msgid "“{}” codecs are required to play this video"
 msgstr "המקודדים „{}” נדרשים על מנת לנגן סרט זה"
+
+#: showtime/window.py:999
+msgid "Video"
+msgstr "סרט"
+
+#: showtime/window.py:1010
+msgid "Subtitles"
+msgstr "כתוביות"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/window.py:1085
+msgid "translator_credits"
+msgstr ""
+"יוסף אור בוצ׳קו <yoseforb@gmail.com>\n"
+"מיזם תרגום GNOME לעברית https://l10n.gnome.org/teams/he/"
+
+#: showtime/window.py:1118
+msgid "Screenshot captured"
+msgstr "המסך צולם"
+
+#: showtime/window.py:1120
+msgid "Show in Files"
+msgstr "הצגה בקבצים"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -186,58 +178,62 @@ msgid "Open Video"
 msgstr "פתיחת סרט"
 
 #: showtime/gtk/help-overlay.blp:24
+msgid "Video Options"
+msgstr "אפשרויות וידאו"
+
+#: showtime/gtk/help-overlay.blp:29
 msgid "Take Screenshot"
 msgstr "צילום המסך"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "סגירת חלון"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
 msgstr "יציאה"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "עצמת שמע"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "הגברת עצמת השמע"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "הנמכת עצמת השמע"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
 msgid "Mute/Unmute"
 msgstr "השתקה/ביטול השתקה"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "תצוגה"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:620
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:619
 msgid "Toggle Fullscreen"
 msgstr "שינוי מצב מסך מלא"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
 msgstr "יציאה ממסך מלא"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "ניגון"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "נגינה/השהיה"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:277
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:280
 msgid "Go Back 10 Seconds"
 msgstr "לקפוץ 10 שניות אחורה"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:312
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:316
 msgid "Go Forward 10 Seconds"
 msgstr "לקפוץ 10 שניות קדימה"
 
@@ -258,8 +254,8 @@ msgid "_Keyboard Shortcuts"
 msgstr "_צירופי מקשים"
 
 #: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "_על Showtime"
+msgid "_About Video Player"
+msgstr "_על נגן הסרטים"
 
 #: showtime/gtk/window.blp:39
 msgid "Rotate"
@@ -277,58 +273,64 @@ msgstr "_כתוביות"
 msgid "_Repeat"
 msgstr "מצב _חזרה"
 
-#: showtime/gtk/window.blp:81
+#: showtime/gtk/window.blp:82
 msgid "Playback Speed"
 msgstr "מהירות נגינה"
 
-#: showtime/gtk/window.blp:132
+#: showtime/gtk/window.blp:128
 msgid "Rotate Left"
 msgstr "סיבוב שמאלה"
 
-#: showtime/gtk/window.blp:143
+#: showtime/gtk/window.blp:139
 msgid "Rotate Right"
 msgstr "סיבוב ימינה"
 
-#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:650
+#: showtime/gtk/window.blp:214 showtime/gtk/window.blp:659
 msgid "Main Menu"
 msgstr "תפריט ראשי"
 
-#: showtime/gtk/window.blp:221
+#: showtime/gtk/window.blp:223
 msgid "Watch Videos"
 msgstr "צפייה בסרטים"
 
-#: showtime/gtk/window.blp:222
+#: showtime/gtk/window.blp:224
 msgid "Drag and drop videos here"
 msgstr "יש לגרור ולשחרר לכאן סרטים"
 
-#: showtime/gtk/window.blp:225
+#: showtime/gtk/window.blp:227
 msgid "Open…"
 msgstr "פתיחה…"
 
-#: showtime/gtk/window.blp:238
+#: showtime/gtk/window.blp:240
 msgid "Unable to Play Video"
 msgstr "לא ניתן לנגן סרט"
 
-#: showtime/gtk/window.blp:243
+#: showtime/gtk/window.blp:245
 msgid "Missing Plugin"
 msgstr "חסר תוסף"
 
-#: showtime/gtk/window.blp:351
+#: showtime/gtk/window.blp:355
 msgid "Adjust Volume"
 msgstr "התאמת עצמת השמע"
 
-#: showtime/gtk/window.blp:369
+#: showtime/gtk/window.blp:373
 msgid "Playback Options"
 msgstr "אפשרויות נגינה"
 
-#: showtime/gtk/window.blp:426
+#: showtime/gtk/window.blp:439
 msgid "Toggle Duration/Remaining"
 msgstr "שינוי בין הזמן שנותר/סך הזמן הכולל"
 
-#: showtime/gtk/window.blp:495
+#: showtime/gtk/window.blp:494
 msgid "Resume"
 msgstr "המשך"
 
-#: showtime/gtk/window.blp:535
+#: showtime/gtk/window.blp:534
 msgid "Start Again"
 msgstr "להתחיל שוב"
+
+#~ msgid "Showtime"
+#~ msgstr "Showtime"
+
+#~ msgid "_About Showtime"
+#~ msgstr "_על Showtime"
