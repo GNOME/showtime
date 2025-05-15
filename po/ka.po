@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-08 19:15+0000\n"
-"PO-Revision-Date: 2025-05-10 03:32+0200\n"
+"POT-Creation-Date: 2025-05-12 20:31+0000\n"
+"PO-Revision-Date: 2025-05-15 05:31+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:194
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:190
 msgid "Video Player"
 msgstr "ვიდეოდამკვრელი"
 
@@ -31,7 +31,7 @@ msgstr "ვიდეოების დაკვრა"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;ვიდეო;ფილმი;კლიპი;დამკვრელი;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "ახალი ფანჯარა"
 
@@ -65,101 +65,101 @@ msgstr "რა ვაჩვენო ბოლო დროის შტამ�
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "ანუ, ვიდეოს სრული ხანგრძლივობა თუ დარჩენილი დრო"
 
-#: showtime/main.py:109
+#: showtime/main.py:104
 msgid "Playing a video"
 msgstr "მიმდინარეობს ვიდეოს დაკვრა"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:401
-msgid "translator_credits"
-msgstr "მთარგმნელის_შესახებ"
-
-#: showtime/mpris.py:286 showtime/window.py:356
+#: showtime/mpris.py:286 showtime/window.py:1110
 msgid "Unknown Title"
 msgstr "უცნობი სათაური"
 
-#: showtime/window.py:161 showtime/gtk/window.blp:306
+#: showtime/window.py:171 showtime/gtk/window.blp:299
 msgid "Play"
 msgstr "დაკვრა"
 
-#: showtime/window.py:161
+#: showtime/window.py:171
 msgid "Pause"
 msgstr "შეჩერება"
 
-#: showtime/window.py:363
-msgid "Screenshot captured"
-msgstr "ეკრანის ანაბეჭდი დათრეულია"
-
-#: showtime/window.py:365
-msgid "Show in Files"
-msgstr "ფაილებში ჩვენება"
-
-#: showtime/window.py:429
-msgid "Video"
-msgstr "ვიდეო"
-
-#: showtime/window.py:440
-msgid "Subtitles"
-msgstr "სუბტიტრები"
-
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:489
+#: showtime/window.py:353
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "დაუდგენელია, {} არხი"
 msgstr[1] "დაუდგენელია, {} არხი"
 
-#: showtime/window.py:494
+#: showtime/window.py:358
 msgid "Undetermined"
 msgstr "დაუდგენელია"
 
-#: showtime/window.py:507
+#: showtime/window.py:371
 msgid "No Audio"
 msgstr "აუდიოს გარეშე"
 
-#: showtime/window.py:512
+#: showtime/window.py:376
 msgid "None"
 msgstr "არაფერი"
 
-#: showtime/window.py:518
+#: showtime/window.py:382
 msgid "Undetermined Language"
 msgstr "დაუდგენელი ენა"
 
-#: showtime/window.py:529
+#: showtime/window.py:393
 msgid "Add Subtitle File…"
 msgstr "სუბტიტრის ფაილის დამატება…"
 
-#: showtime/window.py:969
+#: showtime/window.py:788
 msgid "Details copied"
 msgstr "დეტალები დაკოპირდა"
 
-#: showtime/window.py:971
+#: showtime/window.py:790
 msgid "Copy Technical Details"
 msgstr "ტექნიკური დეტალების კოპირება"
 
-#: showtime/window.py:993
+#: showtime/window.py:812
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "ვიდეოს დასაკრავად აუცილებელი \"{}\" კოდეკები აღმოჩენილი არაა"
 
-#: showtime/window.py:1014
+#: showtime/window.py:831
 msgid "No plugin available for this media type"
 msgstr "ამ მედიის ტიპისთვის დამატება აღმოჩენილი არაა"
 
-#: showtime/window.py:1020
+#: showtime/window.py:837
 msgid "Unable to install the required plugin"
 msgstr "აუცილებელი დამატების დაყენება შეუძლებელია"
 
-#: showtime/window.py:1023
+#: showtime/window.py:840
 msgid "Install Plugin"
 msgstr "დამატების დაყენება"
 
-#: showtime/window.py:1031
+#: showtime/window.py:848
 msgid "Installing…"
 msgstr "დაყენება…"
 
-#: showtime/window.py:1039
+#: showtime/window.py:856
 msgid "“{}” codecs are required to play this video"
 msgstr "ამ ვიდეოს დასაკრავად აუცილებელია \"{}\" კოდეკი"
+
+#: showtime/window.py:999
+msgid "Video"
+msgstr "ვიდეო"
+
+#: showtime/window.py:1010
+msgid "Subtitles"
+msgstr "სუბტიტრები"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/window.py:1085
+msgid "translator_credits"
+msgstr "მთარგმნელის_შესახებ"
+
+#: showtime/window.py:1118
+msgid "Screenshot captured"
+msgstr "ეკრანის ანაბეჭდი დათრეულია"
+
+#: showtime/window.py:1120
+msgid "Show in Files"
+msgstr "ფაილებში ჩვენება"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -174,58 +174,62 @@ msgid "Open Video"
 msgstr "ვიდეოს გახსნა"
 
 #: showtime/gtk/help-overlay.blp:24
+msgid "Video Options"
+msgstr "ვიდეოს მორგება"
+
+#: showtime/gtk/help-overlay.blp:29
 msgid "Take Screenshot"
 msgstr "ეკრანის ანაბეჭდის გადაღება"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "ფანჯრის დახურვა"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
 msgstr "გასვლა"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "ხმის სიმაღლე"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "ხმის აწევა"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "ხმის დაწევა"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
 msgid "Mute/Unmute"
 msgstr "ხმის დადუმება/ხმის აწევა"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "ხედი"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:617
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:619
 msgid "Toggle Fullscreen"
 msgstr "მთელ ეკრანზე გატანის ჩართ/გამორთ"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
 msgstr "სრული ეკრანიდან გასვლა"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "დაკვრა"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "დაკვრა/პაუზა"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:287
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:280
 msgid "Go Back 10 Seconds"
 msgstr "10 წამით უკან გადასვლა"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:323
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:316
 msgid "Go Forward 10 Seconds"
 msgstr "10 წამით წინ გადასვლა"
 
@@ -265,59 +269,59 @@ msgstr "_სუბტიტრები"
 msgid "_Repeat"
 msgstr "_გამეორება"
 
-#: showtime/gtk/window.blp:81
+#: showtime/gtk/window.blp:82
 msgid "Playback Speed"
 msgstr "დაკვრის სიჩქარე"
 
-#: showtime/gtk/window.blp:132
+#: showtime/gtk/window.blp:128
 msgid "Rotate Left"
 msgstr "მარცხნივ შებრუნება"
 
-#: showtime/gtk/window.blp:143
+#: showtime/gtk/window.blp:139
 msgid "Rotate Right"
 msgstr "მარჯვნივ შებრუნება"
 
-#: showtime/gtk/window.blp:221 showtime/gtk/window.blp:657
+#: showtime/gtk/window.blp:214 showtime/gtk/window.blp:659
 msgid "Main Menu"
 msgstr "მთავარი მენიუ"
 
-#: showtime/gtk/window.blp:230
+#: showtime/gtk/window.blp:223
 msgid "Watch Videos"
 msgstr "უყურეთ ვიდეოებს"
 
-#: showtime/gtk/window.blp:231
+#: showtime/gtk/window.blp:224
 msgid "Drag and drop videos here"
 msgstr "გადმოათრიეთ და დაყარეთ ვიდეოები აქ"
 
-#: showtime/gtk/window.blp:234
+#: showtime/gtk/window.blp:227
 msgid "Open…"
 msgstr "გახსნა…"
 
-#: showtime/gtk/window.blp:247
+#: showtime/gtk/window.blp:240
 msgid "Unable to Play Video"
 msgstr "ვიდეოს დაკვრა შეუძლებელია"
 
-#: showtime/gtk/window.blp:252
+#: showtime/gtk/window.blp:245
 msgid "Missing Plugin"
 msgstr "მცდარი მოდული"
 
-#: showtime/gtk/window.blp:362
+#: showtime/gtk/window.blp:355
 msgid "Adjust Volume"
 msgstr "ხმის მორგება"
 
-#: showtime/gtk/window.blp:380
+#: showtime/gtk/window.blp:373
 msgid "Playback Options"
 msgstr "დაკვრის პარამეტრები"
 
-#: showtime/gtk/window.blp:437
+#: showtime/gtk/window.blp:439
 msgid "Toggle Duration/Remaining"
 msgstr "ხანგრძლივობის/დარჩენილის გადართვა"
 
-#: showtime/gtk/window.blp:492
+#: showtime/gtk/window.blp:494
 msgid "Resume"
 msgstr "გაგრძელება"
 
-#: showtime/gtk/window.blp:532
+#: showtime/gtk/window.blp:534
 msgid "Start Again"
 msgstr "თავიდან დაწყება"
 
