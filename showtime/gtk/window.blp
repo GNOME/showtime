@@ -28,43 +28,6 @@ menu primary_menu {
   }
 }
 
-Popover volume_popover {
-  width-request: 250;
-
-  child: Box {
-    margin-top: 6;
-    margin-bottom: 6;
-    margin-start: 6;
-    margin-end: 6;
-
-    ToggleButton {
-      icon-name: "audio-volume-muted-symbolic";
-      active: bind template.mute bidirectional;
-
-      accessibility {
-        label: _("Mute/Unmute");
-      }
-
-      styles [
-        "circular",
-        "flat",
-      ]
-    }
-
-    Scale {
-      hexpand: true;
-
-      adjustment: Adjustment volume_adjustment {
-        step-increment: 0.2;
-        lower: 0;
-        upper: 1;
-        value: 1;
-        notify::value => $_schedule_volume_change();
-      };
-    }
-  };
-}
-
 template $Window: Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
@@ -228,21 +191,10 @@ template $Window: Adw.ApplicationWindow {
                       ]
                     }
 
-                    MenuButton volume_menu_button {
-                      valign: center;
-                      icon-name: bind $_get_volume_icon(template.mute, template.volume) as <string>;
-                      popover: volume_popover;
-                      direction: up;
-
-                      accessibility {
-                        label: _("Adjust Volume");
-                      }
-
-                      styles [
-                        "circular",
-                        "highlighted",
-                        "overlaid",
-                      ]
+                    $SoundOptions sound_options {
+                      mute: bind template.mute bidirectional;
+                      volume: bind template.volume;
+                      schedule-volume-change => $_schedule_volume_change();
                     }
 
                     $Options options {

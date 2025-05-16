@@ -52,6 +52,7 @@ from showtime.utils import (
 )
 
 from .options import Options
+from .sound_options import SoundOptions
 
 SCALE_MULT = 500  # This is so that seeking isn't too rough
 
@@ -92,8 +93,7 @@ class Window(Adw.ApplicationWindow):
     seek_scale: Gtk.Scale = Gtk.Template.Child()
     end_timestamp_button: Gtk.Button = Gtk.Template.Child()
 
-    volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
-    volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
+    sound_options: SoundOptions = Gtk.Template.Child()
 
     options: Options = Gtk.Template.Child()
 
@@ -237,7 +237,7 @@ class Window(Adw.ApplicationWindow):
         self.overlay_menu_buttons = {
             self.video_primary_menu_button,
             self.options.menu_button,
-            self.volume_menu_button,
+            self.sound_options.menu_button,
         }
 
         state_settings.connect(
@@ -509,12 +509,12 @@ class Window(Adw.ApplicationWindow):
                 )
 
     @Gtk.Template.Callback()
-    def _schedule_volume_change(self, adj: Gtk.Adjustment, _: Any) -> None:
+    def _schedule_volume_change(self, _obj: Any, value: float) -> None:
         GLib.idle_add(
             partial(
                 self.pipeline.set_volume,  # type: ignore
                 GstAudio.StreamVolumeFormat.CUBIC,
-                adj.get_value(),
+                value,
             )
         )
 
@@ -698,7 +698,7 @@ class Window(Adw.ApplicationWindow):
 
         self._prev_volume = vol
         self.volume = vol
-        self.volume_adjustment.props.value = vol
+        self.sound_options.adjustment.props.value = vol
 
         self.emit("volume-changed")
 
@@ -826,18 +826,6 @@ class Window(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
         return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
-
-    @Gtk.Template.Callback()
-    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
-        return (
-            "audio-volume-muted-symbolic"
-            if mute
-            else "audio-volume-high-symbolic"
-            if volume > 0.7
-            else "audio-volume-medium-symbolic"
-            if volume > 0.3
-            else "audio-volume-low-symbolic"
-        )
 
     def _create_actions(self) -> None:
         self._create_action(

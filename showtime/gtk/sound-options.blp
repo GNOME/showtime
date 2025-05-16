@@ -1,0 +1,57 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $SoundOptions: Adw.Bin {
+  child: MenuButton menu_button {
+    valign: center;
+    icon-name: bind $_get_volume_icon(template.mute, template.volume) as <string>;
+    direction: up;
+
+    popover: Popover popover {
+      width-request: 250;
+
+      child: Box {
+        margin-top: 6;
+        margin-bottom: 6;
+        margin-start: 6;
+        margin-end: 6;
+
+        ToggleButton {
+          icon-name: "audio-volume-muted-symbolic";
+          active: bind template.mute bidirectional;
+
+          accessibility {
+            label: _("Mute/Unmute");
+          }
+
+          styles [
+            "circular",
+            "flat",
+          ]
+        }
+
+        Scale {
+          hexpand: true;
+
+          adjustment: Adjustment adjustment {
+            step-increment: 0.2;
+            lower: 0;
+            upper: 1;
+            value: 1;
+            notify::value => $_schedule_volume_change();
+          };
+        }
+      };
+    };
+
+    accessibility {
+      label: _("Adjust Volume");
+    }
+
+    styles [
+      "circular",
+      "highlighted",
+      "overlaid",
+    ]
+  };
+}
