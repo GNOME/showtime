@@ -10,7 +10,6 @@ import lzma
 import pickle
 from collections.abc import Callable, Sequence
 from functools import partial
-from gettext import ngettext
 from hashlib import sha256
 from math import sqrt
 from pathlib import Path
@@ -51,6 +50,8 @@ from showtime.utils import (
     nanoseconds_to_timestamp,
     screenshot,
 )
+
+from .options import Options
 
 SCALE_MULT = 500  # This is so that seeking isn't too rough
 
@@ -94,11 +95,7 @@ class Window(Adw.ApplicationWindow):
     volume_adjustment: Gtk.Adjustment = Gtk.Template.Child()
     volume_menu_button: Gtk.MenuButton = Gtk.Template.Child()
 
-    options_popover: Gtk.Popover = Gtk.Template.Child()
-    options_menu_button: Gtk.MenuButton = Gtk.Template.Child()
-
-    language_menu: Gio.Menu = Gtk.Template.Child()
-    subtitles_menu: Gio.Menu = Gtk.Template.Child()
+    options: Options = Gtk.Template.Child()
 
     spinner: Adw.Spinner = Gtk.Template.Child()  # type: ignore
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
@@ -109,8 +106,6 @@ class Window(Adw.ApplicationWindow):
 
     stopped: bool = True
     buffering: bool = False
-
-    menus_building: int = 0
 
     _reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
     _hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
@@ -149,7 +144,7 @@ class Window(Adw.ApplicationWindow):
     @rate.setter
     def rate(self, rate: str) -> None:
         self.play.props.rate = float(rate)
-        self.options_popover.popdown()
+        self.options.popover.popdown()
         self.emit("rate-changed")
 
     @GObject.Property(type=bool, default=True)
@@ -241,7 +236,7 @@ class Window(Adw.ApplicationWindow):
 
         self.overlay_menu_buttons = {
             self.video_primary_menu_button,
-            self.options_menu_button,
+            self.options.menu_button,
             self.volume_menu_button,
         }
 
@@ -286,7 +281,7 @@ class Window(Adw.ApplicationWindow):
         self.media_info_updated = False
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
-        self._select_subtitles(0)
+        self.select_subtitles(0)
         self.rate = "1.0"
 
         self.play.props.uri = uri
@@ -333,64 +328,10 @@ class Window(Adw.ApplicationWindow):
         self.play.pause()
         logging.debug("Video paused.")
 
-    def _build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
-        self.menus_building -= 1
-
-        # Don't try to rebuild the menu multiple times when the media info has many changes
-        if self.menus_building > 1:
-            return
-
-        self.language_menu.remove_all()
-        self.subtitles_menu.remove_all()
-
-        langs = 0
-        for index, stream in enumerate(media_info.get_audio_streams()):
-            has_title, title = stream.get_tags().get_string("title")
-            language = (
-                stream.get_language()
-                or ngettext(
-                    # Translators: The variable is the number of channels in an audio track
-                    "Undetermined, {} Channel",
-                    "Undetermined, {} Channels",
-                    channels,
-                ).format(channels)
-                if (channels := stream.get_channels()) > 0
-                else _("Undetermined")
-            )
-
-            if (title is not None) and (title == language):
-                title = None
-
-            self.language_menu.append(
-                f"{language}{(' - ' + title) if (has_title and title) else ''}",
-                f"win.select-language(uint16 {index})",
-            )
-            langs += 1
-
-        if not langs:
-            self.language_menu.append(_("No Audio"), "nonexistent.action")
-            # HACK: This is to make the item insensitive
-            # I don't know if there is a better way to do this
-
-        self.subtitles_menu.append(
-            _("None"), f"win.select-subtitles(uint16 {MAX_UINT16})"
-        )
-
-        subs = 0
-        for index, stream in enumerate(media_info.get_subtitle_streams()):
-            has_title, title = stream.get_tags().get_string("title")
-            language = stream.get_language() or _("Undetermined Language")
-
-            self.subtitles_menu.append(
-                f"{language}{(' - ' + title) if (has_title and title) else ''}",
-                f"win.select-subtitles(uint16 {index})",
-            )
-            subs += 1
-
-        if not subs:
-            self._select_subtitles(MAX_UINT16)
-
-        self.subtitles_menu.append(_("Add Subtitle File…"), "win.choose-subtitles")
+    def select_subtitles(self, index: int) -> None:
+        """Select subtitles for the given index."""
+        if action := lookup_action(self, "select-subtitles"):
+            action.activate(GLib.Variant.new_uint16(index))
 
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args: Any) -> None:
@@ -745,8 +686,8 @@ class Window(Adw.ApplicationWindow):
 
         # Add a timeout to reduce the things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
-        self.menus_building += 1
-        GLib.timeout_add(500, self._build_menus, media_info)
+        self.options.menus_building += 1
+        GLib.timeout_add(500, self.options.build_menus, media_info)
         self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj: Any) -> None:
@@ -870,36 +811,9 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _on_secondary_click_pressed(
-        self,
-        gesture: Gtk.Gesture,
-        _n: Any,
-        x: int,
-        y: int,
+        self, gesture: Gtk.Gesture, _n: Any, x: int, y: int
     ) -> None:
-        gesture.set_state(Gtk.EventSequenceState.CLAIMED)
-
-        self.options_menu_button.props.popover = None
-        self.options_popover.set_parent(self)
-        self.options_popover.props.has_arrow = False
-        self.options_popover.props.halign = Gtk.Align.START
-
-        rectangle = Gdk.Rectangle()
-        rectangle.x, rectangle.y, rectangle.width, rectangle.height = x, y, 0, 0
-        self.options_popover.props.pointing_to = rectangle
-
-        self.options_popover.popup()
-
-        def closed(*_args: Any) -> None:
-            self.options_popover.unparent()
-            self.options_popover.props.has_arrow = True
-            self.options_popover.props.halign = Gtk.Align.FILL
-
-            self.options_popover.props.pointing_to = None  # type: ignore
-            self.options_menu_button.props.popover = self.options_popover
-
-            self.options_popover.disconnect_by_func(closed)
-
-        self.options_popover.connect("closed", closed)
+        self.options.on_secondary_click_pressed(self, gesture, x, y)
 
     @Gtk.Template.Callback()
     def _get_play_icon(self, _obj: Any, paused: bool) -> str:
@@ -1019,7 +933,7 @@ class Window(Adw.ApplicationWindow):
             GLib.VariantType.new("q"),
             GLib.Variant.new_uint16(0),
         )
-        subs_action.connect("activate", self._on_select_subtitles)
+        subs_action.connect("activate", self._on_subtitles_selected)
         self.add_action(subs_action)
 
         lang_action = Gio.SimpleAction.new_stateful(
@@ -1027,7 +941,7 @@ class Window(Adw.ApplicationWindow):
             GLib.VariantType.new("q"),
             GLib.Variant.new_uint16(0),
         )
-        lang_action.connect("activate", self._on_select_language)
+        lang_action.connect("activate", self._on_language_selected)
         self.add_action(lang_action)
 
         toggle_loop_action = Gio.SimpleAction.new_stateful(
@@ -1153,32 +1067,35 @@ class Window(Adw.ApplicationWindow):
             return
 
         self.play.props.suburi = gfile.get_uri()
-        self._select_subtitles(0)
+        self.select_subtitles(0)
         logging.debug("External subtitle added: %s.", gfile.get_uri())
 
-    def _select_subtitles(self, index: int) -> None:
-        if action := lookup_action(self, "select-subtitles"):
-            action.activate(GLib.Variant.new_uint16(index))
-
-    def _on_select_subtitles(
-        self, action: Gio.SimpleAction, state: GLib.Variant
+    def _on_subtitles_selected(
+        self,
+        action: Gio.SimpleAction,
+        state: GLib.Variant,
     ) -> None:
-        """Select the given subtitles for the video."""
         action.props.state = state
+
         if (index := state.get_uint16()) == MAX_UINT16:
             self.play.set_subtitle_track_enabled(False)
-            return
+        else:
+            self.play.set_subtitle_track(index)
+            self.play.set_subtitle_track_enabled(True)
 
-        self.play.set_subtitle_track(index)
-        self.play.set_subtitle_track_enabled(True)
-
-    def _on_select_language(
-        self, action: Gio.SimpleAction, state: GLib.Variant
+    def _on_language_selected(
+        self,
+        action: Gio.SimpleAction,
+        state: GLib.Variant,
     ) -> None:
         action.props.state = state
         self.play.set_audio_track(state.get_uint16())
 
-    def _on_toggle_loop(self, action: Gio.SimpleAction, _state: GLib.Variant) -> None:
+    def _on_toggle_loop(
+        self,
+        action: Gio.SimpleAction,
+        _state: GLib.Variant,
+    ) -> None:
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
         state_settings.set_boolean("looping", value)

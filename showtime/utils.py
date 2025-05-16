@@ -6,6 +6,7 @@
 import datetime
 import logging
 from pathlib import Path
+from typing import Any
 from urllib.parse import unquote, urlparse
 
 from gi.repository import (
@@ -94,10 +95,14 @@ def get_title(media_info: GstPlay.PlayMediaInfo | None) -> str | None:
     )
 
 
-def lookup_action(map: Gio.ActionMap | None, name: str) -> Gio.SimpleAction | None:
-    """Look up an action in `map` with type checking."""
-    if map and isinstance(action := map.lookup_action(name), Gio.SimpleAction):
+def lookup_action(action_map: Any, name: str) -> Gio.SimpleAction | None:
+    """Look up an action in `action_map` with type checking."""
+    if isinstance(action_map, Gio.ActionMap) and isinstance(
+        action := action_map.lookup_action(name), Gio.SimpleAction
+    ):
         return action
+
+    return None
 
 
 def get_subtitle_font_desc() -> str | None:
