@@ -57,7 +57,7 @@ from .sound_options import SoundOptions
 SCALE_MULT = 500  # This is so that seeking isn't too rough
 
 
-@Gtk.Template(resource_path=f"{PREFIX}/gtk/window.ui")
+@Gtk.Template.from_resource(f"{PREFIX}/gtk/window.ui")
 class Window(Adw.ApplicationWindow):
     """The main application window."""
 
