@@ -47,7 +47,7 @@ showtime_sources = [
   'mpris.py',
   'play.py',
   'utils.py',
-  'window.py',
+  'widgets/window.py',
 ]
 
 install_data(showtime_sources, install_dir: moduledir)

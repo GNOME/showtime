@@ -4,7 +4,7 @@ data/org.gnome.Showtime.gschema.xml.in
 
 showtime/main.py
 showtime/mpris.py
-showtime/window.py
+showtime/widgets/window.py
 
 showtime/gtk/help-overlay.blp
 showtime/gtk/window.blp
