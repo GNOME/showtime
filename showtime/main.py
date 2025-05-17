@@ -158,35 +158,40 @@ class Application(Adw.Application):
         )
         state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
 
-        def emit_media_info_updated(win: Window) -> None:  #  type: ignore
-            if win == self.props.active_window:
-                self.emit("media-info-updated")
+        win.connect(
+            "media-info-updated",
+            lambda win: self.emit("media-info-updated")
+            if win == self.props.active_window
+            else None,
+        )
 
-        win.connect("media-info-updated", emit_media_info_updated)
+        win.connect(
+            "volume-changed",
+            lambda win: self.emit("volume-changed")
+            if win == self.props.active_window
+            else None,
+        )
 
-        def emit_volume_changed(win: Window) -> None:
-            if win == self.props.active_window:
-                self.emit("volume-changed")
+        win.connect(
+            "rate-changed",
+            lambda win: self.emit("rate-changed")
+            if win == self.props.active_window
+            else None,
+        )
 
-        win.connect("volume-changed", emit_volume_changed)
+        win.connect(
+            "seeked",
+            lambda win: self.emit("seeked")
+            if win == self.props.active_window
+            else None,
+        )
 
-        def emit_rate_changed(win: Window) -> None:
-            if win == self.props.active_window:
-                self.emit("rate-changed")
-
-        win.connect("rate-changed", emit_rate_changed)
-
-        def emit_seeked(win: Window) -> None:
-            if win == self.props.active_window:
-                self.emit("seeked")
-
-        win.connect("seeked", emit_seeked)
-
-        def emit_state_changed(win: Window, *_args: Any) -> None:  # type: ignore
-            if win == self.props.active_window:
-                self.emit("state-changed")
-
-        win.connect("notify::paused", emit_state_changed)
+        win.connect(
+            "notify::paused",
+            lambda win, *_: self.emit("state-changed")
+            if win == self.props.active_window
+            else None,
+        )
 
         if gfile:
             win.play_video(gfile)
