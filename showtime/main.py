@@ -1,16 +1,17 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
-"""The main application singleton class."""
-
+import json
 import logging
-import pickle
 import sys
 from collections.abc import Callable, Sequence
 from hashlib import sha256
+from logging.handlers import RotatingFileHandler
 from typing import Any
 
 import gi
+
+from showtime import VERSION, log_file, logger
 
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
@@ -23,9 +24,8 @@ from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 import showtime
 from showtime import APP_ID, state_settings, system
-from showtime.logging.setup import log_system_info, setup_logging
 from showtime.mpris import MPRIS
-from showtime.window import Window
+from showtime.window import PROFILE, Window
 
 if system == "Darwin":
     from AppKit import NSApp  # type: ignore
@@ -34,12 +34,13 @@ if system == "Darwin":
     from showtime.application_delegate import ApplicationDelegate
 
 MAX_HIST_ITEMS = 1000
+MAX_BUFFER_TRIES = 50
 
 
 class Application(Adw.Application):
     """The main application singleton class."""
 
-    inhibit_cookies: dict = {}
+    inhibit_cookies: dict
     mpris_active: bool = False
 
     media_info_updated = GObject.Signal(name="media-info-updated")
@@ -54,14 +55,13 @@ class Application(Adw.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
         )
 
+        self.inhibit_cookies = {}
+
         Gst.init()
 
-        try:
-            setup_logging()
-        except ValueError:
-            pass
-
-        log_system_info()
+        logger.debug("Starting %s v%s (%s)", APP_ID, VERSION, PROFILE)
+        logger.debug("Python version: %s", sys.version)
+        logger.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
 
         if system == "Darwin":
 
@@ -111,23 +111,23 @@ class Application(Adw.Application):
 
         self.uninhibit(cookie)
 
-    def save_play_position(self, win: Window) -> None:  # type: ignore
-        """Save the play position of the currently playing file in the window to restore later."""
+    def save_play_position(self, win: Window) -> None:
+        """Save the play position of the currently playing video to restore later."""
         if not (uri := win.play.props.uri):
             return
 
         digest = sha256(uri.encode("utf-8")).hexdigest()
 
-        showtime.cache_path.mkdir(parents=True, exist_ok=True)
-        hist_path = showtime.cache_path / "playback_history"
+        showtime.state_path.mkdir(parents=True, exist_ok=True)
+        hist_path = showtime.state_path / "playback_history.json"
 
         try:
-            hist_file = hist_path.open("rb")
+            hist_file = hist_path.open("r")
         except FileNotFoundError:
             hist = {}
         else:
             try:
-                hist = pickle.load(hist_file)
+                hist = json.load(hist_file)
             except EOFError:
                 hist = {}
 
@@ -138,8 +138,8 @@ class Application(Adw.Application):
         for _extra in range(max(len(hist) - MAX_HIST_ITEMS, 0)):
             del hist[next(iter(hist))]
 
-        with hist_path.open("wb") as hist_file:
-            pickle.dump(hist, hist_file)
+        with hist_path.open("w") as hist_file:
+            json.dump(hist, hist_file)
 
     def do_startup(self) -> None:
         """Set up actions."""
@@ -203,7 +203,7 @@ class Application(Adw.Application):
                 nonlocal tries
 
                 tries += 1
-                if (not win.buffering) or (tries >= 50):
+                if (not win.buffering) or (tries >= MAX_BUFFER_TRIES):
                     win.present()
                     return False
 
@@ -229,7 +229,7 @@ class Application(Adw.Application):
             if options.contains("new-window"):
                 return -1
 
-            logging.warning(
+            logger.warning(
                 "Showtime is already running. "
                 "To open a new window, run the app with --new-window."
             )
@@ -266,5 +266,16 @@ class Application(Adw.Application):
 
 def main() -> int:
     """Run the application."""
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(levelname)s: %(name)s:%(lineno)d %(message)s",
+        handlers=(
+            (
+                logging.StreamHandler(),
+                RotatingFileHandler(log_file, maxBytes=1_000_000),
+            )
+        ),
+    )
+
     showtime.app = Application()
     return showtime.app.run(sys.argv)

@@ -6,8 +6,6 @@
 # Taken from Loupe, rewritten in PyGObject
 # https://gitlab.gnome.org/GNOME/loupe/-/blob/d66dd0f16bf45b3cd46e3a084409513eaa1c9af5/src/widgets/drag_overlay.rs
 
-"""A widget that shows an overlay when dragging a video over the window."""
-
 from typing import Any
 
 from gi.repository import Adw, GObject, Gtk

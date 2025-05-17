@@ -1,8 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
-"""A set of methods that manage the app’s life cycle and its interaction with common system services."""
-
 from typing import Any
 
 from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
@@ -13,7 +11,7 @@ from showtime import app, utils
 
 
 class ApplicationDelegate(NSObject):
-    """A set of methods that manage the app’s life cycle and its interaction with common system services."""
+    """macOS integration."""
 
     def applicationDidFinishLaunching_(self, *_args: Any) -> None:  # noqa: N802
         """Set up menu bar actions."""

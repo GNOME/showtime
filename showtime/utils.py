@@ -1,10 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
-"""Utilities used across the app."""
-
-import datetime
-import logging
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import unquote, urlparse
@@ -16,6 +13,10 @@ from gi.repository import (
     GstPlay,  # type: ignore
     Gtk,
 )
+
+from showtime import logger
+
+SECONDS_ONLY = 2
 
 
 def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Gdk.Texture | None:
@@ -31,7 +32,7 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Gdk.Texture | No
     paintable.snapshot(snapshot, width, height)
 
     if not (node := snapshot.to_node()):
-        logging.warning(
+        logger.warning(
             "Could not get node snapshot, width: %s, height: %s.", width, height
         )
         return None
@@ -50,30 +51,25 @@ def screenshot(paintable: Gdk.Paintable, native: Gtk.Native) -> Gdk.Texture | No
     )
 
 
-def nanoseconds_to_timestamp(nanoseconds: int, format: bool = True) -> str:
-    """Convert `nanoseconds` to a human readable time stamp.
+def nanoseconds_to_timestamp(ns: int, *, hours: bool = False) -> str:
+    """Convert `ns` to a human readable time stamp.
 
-    In the format 1∶23 or 1∶23∶45 depending on length.
+    In the format 1:23 or 1:23:45 depending on length.
 
-    If `format` is set to False, always returns a string in the format 01∶23∶45.
+    If `hours` is set to True, always return a string in the format 01:23:45.
     """
-    str = (
-        (
-            datetime.datetime.min
-            + datetime.timedelta(microseconds=int(nanoseconds / 1000))
-        )
+    formatted = (
+        (datetime.min.replace(tzinfo=UTC) + timedelta(microseconds=int(ns / 1000)))
         .time()
         .strftime("%H:%M:%S")
     )
 
     return (
-        (
-            stripped
-            if len(stripped := str.lstrip("0:") or "0") > 2
-            else f"0:{stripped.zfill(2)}"
-        )
-        if format
-        else str
+        formatted
+        if hours
+        else formatted.lstrip("0:") or "0"
+        if len(stripped := formatted.lstrip("0:") or "0") > SECONDS_ONLY
+        else f"0:{stripped.zfill(2)}"
     )
 
 
@@ -106,7 +102,10 @@ def lookup_action(action_map: Any, name: str) -> Gio.SimpleAction | None:
 
 
 def get_subtitle_font_desc() -> str | None:
-    """Get a font description ideal for rendering subtitles, scaled to the user's preferences."""
+    """Get a font description scaled to the user's preferences.
+
+    Ideal for rendering subtitles.
+    """
     if not (settings := Gtk.Settings.get_default()):
         return None
 

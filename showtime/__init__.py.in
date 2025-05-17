@@ -1,9 +1,10 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2023-2025 kramo
 
-"""Shared data across the application."""
+"""The Showtime video player."""
 
 import platform
+from logging import getLogger
 from pathlib import Path
 
 from gi.repository import Gio, GLib
@@ -16,22 +17,14 @@ PROFILE = "@PROFILE@"
 system = platform.system()
 
 app = None
+logger = getLogger()
 
 schema = Gio.Settings.new(APP_ID)
 state_settings = Gio.Settings.new(APP_ID + ".State")
 
-cache_path = Path(GLib.get_user_cache_dir()) / "showtime"
-log_files: list[Path] = []
+state_path = Path(GLib.get_user_state_dir(), "showtime")
+log_file = state_path / "showtime.log"
 
 end_timestamp_type = state_settings.get_enum("end-timestamp-type")
-
-# For large enough monitors, occupy 40% of the screen area when opening a window with a video
-DEFAULT_OCCUPY_SCREEN = 0.4
-
-# Screens with this resolution or smaller are handled as small
-SMALL_SCREEN_AREA = 1280 * 1024
-
-# For small monitors, occupy 80% of the screen area
-SMALL_OCCUPY_SCREEN = 0.8
 
 MAX_UINT16 = 65535

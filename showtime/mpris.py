@@ -5,7 +5,6 @@
 # A lot of the code is taken from GNOME Music
 # https://gitlab.gnome.org/GNOME/gnome-music/-/blob/6a32efb74ff4107d1e4a288184e21c43f5dd877f/gnomemusic/mpris.py
 
-import logging
 import re
 from functools import partial
 from typing import Any
@@ -18,9 +17,98 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import APP_ID, PREFIX
+from showtime import APP_ID, PREFIX, logger
 from showtime.utils import get_title
 from showtime.window import Window
+
+RATE_SLOW = 0.75
+RATE_NORMAL = 1.125
+RATE_FASTER = 1.375
+RATE_FASTEST = 1.75
+
+INTERFACE = """
+<!DOCTYPE node PUBLIC
+'-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'
+'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>
+<node>
+    <interface name='org.freedesktop.DBus.Introspectable'>
+        <method name='Introspect'>
+            <arg name='data' direction='out' type='s'/>
+        </method>
+    </interface>
+    <interface name='org.freedesktop.DBus.Properties'>
+        <method name='Get'>
+            <arg name='interface' direction='in' type='s'/>
+            <arg name='property' direction='in' type='s'/>
+            <arg name='value' direction='out' type='v'/>
+        </method>
+        <method name='Set'>
+            <arg name='interface_name' direction='in' type='s'/>
+            <arg name='property_name' direction='in' type='s'/>
+            <arg name='value' direction='in' type='v'/>
+        </method>
+        <method name='GetAll'>
+            <arg name='interface' direction='in' type='s'/>
+            <arg name='properties' direction='out' type='a{sv}'/>
+        </method>
+        <signal name='PropertiesChanged'>
+            <arg name='interface_name' type='s' />
+            <arg name='changed_properties' type='a{sv}' />
+            <arg name='invalidated_properties' type='as' />
+        </signal>
+    </interface>
+    <interface name='org.mpris.MediaPlayer2'>
+        <method name='Raise'>
+        </method>
+        <method name='Quit'>
+        </method>
+        <property name='CanQuit' type='b' access='read' />
+        <property name='Fullscreen' type='b' access='readwrite' />
+        <property name='CanRaise' type='b' access='read' />
+        <property name='HasTrackList' type='b' access='read'/>
+        <property name='Identity' type='s' access='read'/>
+        <property name='DesktopEntry' type='s' access='read'/>
+        <property name='SupportedUriSchemes' type='as' access='read'/>
+        <property name='SupportedMimeTypes' type='as' access='read'/>
+    </interface>
+    <interface name='org.mpris.MediaPlayer2.Player'>
+        <method name='Next'/>
+        <method name='Previous'/>
+        <method name='Pause'/>
+        <method name='PlayPause'/>
+        <method name='Stop'/>
+        <method name='Play'/>
+        <method name='Seek'>
+            <arg direction='in' name='Offset' type='x'/>
+        </method>
+        <method name='SetPosition'>
+            <arg direction='in' name='TrackId' type='o'/>
+            <arg direction='in' name='Position' type='x'/>
+        </method>
+        <method name='OpenUri'>
+            <arg direction='in' name='Uri' type='s'/>
+        </method>
+        <signal name='Seeked'>
+            <arg name='Position' type='x'/>
+        </signal>
+        <property name='PlaybackStatus' type='s' access='read'/>
+        <property name='LoopStatus' type='s' access='readwrite'/>
+        <property name='Rate' type='d' access='readwrite'/>
+        <property name='Shuffle' type='b' access='readwrite'/>
+        <property name='Metadata' type='a{sv}' access='read'>
+        </property>
+        <property name='Position' type='x' access='read'/>
+        <property name='MinimumRate' type='d' access='read'/>
+        <property name='MaximumRate' type='d' access='read'/>
+        <property name='CanGoNext' type='b' access='read'/>
+        <property name='CanGoPrevious' type='b' access='read'/>
+        <property name='CanPlay' type='b' access='read'/>
+        <property name='CanPause' type='b' access='read'/>
+        <property name='CanSeek' type='b' access='read'/>
+        <property name='CanControl' type='b' access='read'/>
+    </interface>
+</node>
+"""
 
 
 class DBusInterface:
@@ -41,7 +129,7 @@ class DBusInterface:
         try:
             self._con = Gio.bus_get_finish(res)
         except GLib.Error as e:
-            logging.warning("Unable to connect to the session bus: %s", e.message)
+            logger.warning("Unable to connect to the session bus: %s", e.message)
             return
 
         Gio.bus_own_name_on_connection(
@@ -51,9 +139,7 @@ class DBusInterface:
         method_outargs = {}
         method_inargs = {}
         signals = {}
-        for interface in Gio.DBusNodeInfo.new_for_xml(
-            self.__doc__  #  type: ignore
-        ).interfaces:
+        for interface in Gio.DBusNodeInfo.new_for_xml(INTERFACE).interfaces:
             for method in interface.methods:
                 method_outargs[method.name] = (
                     "(" + "".join([arg.signature for arg in method.out_args]) + ")"
@@ -103,7 +189,7 @@ class DBusInterface:
             if sig == "h":
                 msg = invocation.get_message()
                 fd_list = msg.get_unix_fd_list()
-                args[i] = fd_list.get(args[i])  #  type: ignore
+                args[i] = fd_list.get(args[i])  # type: ignore
 
         method_snake_name = DBusInterface.camelcase_to_snake_case(method_name)
         try:
@@ -148,89 +234,7 @@ class DBusInterface:
 
 
 class MPRIS(DBusInterface):
-    """
-    <!DOCTYPE node PUBLIC
-    '-//freedesktop//DTD D-BUS Object Introspection 1.0//EN'
-    'http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd'>
-    <node>
-        <interface name='org.freedesktop.DBus.Introspectable'>
-            <method name='Introspect'>
-                <arg name='data' direction='out' type='s'/>
-            </method>
-        </interface>
-        <interface name='org.freedesktop.DBus.Properties'>
-            <method name='Get'>
-                <arg name='interface' direction='in' type='s'/>
-                <arg name='property' direction='in' type='s'/>
-                <arg name='value' direction='out' type='v'/>
-            </method>
-            <method name='Set'>
-                <arg name='interface_name' direction='in' type='s'/>
-                <arg name='property_name' direction='in' type='s'/>
-                <arg name='value' direction='in' type='v'/>
-            </method>
-            <method name='GetAll'>
-                <arg name='interface' direction='in' type='s'/>
-                <arg name='properties' direction='out' type='a{sv}'/>
-            </method>
-            <signal name='PropertiesChanged'>
-                <arg name='interface_name' type='s' />
-                <arg name='changed_properties' type='a{sv}' />
-                <arg name='invalidated_properties' type='as' />
-            </signal>
-        </interface>
-        <interface name='org.mpris.MediaPlayer2'>
-            <method name='Raise'>
-            </method>
-            <method name='Quit'>
-            </method>
-            <property name='CanQuit' type='b' access='read' />
-            <property name='Fullscreen' type='b' access='readwrite' />
-            <property name='CanRaise' type='b' access='read' />
-            <property name='HasTrackList' type='b' access='read'/>
-            <property name='Identity' type='s' access='read'/>
-            <property name='DesktopEntry' type='s' access='read'/>
-            <property name='SupportedUriSchemes' type='as' access='read'/>
-            <property name='SupportedMimeTypes' type='as' access='read'/>
-        </interface>
-        <interface name='org.mpris.MediaPlayer2.Player'>
-            <method name='Next'/>
-            <method name='Previous'/>
-            <method name='Pause'/>
-            <method name='PlayPause'/>
-            <method name='Stop'/>
-            <method name='Play'/>
-            <method name='Seek'>
-                <arg direction='in' name='Offset' type='x'/>
-            </method>
-            <method name='SetPosition'>
-                <arg direction='in' name='TrackId' type='o'/>
-                <arg direction='in' name='Position' type='x'/>
-            </method>
-            <method name='OpenUri'>
-                <arg direction='in' name='Uri' type='s'/>
-            </method>
-            <signal name='Seeked'>
-                <arg name='Position' type='x'/>
-            </signal>
-            <property name='PlaybackStatus' type='s' access='read'/>
-            <property name='LoopStatus' type='s' access='readwrite'/>
-            <property name='Rate' type='d' access='readwrite'/>
-            <property name='Shuffle' type='b' access='readwrite'/>
-            <property name='Metadata' type='a{sv}' access='read'>
-            </property>
-            <property name='Position' type='x' access='read'/>
-            <property name='MinimumRate' type='d' access='read'/>
-            <property name='MaximumRate' type='d' access='read'/>
-            <property name='CanGoNext' type='b' access='read'/>
-            <property name='CanGoPrevious' type='b' access='read'/>
-            <property name='CanPlay' type='b' access='read'/>
-            <property name='CanPause' type='b' access='read'/>
-            <property name='CanSeek' type='b' access='read'/>
-            <property name='CanControl' type='b' access='read'/>
-        </interface>
-    </node>
-    """  # noqa
+    """An MRPIS implementation."""
 
     MEDIA_PLAYER2_IFACE = "org.mpris.MediaPlayer2"
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
@@ -277,17 +281,13 @@ class MPRIS(DBusInterface):
                 "mpris:trackid": GLib.Variant("o", f"{PREFIX}/TrackList/CurrentTrack")
             }
 
-        length = int(self.play.get_duration() / 1e3)
-
-        metadata = {
+        return {
             "xesam:url": GLib.Variant("s", media_info.get_uri()),
-            "mpris:length": GLib.Variant("x", length),
+            "mpris:length": GLib.Variant("x", int(self.play.get_duration() / 1e3)),
             "xesam:title": GLib.Variant(
                 "s", get_title(media_info) or _("Unknown Title")
             ),
         }
-
-        return metadata
 
     def _on_player_state_changed(self, *_args: Any) -> None:
         playback_status = self._get_playback_status()
@@ -374,14 +374,12 @@ class MPRIS(DBusInterface):
 
     def _next(self) -> None:
         """Skips to the next track in the tracklist (MPRIS Method)."""
-        ...
 
     def _previous(self) -> None:
         """Skips to the previous track in the tracklist.
 
         (MPRIS Method)
         """
-        ...
 
     def _pause(self) -> None:
         """Pauses playback (MPRIS Method)."""
@@ -447,22 +445,17 @@ class MPRIS(DBusInterface):
 
         :param str uri: Uri of the track to load.
         """
-        ...
 
-    def _get(self, interface_name: str, property_name: str) -> Any:
+    def _get(self, iface: str, prop: str) -> GLib.Variant | None:
         # Some clients (for example GSConnect) try to access the volume
         # property. This results in a crash at startup.
         # Return nothing to prevent it.
         try:
-            return (
-                all[property_name] if (all := self._get_all(interface_name)) else None
-            )
-        except KeyError:
-            msg = "MPRIS does not handle {} property from {} interface".format(
-                property_name, interface_name
-            )
-            logging.warning(msg)
-            raise ValueError(msg)
+            return all_props[prop] if (all_props := self._get_all(iface)) else None
+        except KeyError as error:
+            msg = f"MPRIS does not handle {prop} property from {iface} interface"
+            logger.warning(msg)
+            raise ValueError(msg) from error
 
     def _get_all(self, interface_name: str) -> dict | None:
         if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
@@ -475,12 +468,10 @@ class MPRIS(DBusInterface):
                 "Identity": GLib.Variant("s", "Video Player"),
                 "DesktopEntry": GLib.Variant("s", APP_ID),
                 "SupportedUriSchemes": GLib.Variant("as", ["file"]),
-                "SupportedMimeTypes": GLib.Variant(
-                    "as",
-                    [],
-                ),
+                "SupportedMimeTypes": GLib.Variant("as", []),
             }
-        elif interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
+
+        if interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
             position_usecond = int(self.play.get_position() / 1e3) if self.play else 0
             volume = self.play.get_volume() if self.play else 0.0
             can_play = (self.play.get_uri() is not None) if self.play else False
@@ -501,16 +492,19 @@ class MPRIS(DBusInterface):
                 "CanSeek": GLib.Variant("b", True),
                 "CanControl": GLib.Variant("b", True),
             }
-        elif interface_name == "org.freedesktop.DBus.Properties":
+
+        if interface_name in (
+            "org.freedesktop.DBus.Properties",
+            "org.freedesktop.DBus.Introspectable",
+        ):
             return {}
-        elif interface_name == "org.freedesktop.DBus.Introspectable":
-            return {}
-        else:
-            logging.warning("MPRIS does not implement %s interface", interface_name)
+
+        logger.warning("MPRIS does not implement %s interface", interface_name)
+        return None
 
     def _set(self, interface_name: str, property_name: str, value: Any) -> None:
-        if not interface_name == MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
-            logging.warning("MPRIS does not implement %s interface", interface_name)
+        if interface_name != MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
+            logger.warning("MPRIS does not implement %s interface", interface_name)
             return
 
         if not self.win:
@@ -520,13 +514,13 @@ class MPRIS(DBusInterface):
             case "Rate":
                 self.win.rate = (
                     "0.5"
-                    if value < 0.75
+                    if value < RATE_SLOW
                     else "1.0"
-                    if value < 1.125
+                    if value < RATE_NORMAL
                     else "1.25"
-                    if value < 1.375
+                    if value < RATE_FASTER
                     else "1.5"
-                    if value < 1.75
+                    if value < RATE_FASTEST
                     else "2.0"
                 )
             case "Volume":
@@ -548,12 +542,14 @@ class MPRIS(DBusInterface):
         changed_properties: dict,
         invalidated_properties: list,
     ) -> None:
-        parameters = {
-            "interface_name": interface_name,
-            "changed_properties": changed_properties,
-            "invalidated_properties": invalidated_properties,
-        }
-        self._dbus_emit_signal("PropertiesChanged", parameters)
+        self._dbus_emit_signal(
+            "PropertiesChanged",
+            {
+                "interface_name": interface_name,
+                "changed_properties": changed_properties,
+                "invalidated_properties": invalidated_properties,
+            },
+        )
 
     def _introspect(self) -> str | None:
-        return self.__doc__
+        return INTERFACE

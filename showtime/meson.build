@@ -45,14 +45,10 @@ showtime_sources = [
   'application_delegate.py',
   'drag_overlay.py',
   'main.py',
-  'messenger.py',
   'mpris.py',
   'play.py',
   'utils.py',
-  'widgets/window.py',
-  'widgets/options.py',
-  'widgets/sound_options.py',
 ]
 
+install_subdir('widgets', install_dir: moduledir)
 install_data(showtime_sources, install_dir: moduledir)
-install_subdir('logging', install_dir: moduledir)

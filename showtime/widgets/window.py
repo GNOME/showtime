@@ -1,13 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
-# pyright: reportAssignmentType=none
-
-"""The main application window."""
-
-import logging
-import lzma
-import pickle
+import json
 from collections.abc import Callable, Sequence
 from functools import partial
 from hashlib import sha256
@@ -32,18 +26,16 @@ from gi.repository import (
 import showtime
 from showtime import (
     APP_ID,
-    DEFAULT_OCCUPY_SCREEN,
     MAX_UINT16,
     PREFIX,
     PROFILE,
-    SMALL_OCCUPY_SCREEN,
-    SMALL_SCREEN_AREA,
+    log_file,
+    logger,
     state_settings,
     system,
 )
 from showtime.drag_overlay import DragOverlay
-from showtime.messenger import Messenger
-from showtime.play import gst_play_setup
+from showtime.play import Messenger, gst_play_setup
 from showtime.utils import (
     get_title,
     lookup_action,
@@ -54,7 +46,22 @@ from showtime.utils import (
 from .options import Options
 from .sound_options import SoundOptions
 
-SCALE_MULT = 500  # This is so that seeking isn't too rough
+# For large enough monitors, occupy 40% of the screen area
+# when opening a window with a video
+DEFAULT_OCCUPY_SCREEN = 0.4
+
+# Screens with this resolution or smaller are handled as small
+SMALL_SCREEN_AREA = 1280 * 1024
+
+# For small monitors, occupy 80% of the screen area
+SMALL_OCCUPY_SCREEN = 0.8
+
+SMALL_SIZE_CHANGE = 10
+
+# So that seeking isn't too rough
+SCALE_MULT = 500
+
+MINUTE_IN_NS = 6e10
 
 
 @Gtk.Template.from_resource(f"{PREFIX}/gtk/window.ui")
@@ -101,14 +108,14 @@ class Window(Adw.ApplicationWindow):
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
-    overlay_motions: set[Gtk.EventControllerMotion] = set()
-    overlay_menu_buttons: set[Gtk.MenuButton] = set()
+    overlay_motions: set[Gtk.EventControllerMotion]
+    overlay_menu_buttons: set[Gtk.MenuButton]
 
     stopped: bool = True
     buffering: bool = False
 
-    _reveal_animations: dict[Gtk.Widget, Adw.Animation] = {}
-    _hide_animations: dict[Gtk.Widget, Adw.Animation] = {}
+    _reveal_animations: dict[Gtk.Widget, Adw.Animation]
+    _hide_animations: dict[Gtk.Widget, Adw.Animation]
 
     _last_reveal: float = 0.0
     _last_seek: float = 0.0
@@ -177,7 +184,10 @@ class Window(Adw.ApplicationWindow):
         (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
 
     def __init__(self, **kwargs: Any) -> None:
-        super().__init__(decorated=False if system == "Darwin" else True, **kwargs)
+        super().__init__(decorated=system != "Darwin", **kwargs)
+
+        self._reveal_animations = {}
+        self._hide_animations = {}
 
         if system == "Darwin":
             self.placeholder_primary_menu_button.props.visible = False
@@ -218,6 +228,7 @@ class Window(Adw.ApplicationWindow):
         )
         self.add_controller(esc)
 
+        self.overlay_motions = set()
         for widget in (
             self.controls_box,
             self.bottom_overlay_box,
@@ -258,12 +269,7 @@ class Window(Adw.ApplicationWindow):
         """Start playing the given `GFile`."""
         try:
             file_info = gfile.query_info(
-                ",".join(
-                    (
-                        Gio.FILE_ATTRIBUTE_STANDARD_IS_SYMLINK,
-                        Gio.FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET,
-                    )
-                ),
+                f"{Gio.FILE_ATTRIBUTE_STANDARD_IS_SYMLINK},{Gio.FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET}",
                 Gio.FileQueryInfoFlags.NOFOLLOW_SYMLINKS,
             )
         except GLib.Error:
@@ -276,7 +282,7 @@ class Window(Adw.ApplicationWindow):
                 else gfile.get_uri()
             )
 
-        logging.debug("Playing video: %s.", uri)
+        logger.debug("Playing video: %s", uri)
 
         self.media_info_updated = False
         self.stack.props.visible_child = self.video_page
@@ -296,16 +302,15 @@ class Window(Adw.ApplicationWindow):
 
         if not (pos := self._get_previous_play_position()):
             self.unpause()
-            logging.debug("No previous play position.")
+            logger.debug("No previous play position")
             return
 
-        # Don't restore the previous play position if it is in the first minute
-        if pos < 6e10:
+        if pos < MINUTE_IN_NS:
             self.unpause()
-            logging.debug("Previous play position before 60s.")
+            logger.debug("Previous play position before 60s")
             return
 
-        logging.debug("Previous play position restored: %i.", pos)
+        logger.debug("Previous play position restored: %i", pos)
 
         def setup_cb(*_args: Any) -> None:
             self._reveal_overlay(self.restore_breakpoint_bin)
@@ -321,12 +326,12 @@ class Window(Adw.ApplicationWindow):
         self._hide_overlay(self.restore_breakpoint_bin)
         self._reveal_overlay(self.controls_box)
         self.play.play()
-        logging.debug("Video unpaused.")
+        logger.debug("Video unpaused")
 
     def pause(self, *_args: Any) -> None:
         """Pause the currently playing video."""
         self.play.pause()
-        logging.debug("Video paused.")
+        logger.debug("Video paused")
 
     def select_subtitles(self, index: int) -> None:
         """Select subtitles for the given index."""
@@ -386,15 +391,15 @@ class Window(Adw.ApplicationWindow):
             return None
 
         try:
-            hist_file = (showtime.cache_path / "playback_history").open("rb")
+            hist_file = (showtime.state_path / "playback_history.json").open("r")
         except FileNotFoundError:
-            logging.info("Cannot restore play positon, no playback history file.")
+            logger.info("Cannot restore play positon, no playback history file")
             return None
 
         try:
-            hist = pickle.load(hist_file)
+            hist = json.load(hist_file)
         except EOFError as error:
-            logging.warning("Cannot restore play positon: %s", error)
+            logger.warning("Cannot restore play positon: %s", error)
             return None
 
         hist_file.close()
@@ -404,7 +409,7 @@ class Window(Adw.ApplicationWindow):
     def _resize_window(
         self, _obj: Any, paintable: Gdk.Paintable, initial: bool | None = False
     ) -> None:
-        logging.debug("Resizing window…")
+        logger.debug("Resizing window…")
 
         if initial:
             self.disconnect_by_func(self._resize_window)
@@ -415,11 +420,11 @@ class Window(Adw.ApplicationWindow):
             return
 
         if not (surface := self.get_surface()):
-            logging.error("Could not get GdkSurface to resize window.")
+            logger.error("Could not get GdkSurface to resize window")
             return
 
         if not (monitor := self.props.display.get_monitor_at_surface(surface)):
-            logging.error("Could not get GdkMonitor to resize window.")
+            logger.error("Could not get GdkMonitor to resize window")
             return
 
         video_area = video_width * video_height
@@ -473,9 +478,8 @@ class Window(Adw.ApplicationWindow):
                 nat_width = int(sqrt(prev_area / ratio))
                 nat_height = int(nat_width * ratio)
 
-            # Don't resize on really small changes
-            if (abs(init_width - nat_width) < 10) and (
-                abs(init_height - nat_height) < 10
+            if (abs(init_width - nat_width) < SMALL_SIZE_CHANGE) and (
+                abs(init_height - nat_height) < SMALL_SIZE_CHANGE
             ):
                 return
 
@@ -491,7 +495,7 @@ class Window(Adw.ApplicationWindow):
             )
             anim.props.easing = Adw.Easing.EASE_OUT_EXPO
             (anim.skip if initial else anim.play)()
-            logging.debug("Resized window to %i×%i.", nat_width, nat_height)
+            logger.debug("Resized window to %ix%i", nat_width, nat_height)
 
     def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
@@ -520,10 +524,9 @@ class Window(Adw.ApplicationWindow):
 
     def _set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
         animations = self._reveal_animations if reveal else self._hide_animations
+        animation = animations.get(widget)
 
-        if (
-            animation := animations.get(widget)
-        ) and animation.get_state() == Adw.AnimationState.PLAYING:
+        if animation and (animation.props.state == Adw.AnimationState.PLAYING):
             return
 
         animations[widget] = Adw.TimedAnimation.new(
@@ -677,14 +680,14 @@ class Window(Adw.ApplicationWindow):
         self.seek_scale.set_value((pos / dur) * SCALE_MULT)
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
-        logging.debug("Seeked to %i.", pos)
+        logger.debug("Seeked to %i", pos)
 
     def _on_media_info_updated(
         self, _obj: Any, media_info: GstPlay.PlayMediaInfo
     ) -> None:
         self.title_label.props.label = get_title(media_info) or ""
 
-        # Add a timeout to reduce the things happening at once while the video is loading
+        # Add a timeout to reduce things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
         self.options.menus_building += 1
         GLib.timeout_add(500, self.options.build_menus, media_info)
@@ -709,10 +712,10 @@ class Window(Adw.ApplicationWindow):
         self.play.seek(0)
 
     def _on_warning(self, _obj: Any, warning: GLib.Error) -> None:
-        logging.warning(warning)
+        logger.warning(warning)
 
     def _on_error(self, _obj: Any, error: GLib.Error) -> None:
-        logging.error(error.message)
+        logger.error(error.message)
 
         if (
             self.placeholder_stack.get_visible_child()
@@ -762,18 +765,18 @@ class Window(Adw.ApplicationWindow):
         def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
-                    logging.debug("Plugin installed.")
+                    logger.debug("Plugin installed")
                     self.stack.props.visible_child = self.video_page
                     self.pause()
 
                 case GstPbutils.InstallPluginsReturn.NOT_FOUND:
-                    logging.error("Plugin installation failed: Not found.")
+                    logger.error("Plugin installation failed: Not found")
                     self.missing_plugin_status_page.props.description = _(
                         "No plugin available for this media type"
                     )
 
                 case _:
-                    logging.error("Plugin installation failed, result: %d", int(result))
+                    logger.error("Plugin installation failed, result: %d", int(result))
                     self.missing_plugin_status_page.props.description = _(
                         "Unable to install the required plugin"
                     )
@@ -961,20 +964,6 @@ class Window(Adw.ApplicationWindow):
 
     def _present_about_dialog(self) -> None:
         # Get the debug info from the log files
-        debug_str = ""
-        for index, path in enumerate(showtime.log_files):
-            # Add a horizontal line between runs
-            if index > 0:
-                debug_str += "─" * 37 + "\n"
-            # Add the run's logs
-            log_file = (
-                lzma.open(path, "rt", encoding="utf-8")
-                if path.name.endswith(".xz")
-                else path.open("r", encoding="utf-8")
-            )
-            debug_str += data if isinstance(data := log_file.read(), str) else ""
-            log_file.close()
-
         about = Adw.AboutDialog.new_from_appdata(f"{PREFIX}/{APP_ID}.metainfo.xml")
         about.props.developers = ["kramo https://kramo.page"]
         about.props.designers = [
@@ -982,22 +971,28 @@ class Window(Adw.ApplicationWindow):
             "Allan Day https://blogs.gnome.org/aday/",
             "kramo https://kramo.page",
         ]
-        about.props.copyright = "© 2024 kramo"
+        about.props.copyright = "© 2024-2025 kramo"
         # Translators: Replace this with your name for it to show up in the about dialog
         about.props.translator_credits = _("translator_credits")
-        about.props.debug_info = debug_str
-        about.props.debug_info_filename = "showtime.log"
+
+        try:
+            about.props.debug_info = log_file.read_text()
+        except FileNotFoundError:
+            pass
+        else:
+            about.props.debug_info_filename = log_file.name
+
         about.present(self)
 
     def _save_screenshot(self) -> None:
-        """Save a screenshot of the current frame of the video being played in PNG format.
+        """Save a snapshot of the current frame of the currently playing video as a PNG.
 
         It tries saving it to `xdg-pictures/Screenshots` and falls back to `~`.
         """
-        logging.debug("Saving screenshot…")
+        logger.debug("Saving screenshot…")
 
         if not (paintable := self.picture.props.paintable):
-            logging.warning("Cannot save screenshot, no paintable.")
+            logger.warning("Cannot save screenshot, no paintable")
             return
 
         if not (texture := screenshot(paintable, self)):
@@ -1010,7 +1005,7 @@ class Window(Adw.ApplicationWindow):
         )
 
         title = get_title(self.play.get_media_info()) or _("Unknown Title")
-        timestamp = nanoseconds_to_timestamp(self.play.get_position(), False)
+        timestamp = nanoseconds_to_timestamp(self.play.get_position(), hours=True)
 
         path = str(Path(path, f"{title} {timestamp}.png"))
 
@@ -1029,7 +1024,7 @@ class Window(Adw.ApplicationWindow):
         )
         self.toast_overlay.add_toast(toast)
 
-        logging.debug("Screenshot saved.")
+        logger.debug("Screenshot saved")
 
     def _on_open_video(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
@@ -1056,7 +1051,7 @@ class Window(Adw.ApplicationWindow):
 
         self.play.props.suburi = gfile.get_uri()
         self.select_subtitles(0)
-        logging.debug("External subtitle added: %s.", gfile.get_uri())
+        logger.debug("External subtitle added: %s", gfile.get_uri())
 
     def _on_subtitles_selected(
         self,
