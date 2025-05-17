@@ -4,6 +4,8 @@ blueprints = custom_target(
   'blueprints',
   input: files(
     'gtk/help-overlay.blp',
+    'gtk/options.blp',
+    'gtk/sound-options.blp',
     'gtk/window.blp',
   ),
   output: '.',
@@ -47,7 +49,9 @@ showtime_sources = [
   'mpris.py',
   'play.py',
   'utils.py',
-  'window.py',
+  'widgets/window.py',
+  'widgets/options.py',
+  'widgets/sound_options.py',
 ]
 
 install_data(showtime_sources, install_dir: moduledir)
