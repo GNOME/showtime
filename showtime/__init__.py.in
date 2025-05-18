@@ -22,7 +22,7 @@ logger = getLogger()
 schema = Gio.Settings.new(APP_ID)
 state_settings = Gio.Settings.new(APP_ID + ".State")
 
-state_path = Path(GLib.get_user_state_dir(), "showtime")
+(state_path := Path(GLib.get_user_state_dir(), "showtime")).mkdir(exist_ok=True)
 log_file = state_path / "showtime.log"
 
 end_timestamp_type = state_settings.get_enum("end-timestamp-type")
