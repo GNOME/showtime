@@ -1,19 +1,19 @@
 # Brazilian Portuguese translation for showtime.
 # Copyright (C) 2025 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
-# Juliano de Souza Camargo <julianosc@pm.me>, 2024.
 # Filipe Motta <luizfilipemotta@gmail.com>, 2024.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2025.
 # Álvaro Burns <>, 2025.
+# Juliano de Souza Camargo <julianosc@pm.me>, 2024-2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-12 20:31+0000\n"
-"PO-Revision-Date: 2025-05-13 19:26-0300\n"
-"Last-Translator: Álvaro Burns <>\n"
-"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao/>\n"
+"POT-Creation-Date: 2025-05-18 09:53+0000\n"
+"PO-Revision-Date: 2025-05-18 10:34-0300\n"
+"Last-Translator: Juliano de Souza Camargo <julianosc@pm.me>\n"
+"Language-Team: Brazilian Portuguese <https://br.gnome.org/traducao>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 "X-Generator: Gtranslator 48.0\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:190
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
 msgid "Video Player"
 msgstr "Reprodutor de vídeo"
 
@@ -74,102 +74,107 @@ msgstr "O que mostrar na posição do indicador de tempo do fim"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "P. ex. duração total do vídeo ou quantidade de tempo restante"
 
-#: showtime/main.py:104
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Reproduzindo um vídeo"
 
-#: showtime/mpris.py:286 showtime/window.py:1110
+#: showtime/mpris.py:288 showtime/widgets/window.py:1034
 msgid "Unknown Title"
 msgstr "Título desconhecido"
 
-#: showtime/window.py:171 showtime/gtk/window.blp:299
-msgid "Play"
-msgstr "Reproduzir"
-
-#: showtime/window.py:171
-msgid "Pause"
-msgstr "Pausar"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:353
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Indeterminada, {} canal"
 msgstr[1] "Indeterminada, {} canais"
 
-#: showtime/window.py:358
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Indeterminada"
 
-#: showtime/window.py:371
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Sem áudio"
 
-#: showtime/window.py:376
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Nenhuma"
 
-#: showtime/window.py:382
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "Idioma indeterminado"
 
-#: showtime/window.py:393
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
 msgstr "Adicionar arquivo de legendas…"
 
-#: showtime/window.py:788
+#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+msgid "Play"
+msgstr "Reproduzir"
+
+#: showtime/widgets/window.py:178
+msgid "Pause"
+msgstr "Pausar"
+
+#: showtime/widgets/window.py:739
 msgid "Details copied"
 msgstr "Detalhes copiados"
 
-#: showtime/window.py:790
+#: showtime/widgets/window.py:741
 msgid "Copy Technical Details"
 msgstr "Copiar detalhes técnicos"
 
-#: showtime/window.py:812
+#: showtime/widgets/window.py:752
+msgid "Try Again"
+msgstr "Tentar novamente"
+
+#: showtime/widgets/window.py:783
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Os codecs \"{}\" necessários para reproduzir este vídeo não foram encontrados"
 
-#: showtime/window.py:831
+#: showtime/widgets/window.py:802
 msgid "No plugin available for this media type"
 msgstr "Nenhum plugin disponível para este tipo de mídia"
 
-#: showtime/window.py:837
+#: showtime/widgets/window.py:808
 msgid "Unable to install the required plugin"
 msgstr "Não foi possível instalar o plugin necessário"
 
-#: showtime/window.py:840
+#: showtime/widgets/window.py:811
 msgid "Install Plugin"
 msgstr "Instalar plugin"
 
-#: showtime/window.py:848
+#: showtime/widgets/window.py:819
 msgid "Installing…"
 msgstr "Instalando…"
 
-#: showtime/window.py:856
+#: showtime/widgets/window.py:827
 msgid "“{}” codecs are required to play this video"
 msgstr "Codecs \"{}\" são necessários para reproduzir este vídeo"
 
-#: showtime/window.py:999
+#: showtime/widgets/window.py:931
 msgid "Video"
 msgstr "Vídeo"
 
-#: showtime/window.py:1010
+#: showtime/widgets/window.py:942
 msgid "Subtitles"
 msgstr "Legendas"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/window.py:1085
+#: showtime/widgets/window.py:1003
 msgid "translator_credits"
 msgstr ""
 "Filipe Motta <luizfilipemotta@gmail.com>\n"
 "Juliano de Souza Camargo <julianosc@pm.me>"
 
-#: showtime/window.py:1118
+#: showtime/widgets/window.py:1042
 msgid "Screenshot captured"
 msgstr "Captura de tela obtida"
 
-#: showtime/window.py:1120
+#: showtime/widgets/window.py:1044
 msgid "Show in Files"
 msgstr "Mostrar em Arquivos"
 
@@ -213,7 +218,7 @@ msgstr "Aumentar volume"
 msgid "Decrease Volume"
 msgstr "Diminuir volume"
 
-#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
 msgstr "Desativar/Ativar som"
 
@@ -221,7 +226,7 @@ msgstr "Desativar/Ativar som"
 msgid "View"
 msgstr "Visualização"
 
-#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:619
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:433
 msgid "Toggle Fullscreen"
 msgstr "Ativar/Desativar tela cheia"
 
@@ -237,13 +242,49 @@ msgstr "Reprodução"
 msgid "Play/Pause"
 msgstr "Reproduzir/Pausar"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:280
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:126
 msgid "Go Back 10 Seconds"
 msgstr "Retroceder 10 segundos"
 
-#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:316
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:162
 msgid "Go Forward 10 Seconds"
 msgstr "Avançar 10 segundos"
+
+#: showtime/gtk/options.blp:12
+msgid "Rotate"
+msgstr "Girar"
+
+#: showtime/gtk/options.blp:26
+msgid "_Language"
+msgstr "_Idioma"
+
+#: showtime/gtk/options.blp:30
+msgid "_Subtitles"
+msgstr "_Legendas"
+
+#: showtime/gtk/options.blp:35
+msgid "_Repeat"
+msgstr "_Repetir"
+
+#: showtime/gtk/options.blp:62
+msgid "Playback Speed"
+msgstr "Velocidade de reprodução"
+
+#: showtime/gtk/options.blp:108
+msgid "Rotate Left"
+msgstr "Gira para esquerda"
+
+#: showtime/gtk/options.blp:119
+msgid "Rotate Right"
+msgstr "Gira para direita"
+
+#: showtime/gtk/options.blp:129
+msgid "Playback Options"
+msgstr "Opções de reprodução"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Ajustar volume"
 
 #: showtime/gtk/window.blp:6
 msgid "_Open…"
@@ -265,75 +306,39 @@ msgstr "Atalhos de _teclado"
 msgid "_About Video Player"
 msgstr "_Sobre o Reprodutor de vídeo"
 
-#: showtime/gtk/window.blp:39
-msgid "Rotate"
-msgstr "Girar"
-
-#: showtime/gtk/window.blp:53
-msgid "_Language"
-msgstr "_Idioma"
-
-#: showtime/gtk/window.blp:57
-msgid "_Subtitles"
-msgstr "_Legendas"
-
-#: showtime/gtk/window.blp:62
-msgid "_Repeat"
-msgstr "_Repetir"
-
-#: showtime/gtk/window.blp:82
-msgid "Playback Speed"
-msgstr "Velocidade de reprodução"
-
-#: showtime/gtk/window.blp:128
-msgid "Rotate Left"
-msgstr "Gira para esquerda"
-
-#: showtime/gtk/window.blp:139
-msgid "Rotate Right"
-msgstr "Gira para direita"
-
-#: showtime/gtk/window.blp:214 showtime/gtk/window.blp:659
+#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: showtime/gtk/window.blp:223
+#: showtime/gtk/window.blp:69
 msgid "Watch Videos"
 msgstr "Assista a vídeos"
 
-#: showtime/gtk/window.blp:224
+#: showtime/gtk/window.blp:70
 msgid "Drag and drop videos here"
 msgstr "Arraste e solte vídeos aqui"
 
-#: showtime/gtk/window.blp:227
+#: showtime/gtk/window.blp:73
 msgid "Open…"
 msgstr "Abrir…"
 
-#: showtime/gtk/window.blp:240
+#: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Não foi possível reproduzir o vídeo"
 
-#: showtime/gtk/window.blp:245
+#: showtime/gtk/window.blp:91
 msgid "Missing Plugin"
 msgstr "Plugin ausente"
 
-#: showtime/gtk/window.blp:355
-msgid "Adjust Volume"
-msgstr "Ajustar volume"
-
-#: showtime/gtk/window.blp:373
-msgid "Playback Options"
-msgstr "Opções de reprodução"
-
-#: showtime/gtk/window.blp:439
+#: showtime/gtk/window.blp:253
 msgid "Toggle Duration/Remaining"
 msgstr "Alternar duração/tempo restante"
 
-#: showtime/gtk/window.blp:494
+#: showtime/gtk/window.blp:308
 msgid "Resume"
 msgstr "Retomar"
 
-#: showtime/gtk/window.blp:534
+#: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Reiniciar"
 
