@@ -738,9 +738,8 @@ class Window(Adw.ApplicationWindow):
 
             self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
 
-        copy = Gtk.Button(label=_("Copy Technical Details"))
-        copy.add_css_class("pill")
-        copy.connect("clicked", copy_details)
+        copy = Adw.ButtonRow(title=_("Copy Technical Details"))  # pyright: ignore[reportAttributeAccessIssue]
+        copy.connect("activated", copy_details)
 
         def try_again(*_args: Any) -> None:
             if not (app := self.props.application):
@@ -749,20 +748,19 @@ class Window(Adw.ApplicationWindow):
             cast("Application", app).do_activate(self._playing_gfile)
             self.close()
 
-        retry = Gtk.Button(label=_("Try Again"))
+        retry = Adw.ButtonRow(title=_("Try Again"))  # pyright: ignore[reportAttributeAccessIssue]
         retry.add_css_class("suggested-action")
-        retry.add_css_class("pill")
-        retry.connect("clicked", try_again)
+        retry.connect("activated", try_again)
 
-        box = Adw.WrapBox(  # pyright: ignore[reportAttributeAccessIssue]
-            align=0.5,
-            child_spacing=12,
-            line_spacing=12,
+        group = Adw.PreferencesGroup(
+            halign=Gtk.Align.CENTER,
+            width_request=250,
+            separate_rows=True,  # pyright: ignore[reportCallIssue]
         )
-        box.append(copy)
-        box.append(retry)
+        group.add(retry)
+        group.add(copy)
 
-        self.error_status_page.props.child = box
+        self.error_status_page.props.child = group
 
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.stack.props.visible_child = self.placeholder_page
