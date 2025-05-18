@@ -7,7 +7,8 @@ from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
 from Foundation import NSObject  # type: ignore
 from gi.repository import Gio
 
-from showtime import app, utils
+import showtime
+from showtime import utils
 
 
 class ApplicationDelegate(NSObject):
@@ -64,22 +65,26 @@ class ApplicationDelegate(NSObject):
 
     def new_(self, *_args: Any) -> None:
         """Create a new window."""
-        if not app:
+        if not showtime.app:
             return
 
-        app.do_activate()
+        showtime.app.do_activate()
 
     def open_(self, *_args: Any) -> None:
         """Show the file chooser for opening a video."""
-        if not (app and app.win):
+        if not (showtime.app and showtime.app.win):
             return
 
-        if action := utils.lookup_action(app.win, "open-video"):
+        if action := utils.lookup_action(showtime.app.win, "open-video"):
             action.activate()
 
     def shortcuts_(self, *_args: Any) -> None:
         """Open the shortcuts dialog."""
-        if app and app.win and (overlay := app.win.get_help_overlay()):
+        if (
+            showtime.app
+            and showtime.app.win
+            and (overlay := showtime.app.win.get_help_overlay())
+        ):
             overlay.present()
 
     def application_openFile_(  # noqa: N802
@@ -88,8 +93,8 @@ class ApplicationDelegate(NSObject):
         filename: str,
     ) -> bool:
         """Open a file."""
-        if not (app and app.win):
+        if not (showtime.app and showtime.app.win):
             return False
 
-        app.win.play_video(Gio.File.new_for_path(filename))
+        showtime.app.win.play_video(Gio.File.new_for_path(filename))
         return True
