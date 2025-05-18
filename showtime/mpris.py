@@ -19,7 +19,7 @@ from gi.repository import (
 
 from showtime import APP_ID, PREFIX, logger
 from showtime.utils import get_title
-from showtime.window import Window
+from showtime.widgets.window import Window
 
 RATE_SLOW = 0.75
 RATE_NORMAL = 1.125

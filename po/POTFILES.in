@@ -4,7 +4,15 @@ data/org.gnome.Showtime.gschema.xml.in
 
 showtime/main.py
 showtime/mpris.py
+showtime/play.py
+showtime/utils.py
+
+showtime/widgets/drag_overlay.py
+showtime/widgets/options.py
+showtime/widgets/sound_options.py
 showtime/widgets/window.py
 
 showtime/gtk/help-overlay.blp
+showtime/gtk/options.blp
+showtime/gtk/sound-options.blp
 showtime/gtk/window.blp

@@ -34,7 +34,6 @@ from showtime import (
     state_settings,
     system,
 )
-from showtime.drag_overlay import DragOverlay
 from showtime.play import Messenger, gst_play_setup
 from showtime.utils import (
     get_title,
@@ -43,6 +42,7 @@ from showtime.utils import (
     screenshot,
 )
 
+from .drag_overlay import DragOverlay
 from .options import Options
 from .sound_options import SoundOptions
 
@@ -114,8 +114,17 @@ class Window(Adw.ApplicationWindow):
     stopped: bool = True
     buffering: bool = False
 
+    volume = GObject.Property(type=float)
+
+    media_info_updated = GObject.Signal(name="media-info-updated")
+    volume_changed = GObject.Signal(name="volume-changed")
+    rate_changed = GObject.Signal(name="rate-changed")
+    seeked = GObject.Signal(name="seeked")
+
     _reveal_animations: dict[Gtk.Widget, Adw.Animation]
     _hide_animations: dict[Gtk.Widget, Adw.Animation]
+
+    _playing_gfile: Gio.File | None = None
 
     _last_reveal: float = 0.0
     _last_seek: float = 0.0
@@ -126,13 +135,6 @@ class Window(Adw.ApplicationWindow):
     _prev_motion_xy: tuple = (0, 0)
     _prev_volume = -1
     _toplevel_focused: bool = False
-
-    media_info_updated = GObject.Signal(name="media-info-updated")
-    volume_changed = GObject.Signal(name="volume-changed")
-    rate_changed = GObject.Signal(name="rate-changed")
-    seeked = GObject.Signal(name="seeked")
-
-    volume = GObject.Property(type=float)
 
     @GObject.Property(type=bool, default=False)
     def mute(self) -> bool:
@@ -267,6 +269,8 @@ class Window(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
+        self._playing_gfile = gfile
+
         try:
             file_info = gfile.query_info(
                 f"{Gio.FILE_ATTRIBUTE_STANDARD_IS_SYMLINK},{Gio.FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET}",

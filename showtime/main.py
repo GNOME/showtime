@@ -11,8 +11,6 @@ from typing import Any
 
 import gi
 
-from showtime import VERSION, log_file, logger
-
 gi.require_version("Gtk", "4.0")
 gi.require_version("Adw", "1")
 gi.require_version("Gst", "1.0")
@@ -23,9 +21,10 @@ gi.require_version("GstPbutils", "1.0")
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 import showtime
-from showtime import APP_ID, state_settings, system
-from showtime.mpris import MPRIS
-from showtime.window import PROFILE, Window
+from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
+
+from .mpris import MPRIS
+from .widgets.window import PROFILE, Window
 
 if system == "Darwin":
     from AppKit import NSApp  # type: ignore
