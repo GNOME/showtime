@@ -8,7 +8,7 @@ from hashlib import sha256
 from math import sqrt
 from pathlib import Path
 from time import time
-from typing import Any
+from typing import TYPE_CHECKING, Any, cast
 
 from gi.repository import (
     Adw,
@@ -45,6 +45,9 @@ from showtime.utils import (
 from .drag_overlay import DragOverlay
 from .options import Options
 from .sound_options import SoundOptions
+
+if TYPE_CHECKING:
+    from showtime.main import Application
 
 # For large enough monitors, occupy 40% of the screen area
 # when opening a window with a video
@@ -735,11 +738,31 @@ class Window(Adw.ApplicationWindow):
 
             self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
 
-        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Copy Technical Details"))
-        button.add_css_class("pill")
-        button.connect("clicked", copy_details)
+        copy = Gtk.Button(label=_("Copy Technical Details"))
+        copy.add_css_class("pill")
+        copy.connect("clicked", copy_details)
 
-        self.error_status_page.props.child = button
+        def try_again(*_args: Any) -> None:
+            if not (app := self.props.application):
+                return
+
+            cast("Application", app).do_activate(self._playing_gfile)
+            self.close()
+
+        retry = Gtk.Button(label=_("Try Again"))
+        retry.add_css_class("suggested-action")
+        retry.add_css_class("pill")
+        retry.connect("clicked", try_again)
+
+        box = Adw.WrapBox(  # pyright: ignore[reportAttributeAccessIssue]
+            align=0.5,
+            child_spacing=12,
+            line_spacing=12,
+        )
+        box.append(copy)
+        box.append(retry)
+
+        self.error_status_page.props.child = box
 
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.stack.props.visible_child = self.placeholder_page
