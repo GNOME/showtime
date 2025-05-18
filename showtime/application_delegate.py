@@ -19,11 +19,11 @@ class ApplicationDelegate(NSObject):
         main_menu = NSApp.mainMenu()
 
         new_window_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            "New Window", "new:", "n"
+            _("New Window"), "new:", "n"
         )
 
         open_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            "Open…", "open:", "o"
+            _("Open…"), "open:", "o"
         )
 
         file_menu = NSMenu.alloc().init()
@@ -31,7 +31,7 @@ class ApplicationDelegate(NSObject):
         file_menu.addItem_(open_menu_item)
 
         file_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            "File", None, ""
+            _("File"), None, ""
         )
         file_menu_item.setSubmenu_(file_menu)
         main_menu.addItem_(file_menu_item)
@@ -39,7 +39,7 @@ class ApplicationDelegate(NSObject):
         windows_menu = NSMenu.alloc().init()
 
         windows_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            "Window", None, ""
+            _("Window"), None, ""
         )
         windows_menu_item.setSubmenu_(windows_menu)
         main_menu.addItem_(windows_menu_item)
@@ -48,7 +48,7 @@ class ApplicationDelegate(NSObject):
 
         keyboard_shortcuts_menu_item = (
             NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-                "Keyboard Shortcuts", "shortcuts:", "?"
+                _("Keyboard Shortcuts"), "shortcuts:", "?"
             )
         )
 
@@ -56,7 +56,7 @@ class ApplicationDelegate(NSObject):
         help_menu.addItem_(keyboard_shortcuts_menu_item)
 
         help_menu_item = NSMenuItem.alloc().initWithTitle_action_keyEquivalent_(
-            "Help", None, ""
+            _("Help"), None, ""
         )
         help_menu_item.setSubmenu_(help_menu)
         main_menu.addItem_(help_menu_item)
