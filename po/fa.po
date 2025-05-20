@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-11 14:03+0000\n"
-"PO-Revision-Date: 2025-05-12 16:10+0330\n"
+"POT-Creation-Date: 2025-05-18 14:01+0000\n"
+"PO-Revision-Date: 2025-05-20 09:02+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3 data/org.gnome.Showtime.metainfo.xml.in:6
-#: showtime/gtk/window.blp:190
+#: showtime/gtk/window.blp:36
 msgid "Video Player"
 msgstr "پخش‌کنندهٔ ویدیو"
 
@@ -31,7 +31,7 @@ msgstr "پخش ویدیوها"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;فیلم;ویدیو;کلیپ;پخش;نمایش;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "پنجرهٔ جدید"
 
@@ -63,101 +63,106 @@ msgstr "مورد نمایشی در پایان موقعیت برچسب زمانی
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "برای نمونه کل مدّت ویدیو یا مقدار زمان مانده"
 
-#: showtime/main.py:109
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "پخش کردن ویدیو"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:401
-msgid "translator_credits"
-msgstr "دانیال بهزادی <dani.behzi@ubuntu.com>"
-
-#: showtime/mpris.py:286 showtime/window.py:321
+#: showtime/mpris.py:288 showtime/widgets/window.py:1032
 msgid "Unknown Title"
 msgstr "عنوان ناشناخته"
 
-#: showtime/window.py:160 showtime/gtk/window.blp:304
-msgid "Play"
-msgstr "پخش"
-
-#: showtime/window.py:160
-msgid "Pause"
-msgstr "مکث"
-
-#: showtime/window.py:328
-msgid "Screenshot captured"
-msgstr "نماگرفت ضبط شد"
-
-#: showtime/window.py:330
-msgid "Show in Files"
-msgstr "نمایش در پرونده‌ها"
-
-#: showtime/window.py:376
-msgid "Video"
-msgstr "ویدیو"
-
-#: showtime/window.py:383
-msgid "Subtitles"
-msgstr "زیرنویس‌ها"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:422
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "تشخیص داده نشده. {} کانال"
 msgstr[1] "تشخیص داده نشده. {} کانال"
 
-#: showtime/window.py:427
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "تشخیص داده نشده"
 
-#: showtime/window.py:440
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "بدون صدا"
 
-#: showtime/window.py:445
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "هیچ"
 
-#: showtime/window.py:451
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "زبان تشخیص داده نشده"
 
-#: showtime/window.py:462
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
 msgstr "افزودن پروندهٔ زیرنویس…"
 
-#: showtime/window.py:919
+#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+msgid "Play"
+msgstr "پخش"
+
+#: showtime/widgets/window.py:178
+msgid "Pause"
+msgstr "مکث"
+
+#: showtime/widgets/window.py:739
 msgid "Details copied"
 msgstr "جزییات رونوشت شد"
 
-#: showtime/window.py:921
+#: showtime/widgets/window.py:741
 msgid "Copy Technical Details"
 msgstr "رونوشت از جزییات فنی"
 
-#: showtime/window.py:943
+#: showtime/widgets/window.py:751
+msgid "Try Again"
+msgstr "تلاش دوباره"
+
+#: showtime/widgets/window.py:781
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "رمزینه‌های «{}»‌که برای پخش این ویدیو لازمند پیدا نشدند"
 
-#: showtime/window.py:962
+#: showtime/widgets/window.py:800
 msgid "No plugin available for this media type"
 msgstr "هیچ افزایه‌ای برای این گونهٔ رسانه موجود نیست"
 
-#: showtime/window.py:968
+#: showtime/widgets/window.py:806
 msgid "Unable to install the required plugin"
 msgstr "ناتوان در تصب افزایهٔ لازم"
 
-#: showtime/window.py:971
+#: showtime/widgets/window.py:809
 msgid "Install Plugin"
 msgstr "نصب افزایه"
 
-#: showtime/window.py:979
+#: showtime/widgets/window.py:817
 msgid "Installing…"
 msgstr "نصب کردن…"
 
-#: showtime/window.py:987
+#: showtime/widgets/window.py:825
 msgid "“{}” codecs are required to play this video"
 msgstr "رمزینه‌های «{}» برای پخش این ویدو لازمند"
+
+#: showtime/widgets/window.py:929
+msgid "Video"
+msgstr "ویدیو"
+
+#: showtime/widgets/window.py:940
+msgid "Subtitles"
+msgstr "زیرنویس‌ها"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1001
+msgid "translator_credits"
+msgstr "دانیال بهزادی <dani.behzi@ubuntu.com>"
+
+#: showtime/widgets/window.py:1040
+msgid "Screenshot captured"
+msgstr "نماگرفت ضبط شد"
+
+#: showtime/widgets/window.py:1042
+msgid "Show in Files"
+msgstr "نمایش در پرونده‌ها"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -199,7 +204,7 @@ msgstr "افزایش حجم صدا"
 msgid "Decrease Volume"
 msgstr "کاهش حجم صدا"
 
-#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
 msgstr "خموشی یا ناخموشی"
 
@@ -207,7 +212,7 @@ msgstr "خموشی یا ناخموشی"
 msgid "View"
 msgstr "نما"
 
-#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:624
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:433
 msgid "Toggle Fullscreen"
 msgstr "تغییر وضعیت تمام‌صفحه"
 
@@ -223,13 +228,49 @@ msgstr "پخش"
 msgid "Play/Pause"
 msgstr "پخش/مکث"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:285
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:126
 msgid "Go Back 10 Seconds"
 msgstr "۱۰ ثانیه به پس"
 
-#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:321
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:162
 msgid "Go Forward 10 Seconds"
 msgstr "۱۰ ثانیه به پیش"
+
+#: showtime/gtk/options.blp:12
+msgid "Rotate"
+msgstr "چرخاندن"
+
+#: showtime/gtk/options.blp:26
+msgid "_Language"
+msgstr "_زبان"
+
+#: showtime/gtk/options.blp:30
+msgid "_Subtitles"
+msgstr "_زیرنویس‌ها"
+
+#: showtime/gtk/options.blp:35
+msgid "_Repeat"
+msgstr "_تکرار"
+
+#: showtime/gtk/options.blp:62
+msgid "Playback Speed"
+msgstr "سرعت پخش"
+
+#: showtime/gtk/options.blp:108
+msgid "Rotate Left"
+msgstr "چرخاندن به چپ"
+
+#: showtime/gtk/options.blp:119
+msgid "Rotate Right"
+msgstr "چرخاندن به راست"
+
+#: showtime/gtk/options.blp:129
+msgid "Playback Options"
+msgstr "گزینه‌های پخش"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "تنظیم حجم صدا"
 
 #: showtime/gtk/window.blp:6
 msgid "_Open…"
@@ -251,75 +292,39 @@ msgstr "میان‌برهای _صفحه‌کلید"
 msgid "_About Video Player"
 msgstr "_دربارهٔ پخش‌کنندهٔ ویدیو"
 
-#: showtime/gtk/window.blp:39
-msgid "Rotate"
-msgstr "چرخاندن"
-
-#: showtime/gtk/window.blp:53
-msgid "_Language"
-msgstr "_زبان"
-
-#: showtime/gtk/window.blp:57
-msgid "_Subtitles"
-msgstr "_زیرنویس‌ها"
-
-#: showtime/gtk/window.blp:62
-msgid "_Repeat"
-msgstr "_تکرار"
-
-#: showtime/gtk/window.blp:82
-msgid "Playback Speed"
-msgstr "سرعت پخش"
-
-#: showtime/gtk/window.blp:128
-msgid "Rotate Left"
-msgstr "چرخاندن به چپ"
-
-#: showtime/gtk/window.blp:139
-msgid "Rotate Right"
-msgstr "چرخاندن به راست"
-
-#: showtime/gtk/window.blp:219 showtime/gtk/window.blp:664
+#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
 msgid "Main Menu"
 msgstr "فهرست اصلی"
 
-#: showtime/gtk/window.blp:228
+#: showtime/gtk/window.blp:69
 msgid "Watch Videos"
 msgstr "دیدن ویدیوها"
 
-#: showtime/gtk/window.blp:229
+#: showtime/gtk/window.blp:70
 msgid "Drag and drop videos here"
 msgstr "کشیدن و رها کردن ویدیوها در این‌جا"
 
-#: showtime/gtk/window.blp:232
+#: showtime/gtk/window.blp:73
 msgid "Open…"
 msgstr "گشودن…"
 
-#: showtime/gtk/window.blp:245
+#: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "ناتوان در پخش ویدیو"
 
-#: showtime/gtk/window.blp:250
+#: showtime/gtk/window.blp:91
 msgid "Missing Plugin"
 msgstr "افزایه‌های ناموجود"
 
-#: showtime/gtk/window.blp:360
-msgid "Adjust Volume"
-msgstr "تنظیم حجم صدا"
-
-#: showtime/gtk/window.blp:378
-msgid "Playback Options"
-msgstr "گزینه‌های پخش"
-
-#: showtime/gtk/window.blp:444
+#: showtime/gtk/window.blp:253
 msgid "Toggle Duration/Remaining"
 msgstr "تغییر وضعیت مدّت و مانده"
 
-#: showtime/gtk/window.blp:499
+#: showtime/gtk/window.blp:308
 msgid "Resume"
 msgstr "از سر گیری"
 
-#: showtime/gtk/window.blp:539
+#: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "آغاز دوباره"
 
