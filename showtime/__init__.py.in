@@ -26,5 +26,3 @@ state_settings = Gio.Settings.new(APP_ID + ".State")
 log_file = state_path / "showtime.log"
 
 end_timestamp_type = state_settings.get_enum("end-timestamp-type")
-
-MAX_UINT16 = 65535

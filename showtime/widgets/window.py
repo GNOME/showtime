@@ -24,16 +24,7 @@ from gi.repository import (
 )
 
 import showtime
-from showtime import (
-    APP_ID,
-    MAX_UINT16,
-    PREFIX,
-    PROFILE,
-    log_file,
-    logger,
-    state_settings,
-    system,
-)
+from showtime import APP_ID, PREFIX, PROFILE, log_file, logger, state_settings, system
 from showtime.play import Messenger, gst_play_setup
 from showtime.utils import (
     get_title,
@@ -1085,7 +1076,7 @@ class Window(Adw.ApplicationWindow):
     ) -> None:
         action.props.state = state
 
-        if (index := state.get_uint16()) == MAX_UINT16:
+        if (index := state.get_uint16()) == GLib.MAXUINT16:
             self.play.set_subtitle_track_enabled(False)
         else:
             self.play.set_subtitle_track(index)

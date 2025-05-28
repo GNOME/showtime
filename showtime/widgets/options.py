@@ -15,7 +15,7 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import MAX_UINT16, PREFIX, state_settings
+from showtime import PREFIX, state_settings
 from showtime.utils import lookup_action
 
 
@@ -114,7 +114,7 @@ class Options(Adw.Bin):
             # I don't know if there is a better way to do this
 
         self.subtitles_menu.append(
-            _("None"), f"win.select-subtitles(uint16 {MAX_UINT16})"
+            _("None"), f"win.select-subtitles(uint16 {GLib.MAXUINT16})"
         )
 
         subs = 0
@@ -129,7 +129,7 @@ class Options(Adw.Bin):
             subs += 1
 
         if not subs and (action := lookup_action(self.props.root, "select-subtitles")):
-            action.activate(GLib.Variant.new_uint16(MAX_UINT16))
+            action.activate(GLib.Variant.new_uint16(GLib.MAXUINT16))
 
         self.subtitles_menu.append(_("Add Subtitle File…"), "win.choose-subtitles")
 
