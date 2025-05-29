@@ -2,40 +2,38 @@
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Florentina Mușat <florentina.musat.28@gmail.com>,  2024.
+# Antonio Marin <gnmer.6qxyg@slmail.me>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2024-09-11 13:31+0000\n"
-"PO-Revision-Date: 2024-09-12 08:10+0300\n"
-"Last-Translator: Florentina Mușat <florentina [dot] musat [dot] 28 [at] "
-"gmail [dot] com>\n"
-"Language-Team: Romanian <Romanian>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-05-28 12:36+0000\n"
+"PO-Revision-Date: 2025-05-29 11:03+0200\n"
+"Last-Translator: Antonio Marin <gnmer.6qxyg@slmail.me>\n"
+"Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Gtranslator 48.0\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
-#: showtime/gtk/window.blp:193
-msgid "Showtime"
-msgstr "Oră spectacol"
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
+msgid "Video Player"
+msgstr "Spectacol"
 
 #: data/org.gnome.Showtime.desktop.in:4
-msgid "Video Player"
-msgstr "Player video"
-
-#: data/org.gnome.Showtime.desktop.in:5
 msgid "Play videos"
-msgstr "Redă video-uri"
+msgstr "Redă videouri"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:10
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;Movie;Film;Clip;Player;Showtime;Redare;Spectacol;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Fereastră nouă"
 
@@ -45,127 +43,134 @@ msgstr "Vizionează fără distracție"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Redați filmele și fișierele video preferate fără probleme. Oră spectacol "
-"dispune de comenzi simple de redare care se estompează atunci când "
-"vizionați, ecran complet, viteză de redare ajustabilă, piste multiple de "
-"limbă și subtitrări, și capturi de ecran — tot ce aveți nevoie pentru o "
-"experiență de vizionare simplă."
+"Vizionează filmele și fișierele video preferate fără complicații. Aplicația "
+"dispune de comenzi simple de redare care dispar în timpul vizionării, "
+"afișare pe tot ecranul, viteză de redare reglabilă, mai multe limbi și "
+"subtitrare, și instantanee de ecran - tot ce este nevoie pentru o experiență "
+"de vizionare simplă."
 
-#: data/org.gnome.Showtime.metainfo.xml.in:35
+#: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Aplicația care redă un video"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr "Ce să se afișeze în poziția marcajului de timp final"
+msgstr "Ce să se afișeze la sfârșitul indicatorului de timp"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr "Adică durata totală a video-ului sau timpul rămas"
+msgstr "Adică: durata totală a filmului sau timpul rămas"
 
-#: showtime/main.py:140
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Se redă un video"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:427
-msgid "translator_credits"
-msgstr ""
-"Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, 2024"
-
-#: showtime/mpris.py:289 showtime/window.py:593
+#: showtime/mpris.py:288 showtime/widgets/window.py:1023
 msgid "Unknown Title"
 msgstr "Titlu necunoscut"
 
-#: showtime/window.py:140 showtime/gtk/window.blp:479
-msgid "Play"
-msgstr "Redă"
-
-#: showtime/window.py:143
-msgid "Pause"
-msgstr "Pauză"
-
-#: showtime/window.py:449
-msgid "Details copied"
-msgstr "Detalii copiate"
-
-#: showtime/window.py:452
-msgid "Copy Technical Details"
-msgstr "Copiază detaliile tehnice"
-
-#: showtime/window.py:478
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Nu s-au putut găsi codec-urile „{}” necesare pentru a reda acest video"
-
-#: showtime/window.py:499
-msgid "No plugin available for this media type"
-msgstr "Nu există niciun modul disponibil pentru acest tip de media"
-
-#: showtime/window.py:505
-msgid "Unable to install the required plugin"
-msgstr "Nu s-a putut instala modulul necesar"
-
-#: showtime/window.py:508
-msgid "Install Plugin"
-msgstr "Instalează modulul"
-
-#: showtime/window.py:516
-msgid "Installing…"
-msgstr "Se instalează…"
-
-#: showtime/window.py:524
-msgid "“{}” codecs are required to play this video"
-msgstr "„{}” codec-uri sunt necesare pentru a reda acest video"
-
-#: showtime/window.py:604
-msgid "Screenshot captured"
-msgstr "Captură de ecran luată"
-
-#: showtime/window.py:606
-msgid "Show in Files"
-msgstr "Arată în Fișiere"
-
-#: showtime/window.py:668
-msgid "Video"
-msgstr "Video"
-
-#: showtime/window.py:687
-msgid "Subtitles"
-msgstr "Subtitrări"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:753
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Nedeterminat, {} canal"
 msgstr[1] "Nedeterminat, {} canale"
 msgstr[2] "Nedeterminat, {} de canale"
 
-#: showtime/window.py:758
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Nedeterminat"
 
-#: showtime/window.py:765
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Fără audio"
 
-#: showtime/window.py:770
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Nimic"
 
-#: showtime/window.py:776
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "Limbă nedeterminată"
 
-#: showtime/window.py:784
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
-msgstr "Adaugă un fișier de subtitrări…"
+msgstr "Adaugă un fișier cu subtitrări…"
+
+#: showtime/widgets/window.py:169 showtime/gtk/window.blp:145
+msgid "Play"
+msgstr "Redă"
+
+#: showtime/widgets/window.py:169
+msgid "Pause"
+msgstr "Pauză"
+
+#: showtime/widgets/window.py:730
+msgid "Details copied"
+msgstr "Detalii copiate"
+
+#: showtime/widgets/window.py:732
+msgid "Copy Technical Details"
+msgstr "Copiază detaliile tehnice"
+
+#: showtime/widgets/window.py:742
+msgid "Try Again"
+msgstr "Încearcă din nou"
+
+#: showtime/widgets/window.py:772
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Nu s-au găsit codec-urile „{}” necesare pentru a reda acest video"
+
+#: showtime/widgets/window.py:791
+msgid "No plugin available for this media type"
+msgstr "Nu există niciun modul disponibil pentru acest tip de media"
+
+#: showtime/widgets/window.py:797
+msgid "Unable to install the required plugin"
+msgstr "Nu s-a putut instala modulul necesar"
+
+#: showtime/widgets/window.py:800
+msgid "Install Plugin"
+msgstr "Instalează modulul"
+
+#: showtime/widgets/window.py:808
+msgid "Installing…"
+msgstr "Se instalează…"
+
+#: showtime/widgets/window.py:816
+msgid "“{}” codecs are required to play this video"
+msgstr "„{}” codec-uri sunt necesare pentru a reda acest video"
+
+#: showtime/widgets/window.py:920
+msgid "Video"
+msgstr "Video"
+
+#: showtime/widgets/window.py:931
+msgid "Subtitles"
+msgstr "Subtitrări"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:992
+msgid "translator_credits"
+msgstr ""
+"Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, "
+"2024\n"
+"Antonio Marin <gnmer.6qxyg@slmail.me>, 2025"
+
+#: showtime/widgets/window.py:1031
+msgid "Screenshot captured"
+msgstr "Instantaneu făcut"
+
+#: showtime/widgets/window.py:1033
+msgid "Show in Files"
+msgstr "Arată în Fișiere"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -180,140 +185,153 @@ msgid "Open Video"
 msgstr "Deschide video"
 
 #: showtime/gtk/help-overlay.blp:24
-msgid "Take Screenshot"
-msgstr "Ia captura de ecran"
+msgid "Video Options"
+msgstr "Opțiuni video"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:29
+msgid "Take Screenshot"
+msgstr "Fă un instantaneu"
+
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "Închide fereastra"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
-msgstr "Ieșire"
+msgstr "Închide"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "Volum"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "Mărește volumul"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "Micșorează volumul"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
-#: showtime/gtk/window.blp:157
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
 msgstr "Mut/Cu sunet"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "Vizualizare"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:433
 msgid "Toggle Fullscreen"
-msgstr "Comută ecranul complet"
+msgstr "Pe tot ecranul Activat/Dezactivat"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
-msgstr "Ieșire din ecran complet"
+msgstr "Dezactivează Pe tot ecranul"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "Redare"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "Redă/Pauză"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
-#: showtime/gtk/window.blp:469
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:126
 msgid "Go Back 10 Seconds"
-msgstr "Navighează înapoi 10 secunde"
+msgstr "Înapoi 10 secunde"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
-#: showtime/gtk/window.blp:488
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:162
 msgid "Go Forward 10 Seconds"
-msgstr "Navighează înainte 10 secunde"
+msgstr "Înainte 10 secunde"
 
-#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
-msgid "_Open…"
-msgstr "_Deschide…"
+#: showtime/gtk/options.blp:12
+msgid "Rotate"
+msgstr "Rotește"
 
-#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
-msgid "Show in _Files"
-msgstr "Arată în _Fișiere"
-
-#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
-msgid "Take _Screenshot"
-msgstr "Ia _captura de ecran"
-
-#: showtime/gtk/window.blp:26
-msgid "_Keyboard Shortcuts"
-msgstr "Scurtături de _tastatură"
-
-#: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "_Despre Oră spectacol"
-
-#: showtime/gtk/window.blp:39
+#: showtime/gtk/options.blp:26
 msgid "_Language"
 msgstr "_Limba"
 
-#: showtime/gtk/window.blp:43
+#: showtime/gtk/options.blp:30
 msgid "_Subtitles"
 msgstr "_Subtitrări"
 
-#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+#: showtime/gtk/options.blp:35
 msgid "_Repeat"
 msgstr "_Repetă"
 
-#: showtime/gtk/window.blp:66
+#: showtime/gtk/options.blp:62
 msgid "Playback Speed"
 msgstr "Viteză de redare"
 
-#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
+#: showtime/gtk/options.blp:108
+msgid "Rotate Left"
+msgstr "Rotește la stânga"
+
+#: showtime/gtk/options.blp:119
+msgid "Rotate Right"
+msgstr "Rotește la dreapta"
+
+#: showtime/gtk/options.blp:129
+msgid "Playback Options"
+msgstr "Opțiuni de redare"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Reglează volumul"
+
+#: showtime/gtk/window.blp:6
+msgid "_Open…"
+msgstr "_Deschide…"
+
+#: showtime/gtk/window.blp:11
+msgid "Show in _Files"
+msgstr "Arată în _Fișiere"
+
+#: showtime/gtk/window.blp:19
+msgid "Take _Screenshot"
+msgstr "Fă un in_stantaneu"
+
+#: showtime/gtk/window.blp:26
+msgid "_Keyboard Shortcuts"
+msgstr "Scur_tături"
+
+#: showtime/gtk/window.blp:27
+msgid "_About Video Player"
+msgstr "Despre Spect_acol"
+
+#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
 msgid "Main Menu"
-msgstr "Meniu principal"
+msgstr "Opțiuni"
 
-#: showtime/gtk/window.blp:221
+#: showtime/gtk/window.blp:69
 msgid "Watch Videos"
-msgstr "Vizionează video-uri"
+msgstr "Vizionează video"
 
-#: showtime/gtk/window.blp:222
+#: showtime/gtk/window.blp:70
 msgid "Drag and drop videos here"
-msgstr "Trageți și plasați video-uri aici"
+msgstr "Trage și așează aici un video"
 
-#: showtime/gtk/window.blp:225
+#: showtime/gtk/window.blp:73
 msgid "Open…"
 msgstr "Deschide…"
 
-#: showtime/gtk/window.blp:238
+#: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
-msgstr "Nu se poate reda video-ul"
+msgstr "Nu se poate reda videoul"
 
-#: showtime/gtk/window.blp:243
+#: showtime/gtk/window.blp:91
 msgid "Missing Plugin"
 msgstr "Lipsește un modul"
 
-#: showtime/gtk/window.blp:285
-msgid "Resume"
-msgstr "Revenire"
+#: showtime/gtk/window.blp:253
+msgid "Toggle Duration/Remaining"
+msgstr "Durata totală/Timpul rămas"
 
-#: showtime/gtk/window.blp:317
+#: showtime/gtk/window.blp:308
+msgid "Resume"
+msgstr "Continuă"
+
+#: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Începe din nou"
-
-#: showtime/gtk/window.blp:422
-msgid "Toggle Duration/Remaining"
-msgstr "Comută durata/rămas"
-
-#: showtime/gtk/window.blp:458
-msgid "Adjust Volume"
-msgstr "Ajustează volumul"
-
-#: showtime/gtk/window.blp:501
-msgid "Playback Options"
-msgstr "Opțiuni de redare"
