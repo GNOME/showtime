@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-10 14:01+0000\n"
-"PO-Revision-Date: 2025-05-10 21:16+0300\n"
+"POT-Creation-Date: 2025-05-12 20:31+0000\n"
+"PO-Revision-Date: 2025-05-13 03:09+0300\n"
 "Last-Translator: Ahmed Najmawi <iramosu@protonmail.com>\n"
 "Language-Team: Arabic\n"
 "Language: ar\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural= n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && "
 "n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.5\n"
 "X-DL-Lang: ar\n"
 "X-DL-Module: showtime\n"
 "X-DL-Branch: main\n"
@@ -37,7 +37,7 @@ msgstr "شغِّل الفيديوهات"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "الفيديو;الفيلم;المقطع;المشغل;شوتايم;شو تايم;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "نافذة جديدة"
 
@@ -50,12 +50,12 @@ msgstr "شاهد دون صرف انتباهك"
 msgid ""
 "Play your favorite movies and video files without hassle. Video Player features "
 "simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle tracks, and "
-"screenshots — everything you need for a straightforward viewing experience."
+"fullscreen, adjustable playback speed, multiple language and subtitle tracks, "
+"and screenshots — everything you need for a straightforward viewing experience."
 msgstr ""
 "شغِّل أفلامك المفضلة وملفات الفيديو دون عناء. يُقدِّم مشعل الفيديوهات أزرار تحكم في "
 "التشغيل تختفي أثناء المشاهدة، ووضع ملء الشاشة، وإمكانية تغيير سرعة التشغيل، "
-"ومسارات مُتعدِّدة للُّغات والترجمة، وإمكانية التقاط صور من الفيدوهات — كل ما يجعل "
+"ومسارات مُتعدِّدة للُّغات والترجمة، وإمكانية التقاط صور من الفيديوهات — كل ما يجعل "
 "مشاهدتك سلسة."
 
 # وصف صورة
@@ -72,48 +72,24 @@ msgstr "ما يُعرَض في موضع ختم النهاية الزمني"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "مثلًا: مُدَّة الفيديو الإجمالية أو المُدَّة المتبقية"
 
-#: showtime/main.py:109
+#: showtime/main.py:104
 msgid "Playing a video"
 msgstr "يُشغِّل فيديو"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:399
-msgid "translator_credits"
-msgstr ""
-"آخِر من عدَّل الترجمة:\n"
-"علي جلال <engalali9@gmail.com>\n"
-"أحمد النجماوي <iramosu@protonmail.com>"
-
-#: showtime/mpris.py:286 showtime/window.py:337
+#: showtime/mpris.py:286 showtime/window.py:1110
 msgid "Unknown Title"
 msgstr "عنوان مجهول"
 
-#: showtime/window.py:160 showtime/gtk/window.blp:304
+#: showtime/window.py:171 showtime/gtk/window.blp:299
 msgid "Play"
 msgstr "شغِّل"
 
-#: showtime/window.py:160
+#: showtime/window.py:171
 msgid "Pause"
 msgstr "ألبِث"
 
-#: showtime/window.py:344
-msgid "Screenshot captured"
-msgstr "التُقطت صورة من الفيديو"
-
-#: showtime/window.py:346
-msgid "Show in Files"
-msgstr "اعرض في تطبيق الملفات"
-
-#: showtime/window.py:391
-msgid "Video"
-msgstr "فيديو"
-
-#: showtime/window.py:398
-msgid "Subtitles"
-msgstr "الترجمات"
-
 #. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:437
+#: showtime/window.py:353
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "غير معروفة، لا قناة"
@@ -123,57 +99,81 @@ msgstr[3] "غير معروفة، {} قنوات"
 msgstr[4] "غير معروفة، {} قناة"
 msgstr[5] "غير معروفة، {} قناة"
 
-#: showtime/window.py:442
+#: showtime/window.py:358
 msgid "Undetermined"
 msgstr "غير معروفة"
 
-#: showtime/window.py:455
+#: showtime/window.py:371
 msgid "No Audio"
 msgstr "لا صوت"
 
-#: showtime/window.py:460
+#: showtime/window.py:376
 msgid "None"
 msgstr "بلا"
 
-#: showtime/window.py:466
+#: showtime/window.py:382
 msgid "Undetermined Language"
 msgstr "لغة غير معروفة"
 
-#: showtime/window.py:477
+#: showtime/window.py:393
 msgid "Add Subtitle File…"
 msgstr "أضِف ملف ترجمة…"
 
-#: showtime/window.py:934
+#: showtime/window.py:788
 msgid "Details copied"
 msgstr "نُسِخت التفاصيل"
 
-#: showtime/window.py:936
+#: showtime/window.py:790
 msgid "Copy Technical Details"
 msgstr "انسخ التفاصيل التقنية"
 
-#: showtime/window.py:958
+#: showtime/window.py:812
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "تعذَّر إيجاد المُرمِّزات «{}» المطلوبة لتشغيل هذا الفيديو"
 
-#: showtime/window.py:977
+#: showtime/window.py:831
 msgid "No plugin available for this media type"
 msgstr "لا ملحق متاح لهذا النوع من الوسائط"
 
-#: showtime/window.py:983
+#: showtime/window.py:837
 msgid "Unable to install the required plugin"
 msgstr "تعذَّر تنصيب الملحق المطلوب"
 
-#: showtime/window.py:986
+#: showtime/window.py:840
 msgid "Install Plugin"
 msgstr "نصِّب الملحق"
 
-#: showtime/window.py:994
+#: showtime/window.py:848
 msgid "Installing…"
 msgstr "تُنصَّب…"
 
-#: showtime/window.py:1002
+#: showtime/window.py:856
 msgid "“{}” codecs are required to play this video"
 msgstr "تُتطلَّب المرمِّزات «{}» لتشغيل هذا الفيديو"
+
+#: showtime/window.py:999
+msgid "Video"
+msgstr "فيديو"
+
+#: showtime/window.py:1010
+msgid "Subtitles"
+msgstr "الترجمات"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/window.py:1085
+msgid "translator_credits"
+msgstr ""
+"آخِر من عدَّل الترجمة:\n"
+"علي جلال <engalali9@gmail.com>\n"
+"أحمد النجماوي <iramosu@protonmail.com>"
+
+#: showtime/window.py:1118
+msgid "Screenshot captured"
+msgstr "التُقطت صورة من الفيديو"
+
+#: showtime/window.py:1120
+msgid "Show in Files"
+msgstr "اعرض في تطبيق الملفات"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -188,58 +188,62 @@ msgid "Open Video"
 msgstr "افتح فيديو"
 
 #: showtime/gtk/help-overlay.blp:24
+msgid "Video Options"
+msgstr "خيارات الفيديو"
+
+#: showtime/gtk/help-overlay.blp:29
 msgid "Take Screenshot"
 msgstr "التقط صورة من الفيديو"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "أغلِق النافذة"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
 msgstr "اُخرج"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "شدَّة الصوت"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "زد شدَّة الصوت"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "قلِّل شدَّة الصوت"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:162
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/window.blp:162
 msgid "Mute/Unmute"
 msgstr "اكتم الصوت أو أطلقه"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "المنظور"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:615
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:619
 msgid "Toggle Fullscreen"
 msgstr "من وإلى ملء الشاشة"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
 msgstr "اُخرج من ملء الشاشة"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "التشغيل"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "شغِّل أو ألبِث"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:285
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:280
 msgid "Go Back 10 Seconds"
 msgstr "أرجع 10 ثوانٍ"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:321
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:316
 msgid "Go Forward 10 Seconds"
 msgstr "قدِّم 10 ثوانٍ"
 
@@ -291,47 +295,47 @@ msgstr "أدِر نحو اليسار"
 msgid "Rotate Right"
 msgstr "أدِر نحو اليمين"
 
-#: showtime/gtk/window.blp:219 showtime/gtk/window.blp:655
+#: showtime/gtk/window.blp:214 showtime/gtk/window.blp:659
 msgid "Main Menu"
 msgstr "القائمة الرئيسية"
 
-#: showtime/gtk/window.blp:228
+#: showtime/gtk/window.blp:223
 msgid "Watch Videos"
 msgstr "شاهد الفيديوهات"
 
-#: showtime/gtk/window.blp:229
+#: showtime/gtk/window.blp:224
 msgid "Drag and drop videos here"
 msgstr "اسحب فيديوهات وأفلتها هنا"
 
-#: showtime/gtk/window.blp:232
+#: showtime/gtk/window.blp:227
 msgid "Open…"
 msgstr "افتح…"
 
-#: showtime/gtk/window.blp:245
+#: showtime/gtk/window.blp:240
 msgid "Unable to Play Video"
 msgstr "تعذَّر تشغيل الفيديو"
 
-#: showtime/gtk/window.blp:250
+#: showtime/gtk/window.blp:245
 msgid "Missing Plugin"
 msgstr "ملحق ناقص"
 
-#: showtime/gtk/window.blp:360
+#: showtime/gtk/window.blp:355
 msgid "Adjust Volume"
 msgstr "اضبط شدَّة الصوت"
 
-#: showtime/gtk/window.blp:378
+#: showtime/gtk/window.blp:373
 msgid "Playback Options"
 msgstr "خيارات التشغيل"
 
-#: showtime/gtk/window.blp:435
+#: showtime/gtk/window.blp:439
 msgid "Toggle Duration/Remaining"
 msgstr "بدِّل بين المُدَّة والمُتبقِّي"
 
-#: showtime/gtk/window.blp:490
+#: showtime/gtk/window.blp:494
 msgid "Resume"
 msgstr "استئنف"
 
-#: showtime/gtk/window.blp:530
+#: showtime/gtk/window.blp:534
 msgid "Start Again"
 msgstr "شغِّل من البداية"
 
