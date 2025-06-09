@@ -92,6 +92,7 @@ class Window(Adw.ApplicationWindow):
     play_button: Gtk.Button = Gtk.Template.Child()
     position_label: Gtk.Label = Gtk.Template.Child()
     seek_scale: Gtk.Scale = Gtk.Template.Child()
+    timestamp_box: Gtk.Box = Gtk.Template.Child()
     end_timestamp_button: Gtk.Button = Gtk.Template.Child()
 
     sound_options: SoundOptions = Gtk.Template.Child()
@@ -251,6 +252,16 @@ class Window(Adw.ApplicationWindow):
             "changed::end-timestamp-type",
             self._on_end_timestamp_type_changed,
         )
+
+        # Force playback controls and progress bar to be Left-to-Right
+        for widget in (
+            self.controls_box,
+            self.seek_scale,
+            self.timestamp_box,
+            self.position_label,
+            self.end_timestamp_button,
+        ):
+            widget.set_direction(Gtk.TextDirection.LTR);
 
         self._create_actions()
 
