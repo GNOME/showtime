@@ -103,6 +103,9 @@ class Window(Adw.ApplicationWindow):
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
+    open_video_dialog: Gtk.FileDialog = Gtk.Template.Child()
+    choose_subtitles_dialog: Gtk.FileDialog = Gtk.Template.Child()
+
     overlay_motions: set[Gtk.EventControllerMotion]
     overlay_menu_buttons: set[Gtk.MenuButton]
 
@@ -261,7 +264,7 @@ class Window(Adw.ApplicationWindow):
             self.position_label,
             self.end_timestamp_button,
         ):
-            widget.set_direction(Gtk.TextDirection.LTR);
+            widget.set_direction(Gtk.TextDirection.LTR)
 
         self._create_actions()
 
@@ -926,24 +929,17 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "open-video",
-            lambda *_args: Gtk.FileDialog(
-                default_filter=Gtk.FileFilter(
-                    name=_("Video"),
-                    mime_types=("video/*",),
-                )
-            ).open(self, callback=self._on_open_video),
+            lambda *_args: self.open_video_dialog.open(
+                self, callback=self._on_open_video
+            ),
             ("<primary>o",),
         )
 
         self._create_action(
             "choose-subtitles",
-            lambda *_args: Gtk.FileDialog(
-                default_filter=Gtk.FileFilter(
-                    name=_("Subtitles"),
-                    mime_types=("application/x-subrip", "text/x-ssa", "text/vtt"),
-                    suffixes=("srt", "ssa", "ass", "vtt"),
-                )
-            ).open(self, callback=self._on_choose_subtitles),
+            lambda *_args: self.choose_subtitles_dialog.open(
+                self, callback=self._on_choose_subtitles
+            ),
         )
 
         subs_action = Gio.SimpleAction.new_stateful(
