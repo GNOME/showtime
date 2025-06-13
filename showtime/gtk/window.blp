@@ -535,3 +535,32 @@ template $Window: Adw.ApplicationWindow {
     }
   }
 }
+
+FileDialog open_video_dialog {
+  default-filter: FileFilter {
+    name: _("Video");
+
+    mime-types [
+      "video/*",
+    ]
+  };
+}
+
+FileDialog choose_subtitles_dialog {
+  default-filter: FileFilter {
+    name: _("Subtitles");
+
+    mime-types [
+      "application/x-subrip",
+      "text/x-ssa",
+      "text/vtt",
+    ]
+
+    suffixes [
+      "srt",
+      "ssa",
+      "ass",
+      "vtt",
+    ]
+  };
+}
