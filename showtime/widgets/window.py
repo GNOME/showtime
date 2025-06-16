@@ -287,12 +287,10 @@ class Window(Adw.ApplicationWindow):
         except GLib.Error:
             uri = gfile.get_uri()
         else:
-            uri = (
-                target
-                if file_info.get_is_symlink()
-                and (target := file_info.get_symlink_target())
-                else gfile.get_uri()
-            )
+            if file_info.get_is_symlink() and (target := file_info.get_symlink_target()):
+                uri = Gio.File.new_for_path(target).get_uri()
+            else:
+                uri = gfile.get_uri()
 
         logger.debug("Playing video: %s", uri)
 
