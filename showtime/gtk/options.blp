@@ -1,41 +1,6 @@
 using Gtk 4.0;
 using Adw 1;
 
-menu options {
-  section {
-    item {
-      custom: "speed";
-    }
-  }
-
-  section {
-    label: _("Rotate");
-    display-hint: "inline-buttons";
-
-    item {
-      custom: "rotate-left";
-    }
-
-    item {
-      custom: "rotate-right";
-    }
-  }
-
-  section {
-    submenu language_menu {
-      label: _("_Language");
-    }
-
-    submenu subtitles_menu {
-      label: _("_Subtitles");
-    }
-  }
-
-  section {
-    item (_("_Repeat"), "win.toggle-loop")
-  }
-}
-
 template $Options: Adw.Bin {
   child: MenuButton menu_button {
     halign: end;
@@ -44,8 +9,42 @@ template $Options: Adw.Bin {
     direction: up;
 
     popover: PopoverMenu popover {
-      menu-model: options;
       flags: nested;
+
+      menu-model: menu {
+        section {
+          item {
+            custom: "speed";
+          }
+        }
+
+        section {
+          label: _("Rotate");
+          display-hint: "inline-buttons";
+
+          item {
+            custom: "rotate-left";
+          }
+
+          item {
+            custom: "rotate-right";
+          }
+        }
+
+        section {
+          submenu language_menu {
+            label: _("_Language");
+          }
+
+          submenu subtitles_menu {
+            label: _("_Subtitles");
+          }
+        }
+
+        section {
+          item (_("_Repeat"), "win.toggle-loop")
+        }
+      };
 
       [speed]
       Box {
