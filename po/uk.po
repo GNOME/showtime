@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-18 18:19+0300\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-21 20:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -34,7 +34,8 @@ msgstr ""
 "Video;Movie;Film;Clip;Player;Showtime;відео;фільм;кіно;кліп;програвач;плеєр;"
 "шоутайм;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Нове вікно"
 
@@ -69,11 +70,33 @@ msgstr "Перегляд у позиції кінцевої часової по�
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Наприклад, загальна тривалість відео або обсяг часу, що лишився"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Відкрити…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Файл"
+
+#: showtime/application_delegate.py:42
+#| msgid "New Window"
+msgid "Window"
+msgstr "Вікно"
+
+#: showtime/application_delegate.py:51
+#| msgid "_Keyboard Shortcuts"
+msgid "Keyboard Shortcuts"
+msgstr "Клавіатурні скорочення"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Довідка"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Відтворюємо відео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Невідома назва"
 
@@ -107,69 +130,60 @@ msgstr "Невизначена мова"
 msgid "Add Subtitle File…"
 msgstr "Додати файл субтитрів…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Пуск"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Подробиці скопійовано"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Копіювати технічні параметри"
 
-#: showtime/widgets/window.py:751
-#| msgid "Start Again"
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Повторити спробу"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Кодеки «{}», які потрібні для відтворення цього відео, не знайдено"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Немає додатка для цього типу мультимедійних даних"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Не вдалося встановити потрібний додаток"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Встановити додаток"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Встановлення…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Для відтворення цього відео потрібні кодеки «{}»"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Відео"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Субтитри"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Знімок зроблено"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Показати у «Файлах»"
 
@@ -313,10 +327,6 @@ msgstr "Переглянути відео"
 msgid "Drag and drop videos here"
 msgstr "Перетягніть сюди відео і скиньте їх"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Відкрити…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Не вдалося відтворити відео"
@@ -336,6 +346,14 @@ msgstr "Продовжити"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Розпочати знову"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Відео"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Субтитри"
 
 #~ msgid "Showtime"
 #~ msgstr "Шоутайм"
