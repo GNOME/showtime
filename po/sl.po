@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-18 17:52+0200\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-21 15:42+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -34,7 +34,8 @@ msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr ""
 "Video;Film;Filmček;Movie;Posnetek;Predvajalnik;Čas za predstavo;Šov;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Novo okno"
 
@@ -68,11 +69,31 @@ msgstr "Kaj naj se prikaže na položaju končnega časovnega žiga"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Odpri…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Datoteka"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Okno"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovne bližnjice"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Pomoč"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Predvajanje videoposnetka"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Neznan naslov"
 
@@ -106,69 +127,61 @@ msgstr "Nedoločen jezik"
 msgid "Add Subtitle File…"
 msgstr "Dodaj datoteko s podnapisi ..."
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Predvajaj"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Premor"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Podrobnosti kopirane"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Kopiraj tehnične podrobnosti"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Poskusi znova"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni mogoče najti"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Zahtevanega vstavka ni mogoče namestiti"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Namesti vstavek"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Poteka nameščanje …"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Video"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Podnaslovi"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Martin Srebotnjak  <miles@filmsi.net>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Zaslonska slika je zajeta"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Pokaži v Datotekah"
 
@@ -312,10 +325,6 @@ msgstr "Oglejte si videoposnetke"
 msgid "Drag and drop videos here"
 msgstr "Povlecite in spustite videoposnetke sem"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Odpri…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Videoposnetka ni mogoče predvajati"
@@ -335,3 +344,11 @@ msgstr "Nadaljuj"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Začni znova"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Podnaslovi"
