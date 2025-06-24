@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 09:53+0000\n"
-"PO-Revision-Date: 2025-05-18 13:18+0200\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-24 23:42+0200\n"
 "Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
 "Language-Team: Czech <Czech>\n"
 "Language: cs\n"
@@ -31,7 +31,8 @@ msgstr "Přehrávejte videa"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Film;Klip;Přehrávač;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Nové okno"
 
@@ -65,11 +66,31 @@ msgstr "Co zobrazit na pozici koncového časového razítka"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Např. celkovou dobu trvání videa nebo zbývající čas"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Otevřít…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Soubor"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Okno"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Klávesové zkratky"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Nápověda"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Přehrávání videa"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1034
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Neznámý název"
 
@@ -102,68 +123,60 @@ msgstr "Neurčený jazyk"
 msgid "Add Subtitle File…"
 msgstr "Přidat soubor s titulky…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Přehrát"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Podrobnosti zkopírovány"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Zkopírovat technické podrobnosti"
 
-#: showtime/widgets/window.py:752
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Zkusit znovu"
 
-#: showtime/widgets/window.py:783
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Nebyly nalezeny kodeky „{}“ potřebné k přehrání tohoto videa"
 
-#: showtime/widgets/window.py:802
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Pro tento typ médií není k dispozici žádný zásuvný modul"
 
-#: showtime/widgets/window.py:808
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Nelze nainstalovat požadovaný zásuvný modul"
 
-#: showtime/widgets/window.py:811
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Nainstalovat zásuvný modul"
 
-#: showtime/widgets/window.py:819
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Instaluje se…"
 
-#: showtime/widgets/window.py:827
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "K přehrání tohoto videa jsou vyžadovány kodeky „{}“"
 
-#: showtime/widgets/window.py:931
-msgid "Video"
-msgstr "Video"
-
-#: showtime/widgets/window.py:942
-msgid "Subtitles"
-msgstr "Titulky"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1003
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Daniel Rusek <mail@asciiwolf.com>"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Snímek obrazovky pořízen"
 
-#: showtime/widgets/window.py:1044
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Zobrazit v Souborech"
 
@@ -307,10 +320,6 @@ msgstr "Sledujte videa"
 msgid "Drag and drop videos here"
 msgstr "Sem přetáhněte videa"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Otevřít…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Video nelze přehrát"
@@ -330,6 +339,14 @@ msgstr "Pokračovat"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Spustit znovu"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Titulky"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
