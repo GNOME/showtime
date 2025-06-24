@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-20 00:11+0100\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-24 14:57+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "Language: pt\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
@@ -31,7 +31,8 @@ msgstr "Reproduza vídeos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Vídeo;Filme;Clipe.Leitor;Reprodutor;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Nova janela"
 
@@ -66,11 +67,31 @@ msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr ""
 "Por exemplo, a duração total do vídeo ou a quantidade de tempo restante"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Abrir…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Ficheiro"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Janela"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Teclas de atalho"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Ajuda"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "A reproduzir um vídeo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Título desconhecido"
 
@@ -102,69 +123,61 @@ msgstr "Idioma indeterminado"
 msgid "Add Subtitle File…"
 msgstr "Adicionar ficheiro de legendas…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Reproduzir"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Pausa"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Detalhes copiados"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Copiar detalhes técnicos"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Tente novamente"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Os codecs \"{}\" necessários para reproduzir este vídeo não foram encontrados"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Nenhum plugin disponível para este tipo de ficheiro"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Não foi possível instalar o plugin necessário"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Instalar plugin"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "A instalar…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Os codecs \"{}\" são necessários para reproduzir este vídeo"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Vídeo"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Legendas"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Captura de ecrã efetuada"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Mostrar em Ficheiros"
 
@@ -308,10 +321,6 @@ msgstr "Assista a vídeos"
 msgid "Drag and drop videos here"
 msgstr "Arrastar e largar vídeos para aqui"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Abrir…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Não foi possível reproduzir o vídeo"
@@ -331,6 +340,14 @@ msgstr "Retomar"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Recomeçar"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Vídeo"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Legendas"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
