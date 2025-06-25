@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-08 18:54+0000\n"
-"PO-Revision-Date: 2025-05-08 22:05+0300\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-25 18:22+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <Finnish>\n"
 "Language: fi\n"
@@ -16,10 +16,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:194
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
 msgid "Video Player"
 msgstr "Videosoitin"
 
@@ -31,7 +31,8 @@ msgstr "Toista videoita"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;elokuva;filmi;soitin;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Uusi ikkuna"
 
@@ -65,101 +66,118 @@ msgstr "Mitä näytetään loppuaikaleiman sijainnissa"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Esim. videon kokonaiskesto tai jäljellä oleva aika"
 
-#: showtime/main.py:107
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Avaa…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Tiedosto"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Ikkuna"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Pikanäppäimet"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Ohje"
+
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Toistetaan video"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:401
-msgid "translator_credits"
-msgstr "Jiri Grönroos"
-
-#: showtime/mpris.py:288 showtime/window.py:348
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Tuntematon nimi"
 
-#: showtime/window.py:151 showtime/gtk/window.blp:306
-msgid "Play"
-msgstr "Toista"
-
-#: showtime/window.py:151
-msgid "Pause"
-msgstr "Keskeytä"
-
-#: showtime/window.py:355
-msgid "Screenshot captured"
-msgstr "Kuvakaappaus otettu"
-
-#: showtime/window.py:357
-msgid "Show in Files"
-msgstr "Näytä tiedostonhallinnassa"
-
-#: showtime/window.py:421
-msgid "Video"
-msgstr "Video"
-
-#: showtime/window.py:432
-msgid "Subtitles"
-msgstr "Tekstitykset"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:481
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Määrittämätön, {} kanava"
 msgstr[1] "Määrittämätön, {} kanavaa"
 
-#: showtime/window.py:486
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Määrittämätön"
 
-#: showtime/window.py:499
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Ei ääntä"
 
-#: showtime/window.py:504
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Ei mitään"
 
-#: showtime/window.py:510
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "Määrittämätön kieli"
 
-#: showtime/window.py:521
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
 msgstr "Lisää tekstitystiedosto…"
 
-#: showtime/window.py:960
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
+msgid "Play"
+msgstr "Toista"
+
+#: showtime/widgets/window.py:173
+msgid "Pause"
+msgstr "Keskeytä"
+
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Yksityiskohdat kopioitu"
 
-#: showtime/window.py:962
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Kopioi tekniset yksityiskohdat"
 
-#: showtime/window.py:984
+#: showtime/widgets/window.py:754
+msgid "Try Again"
+msgstr "Yritä uudelleen"
+
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Tämän videon toistamiseen vaadittavia koodekkeja “{}” ei löytynyt"
 
-#: showtime/window.py:1005
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Tälle mediatyypille ei ole liitännäistä saatavilla"
 
-#: showtime/window.py:1011
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Vaaditun liitännäisen asentaminen ei onnistu"
 
-#: showtime/window.py:1014
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Asenna liitännäinen"
 
-#: showtime/window.py:1022
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Asennetaan…"
 
-#: showtime/window.py:1030
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Koodekkeja “{}” vaaditaan tämän videon toistamiseen"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:997
+msgid "translator_credits"
+msgstr "Jiri Grönroos"
+
+#: showtime/widgets/window.py:1036
+msgid "Screenshot captured"
+msgstr "Kuvakaappaus otettu"
+
+#: showtime/widgets/window.py:1038
+msgid "Show in Files"
+msgstr "Näytä tiedostonhallinnassa"
 
 #: showtime/gtk/help-overlay.blp:11
 msgid "General"
@@ -174,60 +192,100 @@ msgid "Open Video"
 msgstr "Avaa video"
 
 #: showtime/gtk/help-overlay.blp:24
+msgid "Video Options"
+msgstr "Videoasetukset"
+
+#: showtime/gtk/help-overlay.blp:29
 msgid "Take Screenshot"
 msgstr "Ota kuvakaappaus"
 
-#: showtime/gtk/help-overlay.blp:34
+#: showtime/gtk/help-overlay.blp:39
 msgid "Close Window"
 msgstr "Sulje ikkuna"
 
-#: showtime/gtk/help-overlay.blp:39
+#: showtime/gtk/help-overlay.blp:44
 msgid "Quit"
 msgstr "Lopeta"
 
-#: showtime/gtk/help-overlay.blp:45
+#: showtime/gtk/help-overlay.blp:50
 msgid "Volume"
 msgstr "Äänenvoimakkuus"
 
-#: showtime/gtk/help-overlay.blp:48
+#: showtime/gtk/help-overlay.blp:53
 msgid "Increase Volume"
 msgstr "Lisää äänenvoimakkuutta"
 
-#: showtime/gtk/help-overlay.blp:53
+#: showtime/gtk/help-overlay.blp:58
 msgid "Decrease Volume"
 msgstr "Vähennä äänenvoimakkuutta"
 
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:166
+#: showtime/gtk/help-overlay.blp:63 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
 msgstr "Äänen mykistys päällä/pois"
 
-#: showtime/gtk/help-overlay.blp:64
+#: showtime/gtk/help-overlay.blp:69
 msgid "View"
 msgstr "Näkymä"
 
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:617
+#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:433
 msgid "Toggle Fullscreen"
 msgstr "Koko näyttö päälle/pois"
 
-#: showtime/gtk/help-overlay.blp:72
+#: showtime/gtk/help-overlay.blp:77
 msgid "Exit Fullscreen"
 msgstr "Poistu koko näytön tilasta"
 
-#: showtime/gtk/help-overlay.blp:78
+#: showtime/gtk/help-overlay.blp:83
 msgid "Playback"
 msgstr "Toisto"
 
-#: showtime/gtk/help-overlay.blp:81
+#: showtime/gtk/help-overlay.blp:86
 msgid "Play/Pause"
 msgstr "Toista/keskeytä"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:287
+#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:126
 msgid "Go Back 10 Seconds"
 msgstr "Siirry takaisin 10 sekuntia"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:323
+#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:162
 msgid "Go Forward 10 Seconds"
 msgstr "Siirry eteen 10 sekuntia"
+
+#: showtime/gtk/options.blp:12
+msgid "Rotate"
+msgstr "Kierrä"
+
+#: showtime/gtk/options.blp:26
+msgid "_Language"
+msgstr "_Kieli"
+
+#: showtime/gtk/options.blp:30
+msgid "_Subtitles"
+msgstr "_Tekstitykset"
+
+#: showtime/gtk/options.blp:35
+msgid "_Repeat"
+msgstr "Kertaus_tila"
+
+#: showtime/gtk/options.blp:62
+msgid "Playback Speed"
+msgstr "Toistonopeus"
+
+#: showtime/gtk/options.blp:108
+msgid "Rotate Left"
+msgstr "Kierrä vasemmalle"
+
+#: showtime/gtk/options.blp:119
+msgid "Rotate Right"
+msgstr "Kierrä oikealle"
+
+#: showtime/gtk/options.blp:129
+msgid "Playback Options"
+msgstr "Toistovalinnat"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Säädä äänenvoimakkuutta"
 
 #: showtime/gtk/window.blp:6
 msgid "_Open…"
@@ -249,77 +307,45 @@ msgstr "_Pikanäppäimet"
 msgid "_About Video Player"
 msgstr "_Tietoja - Videosoitin"
 
-#: showtime/gtk/window.blp:39
-msgid "Rotate"
-msgstr "Kierrä"
-
-#: showtime/gtk/window.blp:53
-msgid "_Language"
-msgstr "_Kieli"
-
-#: showtime/gtk/window.blp:57
-msgid "_Subtitles"
-msgstr "_Tekstitykset"
-
-#: showtime/gtk/window.blp:62
-msgid "_Repeat"
-msgstr "Kertaus_tila"
-
-#: showtime/gtk/window.blp:81
-msgid "Playback Speed"
-msgstr "Toistonopeus"
-
-#: showtime/gtk/window.blp:132
-msgid "Rotate Left"
-msgstr "Kierrä vasemmalle"
-
-#: showtime/gtk/window.blp:143
-msgid "Rotate Right"
-msgstr "Kierrä oikealle"
-
-#: showtime/gtk/window.blp:221 showtime/gtk/window.blp:657
+#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
 msgid "Main Menu"
 msgstr "Päävalikko"
 
-#: showtime/gtk/window.blp:230
+#: showtime/gtk/window.blp:69
 msgid "Watch Videos"
 msgstr "Katso videoita"
 
-#: showtime/gtk/window.blp:231
+#: showtime/gtk/window.blp:70
 msgid "Drag and drop videos here"
 msgstr "Vedä ja pudota videoita tähän"
 
-#: showtime/gtk/window.blp:234
-msgid "Open…"
-msgstr "Avaa…"
-
-#: showtime/gtk/window.blp:247
+#: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Videota ei voitu toistaa"
 
-#: showtime/gtk/window.blp:252
+#: showtime/gtk/window.blp:91
 msgid "Missing Plugin"
 msgstr "Puuttuva liitännäinen"
 
-#: showtime/gtk/window.blp:362
-msgid "Adjust Volume"
-msgstr "Säädä äänenvoimakkuutta"
-
-#: showtime/gtk/window.blp:380
-msgid "Playback Options"
-msgstr "Toistovalinnat"
-
-#: showtime/gtk/window.blp:437
+#: showtime/gtk/window.blp:253
 msgid "Toggle Duration/Remaining"
 msgstr "Vaihda keston ja jäljellä olevan ajan välillä"
 
-#: showtime/gtk/window.blp:492
+#: showtime/gtk/window.blp:308
 msgid "Resume"
 msgstr "Jatka"
 
-#: showtime/gtk/window.blp:532
+#: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Aloita alusta"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Tekstitykset"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
