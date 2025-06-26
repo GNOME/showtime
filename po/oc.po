@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-22 19:42+1000\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-26 12:02+1000\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <Occitan>\n"
 "Language: oc\n"
@@ -31,7 +31,8 @@ msgstr "Legir de vidèos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Vidèo;Film;Pellicula;Clip;Lector;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Fenèstra novèla"
 
@@ -65,11 +66,31 @@ msgstr "De qué mostrar a la fin de l’interval"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Ex. durada totala de la vidèo o la quantitat de temps que demòra"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Dobrir…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Fichièr"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Fenèstra"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Acorchis de clavièr"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Ajuda"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Lectura d’una vidèo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Títol desconegut"
 
@@ -101,69 +122,61 @@ msgstr "Lenga non determinada"
 msgid "Add Subtitle File…"
 msgstr "Apondre un fichièr de sostítols…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Lectura"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Pausa"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Detalhs copiats"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Detalhs tecnics copiats"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Tornar ensajar"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Los codecs « {} » requerits per legir aquesta vidèo son pas estats trobats"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Cap d’empeuton pas disponible per aqueste tipe de mèdia"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Installacion impossibla de l’empeuton requerit"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Installar un empeuton"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Installacion…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Lo codèc « {} » es requerit per legir aquesta vidèo"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Vidèo"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Sostítols"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Quentin PAGÈS"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Captura d'ecran efectuada"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Mostrar dins Fichièrs"
 
@@ -307,10 +320,6 @@ msgstr "Agachar de vidèos"
 msgid "Drag and drop videos here"
 msgstr "Lisatz depausatz de vidèos aicí"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Dobrir…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Lectura de la vidèo impossibla"
@@ -330,6 +339,14 @@ msgstr "Reprendre"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Recomençar"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Vidèo"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Sostítols"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
