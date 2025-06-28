@@ -114,10 +114,6 @@ scale.overlaid slider {
   );
 }
 
-toast {
-  background-color: alpha(black, 0.9);
-}
-
 .timestamp {
   margin-top: -6px;
 }
