@@ -35,6 +35,24 @@
   ],
   "modules": [
     {
+      "name": "gstreamer",
+      "buildsystem": "meson",
+      "config-opts": [
+        "-Dexamples=disabled",
+        "-Dbenchmarks=disabled",
+        "-Dintrospection=enabled"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
+          "tag": "1.26.3",
+          "commit": "87bc0c6e949e3dcc440658f78ef52aa8088cb62f",
+          "disable-submodules": true
+        }
+      ]
+    },
+    {
       "name": "showtime",
       "builddir": true,
       "buildsystem": "meson",
