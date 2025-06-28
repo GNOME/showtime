@@ -26,11 +26,11 @@ from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
 from .mpris import MPRIS
 from .widgets.window import PROFILE, Window
 
-if system == "Darwin":
-    from AppKit import NSApp  # type: ignore
-    from PyObjCTools import AppHelper
-
-    from showtime.application_delegate import ApplicationDelegate
+# if system == "Darwin":
+#     from AppKit import NSApp  # type: ignore
+#     from PyObjCTools import AppHelper
+#
+#     from showtime.application_delegate import ApplicationDelegate
 
 MAX_HIST_ITEMS = 1000
 MAX_BUFFER_TRIES = 50
@@ -62,13 +62,12 @@ class Application(Adw.Application):
         logger.debug("Python version: %s", sys.version)
         logger.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
 
-        if system == "Darwin":
-
-            def setup_app_delegate() -> None:
-                NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
-                AppHelper.runEventLoop()  # type: ignore
-
-            GLib.Thread.new(None, setup_app_delegate)
+        # if system == "Darwin":
+        #     def setup_app_delegate() -> None:
+        #         NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
+        #         AppHelper.runEventLoop()  # type: ignore
+        #
+        #     GLib.Thread.new(None, setup_app_delegate)
 
         new_window = GLib.OptionEntry()
         new_window.long_name = "new-window"
@@ -81,8 +80,8 @@ class Application(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
-        if system == "Darwin" and (settings := Gtk.Settings.get_default()):
-            settings.props.gtk_decoration_layout = "close,minimize:"
+        # if system == "Darwin" and (settings := Gtk.Settings.get_default()):
+        #     settings.props.gtk_decoration_layout = "close,minimize:"
 
         self.connect("window-removed", self._on_window_removed)
         self.connect("shutdown", self._on_shutdown)

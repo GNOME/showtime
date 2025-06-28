@@ -189,10 +189,10 @@ class Window(Adw.ApplicationWindow):
         self._reveal_animations = {}
         self._hide_animations = {}
 
-        if system == "Darwin":
-            self.placeholder_primary_menu_button.props.visible = False
-            self.video_primary_menu_button.props.visible = False
-            self.spinner.props.margin_top = 6
+        # if system == "Darwin":
+        #     self.placeholder_primary_menu_button.props.visible = False
+        #     self.video_primary_menu_button.props.visible = False
+        #     self.spinner.props.margin_top = 6
 
         (
             self.paintable,
@@ -287,7 +287,9 @@ class Window(Adw.ApplicationWindow):
         except GLib.Error:
             uri = gfile.get_uri()
         else:
-            if file_info.get_is_symlink() and (target := file_info.get_symlink_target()):
+            if file_info.get_is_symlink() and (
+                target := file_info.get_symlink_target()
+            ):
                 uri = Gio.File.new_for_path(target).get_uri()
             else:
                 uri = gfile.get_uri()
