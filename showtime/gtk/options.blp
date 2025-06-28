@@ -13,9 +13,17 @@ template $Options: Adw.Bin {
 
       menu-model: menu {
         section {
-          item {
-            custom: "speed";
+          submenu language_menu {
+            label: _("_Language");
           }
+
+          submenu subtitles_menu {
+            label: _("_Subtitles");
+          }
+        }
+
+        section {
+          item (_("_Repeat"), "win.toggle-loop")
         }
 
         section {
@@ -32,17 +40,9 @@ template $Options: Adw.Bin {
         }
 
         section {
-          submenu language_menu {
-            label: _("_Language");
+          item {
+            custom: "speed";
           }
-
-          submenu subtitles_menu {
-            label: _("_Subtitles");
-          }
-        }
-
-        section {
-          item (_("_Repeat"), "win.toggle-loop")
         }
       };
 
