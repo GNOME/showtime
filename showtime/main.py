@@ -27,7 +27,7 @@ from .mpris import MPRIS
 from .widgets.window import PROFILE, Window
 
 # if system == "Darwin":
-#     from AppKit import NSApp  # type: ignore
+#     from AppKit import NSApp
 #     from PyObjCTools import AppHelper
 #
 #     from showtime.application_delegate import ApplicationDelegate
@@ -63,9 +63,10 @@ class Application(Adw.Application):
         logger.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
 
         # if system == "Darwin":
+        #
         #     def setup_app_delegate() -> None:
-        #         NSApp.setDelegate_(ApplicationDelegate.alloc().init())  # type: ignore
-        #         AppHelper.runEventLoop()  # type: ignore
+        #         NSApp.setDelegate_(ApplicationDelegate.alloc().init())
+        #         AppHelper.runEventLoop()
         #
         #     GLib.Thread.new(None, setup_app_delegate)
 
@@ -73,7 +74,7 @@ class Application(Adw.Application):
         new_window.long_name = "new-window"
         new_window.short_name = ord("n")
         new_window.flags = int(GLib.OptionFlags.NONE)
-        new_window.arg = int(GLib.OptionArg.NONE)  # type: ignore
+        new_window.arg = int(GLib.OptionArg.NONE)  # pyright: ignore[reportAttributeAccessIssue]
         new_window.arg_data = None
         new_window.description = "Open the app with a new window"
 
@@ -87,13 +88,13 @@ class Application(Adw.Application):
         self.connect("shutdown", self._on_shutdown)
 
     @property
-    def win(self) -> Window | None:  # type: ignore
+    def win(self) -> Window | None:  # pyright: ignore[reportAttributeAccessIssue]
         """The currently active window."""
         return (
-            win if isinstance(win := self.props.active_window, Window) else None  # type: ignore
+            win if isinstance(win := self.props.active_window, Window) else None  # pyright: ignore[reportAttributeAccessIssue]
         )
 
-    def inhibit_win(self, win: Window) -> None:  # type: ignore
+    def inhibit_win(self, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
         """Try to add an inhibitor associated with `win`.
 
         This will automatically be removed when `win` is closed.
@@ -102,7 +103,7 @@ class Application(Adw.Application):
             win, Gtk.ApplicationInhibitFlags.IDLE, _("Playing a video")
         )
 
-    def uninhibit_win(self, win: Window) -> None:  # type: ignore
+    def uninhibit_win(self, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
         """Remove the inhibitor associated with `win` if one exists."""
         if not (cookie := self.inhibit_cookies.pop(win, 0)):
             return
@@ -151,8 +152,8 @@ class Application(Adw.Application):
     def do_activate(self, gfile: Gio.File | None = None) -> None:
         """Create a new window, set up MPRIS."""
         win = Window(
-            application=self,  # type: ignore
-            maximized=state_settings.get_boolean("is-maximized"),  # type: ignore
+            application=self,  # pyright: ignore[reportAttributeAccessIssue]
+            maximized=state_settings.get_boolean("is-maximized"),  # pyright: ignore[reportAttributeAccessIssue]
         )
         state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
 
@@ -215,7 +216,7 @@ class Application(Adw.Application):
             self.mpris_active = True
             MPRIS(self)
 
-    def do_open(self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str) -> None:  # type: ignore
+    def do_open(self, gfiles: Sequence[Gio.File], _n_files: int, _hint: str) -> None:  # pyright: ignore[reportIncompatibleMethodOverride]
         """Open the given files."""
         for gfile in gfiles:
             self.do_activate(gfile)
@@ -251,14 +252,14 @@ class Application(Adw.Application):
 
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def _on_window_removed(self, _obj: Any, win: Window) -> None:  # type: ignore
+    def _on_window_removed(self, _obj: Any, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
         self.save_play_position(win)
         self.uninhibit_win(win)
         del win.play
 
     def _on_shutdown(self, *_args: Any) -> None:
         for win in self.get_windows():
-            if isinstance(win, Window):  # type: ignore
+            if isinstance(win, Window):  # pyright: ignore[reportAttributeAccessIssue]
                 self._on_window_removed(None, win)
 
 

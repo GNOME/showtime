@@ -8,7 +8,7 @@ from gi.repository import (
     GObject,
     Gst,
     GstPbutils,
-    GstPlay,  # type: ignore  # type: ignore
+    GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
 
@@ -24,13 +24,13 @@ def gst_play_setup(
         msg = "Cannot make gtk4paintablesink"
         raise RuntimeError(msg)
 
-    paintable = paintable_sink.props.paintable  # type: ignore
+    paintable = paintable_sink.props.paintable  # pyright: ignore[reportAttributeAccessIssue]
     picture.props.paintable = paintable
 
     # OpenGL doesn't work on macOS properly
     if paintable.props.gl_context and system != "Darwin":
         gl_sink = Gst.ElementFactory.make("glsinkbin")
-        gl_sink.props.sink = paintable_sink  # type: ignore
+        gl_sink.props.sink = paintable_sink  # pyright: ignore[reportAttributeAccessIssue, reportOptionalMemberAccess]
         sink = gl_sink
 
     play = GstPlay.Play(

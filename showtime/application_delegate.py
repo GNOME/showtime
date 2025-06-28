@@ -3,8 +3,13 @@
 
 from typing import Any
 
-from AppKit import NSApp, NSApplication, NSMenu, NSMenuItem  # type: ignore
-from Foundation import NSObject  # type: ignore
+from AppKit import (
+    NSApp,  # pyright: ignore[reportAttributeAccessIssue]
+    NSApplication,  # pyright: ignore[reportAttributeAccessIssue]
+    NSMenu,  # pyright: ignore[reportAttributeAccessIssue]
+    NSMenuItem,  # pyright: ignore[reportAttributeAccessIssue]
+)
+from Foundation import NSObject  # pyright: ignore[reportAttributeAccessIssue]
 from gi.repository import Gio
 
 import showtime

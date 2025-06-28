@@ -10,7 +10,7 @@ from gi.repository import (
     Gdk,
     Gio,
     Graphene,
-    GstPlay,  # type: ignore
+    GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
 

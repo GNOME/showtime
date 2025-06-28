@@ -17,9 +17,9 @@ from gi.repository import (
     GLib,
     GObject,
     Gst,
-    GstAudio,  # type: ignore
+    GstAudio,  # pyright: ignore[reportAttributeAccessIssue]
     GstPbutils,
-    GstPlay,  # type: ignore
+    GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
 
@@ -99,7 +99,7 @@ class Window(Adw.ApplicationWindow):
 
     options: Options = Gtk.Template.Child()
 
-    spinner: Adw.Spinner = Gtk.Template.Child()  # type: ignore
+    spinner: Adw.Spinner = Gtk.Template.Child()  # pyright: ignore[reportAttributeAccessIssue]
     restore_breakpoint_bin: Adw.BreakpointBin = Gtk.Template.Child()
     restore_box: Gtk.Box = Gtk.Template.Child()
 
@@ -181,7 +181,7 @@ class Window(Adw.ApplicationWindow):
         if not (app := self.props.application):
             return
 
-        (app.uninhibit_win if paused else app.inhibit_win)(self)  # type: ignore
+        (app.uninhibit_win if paused else app.inhibit_win)(self)  # pyright: ignore[reportAttributeAccessIssue]
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(decorated=system != "Darwin", **kwargs)
@@ -272,8 +272,8 @@ class Window(Adw.ApplicationWindow):
         """Call to set the allocation, if the widget does not have a layout manager."""
         Adw.ApplicationWindow.do_size_allocate(self, width, height, baseline)
 
-        self.sink.props.window_width = self.get_width() * self.props.scale_factor  # type: ignore
-        self.sink.props.window_height = self.get_height() * self.props.scale_factor  # type: ignore
+        self.sink.props.window_width = self.get_width() * self.props.scale_factor  # pyright: ignore[reportAttributeAccessIssue]
+        self.sink.props.window_height = self.get_height() * self.props.scale_factor  # pyright: ignore[reportAttributeAccessIssue]
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
@@ -528,7 +528,7 @@ class Window(Adw.ApplicationWindow):
     def _schedule_volume_change(self, _obj: Any, value: float) -> None:
         GLib.idle_add(
             partial(
-                self.pipeline.set_volume,  # type: ignore
+                self.pipeline.set_volume,  # pyright: ignore[reportAttributeAccessIssue]
                 GstAudio.StreamVolumeFormat.CUBIC,
                 value,
             )
@@ -706,7 +706,7 @@ class Window(Adw.ApplicationWindow):
         self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj: Any) -> None:
-        vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # type: ignore
+        vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # pyright: ignore[reportAttributeAccessIssue]
 
         if self._prev_volume == vol:
             return
@@ -1022,7 +1022,7 @@ class Window(Adw.ApplicationWindow):
 
         path = (
             str(Path(pictures, "Screenshots"))
-            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # type: ignore
+            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # pyright: ignore[reportArgumentType]
             else GLib.get_home_dir()
         )
 
@@ -1057,7 +1057,7 @@ class Window(Adw.ApplicationWindow):
         if not gfile or not (app := self.props.application):
             return
 
-        app.save_play_position(self)  # type: ignore
+        app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
         self.play_video(gfile)
 
     def _on_choose_subtitles(

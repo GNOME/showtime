@@ -12,8 +12,8 @@ from typing import Any
 from gi.repository import (
     Gio,
     GLib,
-    GstAudio,  # type: ignore
-    GstPlay,  # type: ignore
+    GstAudio,  # pyright: ignore[reportAttributeAccessIssue]
+    GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
 
@@ -189,7 +189,7 @@ class DBusInterface:
             if sig == "h":
                 msg = invocation.get_message()
                 fd_list = msg.get_unix_fd_list()
-                args[i] = fd_list.get(args[i])  # type: ignore
+                args[i] = fd_list.get(args[i])  # pyright: ignore[reportOptionalMemberAccess]
 
         method_snake_name = DBusInterface.camelcase_to_snake_case(method_name)
         try:
@@ -240,7 +240,7 @@ class MPRIS(DBusInterface):
     MEDIA_PLAYER2_PLAYER_IFACE = "org.mpris.MediaPlayer2.Player"
 
     @property
-    def win(self) -> Window | None:  # type: ignore
+    def win(self) -> Window | None:  # pyright: ignore[reportAttributeAccessIssue]
         """Get the active application window."""
         return win if isinstance(win := self._app.get_active_window(), Window) else None
 
@@ -329,7 +329,7 @@ class MPRIS(DBusInterface):
         if not self.win:
             return
 
-        volume = self.win.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # type: ignore
+        volume = self.win.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # pyright: ignore[reportAttributeAccessIssue]
 
         self._properties_changed(
             MPRIS.MEDIA_PLAYER2_PLAYER_IFACE,
@@ -526,7 +526,7 @@ class MPRIS(DBusInterface):
             case "Volume":
                 GLib.idle_add(
                     partial(
-                        self.win.pipeline.set_volume,  # type: ignore
+                        self.win.pipeline.set_volume,  # pyright: ignore[reportAttributeAccessIssue]
                         GstAudio.StreamVolumeFormat.CUBIC,
                         value,
                     )
