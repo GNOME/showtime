@@ -39,6 +39,20 @@
 		</screenshot>
 	</screenshots>
 	<releases>
+		<release version="49.alpha" date="2025-06-28">
+			<description>
+				<ul>
+					<li>Playback now resumes after seeking.</li>
+					<li>Improved the layout of the options menu.</li>
+					<li>The “Repeat” option now persists across a restart of the application.</li>
+					<li>Fixed an issue with reopening the options menu.</li>
+					<li>Fixed not being able to seek by scrolling.</li>
+					<li>Fixed not being able to play symlinked videos.</li>
+					<li>Tweaked the styling of the interface.</li>
+					<li>Various improvements on the backend.</li>
+				</ul>
+			</description>
+		</release>
 		<release version="48.1" date="2025-05-03">
 			<description>
 				<ul>
