@@ -746,16 +746,9 @@ class Window(Adw.ApplicationWindow):
         copy = Adw.ButtonRow(title=_("Copy Technical Details"))  # pyright: ignore[reportAttributeAccessIssue]
         copy.connect("activated", copy_details)
 
-        def try_again(*_args: Any) -> None:
-            if not (app := self.props.application):
-                return
-
-            cast("Application", app).do_activate(self._playing_gfile)
-            self.close()
-
         retry = Adw.ButtonRow(title=_("Try Again"))  # pyright: ignore[reportAttributeAccessIssue]
         retry.add_css_class("suggested-action")
-        retry.connect("activated", try_again)
+        retry.connect("activated", self._try_again)
 
         group = Adw.PreferencesGroup(
             halign=Gtk.Align.CENTER,
@@ -796,8 +789,7 @@ class Window(Adw.ApplicationWindow):
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
                     logger.debug("Plugin installed")
-                    self.stack.props.visible_child = self.video_page
-                    self.pause()
+                    self._try_again()
 
                 case GstPbutils.InstallPluginsReturn.NOT_FOUND:
                     logger.error("Plugin installation failed: Not found")
@@ -847,6 +839,13 @@ class Window(Adw.ApplicationWindow):
         self, gesture: Gtk.Gesture, _n: Any, x: int, y: int
     ) -> None:
         self.options.on_secondary_click_pressed(self, gesture, x, y)
+
+    def _try_again(self, *_args: Any) -> None:
+        if not (app := self.props.application):
+            return
+
+        cast("Application", app).do_activate(self._playing_gfile)
+        self.close()
 
     @Gtk.Template.Callback()
     def _get_play_icon(self, _obj: Any, paused: bool) -> str:
