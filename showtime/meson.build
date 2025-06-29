@@ -3,8 +3,8 @@ moduledir = python_dir / 'showtime'
 blueprints = custom_target(
   'blueprints',
   input: files(
-    'gtk/help-overlay.blp',
     'gtk/options.blp',
+    'gtk/shortcuts-dialog.blp',
     'gtk/sound-options.blp',
     'gtk/window.blp',
   ),
