@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-20 09:02+0330\n"
+"POT-Creation-Date: 2025-06-28 11:45+0000\n"
+"PO-Revision-Date: 2025-06-30 11:01+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -31,7 +31,8 @@ msgstr "پخش ویدیوها"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;فیلم;ویدیو;کلیپ;پخش;نمایش;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "پنجرهٔ جدید"
 
@@ -63,11 +64,31 @@ msgstr "مورد نمایشی در پایان موقعیت برچسب زمانی
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "برای نمونه کل مدّت ویدیو یا مقدار زمان مانده"
 
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "گشودن…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "پرونده"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "پنجره"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "میان‌برهای صفحه‌کلید"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "راهنما"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "پخش کردن ویدیو"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1029
 msgid "Unknown Title"
 msgstr "عنوان ناشناخته"
 
@@ -99,68 +120,60 @@ msgstr "زبان تشخیص داده نشده"
 msgid "Add Subtitle File…"
 msgstr "افزودن پروندهٔ زیرنویس…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "پخش"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "مکث"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:744
 msgid "Details copied"
 msgstr "جزییات رونوشت شد"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:746
 msgid "Copy Technical Details"
 msgstr "رونوشت از جزییات فنی"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:749
 msgid "Try Again"
 msgstr "تلاش دوباره"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:779
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "رمزینه‌های «{}»‌که برای پخش این ویدیو لازمند پیدا نشدند"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:797
 msgid "No plugin available for this media type"
 msgstr "هیچ افزایه‌ای برای این گونهٔ رسانه موجود نیست"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:803
 msgid "Unable to install the required plugin"
 msgstr "ناتوان در تصب افزایهٔ لازم"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:806
 msgid "Install Plugin"
 msgstr "نصب افزایه"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:814
 msgid "Installing…"
 msgstr "نصب کردن…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:822
 msgid "“{}” codecs are required to play this video"
 msgstr "رمزینه‌های «{}» برای پخش این ویدو لازمند"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "ویدیو"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "زیرنویس‌ها"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:998
 msgid "translator_credits"
 msgstr "دانیال بهزادی <dani.behzi@ubuntu.com>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1037
 msgid "Screenshot captured"
 msgstr "نماگرفت ضبط شد"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1039
 msgid "Show in Files"
 msgstr "نمایش در پرونده‌ها"
 
@@ -236,35 +249,35 @@ msgstr "۱۰ ثانیه به پس"
 msgid "Go Forward 10 Seconds"
 msgstr "۱۰ ثانیه به پیش"
 
-#: showtime/gtk/options.blp:12
-msgid "Rotate"
-msgstr "چرخاندن"
-
-#: showtime/gtk/options.blp:26
+#: showtime/gtk/options.blp:17
 msgid "_Language"
 msgstr "_زبان"
 
-#: showtime/gtk/options.blp:30
+#: showtime/gtk/options.blp:21
 msgid "_Subtitles"
 msgstr "_زیرنویس‌ها"
 
-#: showtime/gtk/options.blp:35
+#: showtime/gtk/options.blp:26
 msgid "_Repeat"
 msgstr "_تکرار"
 
-#: showtime/gtk/options.blp:62
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "چرخاندن"
+
+#: showtime/gtk/options.blp:61
 msgid "Playback Speed"
 msgstr "سرعت پخش"
 
-#: showtime/gtk/options.blp:108
+#: showtime/gtk/options.blp:107
 msgid "Rotate Left"
 msgstr "چرخاندن به چپ"
 
-#: showtime/gtk/options.blp:119
+#: showtime/gtk/options.blp:118
 msgid "Rotate Right"
 msgstr "چرخاندن به راست"
 
-#: showtime/gtk/options.blp:129
+#: showtime/gtk/options.blp:128
 msgid "Playback Options"
 msgstr "گزینه‌های پخش"
 
@@ -304,10 +317,6 @@ msgstr "دیدن ویدیوها"
 msgid "Drag and drop videos here"
 msgstr "کشیدن و رها کردن ویدیوها در این‌جا"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "گشودن…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "ناتوان در پخش ویدیو"
@@ -327,6 +336,14 @@ msgstr "از سر گیری"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "آغاز دوباره"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "ویدیو"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "زیرنویس‌ها"
 
 #~ msgid "Showtime"
 #~ msgstr "وقت نمایش"
