@@ -81,8 +81,8 @@ class Application(Adw.Application):
         self.add_main_option_entries((new_window,))
         self.set_option_context_parameter_string("[VIDEO FILES]")
 
-        # if system == "Darwin" and (settings := Gtk.Settings.get_default()):
-        #     settings.props.gtk_decoration_layout = "close,minimize:"
+        if system == "Darwin" and (settings := Gtk.Settings.get_default()):
+            settings.props.gtk_decoration_layout = "close,minimize,maximize:"
 
         self.connect("window-removed", self._on_window_removed)
         self.connect("shutdown", self._on_shutdown)

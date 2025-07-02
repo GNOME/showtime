@@ -189,10 +189,8 @@ class Window(Adw.ApplicationWindow):
         self._reveal_animations = {}
         self._hide_animations = {}
 
-        # if system == "Darwin":
-        #     self.placeholder_primary_menu_button.props.visible = False
-        #     self.video_primary_menu_button.props.visible = False
-        #     self.spinner.props.margin_top = 6
+        if system == "Darwin":
+            self.header_start.props.visible = False
 
         (
             self.paintable,
