@@ -13,7 +13,7 @@ showtime/widgets/options.py
 showtime/widgets/sound_options.py
 showtime/widgets/window.py
 
-showtime/gtk/help-overlay.blp
 showtime/gtk/options.blp
+showtime/gtk/shortcuts-dialog.blp
 showtime/gtk/sound-options.blp
 showtime/gtk/window.blp

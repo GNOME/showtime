@@ -1,0 +1,95 @@
+using Gtk 4.0;
+using Adw 1;
+
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: _("General");
+
+    Adw.ShortcutsItem {
+      title: _("Show Shortcuts");
+      action-name: "app.shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Open Video");
+      action-name: "win.open-video";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Video Options");
+      accelerator: "<shift>F10";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Take Screenshot");
+      action-name: "win.screenshot";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("New Window");
+      action-name: "app.new-window";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Close Window");
+      action-name: "win.close-window";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      action-name: "app.quit";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Volume");
+
+    Adw.ShortcutsItem {
+      title: _("Increase Volume");
+      action-name: "win.increase-volume";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Decrease Volume");
+      action-name: "win.decrease-volume";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Mute/Unmute");
+      action-name: "win.toggle-mute";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("View");
+
+    Adw.ShortcutsItem {
+      title: _("Toggle Fullscreen");
+      action-name: "win.toggle-fullscreen";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Exit Fullscreen");
+      accelerator: "Escape";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Playback");
+
+    Adw.ShortcutsItem {
+      title: _("Play/Pause");
+      action-name: "win.toggle-playback";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Go Back 10 Seconds");
+      action-name: "win.backwards";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Go Forward 10 Seconds");
+      action-name: "win.forwards";
+    }
+  }
+}
