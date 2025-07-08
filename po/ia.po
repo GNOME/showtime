@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-20 19:32-0400\n"
+"POT-Creation-Date: 2025-07-02 15:39+0000\n"
+"PO-Revision-Date: 2025-07-08 11:12-0400\n"
 "Last-Translator: Emilio Sepúlveda <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <softinterlingua@gmail.com>\n"
 "Language: ia\n"
@@ -37,7 +37,8 @@ msgstr "Reproduce videos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Reproductor;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Nove fenestra"
 
@@ -71,11 +72,31 @@ msgstr "Que monstrar in le position final del marca de data e hora"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "P. ex. Duration total del video o le amonta de tempore remanente"
 
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Aperir…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "File"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Fenestra"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Vias breve de claviero"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Adjuta"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Video in reproduction"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1027
 msgid "Unknown Title"
 msgstr "Titulo incognite"
 
@@ -107,175 +128,167 @@ msgstr "Lingua non determinate"
 msgid "Add Subtitle File…"
 msgstr "Adder file de subtitulo"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Reproducer"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Pausar"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Detalios copiate"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Copiar detalios technic"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:747
 msgid "Try Again"
 msgstr "Tentar de novo"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:777
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Le “{}” codecs requirite pro reproducer iste video non poteva esser trovate."
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:795
 msgid "No plugin available for this media type"
 msgstr "Necun plugin disponibile pro iste typo de multimedia"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:801
 msgid "Unable to install the required plugin"
 msgstr "Non poteva installar le plugin requirite"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:804
 msgid "Install Plugin"
 msgstr "Installar plugin"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:812
 msgid "Installing…"
 msgstr "Installation in curso…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:820
 msgid "“{}” codecs are required to play this video"
 msgstr "“{}” codecs son requirite pro reproducer iste video"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Video"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Subtitulos"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:996
 msgid "translator_credits"
 msgstr "Emilio Sepúlveda <emism.translations@gmail.com>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1035
 msgid "Screenshot captured"
 msgstr "Captura de schermo capturate"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1037
 msgid "Show in Files"
 msgstr "Monstrar in files"
 
-#: showtime/gtk/help-overlay.blp:11
-msgid "General"
-msgstr "General"
-
-#: showtime/gtk/help-overlay.blp:14
-msgid "Show Shortcuts"
-msgstr "Monstrar vias breve"
-
-#: showtime/gtk/help-overlay.blp:19
-msgid "Open Video"
-msgstr "Aperir video"
-
-#: showtime/gtk/help-overlay.blp:24
-msgid "Video Options"
-msgstr "Optiones de video"
-
-#: showtime/gtk/help-overlay.blp:29
-msgid "Take Screenshot"
-msgstr "Prender un captura de schermo"
-
-#: showtime/gtk/help-overlay.blp:39
-msgid "Close Window"
-msgstr "Clauder fenestra"
-
-#: showtime/gtk/help-overlay.blp:44
-msgid "Quit"
-msgstr "Quitar"
-
-#: showtime/gtk/help-overlay.blp:50
-msgid "Volume"
-msgstr "Volumine"
-
-#: showtime/gtk/help-overlay.blp:53
-msgid "Increase Volume"
-msgstr "Augmentar volumine"
-
-#: showtime/gtk/help-overlay.blp:58
-msgid "Decrease Volume"
-msgstr "Reducer volumine"
-
-#: showtime/gtk/help-overlay.blp:63 showtime/gtk/sound-options.blp:24
-msgid "Mute/Unmute"
-msgstr "Silentiar/Dissilentiar"
-
-#: showtime/gtk/help-overlay.blp:69
-msgid "View"
-msgstr "Visualisar"
-
-#: showtime/gtk/help-overlay.blp:72 showtime/gtk/window.blp:433
-msgid "Toggle Fullscreen"
-msgstr "Commutar schermo plen"
-
-#: showtime/gtk/help-overlay.blp:77
-msgid "Exit Fullscreen"
-msgstr "Reducer volumine"
-
-#: showtime/gtk/help-overlay.blp:83
-msgid "Playback"
-msgstr "Reproduction"
-
-#: showtime/gtk/help-overlay.blp:86
-msgid "Play/Pause"
-msgstr "Reproducer/Pausar"
-
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:126
-msgid "Go Back 10 Seconds"
-msgstr "Retroceder 10 secundas"
-
-#: showtime/gtk/help-overlay.blp:96 showtime/gtk/window.blp:162
-msgid "Go Forward 10 Seconds"
-msgstr "Avantiar 10 secundas"
-
-#: showtime/gtk/options.blp:12
-msgid "Rotate"
-msgstr "Rotar"
-
-#: showtime/gtk/options.blp:26
+#: showtime/gtk/options.blp:17
 msgid "_Language"
 msgstr "_Lingua"
 
-#: showtime/gtk/options.blp:30
+#: showtime/gtk/options.blp:21
 msgid "_Subtitles"
 msgstr "_Subtitulos"
 
-#: showtime/gtk/options.blp:35
+#: showtime/gtk/options.blp:26
 msgid "_Repeat"
 msgstr "_Repeter"
 
-#: showtime/gtk/options.blp:62
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Rotar"
+
+#: showtime/gtk/options.blp:61
 msgid "Playback Speed"
 msgstr "Velocitate de reproduction"
 
-#: showtime/gtk/options.blp:108
+#: showtime/gtk/options.blp:107
 msgid "Rotate Left"
 msgstr "Rotar sinistre"
 
-#: showtime/gtk/options.blp:119
+#: showtime/gtk/options.blp:118
 msgid "Rotate Right"
 msgstr "Rotar dextre"
 
-#: showtime/gtk/options.blp:129
+#: showtime/gtk/options.blp:128
 msgid "Playback Options"
 msgstr "Optiones de reproduction"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "General"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Monstrar vias breve"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Aperir video"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Optiones de video"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Prender un captura de schermo"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Clauder fenestra"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Quitar"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Volumine"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Augmentar volumine"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Reducer volumine"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Silentiar/Dissilentiar"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Visualisar"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:433
+msgid "Toggle Fullscreen"
+msgstr "Commutar schermo plen"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Reducer volumine"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Reproduction"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Reproducer/Pausar"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:126
+msgid "Go Back 10 Seconds"
+msgstr "Retroceder 10 secundas"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:162
+msgid "Go Forward 10 Seconds"
+msgstr "Avantiar 10 secundas"
 
 #: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
@@ -313,10 +326,6 @@ msgstr "Observar videos"
 msgid "Drag and drop videos here"
 msgstr "Trahe e depone videos hic"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Aperir…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Non poteva reproducer le video"
@@ -336,6 +345,14 @@ msgstr "Resumer"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Initiar de novo"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Subtitulos"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
