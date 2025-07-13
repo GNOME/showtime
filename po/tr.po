@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-18 14:01+0000\n"
-"PO-Revision-Date: 2025-05-11 08:00+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-24 12:14+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.4.3\n"
+"X-Generator: Poedit 3.6\n"
 "X-DamnedLies-Scope: partial\n"
 
 #: data/org.gnome.Showtime.desktop.in:3
@@ -34,7 +34,8 @@ msgstr "Videoları oynat"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Film;Klip;Oynatıcı;Çalıcı;Gösteri;Showtime;Vidyo;Hareketli;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Yeni Pencere"
 
@@ -67,11 +68,31 @@ msgstr "Bitiş zaman damgası konumunda ne gösterilmeli"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Örneğin videonun toplam süresi ya da kalan süre"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Aç…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Dosya"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Pencere"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Yardım"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Video oynatıyor"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1032
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Bilinmeyen Başlık"
 
@@ -102,70 +123,62 @@ msgstr "Belirsiz Dil"
 msgid "Add Subtitle File…"
 msgstr "Alt Yazı Dosyası Ekle…"
 
-#: showtime/widgets/window.py:178 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Oynat"
 
-#: showtime/widgets/window.py:178
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Duraklat"
 
-#: showtime/widgets/window.py:739
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "Ayrıntılar kopyalandı"
 
-#: showtime/widgets/window.py:741
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Teknik Ayrıntıları Kopyala"
 
-#: showtime/widgets/window.py:751
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Yeniden Dene"
 
-#: showtime/widgets/window.py:781
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Bu videoyu oynatmak için gereken “{}” kod çözücüler bulunamadı"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "Bu ortam türü için kullanılabilir eklenti yok"
 
-#: showtime/widgets/window.py:806
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "Gerekli eklenti yüklenemedi"
 
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Eklenti Kur"
 
-#: showtime/widgets/window.py:817
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "Kuruluyor…"
 
-#: showtime/widgets/window.py:825
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Bu videoyu oynatmak için “{}” kod çözücüler gerekli"
 
-#: showtime/widgets/window.py:929
-msgid "Video"
-msgstr "Video"
-
-#: showtime/widgets/window.py:940
-msgid "Subtitles"
-msgstr "Alt Yazılar"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1001
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr ""
 "Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Sabri Ünal <yakushabb@gmail.com>"
 
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "Ekran görüntüsü yakalandı"
 
-#: showtime/widgets/window.py:1042
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Dosyalarʼda Göster"
 
@@ -309,10 +322,6 @@ msgstr "Videoları İzle"
 msgid "Drag and drop videos here"
 msgstr "Videoları buraya sürükleyip bırak"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Aç…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "Video Oynatılamadı"
@@ -332,3 +341,11 @@ msgstr "Sürdür"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Yeniden Başlat"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Alt Yazılar"
