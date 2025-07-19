@@ -69,7 +69,7 @@ def nanoseconds_to_timestamp(ns: int, *, hours: bool = False) -> str:
         if hours
         else formatted.lstrip("0:") or "0"
         if len(stripped := formatted.lstrip("0:") or "0") > SECONDS_ONLY
-        else f"0:{stripped.zfill(2)}"
+        else f"0:{stripped:0>2}"
     )
 
 
