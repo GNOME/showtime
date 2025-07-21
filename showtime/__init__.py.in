@@ -17,7 +17,7 @@ PROFILE = "@PROFILE@"
 system = platform.system()
 
 app = None
-logger = getLogger()
+logger = getLogger("showtime")
 
 schema = Gio.Settings.new(APP_ID)
 state_settings = Gio.Settings.new(APP_ID + ".State")
