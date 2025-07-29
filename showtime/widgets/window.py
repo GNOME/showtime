@@ -186,6 +186,8 @@ class Window(Adw.ApplicationWindow):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(decorated=system != "Darwin", **kwargs)
 
+        Gtk.WindowGroup().add_window(self)
+
         self._reveal_animations = {}
         self._hide_animations = {}
 
