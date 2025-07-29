@@ -255,7 +255,7 @@ class Application(Adw.Application):
     def _on_window_removed(self, _obj: Any, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
         self.save_play_position(win)
         self.uninhibit_win(win)
-        del win.play
+        win.play.stop()
 
     def _on_shutdown(self, *_args: Any) -> None:
         for win in self.get_windows():
