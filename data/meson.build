@@ -51,4 +51,11 @@ test(
   args: ['--strict', '--dry-run', meson.current_source_dir()],
 )
 
+configure_file(
+  input: 'org.gnome.Showtime.service.in',
+  output: app_id + '.service',
+  configuration: conf,
+  install_dir: get_option('datadir') / 'dbus-1' / 'services'
+)
+
 subdir('icons')
