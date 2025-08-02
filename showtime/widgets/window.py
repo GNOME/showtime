@@ -301,6 +301,26 @@ class Window(Adw.ApplicationWindow):
 
         logger.debug("Playing video: %s", uri)
 
+        def setup_cb(*_args: Any) -> None:
+            self.pipeline.disconnect_by_func(setup_cb)
+
+            if not (pos := self._get_previous_play_position()):
+                self.unpause()
+                logger.debug("No previous play position")
+                return
+
+            if pos < MINUTE_IN_NS:
+                self.unpause()
+                logger.debug("Previous play position before 60s")
+                return
+
+            self._reveal_overlay(self.restore_breakpoint_bin)
+            self._hide_overlay(self.controls_box)
+            self.play.seek(pos)
+            logger.debug("Previous play position restored: %i", pos)
+
+        self.pipeline.connect("source-setup", setup_cb)
+
         self.media_info_updated = False
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
@@ -316,27 +336,6 @@ class Window(Adw.ApplicationWindow):
 
         if action := lookup_action(self, "show-in-files"):
             action.props.enabled = True
-
-        if not (pos := self._get_previous_play_position()):
-            self.unpause()
-            logger.debug("No previous play position")
-            return
-
-        if pos < MINUTE_IN_NS:
-            self.unpause()
-            logger.debug("Previous play position before 60s")
-            return
-
-        logger.debug("Previous play position restored: %i", pos)
-
-        def setup_cb(*_args: Any) -> None:
-            self._reveal_overlay(self.restore_breakpoint_bin)
-            self._hide_overlay(self.controls_box)
-            self.play.seek(pos)
-
-            self.pipeline.disconnect_by_func(setup_cb)
-
-        self.pipeline.connect("source-setup", setup_cb)
 
     def unpause(self) -> None:
         """Start playing the current video."""
