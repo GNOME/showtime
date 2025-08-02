@@ -277,6 +277,11 @@ class Window(Adw.ApplicationWindow):
 
     def play_video(self, gfile: Gio.File) -> None:
         """Start playing the given `GFile`."""
+        if not (app := self.props.application):
+            return
+
+        app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
+
         self._playing_gfile = gfile
 
         try:
@@ -1054,10 +1059,9 @@ class Window(Adw.ApplicationWindow):
         except GLib.Error:
             return
 
-        if not gfile or not (app := self.props.application):
+        if not gfile:
             return
 
-        app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
         self.play_video(gfile)
 
     def _on_choose_subtitles(
