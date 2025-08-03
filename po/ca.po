@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-05-28 12:36+0000\n"
-"PO-Revision-Date: 2025-06-01 20:01+0200\n"
+"POT-Creation-Date: 2025-06-21 10:41+0000\n"
+"PO-Revision-Date: 2025-06-24 17:19+0200\n"
 "Last-Translator: \n"
 "Language-Team: Catalan <Catalan>\n"
 "Language: ca\n"
@@ -31,7 +31,8 @@ msgstr "Reproduïu vídeos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Vídeo;Pel·lícula;Clip;Reproductor;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:34
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:22
+#: showtime/gtk/help-overlay.blp:34
 msgid "New Window"
 msgstr "Finestra nova"
 
@@ -66,11 +67,31 @@ msgstr "Què s'ha de mostrar a la posició de la marca horària final"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Per exemple, la durada total del vídeo o la quantitat de temps restant"
 
+#: showtime/application_delegate.py:26 showtime/gtk/window.blp:73
+msgid "Open…"
+msgstr "Obre…"
+
+#: showtime/application_delegate.py:34
+msgid "File"
+msgstr "Fitxer"
+
+#: showtime/application_delegate.py:42
+msgid "Window"
+msgstr "Finestra"
+
+#: showtime/application_delegate.py:51
+msgid "Keyboard Shortcuts"
+msgstr "Dreceres del teclat"
+
+#: showtime/application_delegate.py:59
+msgid "Help"
+msgstr "Ajuda"
+
 #: showtime/main.py:103
 msgid "Playing a video"
 msgstr "S'està reproduint un vídeo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1023
+#: showtime/mpris.py:288 showtime/widgets/window.py:1028
 msgid "Unknown Title"
 msgstr "Títol desconegut"
 
@@ -102,69 +123,61 @@ msgstr "Llengua sense determinar"
 msgid "Add Subtitle File…"
 msgstr "Afegeix un fitxer de subtítols…"
 
-#: showtime/widgets/window.py:169 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
 msgid "Play"
 msgstr "Reprodueix"
 
-#: showtime/widgets/window.py:169
+#: showtime/widgets/window.py:173
 msgid "Pause"
 msgstr "Pausa"
 
-#: showtime/widgets/window.py:730
+#: showtime/widgets/window.py:742
 msgid "Details copied"
 msgstr "S'han copiat els detalls"
 
-#: showtime/widgets/window.py:732
+#: showtime/widgets/window.py:744
 msgid "Copy Technical Details"
 msgstr "Copia els detalls tècnics"
 
-#: showtime/widgets/window.py:742
+#: showtime/widgets/window.py:754
 msgid "Try Again"
 msgstr "Torna-ho a provar"
 
-#: showtime/widgets/window.py:772
+#: showtime/widgets/window.py:784
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "No s'han trobat els còdecs «{}» necessaris per a reproduir aquest vídeo"
 
-#: showtime/widgets/window.py:791
+#: showtime/widgets/window.py:803
 msgid "No plugin available for this media type"
 msgstr "No hi ha cap connector disponible per a aquest tipus de suport"
 
-#: showtime/widgets/window.py:797
+#: showtime/widgets/window.py:809
 msgid "Unable to install the required plugin"
 msgstr "No s'ha pogut instal·lar el connector requerit"
 
-#: showtime/widgets/window.py:800
+#: showtime/widgets/window.py:812
 msgid "Install Plugin"
 msgstr "Instal·la el connector"
 
-#: showtime/widgets/window.py:808
+#: showtime/widgets/window.py:820
 msgid "Installing…"
 msgstr "S'està instal·lant…"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:828
 msgid "“{}” codecs are required to play this video"
 msgstr "Es requereixen els còdecs «{}» per a reproduir aquest vídeo"
 
-#: showtime/widgets/window.py:920
-msgid "Video"
-msgstr "Vídeo"
-
-#: showtime/widgets/window.py:931
-msgid "Subtitles"
-msgstr "Subtítols"
-
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:992
+#: showtime/widgets/window.py:997
 msgid "translator_credits"
 msgstr "Victor Dargallo <victordargallo@disroot.org>"
 
-#: showtime/widgets/window.py:1031
+#: showtime/widgets/window.py:1036
 msgid "Screenshot captured"
 msgstr "S'ha fet la captura de pantalla"
 
-#: showtime/widgets/window.py:1033
+#: showtime/widgets/window.py:1038
 msgid "Show in Files"
 msgstr "Mostra al Fitxers"
 
@@ -308,10 +321,6 @@ msgstr "Mireu vídeos"
 msgid "Drag and drop videos here"
 msgstr "Arrossegueu i deixeu anar vídeos aquí"
 
-#: showtime/gtk/window.blp:73
-msgid "Open…"
-msgstr "Obre…"
-
 #: showtime/gtk/window.blp:86
 msgid "Unable to Play Video"
 msgstr "No s'ha pogut reproduir el vídeo"
@@ -331,6 +340,14 @@ msgstr "Reprèn"
 #: showtime/gtk/window.blp:348
 msgid "Start Again"
 msgstr "Torna a començar"
+
+#: showtime/gtk/window.blp:541
+msgid "Video"
+msgstr "Vídeo"
+
+#: showtime/gtk/window.blp:551
+msgid "Subtitles"
+msgstr "Subtítols"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
