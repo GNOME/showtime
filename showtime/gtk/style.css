@@ -1,11 +1,3 @@
-:root {
-  --bezier-transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --focus-ring:
-    outline-color 200ms var(--bezier-transition),
-    outline-width 200ms var(--bezier-transition),
-    outline-offset 200ms var(--bezier-transition);
-}
-
 #video-page {
   --accent-color: white;
   --accent-bg-color: white;
@@ -32,8 +24,8 @@ scale.highlighted slider:hover {
   transform: scale(1.2);
 }
 
-button.highlighted:active,
-menubutton.highlighted > button:active,
+button.highlighted:active > *,
+menubutton.highlighted > button:active > *,
 windowcontrols.overlaid > button:active > image {
   transform: scale(0.8);
 }
@@ -46,20 +38,12 @@ scale.highlighted slider:active {
   transform: scale(0.5);
 }
 
-button.highlighted,
-menubutton.highlighted > button,
+button.highlighted > *,
+menubutton.highlighted > button > *,
 windowcontrols.overlaid > button > image,
-#play-button > image {
-  transition:
-    var(--focus-ring),
-    transform 0.2s var(--bezier-transition),
-    background-color 0.2s var(--bezier-transition);
-}
-
+#play-button > image,
 scale.highlighted slider {
-  transition:
-    var(--focus-ring),
-    transform 0.3s var(--bezier-transition);
+  transition: transform 0.2s;
 }
 
 /* Strong Shadow */
