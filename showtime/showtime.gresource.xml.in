@@ -16,7 +16,6 @@
     <file preprocess="xml-stripblanks">gtk/sound-options.ui</file>
     <file preprocess="xml-stripblanks">gtk/window.ui</file>
     <file alias="style.css">gtk/style.css</file>
-    <file alias="style-hc.css">gtk/style-hc.css</file>
     <file preprocess="xml-stripblanks" alias="@APP_ID@.metainfo.xml">../data/@APP_ID@.metainfo.xml</file>
   </gresource>
 </gresources>
