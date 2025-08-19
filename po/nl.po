@@ -1,15 +1,15 @@
 # Dutch translation for showtime.
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
-# Nathan Follens <nfollens@gnome.org>,  2024.
+# Nathan Follens <nfollens@gnome.org>,  2024-2025.
+# Dick Groskamp <dikgro@yahoo.co.uk>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2024-10-28 11:37+0000\n"
-"PO-Revision-Date: 2024-10-28 22:27+0100\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-08-19 10:06+0000\n"
+"PO-Revision-Date: 2025-08-19 18:48+0200\n"
 "Last-Translator: Nathan Follens <nfollens@gnome.org>\n"
 "Language-Team: GNOME-NL https://matrix.to/#/#nl:gnome.org\n"
 "Language: nl\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.6\n"
 
-#: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:453
-#: showtime/gtk/window.blp:194
-msgid "Showtime"
-msgstr "Showtime"
-
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "Videospeler"
 
-#: data/org.gnome.Showtime.desktop.in:5
+#: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
 msgstr "Speel video’s af"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;Movie;Film;Clip;Player;Showtime;speler;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Nieuw venster"
 
@@ -43,16 +43,17 @@ msgstr "Kijk zonder afleiding"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Speel uw favoriete films en videobestanden af zonder gedoe. Showtime biedt "
-"een simpele besturing die verdwijnen terwijl u kijkt, volledigschermmodus, "
-"aanpasbare afspeelsnelheid, meerdere taal- en ondertitelsporen, en "
-"schermafdrukken — alles wat u nodig hebt voor een eenvoudige kijkervaring."
+"Speel uw favoriete films en videobestanden af zonder gedoe. Videospeler "
+"biedt een simpele besturing die verdwijnt terwijl u kijkt, "
+"volledigschermmodus, aanpasbare afspeelsnelheid, meerdere taal- en "
+"ondertitelsporen, en schermafdrukken — alles wat u nodig hebt voor een "
+"eenvoudige kijkervaring."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
@@ -66,253 +67,298 @@ msgstr "Wat te tonen als tijdstempel voor het einde van de video"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Bv. de totale duur van de video of de hoeveelheid resterende tijd"
 
-#: showtime/main.py:141
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
+msgid "Open…"
+msgstr "Openen…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Bestand"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Venster"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Hulp"
+
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Een video afspelen"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:428
-msgid "translator_credits"
-msgstr ""
-"Nathan Follens <nfollens@gnome.org>\n"
-"Meer info over GNOME-NL https://nl.gnome.org"
-
-#: showtime/mpris.py:289 showtime/window.py:561
+#: showtime/mpris.py:288 showtime/widgets/window.py:1033
 msgid "Unknown Title"
 msgstr "Onbekende titel"
 
-#: showtime/window.py:138 showtime/gtk/window.blp:306
-msgid "Play"
-msgstr "Afspelen"
-
-#: showtime/window.py:141
-msgid "Pause"
-msgstr "Pauzeren"
-
-#: showtime/window.py:416
-msgid "Details copied"
-msgstr "Gegevens gekopieerd"
-
-#: showtime/window.py:419
-msgid "Copy Technical Details"
-msgstr "Technische gegeven kopiëren"
-
-#: showtime/window.py:445
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr ""
-"De ‘{}’-codecs die vereist zijn om deze video af te spelen konden niet "
-"gevonden worden"
-
-#: showtime/window.py:466
-msgid "No plugin available for this media type"
-msgstr "Geen plug-in beschikbaar voor dit mediatype"
-
-#: showtime/window.py:472
-msgid "Unable to install the required plugin"
-msgstr "Kan de vereiste plug-in niet installeren"
-
-#: showtime/window.py:475
-msgid "Install Plugin"
-msgstr "Plug-in installeren"
-
-#: showtime/window.py:483
-msgid "Installing…"
-msgstr "Bezig met installeren…"
-
-#: showtime/window.py:491
-msgid "“{}” codecs are required to play this video"
-msgstr "‘{}’-codecs zijn vereist om deze video af te spelen"
-
-#: showtime/window.py:572
-msgid "Screenshot captured"
-msgstr "Schermafdruk gemaakt"
-
-#: showtime/window.py:574
-msgid "Show in Files"
-msgstr "Tonen in Bestanden"
-
-#: showtime/window.py:636
-msgid "Video"
-msgstr "Video"
-
-#: showtime/window.py:659
-msgid "Subtitles"
-msgstr "Ondertitels"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:725
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Onbepaald, {} kanaal"
 msgstr[1] "Onbepaald, {} kanalen"
 
-#: showtime/window.py:730
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Onbepaald"
 
-#: showtime/window.py:743
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Geen audio"
 
-#: showtime/window.py:748
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Geen"
 
-#: showtime/window.py:754
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "Onbepaalde taal"
 
-#: showtime/window.py:765
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
 msgstr "Ondertitelbestand toevoegen…"
 
-#: showtime/gtk/help-overlay.blp:11
-msgid "General"
-msgstr "Algemeen"
-
-#: showtime/gtk/help-overlay.blp:14
-msgid "Show Shortcuts"
-msgstr "Sneltoetsen tonen"
-
-#: showtime/gtk/help-overlay.blp:19
-msgid "Open Video"
-msgstr "Video openen"
-
-#: showtime/gtk/help-overlay.blp:24
-msgid "Take Screenshot"
-msgstr "Schermafdruk maken"
-
-#: showtime/gtk/help-overlay.blp:34
-msgid "Close Window"
-msgstr "Venster sluiten"
-
-#: showtime/gtk/help-overlay.blp:39
-msgid "Quit"
-msgstr "Afsluiten"
-
-#: showtime/gtk/help-overlay.blp:45
-msgid "Volume"
-msgstr "Volume"
-
-#: showtime/gtk/help-overlay.blp:48
-msgid "Increase Volume"
-msgstr "Volume verhogen"
-
-#: showtime/gtk/help-overlay.blp:53
-msgid "Decrease Volume"
-msgstr "Volume verlagen"
-
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:130
-#: showtime/gtk/window.blp:158
-msgid "Mute/Unmute"
-msgstr "Geluid dempen/aanzetten"
-
-#: showtime/gtk/help-overlay.blp:64
-msgid "View"
-msgstr "Weergave"
-
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:639
-msgid "Toggle Fullscreen"
-msgstr "Volledig scherm omschakelen"
-
-#: showtime/gtk/help-overlay.blp:72
-msgid "Exit Fullscreen"
-msgstr "Volledig scherm verlaten"
-
-#: showtime/gtk/help-overlay.blp:78
-msgid "Playback"
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
+msgid "Play"
 msgstr "Afspelen"
 
-#: showtime/gtk/help-overlay.blp:81
-msgid "Play/Pause"
-msgstr "Afspelen/pauzeren"
+#: showtime/widgets/window.py:173
+msgid "Pause"
+msgstr "Pauzeren"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:153
-#: showtime/gtk/window.blp:287
-msgid "Go Back 10 Seconds"
-msgstr "Ga 10 seconden terug"
+#: showtime/widgets/window.py:748
+msgid "Details copied"
+msgstr "Gegevens gekopieerd"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:154
-#: showtime/gtk/window.blp:322
-msgid "Go Forward 10 Seconds"
-msgstr "Ga 10 seconden verder"
+#: showtime/widgets/window.py:750
+msgid "Copy Technical Details"
+msgstr "Technische gegeven kopiëren"
 
-#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:179
-msgid "_Open…"
-msgstr "_Openen…"
+#: showtime/widgets/window.py:753
+msgid "Try Again"
+msgstr "Opnieuw proberen"
 
-#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:172
-msgid "Show in _Files"
-msgstr "Tonen in _Bestanden"
+#: showtime/widgets/window.py:783
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"De ‘{}’-codecs die vereist zijn om deze video af te spelen konden niet "
+"gevonden worden"
 
-#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:164
-msgid "Take _Screenshot"
-msgstr "_Schermafdruk maken"
+#: showtime/widgets/window.py:801
+msgid "No plugin available for this media type"
+msgstr "Geen plug-in beschikbaar voor dit mediatype"
 
-#: showtime/gtk/window.blp:26
-msgid "_Keyboard Shortcuts"
-msgstr "Snel_toetsen"
+#: showtime/widgets/window.py:807
+msgid "Unable to install the required plugin"
+msgstr "Kan de vereiste plug-in niet installeren"
 
-#: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "_Over Showtime"
+#: showtime/widgets/window.py:810
+msgid "Install Plugin"
+msgstr "Plug-in installeren"
 
-#: showtime/gtk/window.blp:40
+#: showtime/widgets/window.py:818
+msgid "Installing…"
+msgstr "Bezig met installeren…"
+
+#: showtime/widgets/window.py:826
+msgid "“{}” codecs are required to play this video"
+msgstr "‘{}’-codecs zijn vereist om deze video af te spelen"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1002
+msgid "translator_credits"
+msgstr ""
+"Nathan Follens <nfollens@gnome.org>\n"
+"Dick Groskamp <dikgro@yahoo.co.uk\n"
+"Meer info over GNOME-NL https://nl.gnome.org"
+
+#: showtime/widgets/window.py:1041
+msgid "Screenshot captured"
+msgstr "Schermafdruk gemaakt"
+
+#: showtime/widgets/window.py:1043
+msgid "Show in Files"
+msgstr "Tonen in Bestanden"
+
+#: showtime/gtk/options.blp:17
 msgid "_Language"
 msgstr "_Taal"
 
-#: showtime/gtk/window.blp:44
+#: showtime/gtk/options.blp:21
 msgid "_Subtitles"
 msgstr "Ondertitel_s"
 
-#: showtime/gtk/window.blp:49 showtime/gtk/window.blp:159
+#: showtime/gtk/options.blp:26
 msgid "_Repeat"
 msgstr "He_rhalen"
 
-#: showtime/gtk/window.blp:67
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Draaien"
+
+#: showtime/gtk/options.blp:61
 msgid "Playback Speed"
 msgstr "Afspeelsnelheid"
 
-#: showtime/gtk/window.blp:214 showtime/gtk/window.blp:672
-msgid "Main Menu"
-msgstr "Hoofdmenu"
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "Linksom draaien"
 
-#: showtime/gtk/window.blp:223
-msgid "Watch Videos"
-msgstr "Bekijk video’s"
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "Rechtsom draaien"
 
-#: showtime/gtk/window.blp:224
-msgid "Drag and drop videos here"
-msgstr "Sleep video’s hiernaartoe"
-
-#: showtime/gtk/window.blp:227
-msgid "Open…"
-msgstr "Openen…"
-
-#: showtime/gtk/window.blp:240
-msgid "Unable to Play Video"
-msgstr "Kan video niet afspelen"
-
-#: showtime/gtk/window.blp:245
-msgid "Missing Plugin"
-msgstr "Plug-in ontbreekt"
-
-#: showtime/gtk/window.blp:362
-msgid "Adjust Volume"
-msgstr "Volume aanpassen"
-
-#: showtime/gtk/window.blp:380
+#: showtime/gtk/options.blp:128
 msgid "Playback Options"
 msgstr "Afspeelopties"
 
-#: showtime/gtk/window.blp:437
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Algemeen"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Sneltoetsen tonen"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Video openen"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Video-voorkeuren"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Schermafdruk maken"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Venster sluiten"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Volume"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Volume verhogen"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Volume verlagen"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Geluid dempen/aanzetten"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Weergave"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
+msgid "Toggle Fullscreen"
+msgstr "Volledig scherm omschakelen"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Volledig scherm verlaten"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Afspelen"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Afspelen/pauzeren"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
+msgid "Go Back 10 Seconds"
+msgstr "Ga 10 seconden terug"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
+msgid "Go Forward 10 Seconds"
+msgstr "Ga 10 seconden verder"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Volume aanpassen"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Nieuw venster"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_Openen…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Tonen in _Bestanden"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "_Schermafdruk maken"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "Snel_toetsen"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_Over Videospeler"
+
+#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
+msgid "Main Menu"
+msgstr "Hoofdmenu"
+
+#: showtime/gtk/window.blp:70
+msgid "Watch Videos"
+msgstr "Bekijk video’s"
+
+#: showtime/gtk/window.blp:71
+msgid "Drag and drop videos here"
+msgstr "Sleep video’s hiernaartoe"
+
+#: showtime/gtk/window.blp:87
+msgid "Unable to Play Video"
+msgstr "Kan video niet afspelen"
+
+#: showtime/gtk/window.blp:92
+msgid "Missing Plugin"
+msgstr "Plug-in ontbreekt"
+
+#: showtime/gtk/window.blp:254
 msgid "Toggle Duration/Remaining"
 msgstr "Schakelen tussen duur en resterende tijd"
 
-#: showtime/gtk/window.blp:511
+#: showtime/gtk/window.blp:309
 msgid "Resume"
 msgstr "Hervatten"
 
-#: showtime/gtk/window.blp:551
+#: showtime/gtk/window.blp:349
 msgid "Start Again"
 msgstr "Opnieuw starten"
+
+#: showtime/gtk/window.blp:542
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:552
+msgid "Subtitles"
+msgstr "Ondertitels"
+
+#~ msgid "Showtime"
+#~ msgstr "Showtime"
+
+#~ msgid "_About Showtime"
+#~ msgstr "_Over Showtime"
