@@ -1033,10 +1033,26 @@ class Window(Adw.ApplicationWindow):
         title = get_title(self.play.get_media_info()) or _("Unknown Title")
         timestamp = nanoseconds_to_timestamp(self.play.get_position(), hours=True)
 
-        Path(path).mkdir(parents=True, exist_ok=True)
+        try:
+            Path(path).mkdir(exist_ok=True)
+        except Exception as e:
+            logger.error(f"Failed to create directory {path}: {e}")
+            toast = Adw.Toast(
+                title=_("Failed to save screenshot"),
+                priority=Adw.ToastPriority.HIGH,
+            )
+            self.toast_overlay.add_toast(toast)
+            return
+
         path = str(Path(path, f"{title} {timestamp}.png"))
 
-        texture.save_to_png(path)
+        if not texture.save_to_png(path):
+            toast = Adw.Toast(
+                title=_("Failed to save screenshot"),
+                priority=Adw.ToastPriority.HIGH,
+            )
+            self.toast_overlay.add_toast(toast)
+            return
 
         toast = Adw.Toast(
             title=_("Screenshot captured"),
