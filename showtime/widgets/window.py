@@ -1033,6 +1033,7 @@ class Window(Adw.ApplicationWindow):
         title = get_title(self.play.get_media_info()) or _("Unknown Title")
         timestamp = nanoseconds_to_timestamp(self.play.get_position(), hours=True)
 
+        Path(path).mkdir(parents=True, exist_ok=True)
         path = str(Path(path, f"{title} {timestamp}.png"))
 
         texture.save_to_png(path)
@@ -1050,7 +1051,7 @@ class Window(Adw.ApplicationWindow):
         )
         self.toast_overlay.add_toast(toast)
 
-        logger.debug("Screenshot saved")
+        logger.debug(f"Screenshot saved to {path}")
 
     def _on_open_video(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
