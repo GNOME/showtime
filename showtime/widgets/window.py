@@ -1025,7 +1025,7 @@ class Window(Adw.ApplicationWindow):
             return
 
         path = (
-            str(Path(pictures, "Screenshots"))
+            str(Path(pictures, _("Screenshots")))
             if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # pyright: ignore[reportArgumentType]
             else GLib.get_home_dir()
         )
