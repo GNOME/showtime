@@ -39,7 +39,7 @@
 		</screenshot>
 	</screenshots>
 	<releases>
-		<release version="49.beta" date="2025-06-28">
+		<release version="49.rc" date="2025-08-30">
 			<description>
 				<ul>
 					<li>Playback now resumes after seeking.</li>
@@ -50,6 +50,7 @@
 					<li>Fixed not being able to seek by scrolling.</li>
 					<li>Fixed not being able to play symlinked videos.</li>
 					<li>Fixed the previous playback position sometimes not restoring.</li>
+					<li>Fixed buttons having too small of a clickable area.</li>
 					<li>Tweaked the styling of the interface.</li>
 					<li>Various improvements on the backend.</li>
 				</ul>
