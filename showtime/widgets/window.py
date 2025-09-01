@@ -1067,7 +1067,7 @@ class Window(Adw.ApplicationWindow):
         )
         self.toast_overlay.add_toast(toast)
 
-        logger.debug(f"Screenshot saved to {path}")
+        logger.debug("Screenshot saved to %s", path)
 
     def _on_open_video(self, dialog: Gtk.FileDialog, res: Gio.AsyncResult) -> None:
         try:
