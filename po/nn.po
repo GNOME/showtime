@@ -1,0 +1,351 @@
+# Norwegian Nynorsk translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Sunniva Løvstad <damnedlies@turtle.garden>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-09-01 12:44+0000\n"
+"PO-Revision-Date: 2025-09-01 23:25+0200\n"
+"Last-Translator: Sunniva Løvstad <sunniva@turtle.garden>\n"
+"Language-Team: Norwegian Nynorsk <nn@li.org>\n"
+"Language: nn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "Videoavspelar"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "Spel av videoar"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;Film;Klipp;Spelar;Avspelar;Showtime;Movie;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "Nytt vindauga"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Sjå på videoar utan distraksjonar"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr ""
+"Spel av dine yndlingsfilmar og -videoar utan styr. Videoavspelar har enkle "
+"avspelingskontrollar som kverv når du ser på noko, fullskjermmodus, "
+"tilpasseleg avspelingsfart, fleirspråklege audio- og undertekstspor og "
+"skjermbilete – alt du treng for ei beintfram sjåaroppleving."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "Appen medan han spelar av ein video"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Kva som skal synast i sluttidsstempelplasseringa"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "T.d. lengda av videoen eller mengda tid att"
+
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
+msgid "Open…"
+msgstr "Opna…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Fil"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Vindauga"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Tastatursnarvegar"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Hjelp"
+
+#: showtime/main.py:103
+msgid "Playing a video"
+msgstr "Spelar av ein video"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1033
+msgid "Unknown Title"
+msgstr "Ukjend tittel"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Ukjend, {} kanal"
+msgstr[1] "Ukjend, {} kanalar"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "Ukjend"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "Ingen audio"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "Ingenting"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "Ukjent språk"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "Legg til undertekstfil…"
+
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
+msgid "Play"
+msgstr "Spel"
+
+#: showtime/widgets/window.py:173
+msgid "Pause"
+msgstr "Set på pause"
+
+#: showtime/widgets/window.py:748
+msgid "Details copied"
+msgstr "Detaljar kopierte"
+
+#: showtime/widgets/window.py:750
+msgid "Copy Technical Details"
+msgstr "Kopier tekniske detaljar"
+
+#: showtime/widgets/window.py:753
+msgid "Try Again"
+msgstr "Prøv att"
+
+#: showtime/widgets/window.py:783
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "«{}»-kodekane som krevst for å spela av denne videoen vart ikkje funne"
+
+#: showtime/widgets/window.py:801
+msgid "No plugin available for this media type"
+msgstr "Ingen tillegg tilgjengeleg for denne typen medium"
+
+#: showtime/widgets/window.py:807
+msgid "Unable to install the required plugin"
+msgstr "Kan ikkje installera påkravt tillegg"
+
+#: showtime/widgets/window.py:810
+msgid "Install Plugin"
+msgstr "Installer tillegg"
+
+#: showtime/widgets/window.py:818
+msgid "Installing…"
+msgstr "Installerer…"
+
+#: showtime/widgets/window.py:826
+msgid "“{}” codecs are required to play this video"
+msgstr "«{}»-kodekar krevst for å spela av denne videoen"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1002
+msgid "translator_credits"
+msgstr "Sunniva Løvstad <showtime@turtle.garden>"
+
+#: showtime/widgets/window.py:1041
+msgid "Screenshot captured"
+msgstr "Skjermbilete teke"
+
+#: showtime/widgets/window.py:1043
+msgid "Show in Files"
+msgstr "Syn i Filer"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "_Språk"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "_Undertekster"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "_Gjentakingsmodus"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Roter"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "Avspelingsfart"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "Roter åt venstre"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "Roter åt høgre"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "Avspelingsval"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Ålment"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Syn snarvegar"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Opna video"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Videoval"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Tak skjermbilete"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Lukk vindauga"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Avslutt"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Volum"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Auk volum"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Senk volum"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Demp/avdemp"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Visning"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
+msgid "Toggle Fullscreen"
+msgstr "Veksle fullskjermmodus"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Forlat fullskjermmodus"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Avspeling"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Spel/set på pause"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
+msgid "Go Back 10 Seconds"
+msgstr "Spol 10 sekund attende"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
+msgid "Go Forward 10 Seconds"
+msgstr "Spol 10 sekund framover"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Juster volum"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Nytt vindauga"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_Opna…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Syn i _Filer"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "Tak _skjermbilete"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastatursnarvegar"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "Om _Videoavspelar"
+
+#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
+msgid "Main Menu"
+msgstr "Hovudmeny"
+
+#: showtime/gtk/window.blp:70
+msgid "Watch Videos"
+msgstr "Sjå på videoar"
+
+#: showtime/gtk/window.blp:71
+msgid "Drag and drop videos here"
+msgstr "Drag og slepp videoar her"
+
+#: showtime/gtk/window.blp:87
+msgid "Unable to Play Video"
+msgstr "Kan ikkje spela av video"
+
+#: showtime/gtk/window.blp:92
+msgid "Missing Plugin"
+msgstr "Manglande tillegg"
+
+#: showtime/gtk/window.blp:254
+msgid "Toggle Duration/Remaining"
+msgstr "Veksle lengd/tid att"
+
+#: showtime/gtk/window.blp:309
+msgid "Resume"
+msgstr "Attopptak"
+
+#: showtime/gtk/window.blp:349
+msgid "Start Again"
+msgstr "Start på nytt"
+
+#: showtime/gtk/window.blp:542
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:552
+msgid "Subtitles"
+msgstr "Undertekstar"
