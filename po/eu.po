@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-07-23 07:43+0000\n"
-"PO-Revision-Date: 2025-07-27 17:22+0000\n"
+"POT-Creation-Date: 2025-09-05 13:56+0000\n"
+"PO-Revision-Date: 2025-09-06 17:22+0000\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr "Project-Id-Version: showtime main\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "Bideo-erreproduzigailua"
 
@@ -29,7 +29,7 @@ msgstr "Erreproduzitu bideoak"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Bideoa;Filma;Pelikula;Klipa;Erreproduzigailua;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/application_delegate.py:27
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
 #: showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Leiho berria"
@@ -59,7 +59,7 @@ msgstr "Zer erakutsiko den amaierako denbora-zigiluaren posizioan"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Adibidez, bideoaren iraupen osoa edo falta den denbora"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:73
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
 msgid "Open…"
 msgstr "Ireki…"
 
@@ -83,7 +83,7 @@ msgstr "Laguntza"
 msgid "Playing a video"
 msgstr "Bideo bat erreproduzitzen"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1027
+#: showtime/mpris.py:288 showtime/widgets/window.py:1033
 msgid "Unknown Title"
 msgstr "Titulu ezezaguna"
 
@@ -115,7 +115,7 @@ msgstr "Zehaztu gabeko hizkuntza"
 msgid "Add Subtitle File…"
 msgstr "Gehitu azpitituluen fitxategia…"
 
-#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
 msgid "Play"
 msgstr "Erreproduzitu"
 
@@ -123,52 +123,52 @@ msgstr "Erreproduzitu"
 msgid "Pause"
 msgstr "Pausatu"
 
-#: showtime/widgets/window.py:742
+#: showtime/widgets/window.py:748
 msgid "Details copied"
 msgstr "Xehetasunak kopiatu dira"
 
-#: showtime/widgets/window.py:744
+#: showtime/widgets/window.py:750
 msgid "Copy Technical Details"
 msgstr "Kopiatu xehetasun teknikoak"
 
-#: showtime/widgets/window.py:747
+#: showtime/widgets/window.py:753
 msgid "Try Again"
 msgstr "Saiatu berriro"
 
-#: showtime/widgets/window.py:777
+#: showtime/widgets/window.py:783
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Bideoo hauek erreproduzitzeko behar diren “{}” kodekak ez dira aurkitu"
 
-#: showtime/widgets/window.py:795
+#: showtime/widgets/window.py:801
 msgid "No plugin available for this media type"
 msgstr "Ez dago pluginik multimedia mota horretarako"
 
-#: showtime/widgets/window.py:801
+#: showtime/widgets/window.py:807
 msgid "Unable to install the required plugin"
 msgstr "Ezin dira instalatu behar diren pluginak"
 
-#: showtime/widgets/window.py:804
+#: showtime/widgets/window.py:810
 msgid "Install Plugin"
 msgstr "Instalatu plugina"
 
-#: showtime/widgets/window.py:812
+#: showtime/widgets/window.py:818
 msgid "Installing…"
 msgstr "Instalatzen…"
 
-#: showtime/widgets/window.py:820
+#: showtime/widgets/window.py:826
 msgid "“{}” codecs are required to play this video"
 msgstr "“{}” kodekak behar dira bideo hau erreproduzitzeko"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:996
+#: showtime/widgets/window.py:1002
 msgid "translator_credits"
 msgstr "translator_credits"
 
-#: showtime/widgets/window.py:1035
+#: showtime/widgets/window.py:1041
 msgid "Screenshot captured"
 msgstr "Pantaila-argazkia hartu da"
 
-#: showtime/widgets/window.py:1037
+#: showtime/widgets/window.py:1043
 msgid "Show in Files"
 msgstr "Erakutsi Fitxategiak aplikazioan"
 
@@ -252,7 +252,7 @@ msgstr "Mututu/mututasuna eten"
 msgid "View"
 msgstr "Ikusi"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:433
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
 msgid "Toggle Fullscreen"
 msgstr "Ikusi pantaila osoan"
 
@@ -268,11 +268,11 @@ msgstr "Erreproduzitu"
 msgid "Play/Pause"
 msgstr "Erreproduzitu/pausarazi"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:126
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
 msgid "Go Back 10 Seconds"
 msgstr "Joan 10 segundo atzera"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:162
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
 msgid "Go Forward 10 Seconds"
 msgstr "Joan 10 segundo aurrera"
 
@@ -281,62 +281,66 @@ msgid "Adjust Volume"
 msgstr "Doitu bolumena"
 
 #: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Leiho berria"
+
+#: showtime/gtk/window.blp:7
 msgid "_Open…"
 msgstr "_Ireki..."
 
-#: showtime/gtk/window.blp:11
+#: showtime/gtk/window.blp:12
 msgid "Show in _Files"
 msgstr "Erakutsi _Fitxategiak aplikazioan"
 
-#: showtime/gtk/window.blp:19
+#: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
 msgstr "Egin _pantaila-argazkia"
 
-#: showtime/gtk/window.blp:26
+#: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
 msgstr "Las_ter-teklak"
 
-#: showtime/gtk/window.blp:27
+#: showtime/gtk/window.blp:28
 msgid "_About Video Player"
 msgstr "Bideo-erreproduzigailua aplikazioari _buruz"
 
-#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
+#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
 msgid "Main Menu"
 msgstr "Menu nagusia"
 
-#: showtime/gtk/window.blp:69
+#: showtime/gtk/window.blp:70
 msgid "Watch Videos"
 msgstr "Ikusi bideoak"
 
-#: showtime/gtk/window.blp:70
+#: showtime/gtk/window.blp:71
 msgid "Drag and drop videos here"
 msgstr "Arrastatu eta jaregin bideoak hemen"
 
-#: showtime/gtk/window.blp:86
+#: showtime/gtk/window.blp:87
 msgid "Unable to Play Video"
 msgstr "Ezin da bideoa erreproduzitu"
 
-#: showtime/gtk/window.blp:91
+#: showtime/gtk/window.blp:92
 msgid "Missing Plugin"
 msgstr "Plugina falta da"
 
-#: showtime/gtk/window.blp:253
+#: showtime/gtk/window.blp:254
 msgid "Toggle Duration/Remaining"
 msgstr "Txandakatu iraupena/falta dena"
 
-#: showtime/gtk/window.blp:308
+#: showtime/gtk/window.blp:309
 msgid "Resume"
 msgstr "Berrekin"
 
-#: showtime/gtk/window.blp:348
+#: showtime/gtk/window.blp:349
 msgid "Start Again"
 msgstr "Hasi berriro"
 
-#: showtime/gtk/window.blp:541
+#: showtime/gtk/window.blp:542
 msgid "Video"
 msgstr "Bideoa"
 
-#: showtime/gtk/window.blp:551
+#: showtime/gtk/window.blp:552
 msgid "Subtitles"
 msgstr "Azpitituluak"
 
