@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-09-07 19:48+0000\n"
-"PO-Revision-Date: 2025-09-08 09:02+0200\n"
+"POT-Creation-Date: 2025-09-08 07:03+0000\n"
+"PO-Revision-Date: 2025-09-08 20:33+0200\n"
 "Last-Translator: Fran Dieguez <fran.dieguez@gnome.org>\n"
 "Language-Team: Galician <Galician>\n"
 "Language: gl\n"
@@ -41,36 +41,31 @@ msgid "Watch without distraction"
 msgstr "Ver sen distracción"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
-#, fuzzy
 msgid ""
 "Play your favorite movies and video files without hassle. Video Player "
 "features simple playback controls that fade out of your way when you're "
 "watching, fullscreen, adjustable playback speed, multiple language and "
-"subtitle tracks, and screenshots — everything you need for a "
-"straightforward viewing experience."
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Reproduce as túas películas e ficheiros de vídeo favoritos sen problemas. O "
-"reprodutor de vídeo inclúe sinxelos controis de reprodución que desaparecen "
+"Reproduza as súas películas e ficheiros de vídeo favoritos sen problemas. O "
+"reprodutor de vídeo inclúe controis de reprodución sinxelos que desaparecen "
 "do seu camiño cando estás a ver, pantalla completa, velocidade de "
-"reprodución axustable, múltiples idiomas e pistas de subtítulos e capturas "
+"reprodución axustábel, múltiples idiomas e pistas de subtítulos e capturas "
 "de pantalla: todo o que necesitas para unha experiencia de visualización "
 "sinxela."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
-#, fuzzy
 msgid "The app playing a video"
 msgstr "A aplicación reproducindo un vídeo"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
-#, fuzzy
 msgid "What to show in the end timestamp position"
 msgstr "Que mostrar na posición de tempo final"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
-#, fuzzy
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr ""
-"Por exemplo. Duración total do vídeo ou a cantidade de tempo que queda"
+msgstr "Por exemplo. Duración total do vídeo ou a cantidade de tempo que queda"
 
 #: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
 msgid "Open…"
@@ -151,8 +146,7 @@ msgstr "Tentar de novo"
 #: showtime/widgets/window.py:783
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
-"Non se puideron atopar os códecs \"{}\" necesarios para reproducir este "
-"vídeo"
+"Non se puideron atopar os códecs \"{}\" necesarios para reproducir este vídeo"
 
 #: showtime/widgets/window.py:801
 msgid "No plugin available for this media type"
@@ -174,8 +168,7 @@ msgstr "Instalando…"
 msgid "“{}” codecs are required to play this video"
 msgstr "Os códecs \"{}\" son necesarios para reproducir este vídeo"
 
-#. Translators: Replace this with your name for it to show up in the about
-#. dialog
+#. Translators: Replace this with your name for it to show up in the about dialog
 #: showtime/widgets/window.py:1002
 msgid "translator_credits"
 msgstr "Fran Diéguez <frandieguez@gnome.org>, 2025"
