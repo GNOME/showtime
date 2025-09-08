@@ -1,0 +1,361 @@
+# Galician translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Francisco Diéguez Souto <frandieguez@gnome.org>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-09-07 19:48+0000\n"
+"PO-Revision-Date: 2025-09-08 09:02+0200\n"
+"Last-Translator: Fran Dieguez <fran.dieguez@gnome.org>\n"
+"Language-Team: Galician <Galician>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "Reprodutor de vídeo"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "Reproducir vídeos"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Vídeo;Película;Filme;Recorte;Reprodutor;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "Nova xanela"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Ver sen distracción"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+#, fuzzy
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a "
+"straightforward viewing experience."
+msgstr ""
+"Reproduce as túas películas e ficheiros de vídeo favoritos sen problemas. O "
+"reprodutor de vídeo inclúe sinxelos controis de reprodución que desaparecen "
+"do seu camiño cando estás a ver, pantalla completa, velocidade de "
+"reprodución axustable, múltiples idiomas e pistas de subtítulos e capturas "
+"de pantalla: todo o que necesitas para unha experiencia de visualización "
+"sinxela."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+#, fuzzy
+msgid "The app playing a video"
+msgstr "A aplicación reproducindo un vídeo"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+#, fuzzy
+msgid "What to show in the end timestamp position"
+msgstr "Que mostrar na posición de tempo final"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+#, fuzzy
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr ""
+"Por exemplo. Duración total do vídeo ou a cantidade de tempo que queda"
+
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
+msgid "Open…"
+msgstr "Abrir…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Ficheiro"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Xanela"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Atallos de teclado"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Axuda"
+
+#: showtime/main.py:103
+msgid "Playing a video"
+msgstr "Reproducindo un vídeo"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1033
+msgid "Unknown Title"
+msgstr "Título descoñecido"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Sen determinar, {} canle"
+msgstr[1] "Sen determinar, {} canles"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "Non determinado"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "Sen audio"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "Ningún"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "Linguaxe indeterminada"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "Engadir un ficheiro de subtítulo…"
+
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
+msgid "Play"
+msgstr "Reproducir"
+
+#: showtime/widgets/window.py:173
+msgid "Pause"
+msgstr "Pausar"
+
+#: showtime/widgets/window.py:748
+msgid "Details copied"
+msgstr "Detalles copiados"
+
+#: showtime/widgets/window.py:750
+msgid "Copy Technical Details"
+msgstr "Copiar a información técnica"
+
+#: showtime/widgets/window.py:753
+msgid "Try Again"
+msgstr "Tentar de novo"
+
+#: showtime/widgets/window.py:783
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"Non se puideron atopar os códecs \"{}\" necesarios para reproducir este "
+"vídeo"
+
+#: showtime/widgets/window.py:801
+msgid "No plugin available for this media type"
+msgstr "Non hai complemento dispoñíbeis para este tipo de medios"
+
+#: showtime/widgets/window.py:807
+msgid "Unable to install the required plugin"
+msgstr "Non foi posíbel instalar o engadido requirido"
+
+#: showtime/widgets/window.py:810
+msgid "Install Plugin"
+msgstr "Instalar engadido"
+
+#: showtime/widgets/window.py:818
+msgid "Installing…"
+msgstr "Instalando…"
+
+#: showtime/widgets/window.py:826
+msgid "“{}” codecs are required to play this video"
+msgstr "Os códecs \"{}\" son necesarios para reproducir este vídeo"
+
+#. Translators: Replace this with your name for it to show up in the about
+#. dialog
+#: showtime/widgets/window.py:1002
+msgid "translator_credits"
+msgstr "Fran Diéguez <frandieguez@gnome.org>, 2025"
+
+#: showtime/widgets/window.py:1041
+msgid "Screenshot captured"
+msgstr "Captura de pantalla realizada"
+
+#: showtime/widgets/window.py:1043
+msgid "Show in Files"
+msgstr "Mostrar en ficheiros"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "_Idioma"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "_Subtítulos"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "_Repetir"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Rotar"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "Velocidade de reprodución"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "Xirar á esquerda"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "Xirar á dereita"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "Opcións de reprodución"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Xeral"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Mostrar atallos"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Abrir vídeo"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Opcións de vídeo"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Tomar captura de pantalla"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Pecha xanela"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Pechar"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Volume"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Aumentar o volume"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Diminuír o volume"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Silenciar/desilenciar"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Ver"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
+msgid "Toggle Fullscreen"
+msgstr "Trocar pantalla completa"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Saia de pantalla completa"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Reproducir"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Reproducir/Pausar"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
+msgid "Go Back 10 Seconds"
+msgstr "Atrás 10 segundos"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
+msgid "Go Forward 10 Seconds"
+msgstr "Adiantar 10 segundos"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Axustar volume"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Nova xanela"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_Abrir"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Mostrar en _Ficheiros"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "Tomar _captura de pantalla"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "_Atallos de teclado"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_Sobre o Reprodutor de vídeo"
+
+#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
+msgid "Main Menu"
+msgstr "Menú principal"
+
+#: showtime/gtk/window.blp:70
+msgid "Watch Videos"
+msgstr "Ver vídeos"
+
+#: showtime/gtk/window.blp:71
+msgid "Drag and drop videos here"
+msgstr "Arrastre e solte vídeos aquí"
+
+#: showtime/gtk/window.blp:87
+msgid "Unable to Play Video"
+msgstr "Non foi posíbel reproducir o vídeo"
+
+#: showtime/gtk/window.blp:92
+msgid "Missing Plugin"
+msgstr "Falta un engadido"
+
+#: showtime/gtk/window.blp:254
+msgid "Toggle Duration/Remaining"
+msgstr "Trocar Duración/restante"
+
+#: showtime/gtk/window.blp:309
+msgid "Resume"
+msgstr "Retomar"
+
+#: showtime/gtk/window.blp:349
+msgid "Start Again"
+msgstr "Comezar de novo"
+
+#: showtime/gtk/window.blp:542
+msgid "Video"
+msgstr "Vídeo"
+
+#: showtime/gtk/window.blp:552
+msgid "Subtitles"
+msgstr "Subtítulos"
