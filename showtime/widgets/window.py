@@ -24,7 +24,16 @@ from gi.repository import (
 )
 
 import showtime
-from showtime import APP_ID, PREFIX, PROFILE, log_file, logger, state_settings, system
+from showtime import (
+    APP_ID,
+    PREFIX,
+    PROFILE,
+    VERSION,
+    log_file,
+    logger,
+    state_settings,
+    system,
+)
 from showtime.play import Messenger, gst_play_setup
 from showtime.utils import (
     get_title,
@@ -990,7 +999,9 @@ class Window(Adw.ApplicationWindow):
 
     def _present_about_dialog(self) -> None:
         # Get the debug info from the log files
-        about = Adw.AboutDialog.new_from_appdata(f"{PREFIX}/{APP_ID}.metainfo.xml")
+        about = Adw.AboutDialog.new_from_appdata(
+            f"{PREFIX}/{APP_ID}.metainfo.xml", VERSION
+        )
         about.props.developers = ["kramo https://kramo.page"]
         about.props.designers = [
             "Tobias Bernard https://tobiasbernard.com/",
