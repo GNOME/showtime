@@ -35,6 +35,7 @@ template $Window: Adw.ApplicationWindow {
   height-request: 202; // For a 16∶9 aspect ratio
   width-request: 360;
   title: _("Video Player");
+  gravity: center;
   realize => $_on_realize();
   move-focus => $_on_motion();
 
