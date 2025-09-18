@@ -35,21 +35,23 @@ test(
   args: ['validate', '--no-net', '--explain', appstream_file],
 )
 
-install_data(
-  configure_file(
-    input: 'org.gnome.Showtime.gschema.xml.in',
-    output: app_id + '.gschema.xml',
-    configuration: conf,
-  ),
+schema_file = configure_file(
+  input: 'org.gnome.Showtime.gschema.xml.in',
+  output: app_id + '.gschema.xml',
+  configuration: conf,
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas',
 )
 
-compile_schemas = find_program('glib-compile-schemas', required: false, disabler: true)
-test(
-  'Validate schema file',
-  compile_schemas,
-  args: ['--strict', '--dry-run', meson.current_source_dir()],
+compile_schemas = find_program('glib-compile-schemas')
+# gnome.compile_schemas only looks at the source tree
+custom_target(
+  bin_name + '-schemas',
+  input: schema_file,
+  output: 'gschemas.compiled',
+  command: [compile_schemas, meson.current_build_dir()],
+  build_by_default: true,
 )
+meson.add_devenv({'GSETTINGS_SCHEMA_DIR': meson.current_build_dir()})
 
 configure_file(
   input: 'org.gnome.Showtime.service.in',
