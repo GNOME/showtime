@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<schemalist gettext-domain="showtime">
+<schemalist gettext-domain="@BIN_NAME@">
 	<schema id="@APP_ID@" path="@PREFIX@/">
 	</schema>
 	<enum id="@APP_ID@.end-timestamp-types">

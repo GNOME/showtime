@@ -33,7 +33,7 @@ gnome.compile_resources(
 
 configure_file(
   input: 'showtime.in',
-  output: 'showtime',
+  output: bin_name,
   configuration: conf,
   install: true,
   install_dir: get_option('bindir'),

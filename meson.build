@@ -30,10 +30,13 @@ elif profile == 'release'
   prefix = '/org/gnome/Showtime'
 endif
 
+bin_name = 'showtime'
+
 conf = configuration_data()
 conf.set('PYTHON', python.find_installation('python3').full_path())
 conf.set('VERSION', meson.project_version())
 conf.set('APP_ID', app_id)
+conf.set('BIN_NAME', bin_name)
 conf.set('PREFIX', prefix)
 conf.set('PROFILE', profile)
 conf.set('localedir', get_option('prefix') / get_option('localedir'))

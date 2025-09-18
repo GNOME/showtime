@@ -18,16 +18,22 @@ sys.path.insert(1, pkgdatadir)
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 if system() == "Linux":
-    locale.bindtextdomain("showtime", localedir)
-    locale.textdomain("showtime")
-    gettext.install("showtime", localedir)
+    locale.bindtextdomain("@BIN_NAME@", localedir)
+    locale.textdomain("@BIN_NAME@")
+    gettext.install("@BIN_NAME@", localedir)
 else:
-    gettext.install("showtime")
+    gettext.install("@BIN_NAME@")
 
 if __name__ == "__main__":
     import gi
 
-    from gi.repository import Gio, GLib
+    gi.require_version("Gtk", "4.0")
+
+    from gi.repository import Gio, GLib, Gtk
+
+    GLib.set_prgname("@BIN_NAME@")
+    GLib.set_application_name(_("Video Player"))
+    Gtk.Window.set_default_icon_name("@APP_ID@")
 
     try:
         # For a macOS application bundle
