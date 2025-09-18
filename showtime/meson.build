@@ -10,7 +10,7 @@ blueprints = custom_target(
   ),
   output: '.',
   command: [
-    find_program('blueprint-compiler'),
+    find_program('blueprint-compiler', version: '>= 0.17'),
     'batch-compile',
     '@OUTPUT@',
     '@CURRENT_SOURCE_DIR@',

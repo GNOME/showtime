@@ -8,9 +8,8 @@ project(
   ],
 )
 
-dependency('gtk4', version: '>= 4.18.0')
 dependency('libadwaita-1', version: '>= 1.8.alpha')
-dependency('blueprint-compiler', version: '>= 0.17')
+dependency('gtk4', version: '>= 4.18.0')
 
 i18n = import('i18n')
 gnome = import('gnome')
