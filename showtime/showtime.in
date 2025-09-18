@@ -44,6 +44,6 @@ if __name__ == "__main__":
         resource = Gio.Resource.load(os.path.join(pkgdatadir, "showtime.gresource"))
     resource._register()
 
-    from showtime import main
+    import showtime
 
-    sys.exit(main.main())
+    sys.exit(showtime.main())

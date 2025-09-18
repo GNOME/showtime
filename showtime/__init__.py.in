@@ -3,8 +3,10 @@
 
 """The Showtime video player."""
 
+import logging
 import platform
-from logging import getLogger
+import sys
+from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 from gi.repository import Gio, GLib
@@ -17,7 +19,7 @@ PROFILE = "@PROFILE@"
 system = platform.system()
 
 app = None
-logger = getLogger("showtime")
+logger = logging.getLogger("showtime")
 
 schema = Gio.Settings.new(APP_ID)
 state_settings = Gio.Settings.new(APP_ID + ".State")
@@ -26,3 +28,23 @@ state_settings = Gio.Settings.new(APP_ID + ".State")
 log_file = state_path / "showtime.log"
 
 end_timestamp_type = state_settings.get_enum("end-timestamp-type")
+
+
+def main() -> int:
+    from showtime.application import Application
+
+    global app
+
+    """Run the application."""
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(levelname)s: %(name)s:%(lineno)d %(message)s",
+        handlers=(
+            (
+                logging.StreamHandler(),
+                RotatingFileHandler(log_file, maxBytes=1_000_000),
+            )
+        ),
+    )
+
+    return Application().run(sys.argv)

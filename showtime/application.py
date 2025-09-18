@@ -2,11 +2,9 @@
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
 import json
-import logging
 import sys
 from collections.abc import Callable, Sequence
 from hashlib import sha256
-from logging.handlers import RotatingFileHandler
 from typing import Any
 
 import gi
@@ -21,7 +19,7 @@ gi.require_version("GstPbutils", "1.0")
 from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
 
 import showtime
-from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
+from showtime import APP_ID, VERSION, logger, state_settings, system
 
 from .mpris import MPRIS
 from .widgets.window import PROFILE, Window
@@ -262,19 +260,3 @@ class Application(Adw.Application):
             if isinstance(win, Window):  # pyright: ignore[reportAttributeAccessIssue]
                 self._on_window_removed(None, win)
 
-
-def main() -> int:
-    """Run the application."""
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(levelname)s: %(name)s:%(lineno)d %(message)s",
-        handlers=(
-            (
-                logging.StreamHandler(),
-                RotatingFileHandler(log_file, maxBytes=1_000_000),
-            )
-        ),
-    )
-
-    showtime.app = Application()
-    return showtime.app.run(sys.argv)
