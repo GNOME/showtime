@@ -1,5 +1,5 @@
 project(
-  'showtime',
+  'showtime', 'c',
   version: '49.0',
   meson_version: '>= 0.62.0',
   default_options: [
@@ -8,8 +8,9 @@ project(
   ],
 )
 
-dependency('libadwaita-1', version: '>= 1.8.alpha')
-dependency('gtk4', version: '>= 4.18.0')
+adw_dep = dependency('libadwaita-1', version: '>= 1.8.alpha')
+gtk_dep = dependency('gtk4', version: '>= 4.18.0')
+py3_dep = dependency('python3-embed', version: '>= 3.8')
 
 i18n = import('i18n')
 gnome = import('gnome')
@@ -18,7 +19,6 @@ python = import('python')
 py_installation = python.find_installation('python3')
 
 python_dir = join_paths(get_option('prefix'), py_installation.get_install_dir())
-pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 
 profile = get_option('profile')
 if profile == 'development'
@@ -38,14 +38,14 @@ conf.set('APP_ID', app_id)
 conf.set('BIN_NAME', bin_name)
 conf.set('PREFIX', prefix)
 conf.set('PROFILE', profile)
-conf.set('localedir', get_option('prefix') / get_option('localedir'))
-conf.set('pkgdatadir', pkgdatadir)
-conf.set('bindir', get_option('bindir'))
-conf.set('prefix', get_option('prefix'))
+conf.set('LOCALE_DIR', get_option('prefix') / get_option('localedir'))
+conf.set('BIN_DIR', get_option('prefix') / get_option('bindir'))
 
 subdir('data')
 subdir('showtime')
 subdir('po')
+
+meson.add_devenv({'SHOWTIME_SOURCE': meson.current_source_dir()})
 
 gnome.post_install(
   glib_compile_schemas: true,

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+  <gresource prefix="@PREFIX@/icons/scalable/apps/">
+    <file preprocess="xml-stripblanks" alias="@APP_ID@.svg">../data/icons/hicolor/scalable/apps/@APP_ID@.svg</file>
+  </gresource>
+  <gresource prefix="@PREFIX@/icons/symbolic/apps/">
+    <file preprocess="xml-stripblanks" alias="@APP_ID@-symbolic.svg">../data/icons/hicolor/symbolic/apps/@APP_ID@-symbolic.svg</file>
+  </gresource>
   <gresource prefix="@PREFIX@/icons/scalable/actions/">
     <file preprocess="xml-stripblanks" alias="settings-symbolic.svg">../data/icons/scalable/actions/settings-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="puzzle-piece-symbolic.svg">../data/icons/scalable/actions/puzzle-piece-symbolic.svg</file>

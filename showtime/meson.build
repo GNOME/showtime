@@ -18,30 +18,18 @@ blueprints = custom_target(
   ],
 )
 
-gnome.compile_resources(
+resources = gnome.compile_resources(
   'showtime',
   configure_file(
     input: 'showtime.gresource.xml.in',
     output: 'showtime.gresource.xml',
     configuration: conf,
   ),
-  gresource_bundle: true,
-  install: true,
-  install_dir: pkgdatadir,
   dependencies: blueprints,
 )
 
-configure_file(
-  input: 'showtime.in',
-  output: bin_name,
-  configuration: conf,
-  install: true,
-  install_dir: get_option('bindir'),
-  install_mode: 'rwxr-xr-x',
-)
-
 showtime_sources = [
-  configure_file(input: '__init__.py.in', output: '__init__.py', configuration: conf),
+  '__init__.py',
   'application_delegate.py',
   'application.py',
   'mpris.py',
@@ -51,3 +39,16 @@ showtime_sources = [
 
 install_subdir('widgets', install_dir: moduledir)
 install_data(showtime_sources, install_dir: moduledir)
+
+launcher_sources = [
+  'showtime.c',
+  configure_file(output: 'config.h', configuration: conf),
+]
+
+executable(
+  bin_name,
+  launcher_sources + resources,
+  dependencies: [py3_dep, adw_dep, gtk_dep],
+  install: true,
+  c_args: ['-DG_LOG_DOMAIN="@0@"'.format(app_id), '-DG_LOG_USE_STRUCTURED'],
+)
