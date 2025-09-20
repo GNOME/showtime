@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-07-11 15:17+0000\n"
-"PO-Revision-Date: 2025-07-13 09:51+0200\n"
+"POT-Creation-Date: 2025-09-15 16:34+0000\n"
+"PO-Revision-Date: 2025-09-15 20:57+0200\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 
-#: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:36
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "Видео устройство"
 
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
 msgstr "Изпълнение на видео клипове"
 
-#: data/org.gnome.Showtime.desktop.in:10
+#: data/org.gnome.Showtime.desktop.in:9
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "видео;филм;клип;плеър;шоутайм;video;movie;film;clip;player;showtime;"
 
@@ -67,7 +67,7 @@ msgstr "Какво да се показва в позицията за края 
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Например общата продължителност на видеото или оставащото време"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:73
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
 msgid "Open…"
 msgstr "Отваряне…"
 
@@ -91,7 +91,7 @@ msgstr "Помощ"
 msgid "Playing a video"
 msgstr "Изпълняване на видео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1027
+#: showtime/mpris.py:288 showtime/widgets/window.py:1044
 msgid "Unknown Title"
 msgstr "Неизвестно заглавие"
 
@@ -123,54 +123,54 @@ msgstr "Неясен език"
 msgid "Add Subtitle File…"
 msgstr "Добавяне на файл със субтитри…"
 
-#: showtime/widgets/window.py:173 showtime/gtk/window.blp:145
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
 msgid "Play"
 msgstr "Изпълнение"
 
-#: showtime/widgets/window.py:173
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/widgets/window.py:742
+#: showtime/widgets/window.py:757
 msgid "Details copied"
 msgstr "Подробностите са копирани"
 
-#: showtime/widgets/window.py:744
+#: showtime/widgets/window.py:759
 msgid "Copy Technical Details"
 msgstr "Копиране на техническите подробности"
 
-#: showtime/widgets/window.py:747
+#: showtime/widgets/window.py:762
 msgid "Try Again"
 msgstr "Опитайте отново"
 
-#: showtime/widgets/window.py:777
+#: showtime/widgets/window.py:792
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Кодерите „{}“, необходими за изпълнението на това видео, не могат да бъдат "
 "намерени"
 
-#: showtime/widgets/window.py:795
+#: showtime/widgets/window.py:810
 msgid "No plugin available for this media type"
 msgstr "Няма налична приставка за този тип медия"
 
-#: showtime/widgets/window.py:801
+#: showtime/widgets/window.py:816
 msgid "Unable to install the required plugin"
 msgstr "Нужната приставка не може да бъде инсталирана"
 
-#: showtime/widgets/window.py:804
+#: showtime/widgets/window.py:819
 msgid "Install Plugin"
 msgstr "Инсталиране на приставка"
 
-#: showtime/widgets/window.py:812
+#: showtime/widgets/window.py:827
 msgid "Installing…"
 msgstr "Инсталиране…"
 
-#: showtime/widgets/window.py:820
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "„{}“ кодерите са необходими за изпълнението на това видео"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:996
+#: showtime/widgets/window.py:1013
 msgid "translator_credits"
 msgstr ""
 "Twlvnn Kraftwerk &lt;<a "
@@ -183,11 +183,11 @@ msgstr ""
 "Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/"
 "newticket'>съответния раздел</a>."
 
-#: showtime/widgets/window.py:1035
+#: showtime/widgets/window.py:1052
 msgid "Screenshot captured"
 msgstr "Екранът е заснет"
 
-#: showtime/widgets/window.py:1037
+#: showtime/widgets/window.py:1054
 msgid "Show in Files"
 msgstr "Показване във „Файлове“"
 
@@ -271,7 +271,7 @@ msgstr "Заглушаване/звук"
 msgid "View"
 msgstr "Изглед"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:433
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
 msgid "Toggle Fullscreen"
 msgstr "Превключване на цял екран"
 
@@ -287,11 +287,11 @@ msgstr "Изпълнение"
 msgid "Play/Pause"
 msgstr "Изпълнение/пауза"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:126
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
 msgid "Go Back 10 Seconds"
 msgstr "Назад 10 секунди"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:162
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
 msgid "Go Forward 10 Seconds"
 msgstr "Напред 10 секунди"
 
@@ -300,61 +300,65 @@ msgid "Adjust Volume"
 msgstr "Нагласяне на силата на звука"
 
 #: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Нов прозорец"
+
+#: showtime/gtk/window.blp:7
 msgid "_Open…"
 msgstr "_Отваряне…"
 
-#: showtime/gtk/window.blp:11
+#: showtime/gtk/window.blp:12
 msgid "Show in _Files"
 msgstr "Показване във „_Файлове“"
 
-#: showtime/gtk/window.blp:19
+#: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
 msgstr "Снимане на _кадър"
 
-#: showtime/gtk/window.blp:26
+#: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
 msgstr "_Клавишни комбинации"
 
-#: showtime/gtk/window.blp:27
+#: showtime/gtk/window.blp:28
 msgid "_About Video Player"
 msgstr "_Относно „Видео плеър“"
 
-#: showtime/gtk/window.blp:60 showtime/gtk/window.blp:473
+#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
 msgid "Main Menu"
 msgstr "Основно меню"
 
-#: showtime/gtk/window.blp:69
+#: showtime/gtk/window.blp:71
 msgid "Watch Videos"
 msgstr "Гледайте видео клипове"
 
-#: showtime/gtk/window.blp:70
+#: showtime/gtk/window.blp:72
 msgid "Drag and drop videos here"
 msgstr "Плъзнете и пуснете видео клипове тук"
 
-#: showtime/gtk/window.blp:86
+#: showtime/gtk/window.blp:88
 msgid "Unable to Play Video"
 msgstr "Видеото не може да бъде изпълнено"
 
-#: showtime/gtk/window.blp:91
+#: showtime/gtk/window.blp:93
 msgid "Missing Plugin"
 msgstr "Липсва приставка"
 
-#: showtime/gtk/window.blp:253
+#: showtime/gtk/window.blp:255
 msgid "Toggle Duration/Remaining"
 msgstr "Превключване на продължителност/остатък"
 
-#: showtime/gtk/window.blp:308
+#: showtime/gtk/window.blp:310
 msgid "Resume"
 msgstr "Пускане"
 
-#: showtime/gtk/window.blp:348
+#: showtime/gtk/window.blp:350
 msgid "Start Again"
 msgstr "Пускане наново"
 
-#: showtime/gtk/window.blp:541
+#: showtime/gtk/window.blp:543
 msgid "Video"
 msgstr "Видео"
 
-#: showtime/gtk/window.blp:551
+#: showtime/gtk/window.blp:553
 msgid "Subtitles"
 msgstr "Субтитри"
