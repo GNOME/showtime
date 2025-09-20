@@ -1010,7 +1010,7 @@ class Window(Adw.ApplicationWindow):
         ]
         about.props.copyright = "© 2024-2025 kramo"
         # Translators: Replace this with your name for it to show up in the about dialog
-        about.props.translator_credits = _("translator_credits")
+        about.props.translator_credits = _("translator-credits")
 
         try:
             about.props.debug_info = log_file.read_text()
