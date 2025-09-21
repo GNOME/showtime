@@ -1,0 +1,350 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-09-10 23:12+0000\n"
+"PO-Revision-Date: 2025-09-21 09:57-0400\n"
+"Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
+"Language-Team: \n"
+"Language: ug\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#: data/org.gnome.Showtime.desktop.in:2 data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "سىن قويغۇچ"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "سىن قويىدۇ"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;Movie;Film;Clip;Player;Showtime;سىن؛كىنو؛فىلىم؛قىرقىم؛قويغۇچ؛"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27 showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "يېڭى كۆزنەك"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "دىققەتنى چاچماي كۆرۈش"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr "ئامراق كىنو ۋە سىنلىرىڭىزنى دەخلىسىز قويالايدۇ. سىن قويغۇچ سىن كۆرۈۋاتقاندا ئاددىي قويۇش تىزگىن ئىقتىدارى بىلەن تەمىنلىگەن بولۇپ، تولۇق ئېكران، قويۇش سۈرئىتىنى تەڭشەش، كۆپ خىل تىل ۋە فىلىم خېتى يولى ۋە ئېكران كەسمىسى تۇتۇشقا ئوخشاش فىلىم كۆرۈشكە لازىملىق بارلىق ئىقتىدارنى تەمىنلىگەن."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "سىن قويىدىغان پىروگرامما"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "ۋاقىت ئوقى ئاخىرلاشقاندا نېمە كۆرسىتىدۇ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "مەسىلەن، سىننىڭ ئومۇمىي ئۇزۇنلۇقى ۋە قالغان ۋاقىت"
+
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
+msgid "Open…"
+msgstr "ئاچ…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "ھۆججەت"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "كۆزنەك"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسى"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "ياردەم"
+
+#: showtime/main.py:103
+msgid "Playing a video"
+msgstr "سىن قويىدۇ"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1033
+msgid "Unknown Title"
+msgstr "ناتونۇش ماۋزۇ"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "ئېنىقلانمىغان، {} قانال"
+msgstr[1] "ئېنىقلانمىغان، {} قانال"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "ئېنىقلانمىغان"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "ئۈن يوق"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "يوق"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "ئېنىقلانمىغان تىل"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "فىلىم خەت ھۆججىتى قوش…"
+
+#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
+msgid "Play"
+msgstr "ياڭرات"
+
+#: showtime/widgets/window.py:173
+msgid "Pause"
+msgstr "ۋاقىتلىق توختا"
+
+#: showtime/widgets/window.py:748
+msgid "Details copied"
+msgstr "تەپسىلاتى كۆچۈرۈلدى"
+
+#: showtime/widgets/window.py:750
+msgid "Copy Technical Details"
+msgstr "تېخنىكىلىق تەپسىلاتىنى كۆچۈر"
+
+#: showtime/widgets/window.py:753
+msgid "Try Again"
+msgstr "قايتا سىنا"
+
+#: showtime/widgets/window.py:783
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "بۇ سىننى قويۇشقا كېرەكلىك «{}» كود يەشكۈچنى تاپالمىدى"
+
+#: showtime/widgets/window.py:801
+msgid "No plugin available for this media type"
+msgstr "بۇ ۋاسىتە تۈرىگە قوللىنىدىغان قىستۇرما يوق"
+
+#: showtime/widgets/window.py:807
+msgid "Unable to install the required plugin"
+msgstr "زۆرۈر قىستۇرمىنى ئورنىتالمايدۇ"
+
+#: showtime/widgets/window.py:810
+msgid "Install Plugin"
+msgstr "قىستۇرما ئورنات"
+
+#: showtime/widgets/window.py:818
+msgid "Installing…"
+msgstr "ئورنىتىۋاتىدۇ…"
+
+#: showtime/widgets/window.py:826
+msgid "“{}” codecs are required to play this video"
+msgstr "بۇ سىننى قويۇشقا «{}» كود يەشكۈچ كېرەك"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1002
+msgid "translator_credits"
+msgstr ""
+"Sahran <sahran@live.com>\n"
+"Gheyret T.Kenji <gheyret@yahoo.com>\n"
+"Zeper <zeper@msn.com>\n"
+"Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>\n"
+"Launchpad Contributions:\n"
+"Burkut https://launchpad.net/~burkut\n"
+"Gheyret T.Kenji https://launchpad.net/~gheyretkenji\n"
+"Sahran https://launchpad.net/~sahran"
+
+#: showtime/widgets/window.py:1041
+msgid "Screenshot captured"
+msgstr "ئېكران كەسمىسى تۇتتى"
+
+#: showtime/widgets/window.py:1043
+msgid "Show in Files"
+msgstr "ھۆججەتتە كۆرسەت"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "تىل(_L)"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "فىلىم خېتى(_S)"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "قايتىلا(_R)"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "ئايلاندۇر"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "قويۇش سۈرئىتى"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "سولغا ئايلاندۇر"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "ئوڭغا ئايلاندۇر"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "قويۇش تاللانمىسى"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "ئادەتتىكى"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "تېزلەتمىنى كۆرسەت"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "سىن ئاچ"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "سىن تاللانمىسى"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "ئېكران كۆرۈنۈشى تۇت"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "كۆزنەك ياپ"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "چېكىن"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "ئاۋاز كۈچلۈكلۈكى"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "ئاۋازنى يۇقىرىلات"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "ئاۋازنى تۆۋەنلەت"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "ئۈنلۈك/ئۈنسىز"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "كۆرۈنۈش"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
+msgid "Toggle Fullscreen"
+msgstr "تولۇق ئېكرانغا ئالماش"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "تولۇق ئېكراندىن چېكىن"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "ياڭرات"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "ياڭرات/ۋاقىتلىق توختا"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
+msgid "Go Back 10 Seconds"
+msgstr "كەينىگە 10 سېكۇنت قايت"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
+msgid "Go Forward 10 Seconds"
+msgstr "ئالدىغا 10 سېكۇنت ئاتلا"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "ئاۋاز تەڭشىكى"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "يېڭى كۆزنەك(_N)"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "ئاچ(_O)…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "ھۆججەتتە كۆرسەت(_F)"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "ئېكران كۆرۈنۈشى تۇت(_S)"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "ھەرپتاختا تېزلەتمىسى(_K)"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "سىن قويغۇچ ھەققىدە(_A)"
+
+#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
+msgid "Main Menu"
+msgstr "ئاساسىي تىزىملىك"
+
+#: showtime/gtk/window.blp:70
+msgid "Watch Videos"
+msgstr "سىن كۆرۈش"
+
+#: showtime/gtk/window.blp:71
+msgid "Drag and drop videos here"
+msgstr "سىن بۇ جايغا سۆرەپ تاشلىنىدۇ"
+
+#: showtime/gtk/window.blp:87
+msgid "Unable to Play Video"
+msgstr "سىننى قويالمايدۇ"
+
+#: showtime/gtk/window.blp:92
+msgid "Missing Plugin"
+msgstr "قىستۇرما كەم"
+
+#: showtime/gtk/window.blp:254
+msgid "Toggle Duration/Remaining"
+msgstr "داۋاملاشتۇرۇش ۋاقتى/قالدۇق ۋاقتىنى ئالماشتۇر"
+
+#: showtime/gtk/window.blp:309
+msgid "Resume"
+msgstr "داۋاملاشتۇر"
+
+#: showtime/gtk/window.blp:349
+msgid "Start Again"
+msgstr "قايتا باشلا"
+
+#: showtime/gtk/window.blp:542
+msgid "Video"
+msgstr "سىن"
+
+#: showtime/gtk/window.blp:552
+msgid "Subtitles"
+msgstr "فىلىم خېتى"
