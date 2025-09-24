@@ -32,7 +32,7 @@ menu primary_menu {
 template $Window: Adw.ApplicationWindow {
   default-width: 800;
   default-height: 500;
-  height-request: 202; // For a 16∶9 aspect ratio
+  height-request: 202; // For a 16:9 aspect ratio
   width-request: 360;
   title: _("Video Player");
   gravity: center;
@@ -234,7 +234,7 @@ template $Window: Adw.ApplicationWindow {
                     Label position_label {
                       hexpand: true;
                       halign: start;
-                      label: "0∶00";
+                      label: "0:00";
                       margin-start: 12;
                       margin-end: 3;
 
@@ -250,7 +250,7 @@ template $Window: Adw.ApplicationWindow {
                       hexpand: true;
                       name: "end-timestamp-button";
                       halign: end;
-                      label: "0∶00";
+                      label: "0:00";
                       margin-start: 3;
                       tooltip-text: _("Toggle Duration/Remaining");
                       clicked => $_cycle_end_timestamp_type();
