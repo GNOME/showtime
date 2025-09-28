@@ -31,7 +31,12 @@ elif profile == 'release'
 endif
 
 conf = configuration_data()
-conf.set('PYTHON', python.find_installation('python3').full_path())
+python_exec = get_option('python_exec')
+if python_exec == ''
+  conf.set('PYTHON', py_installation.full_path())
+else
+  conf.set('PYTHON', python_exec)
+endif
 conf.set('VERSION', meson.project_version())
 conf.set('APP_ID', app_id)
 conf.set('PREFIX', prefix)

@@ -7,3 +7,9 @@ option(
   ],
   value: 'release'
 )
+
+option(
+  'python_exec',
+  type: 'string',
+  description: 'Path to a custom Python interpreter'
+)
