@@ -2,44 +2,39 @@
 # Copyright (©) 2025 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>,  2025.
+# aceydot <aceydot@tuta.io>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2025-01-15 12:44+0000\n"
-"PO-Revision-Date: 2025-01-15 20:58+0100\n"
-"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-10-05 14:32+0000\n"
+"PO-Revision-Date: 2025-10-09 20:27+0200\n"
+"Last-Translator: aceydot <aceydot@tuta.io>\n"
 "Language-Team: Serbian <Serbian>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
-"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 3.5\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 "
+"&& n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.6\n"
 
-#: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:463
-#: showtime/gtk/window.blp:191
-msgid "Showtime"
-msgstr "Шоутајм"
-
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "Пуштач видеа"
 
-#: data/org.gnome.Showtime.desktop.in:5
+#: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
 msgstr "Пустите видео"
 
-#: data/org.gnome.Showtime.desktop.in:11
+#: data/org.gnome.Showtime.desktop.in:9
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
-msgstr ""
-"Видео;филм;снимак;пуштач;шоутајм;Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Видео;филм;снимак;пуштач;шоутајм;Video;Movie;Film;Clip;Player;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Нови прозор"
 
@@ -49,16 +44,16 @@ msgstr "Гледајте без ометања"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Пуштајте своје омиљене филмове и видео датотеке без муке. Шоутајм садржи "
-"једноставне контроле за пуштање које нестају када гледате, приказ преко "
-"целог екрана, подесиву брзину пуштања, више језика и превода нумера и "
-"снимке екрана – све што вам је потребно за једноставно искуство гледања."
+"Пуштајте своје омиљене филмове и видео датотеке без муке. Пуштач видеа садржи "
+"једноставне контроле за пуштање које нестају када гледате, приказ преко целог "
+"екрана, подесиву брзину пуштања, више језика и превода нумера и снимке екрана "
+"– све што вам је потребно за једноставно искуство гледања."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
@@ -72,77 +67,37 @@ msgstr "Шта ће приказати на крајњем положају вр
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Нпр. укупно трајање видеа или преостало време"
 
-#: showtime/main.py:151
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
+msgid "Open…"
+msgstr "Отварам…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Датотека"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Прозор"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Пречице тастатуре"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Помоћ"
+
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Пуштам видео"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:438
-msgid "translator_credits"
-msgstr "Мирослав Николић"
-
-#: showtime/mpris.py:288 showtime/window.py:606
+#: showtime/mpris.py:288 showtime/widgets/window.py:1044
 msgid "Unknown Title"
 msgstr "Непознат наслов"
 
-#: showtime/window.py:147 showtime/gtk/window.blp:295
-msgid "Play"
-msgstr "Пусти"
-
-#: showtime/window.py:150
-msgid "Pause"
-msgstr "Паузирај"
-
-#: showtime/window.py:439
-msgid "Details copied"
-msgstr "Детаљи су умножени"
-
-#: showtime/window.py:442
-msgid "Copy Technical Details"
-msgstr "Умножи техничке детаље"
-
-#: showtime/window.py:468
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Не могу да нађем „{}“ кодеке потребне за пуштање овог видеа"
-
-#: showtime/window.py:489
-msgid "No plugin available for this media type"
-msgstr "Нема доступног прикључка за ову врсту медија"
-
-#: showtime/window.py:495
-msgid "Unable to install the required plugin"
-msgstr "Не могу да инсталирам потребан прикључак"
-
-#: showtime/window.py:498
-msgid "Install Plugin"
-msgstr "Инсталирај прикључак"
-
-#: showtime/window.py:506
-msgid "Installing…"
-msgstr "Инсталирам…"
-
-#: showtime/window.py:514
-msgid "“{}” codecs are required to play this video"
-msgstr "Потребни у „{}“ кодеци за пуштање овог видеа"
-
-#: showtime/window.py:617
-msgid "Screenshot captured"
-msgstr "Снимак екрана је направљен"
-
-#: showtime/window.py:619
-msgid "Show in Files"
-msgstr "Прикажите у програму Датотеке"
-
-#: showtime/window.py:682
-msgid "Video"
-msgstr "Видео"
-
-#: showtime/window.py:705
-msgid "Subtitles"
-msgstr "Преводи"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:771
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Неодређено, {} канал"
@@ -150,182 +105,257 @@ msgstr[1] "Неодређено, {} канала"
 msgstr[2] "Неодређено, {} канала"
 msgstr[3] "Неодређено, {} канал"
 
-#: showtime/window.py:776
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Неодређено"
 
-#: showtime/window.py:789
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Нема звука"
 
-#: showtime/window.py:794
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Ништа"
 
-#: showtime/window.py:800
+#: showtime/widgets/options.py:123
 msgid "Undetermined Language"
 msgstr "Неодређен језик"
 
-#: showtime/window.py:811
+#: showtime/widgets/options.py:134
 msgid "Add Subtitle File…"
 msgstr "Додај датотеку превода…"
 
-#: showtime/gtk/help-overlay.blp:11
-msgid "General"
-msgstr "Опште"
-
-#: showtime/gtk/help-overlay.blp:14
-msgid "Show Shortcuts"
-msgstr "Прикажи пречице"
-
-#: showtime/gtk/help-overlay.blp:19
-msgid "Open Video"
-msgstr "Отвори видео"
-
-#: showtime/gtk/help-overlay.blp:24
-msgid "Take Screenshot"
-msgstr "Направите снимак екрана"
-
-#: showtime/gtk/help-overlay.blp:34
-msgid "Close Window"
-msgstr "Затвори прозор"
-
-#: showtime/gtk/help-overlay.blp:39
-msgid "Quit"
-msgstr "Изађи"
-
-#: showtime/gtk/help-overlay.blp:45
-msgid "Volume"
-msgstr "Гласност"
-
-#: showtime/gtk/help-overlay.blp:48
-msgid "Increase Volume"
-msgstr "Повећај јачину звука"
-
-#: showtime/gtk/help-overlay.blp:53
-msgid "Decrease Volume"
-msgstr "Смањи јачину звука"
-
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:165
-msgid "Mute/Unmute"
-msgstr "Утишај/појачај"
-
-#: showtime/gtk/help-overlay.blp:64
-msgid "View"
-msgstr "Преглед"
-
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:619
-msgid "Toggle Fullscreen"
-msgstr "Окини цео екран"
-
-#: showtime/gtk/help-overlay.blp:72
-msgid "Exit Fullscreen"
-msgstr "Напусти цео екран"
-
-#: showtime/gtk/help-overlay.blp:78
-msgid "Playback"
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+msgid "Play"
 msgstr "Пусти"
 
-#: showtime/gtk/help-overlay.blp:81
-msgid "Play/Pause"
-msgstr "Пусти/застани"
+#: showtime/widgets/window.py:182
+msgid "Pause"
+msgstr "Паузирај"
 
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:276
-msgid "Go Back 10 Seconds"
-msgstr "Назад 10 секунде"
+#: showtime/widgets/window.py:757
+msgid "Details copied"
+msgstr "Детаљи су умножени"
 
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:311
-msgid "Go Forward 10 Seconds"
-msgstr "Напред 10 секунде"
+#: showtime/widgets/window.py:759
+msgid "Copy Technical Details"
+msgstr "Умножи техничке детаље"
 
-#: showtime/gtk/window.blp:6
-msgid "_Open…"
-msgstr "_Отвори…"
+#: showtime/widgets/window.py:762
+msgid "Try Again"
+msgstr "Покушај поново"
 
-#: showtime/gtk/window.blp:11
-msgid "Show in _Files"
-msgstr "Прикажи у _Датотекама"
+#: showtime/widgets/window.py:792
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Не могу да нађем „{}“ кодеке потребне за пуштање овог видеа"
 
-#: showtime/gtk/window.blp:19
-msgid "Take _Screenshot"
-msgstr "Направи _снимак екрана"
+#: showtime/widgets/window.py:810
+msgid "No plugin available for this media type"
+msgstr "Нема доступног прикључка за ову врсту медија"
 
-#: showtime/gtk/window.blp:26
-msgid "_Keyboard Shortcuts"
-msgstr "_Пречице тастатуре"
+#: showtime/widgets/window.py:816
+msgid "Unable to install the required plugin"
+msgstr "Не могу да инсталирам потребан прикључак"
 
-#: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "_О програму"
+#: showtime/widgets/window.py:819
+msgid "Install Plugin"
+msgstr "Инсталирај прикључак"
 
-#: showtime/gtk/window.blp:39
-msgid "Rotate"
-msgstr "Заокрени"
+#: showtime/widgets/window.py:827
+msgid "Installing…"
+msgstr "Инсталирам…"
 
-#: showtime/gtk/window.blp:53
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "Потребни у „{}“ кодеци за пуштање овог видеа"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1013
+msgid "translator_credits"
+msgstr "Мирослав Николић"
+
+#: showtime/widgets/window.py:1052
+msgid "Screenshot captured"
+msgstr "Снимак екрана је направљен"
+
+#: showtime/widgets/window.py:1054
+msgid "Show in Files"
+msgstr "Прикажите у програму Датотеке"
+
+#: showtime/gtk/options.blp:17
 msgid "_Language"
 msgstr "_Језик"
 
-#: showtime/gtk/window.blp:57
+#: showtime/gtk/options.blp:21
 msgid "_Subtitles"
 msgstr "_Преводи"
 
-#: showtime/gtk/window.blp:62
+#: showtime/gtk/options.blp:26
 msgid "_Repeat"
 msgstr "_Понови"
 
-#: showtime/gtk/window.blp:80
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Заокрени"
+
+#: showtime/gtk/options.blp:61
 msgid "Playback Speed"
 msgstr "Брзина пуштања"
 
-#: showtime/gtk/window.blp:131
+#: showtime/gtk/options.blp:107
 msgid "Rotate Left"
 msgstr "Заокрени на лево"
 
-#: showtime/gtk/window.blp:142
+#: showtime/gtk/options.blp:118
 msgid "Rotate Right"
 msgstr "Заокрени на десно"
 
-#: showtime/gtk/window.blp:211 showtime/gtk/window.blp:649
-msgid "Main Menu"
-msgstr "Главни изборник"
-
-#: showtime/gtk/window.blp:220
-msgid "Watch Videos"
-msgstr "Гледајте филмове и снимке"
-
-#: showtime/gtk/window.blp:221
-msgid "Drag and drop videos here"
-msgstr "Превуците и убаците видео овде"
-
-#: showtime/gtk/window.blp:224
-msgid "Open…"
-msgstr "Отварам…"
-
-#: showtime/gtk/window.blp:237
-msgid "Unable to Play Video"
-msgstr "Не могу да пустим видео"
-
-#: showtime/gtk/window.blp:242
-msgid "Missing Plugin"
-msgstr "Прикључак недостаје"
-
-#: showtime/gtk/window.blp:350
-msgid "Adjust Volume"
-msgstr "Дотерај јачину звука"
-
-#: showtime/gtk/window.blp:368
+#: showtime/gtk/options.blp:128
 msgid "Playback Options"
 msgstr "Опције пуштања"
 
-#: showtime/gtk/window.blp:425
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Опште"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Прикажи пречице"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Отвори видео"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Опције видеа"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Направите снимак екрана"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Затвори прозор"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Изађи"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Гласност"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Повећај јачину звука"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Смањи јачину звука"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Утишај/појачај"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Преглед"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+msgid "Toggle Fullscreen"
+msgstr "Окини цео екран"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Напусти цео екран"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Пусти"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Пусти/застани"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+msgid "Go Back 10 Seconds"
+msgstr "Назад 10 секунде"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+msgid "Go Forward 10 Seconds"
+msgstr "Напред 10 секунде"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Дотерај јачину звука"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Нови прозор"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_Отвори…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Прикажи у _Датотекама"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "Направи _снимак екрана"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "_Пречице тастатуре"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_О Пуштачу видеа"
+
+#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+msgid "Main Menu"
+msgstr "Главни изборник"
+
+#: showtime/gtk/window.blp:71
+msgid "Watch Videos"
+msgstr "Гледајте филмове и снимке"
+
+#: showtime/gtk/window.blp:72
+msgid "Drag and drop videos here"
+msgstr "Превуците и убаците видео овде"
+
+#: showtime/gtk/window.blp:88
+msgid "Unable to Play Video"
+msgstr "Не могу да пустим видео"
+
+#: showtime/gtk/window.blp:93
+msgid "Missing Plugin"
+msgstr "Прикључак недостаје"
+
+#: showtime/gtk/window.blp:255
 msgid "Toggle Duration/Remaining"
 msgstr "Окини трајање/преостало"
 
-#: showtime/gtk/window.blp:494
+#: showtime/gtk/window.blp:310
 msgid "Resume"
 msgstr "Настави"
 
-#: showtime/gtk/window.blp:534
+#: showtime/gtk/window.blp:350
 msgid "Start Again"
 msgstr "Покрени опет"
+
+#: showtime/gtk/window.blp:543
+msgid "Video"
+msgstr "Видео"
+
+#: showtime/gtk/window.blp:553
+msgid "Subtitles"
+msgstr "Преводи"
+
+#~ msgid "Showtime"
+#~ msgstr "Шоутајм"
+
+#~ msgid "_About Showtime"
+#~ msgstr "_О програму"
