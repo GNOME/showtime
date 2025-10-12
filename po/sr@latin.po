@@ -1,0 +1,361 @@
+# Serbian translation for showtime.
+# Copyright (©) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>,  2025.
+# aceydot <aceydot@tuta.io>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-10-05 14:32+0000\n"
+"PO-Revision-Date: 2025-10-09 20:27+0200\n"
+"Last-Translator: aceydot <aceydot@tuta.io>\n"
+"Language-Team: Serbian <Serbian>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Poedit 3.6\n"
+
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "Puštač videa"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "Pustite video"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Video;film;snimak;puštač;šoutajm;Video;Movie;Film;Clip;Player;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "Novi prozor"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "Gledajte bez ometanja"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr ""
+"Puštajte svoje omiljene filmove i video datoteke bez muke. Puštač videa "
+"sadrži jednostavne kontrole za puštanje koje nestaju kada gledate, prikaz "
+"preko celog ekrana, podesivu brzinu puštanja, više jezika i prevoda numera i "
+"snimke ekrana – sve što vam je potrebno za jednostavno iskustvo gledanja."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "Program pušta video"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "Šta će prikazati na krajnjem položaju vremenske oznake"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "Npr. ukupno trajanje videa ili preostalo vreme"
+
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
+msgid "Open…"
+msgstr "Otvaram…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Datoteka"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Prozor"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Prečice tastature"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Pomoć"
+
+#: showtime/main.py:103
+msgid "Playing a video"
+msgstr "Puštam video"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+msgid "Unknown Title"
+msgstr "Nepoznat naslov"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Neodređeno, {} kanal"
+msgstr[1] "Neodređeno, {} kanala"
+msgstr[2] "Neodređeno, {} kanala"
+msgstr[3] "Neodređeno, {} kanal"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "Neodređeno"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "Nema zvuka"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "Ništa"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "Neodređen jezik"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "Dodaj datoteku prevoda…"
+
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+msgid "Play"
+msgstr "Pusti"
+
+#: showtime/widgets/window.py:182
+msgid "Pause"
+msgstr "Pauziraj"
+
+#: showtime/widgets/window.py:757
+msgid "Details copied"
+msgstr "Detalji su umnoženi"
+
+#: showtime/widgets/window.py:759
+msgid "Copy Technical Details"
+msgstr "Umnoži tehničke detalje"
+
+#: showtime/widgets/window.py:762
+msgid "Try Again"
+msgstr "Pokušaj ponovo"
+
+#: showtime/widgets/window.py:792
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Ne mogu da nađem „{}“ kodeke potrebne za puštanje ovog videa"
+
+#: showtime/widgets/window.py:810
+msgid "No plugin available for this media type"
+msgstr "Nema dostupnog priključka za ovu vrstu medija"
+
+#: showtime/widgets/window.py:816
+msgid "Unable to install the required plugin"
+msgstr "Ne mogu da instaliram potreban priključak"
+
+#: showtime/widgets/window.py:819
+msgid "Install Plugin"
+msgstr "Instaliraj priključak"
+
+#: showtime/widgets/window.py:827
+msgid "Installing…"
+msgstr "Instaliram…"
+
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "Potrebni u „{}“ kodeci za puštanje ovog videa"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1013
+msgid "translator_credits"
+msgstr "Miroslav Nikolić"
+
+#: showtime/widgets/window.py:1052
+msgid "Screenshot captured"
+msgstr "Snimak ekrana je napravljen"
+
+#: showtime/widgets/window.py:1054
+msgid "Show in Files"
+msgstr "Prikažite u programu Datoteke"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "_Jezik"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "_Prevodi"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "_Ponovi"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Zaokreni"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "Brzina puštanja"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "Zaokreni na levo"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "Zaokreni na desno"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "Opcije puštanja"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Opšte"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Prikaži prečice"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Otvori video"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Opcije videa"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Napravite snimak ekrana"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Zatvori prozor"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Izađi"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Glasnost"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Povećaj jačinu zvuka"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Smanji jačinu zvuka"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Utišaj/pojačaj"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Pregled"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+msgid "Toggle Fullscreen"
+msgstr "Okini ceo ekran"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Napusti ceo ekran"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Pusti"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Pusti/zastani"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+msgid "Go Back 10 Seconds"
+msgstr "Nazad 10 sekunde"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+msgid "Go Forward 10 Seconds"
+msgstr "Napred 10 sekunde"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "Doteraj jačinu zvuka"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Novi prozor"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_Otvori…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Prikaži u _Datotekama"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "Napravi _snimak ekrana"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "_Prečice tastature"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_O Puštaču videa"
+
+#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+msgid "Main Menu"
+msgstr "Glavni izbornik"
+
+#: showtime/gtk/window.blp:71
+msgid "Watch Videos"
+msgstr "Gledajte filmove i snimke"
+
+#: showtime/gtk/window.blp:72
+msgid "Drag and drop videos here"
+msgstr "Prevucite i ubacite video ovde"
+
+#: showtime/gtk/window.blp:88
+msgid "Unable to Play Video"
+msgstr "Ne mogu da pustim video"
+
+#: showtime/gtk/window.blp:93
+msgid "Missing Plugin"
+msgstr "Priključak nedostaje"
+
+#: showtime/gtk/window.blp:255
+msgid "Toggle Duration/Remaining"
+msgstr "Okini trajanje/preostalo"
+
+#: showtime/gtk/window.blp:310
+msgid "Resume"
+msgstr "Nastavi"
+
+#: showtime/gtk/window.blp:350
+msgid "Start Again"
+msgstr "Pokreni opet"
+
+#: showtime/gtk/window.blp:543
+msgid "Video"
+msgstr "Video"
+
+#: showtime/gtk/window.blp:553
+msgid "Subtitles"
+msgstr "Prevodi"
+
+#~ msgid "Showtime"
+#~ msgstr "Šoutajm"
+
+#~ msgid "_About Showtime"
+#~ msgstr "_O programu"
