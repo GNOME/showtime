@@ -46,9 +46,15 @@ template $Window: Adw.ApplicationWindow {
       overlayed: Adw.Bin {
         can-target: false;
 
-        styles [
-          "showtime-dragging-area-highlight",
-        ]
+        styles ["background"]
+
+        [child]
+        Adw.StatusPage {
+          title: _("Drop Video to Play");
+          icon-name: "video-x-generic-symbolic";
+
+          styles ["showtime-dragging-area-highlight"]
+        }
       };
 
       child: Stack stack {
