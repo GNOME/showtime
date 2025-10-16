@@ -777,13 +777,12 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.placeholder_page
 
     def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
-        # This is so media that is still partially playable doesn't get interrupted
         # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
-        if (
+        if partially_missing := (
             self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
             != Gst.StateChangeReturn.FAILURE
         ):
-            return
+            self.pause()
 
         desc = GstPbutils.missing_plugin_message_get_description(msg)
         detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
@@ -799,6 +798,12 @@ class Window(Adw.ApplicationWindow):
             return
 
         def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
+            if (
+                self.stack.props.visible_child != self.placeholder_page or
+                self.placeholder_stack.props.visible_child != self.missing_plugin_status_page
+            ):
+                return
+
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
                     logger.debug("Plugin installed")
@@ -816,9 +821,11 @@ class Window(Adw.ApplicationWindow):
                         "Unable to install the required plugin"
                     )
 
+        actions_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, halign=Gtk.Align.CENTER, spacing=9)
         button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
         button.add_css_class("pill")
         button.add_css_class("suggested-action")
+        actions_box.append(button)
 
         def install_plugin(*_args: Any) -> None:
             GstPbutils.install_plugins_async(
@@ -829,7 +836,19 @@ class Window(Adw.ApplicationWindow):
 
         button.connect("clicked", install_plugin)
 
-        self.missing_plugin_status_page.props.child = button
+        if partially_missing:
+            continue_button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Play Anyway"))
+            continue_button.add_css_class("pill")
+            actions_box.append(continue_button)
+
+            def _continue(*_args: Any) -> None:
+                self.missing_plugin_status_page.props.child = None
+                self.stack.props.visible_child = self.video_page
+                self.unpause()
+
+            continue_button.connect("clicked", _continue)
+
+        self.missing_plugin_status_page.props.child = actions_box
 
         self.missing_plugin_status_page.props.description = _(
             "“{}” codecs are required to play this video"
