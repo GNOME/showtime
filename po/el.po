@@ -6,34 +6,33 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/Incubator/showtime/-/"
-"issues\n"
-"POT-Creation-Date: 2024-09-11 13:31+0000\n"
-"PO-Revision-Date: 2024-09-01 02:43+0300\n"
-"Last-Translator: Giannis Antypas <gianni.antypas@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-10-14 03:02+0000\n"
+"PO-Revision-Date: 2025-10-19 11:05+0300\n"
+"Last-Translator: Efstathios Iosifidis <eiosifidis@gnome.org>\n"
 "Language-Team: Greek <Greek>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.7\n"
 
-#: data/org.gnome.Showtime.desktop.in:3
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/main.py:452
-#: showtime/gtk/window.blp:193
-msgid "Showtime"
-msgstr "Showtime"
-
-#: data/org.gnome.Showtime.desktop.in:4
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "Αναπαραγωγέας Βίντεο"
 
-#: data/org.gnome.Showtime.desktop.in:5
+#: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
 msgstr "Αναπαραγωγή βίντεο"
 
-#: data/org.gnome.Showtime.desktop.in:16 showtime/gtk/help-overlay.blp:29
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "Βίντεο;Ταινία;Φιλμ;Clip;Αναπαραγωγέας;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Νέο παράθυρο"
 
@@ -43,19 +42,19 @@ msgstr "Παρακολουθήστε χωρίς περισπασμούς"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Showtime features "
-"simple playback controls that fade out of your way when you're watching, "
-"fullscreen, adjustable playback speed, multiple language and subtitle "
-"tracks, and screenshots — everything you need for a straightforward viewing "
-"experience."
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
-"Αναπαράγετε τις αγαπημένες σας ταινίες και αρχεία βίντεο χωρίς προβλήματα. "
-"Το Showtime διαθέτει απλά χειριστήρια αναπαραγωγής που εξαφανίζονται όταν "
-"παρακολουθείτε, πλήρη οθόνη, ρυθμιζόμενη ταχύτητα αναπαραγωγής, πολλαπλές "
-"γλώσσες και υποτίτλους και στιγμιότυπα οθόνης - όλα όσα χρειάζεστε για μια "
-"απλή εμπειρία προβολής."
+"Αναπαραγωγή των αγαπημένων σας ταινιών και αρχείων βίντεο χωρίς προβλήματα. "
+"Το Video Player διαθέτει απλά στοιχεία ελέγχου αναπαραγωγής που "
+"εξαφανίζονται όταν παρακολουθείτε, πλήρη οθόνη, ρυθμιζόμενη ταχύτητα "
+"αναπαραγωγής, πολλαπλές γλώσσες και υπότιτλους, καθώς και στιγμιότυπα οθόνης "
+"— όλα όσα χρειάζεστε για μια απλή εμπειρία προβολής."
 
-#: data/org.gnome.Showtime.metainfo.xml.in:35
+#: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Η εφαρμογή αναπαράγει βίντεο"
 
@@ -67,12 +66,110 @@ msgstr "Τι να εμφανίζεται στη θέση της χρονικής
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Π.χ. συνολική διάρκεια του βίντεο ή το χρονικό διάστημα που απομένει"
 
-#: showtime/main.py:140
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
+msgid "Open…"
+msgstr "Άνοιγμα…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "Αρχείο"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "Παράθυρο"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "Συντομεύσεις πληκτρολογίου"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "Βοήθεια"
+
+#: showtime/main.py:103
 msgid "Playing a video"
 msgstr "Αναπαραγωγή βίντεο"
 
+#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+msgid "Unknown Title"
+msgstr "Άγνωστος τίτλος"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "Απροσδιόριστo, {} Κανάλι"
+msgstr[1] "Απροσδιόριστα, {} Κανάλια"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "Απροσδιόριστο"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "Χωρίς ήχο"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "Kανένα"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "Απροσδιόριστη γλώσσα"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "Προσθήκη αρχείου υποτίτλων…"
+
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+msgid "Play"
+msgstr "Αναπαραγωγή"
+
+#: showtime/widgets/window.py:182
+msgid "Pause"
+msgstr "Παύση"
+
+#: showtime/widgets/window.py:757
+msgid "Details copied"
+msgstr "Οι λεπτομέρειες αντιγράφηκαν"
+
+#: showtime/widgets/window.py:759
+msgid "Copy Technical Details"
+msgstr "Αντιγραφή τεχνικών λεπτομερειών"
+
+#: showtime/widgets/window.py:762
+msgid "Try Again"
+msgstr "Προσπαθήστε Ξανά"
+
+#: showtime/widgets/window.py:792
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"Δεν βρέθηκαν οι κωδικοποιητές «{}» που απαιτούνται για την αναπαραγωγή αυτού "
+"του βίντεο"
+
+#: showtime/widgets/window.py:810
+msgid "No plugin available for this media type"
+msgstr "Δεν υπάρχει διαθέσιμο πρόσθετο για αυτόν τον τύπο πολυμέσων"
+
+#: showtime/widgets/window.py:816
+msgid "Unable to install the required plugin"
+msgstr "Δεν είναι δυνατή η εγκατάσταση του απαιτούμενου πρόσθετου"
+
+#: showtime/widgets/window.py:819
+msgid "Install Plugin"
+msgstr "Εγκατάσταση πρόσθετου"
+
+#: showtime/widgets/window.py:827
+msgid "Installing…"
+msgstr "Εγκατάσταση…"
+
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "Απαιτούνται κωδικοποιητές «{}» για την αναπαραγωγή αυτού του βίντεο"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/main.py:427
+#: showtime/widgets/window.py:1013
 msgid "translator_credits"
 msgstr ""
 "Ελληνική μεταφραστική ομάδα GNOME\n"
@@ -81,243 +178,188 @@ msgstr ""
 "Για περισσότερες πληροφορίες, επισκεφθείτε τη σελίδα\n"
 "http://gnome.gr/"
 
-#: showtime/mpris.py:289 showtime/window.py:593
-msgid "Unknown Title"
-msgstr "Άγνωστος τίτλος"
-
-#: showtime/window.py:140 showtime/gtk/window.blp:479
-msgid "Play"
-msgstr "Αναπαραγωγή"
-
-#: showtime/window.py:143
-msgid "Pause"
-msgstr "Παύση"
-
-#: showtime/window.py:449
-msgid "Details copied"
-msgstr "Οι λεπτομέρειες αντιγράφηκαν"
-
-#: showtime/window.py:452
-msgid "Copy Technical Details"
-msgstr "Αντιγραφή τεχνικών λεπτομερειών"
-
-#: showtime/window.py:478
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr ""
-"Δεν βρέθηκαν οι κωδικοποιητές «{}» που απαιτούνται για την αναπαραγωγή αυτού "
-"του βίντεο"
-
-#: showtime/window.py:499
-msgid "No plugin available for this media type"
-msgstr "Δεν υπάρχει διαθέσιμο πρόσθετο για αυτόν τον τύπο πολυμέσων"
-
-#: showtime/window.py:505
-msgid "Unable to install the required plugin"
-msgstr "Δεν είναι δυνατή η εγκατάσταση του απαιτούμενου πρόσθετου"
-
-#: showtime/window.py:508
-msgid "Install Plugin"
-msgstr "Εγκατάσταση πρόσθετου"
-
-#: showtime/window.py:516
-msgid "Installing…"
-msgstr "Εγκατάσταση…"
-
-#: showtime/window.py:524
-msgid "“{}” codecs are required to play this video"
-msgstr "Απαιτούνται κωδικοποιητές «{}» για την αναπαραγωγή αυτού του βίντεο"
-
-#: showtime/window.py:604
+#: showtime/widgets/window.py:1052
 msgid "Screenshot captured"
 msgstr "Λήψη στιγμιότυπου οθόνης"
 
-#: showtime/window.py:606
+#: showtime/widgets/window.py:1054
 msgid "Show in Files"
 msgstr "Εμφάνιση στην εφαρμογή Αρχεία"
 
-#: showtime/window.py:668
-msgid "Video"
-msgstr "Βίντεο"
-
-#: showtime/window.py:687
-msgid "Subtitles"
-msgstr "Υπότιτλοι"
-
-#. Translators: The variable is the number of channels in an audio track
-#: showtime/window.py:753
-#| msgid "Undetermined, {} Channels"
-msgid "Undetermined, {} Channel"
-msgid_plural "Undetermined, {} Channels"
-msgstr[0] "Απροσδιόριστo, {} Κανάλι"
-msgstr[1] "Απροσδιόριστα, {} Κανάλια"
-
-#: showtime/window.py:758
-msgid "Undetermined"
-msgstr "Απροσδιόριστο"
-
-#: showtime/window.py:765
-msgid "No Audio"
-msgstr "Χωρίς ήχο"
-
-#: showtime/window.py:770
-msgid "None"
-msgstr "Kανένα"
-
-#: showtime/window.py:776
-msgid "Undetermined Language"
-msgstr "Απροσδιόριστη γλώσσα"
-
-#: showtime/window.py:784
-msgid "Add Subtitle File…"
-msgstr "Προσθήκη αρχείου υποτίτλων…"
-
-#: showtime/gtk/help-overlay.blp:11
-msgid "General"
-msgstr "Γενικά"
-
-#: showtime/gtk/help-overlay.blp:14
-msgid "Show Shortcuts"
-msgstr "Εμφάνιση συντομεύσεων"
-
-#: showtime/gtk/help-overlay.blp:19
-msgid "Open Video"
-msgstr "Άνοιγμα βίντεο"
-
-#: showtime/gtk/help-overlay.blp:24
-msgid "Take Screenshot"
-msgstr "Λήψη στιγμιοτύπου οθόνης"
-
-#: showtime/gtk/help-overlay.blp:34
-msgid "Close Window"
-msgstr "Κλείσιμο παραθύρου"
-
-#: showtime/gtk/help-overlay.blp:39
-msgid "Quit"
-msgstr "Έξοδος"
-
-#: showtime/gtk/help-overlay.blp:45
-msgid "Volume"
-msgstr "Ένταση"
-
-#: showtime/gtk/help-overlay.blp:48
-msgid "Increase Volume"
-msgstr "Αύξηση έντασης"
-
-#: showtime/gtk/help-overlay.blp:53
-msgid "Decrease Volume"
-msgstr "Μείωση έντασης"
-
-#: showtime/gtk/help-overlay.blp:58 showtime/gtk/window.blp:129
-#: showtime/gtk/window.blp:157
-msgid "Mute/Unmute"
-msgstr "Σίγαση/αναίρεση σίγασης"
-
-#: showtime/gtk/help-overlay.blp:64
-msgid "View"
-msgstr "Προβολή"
-
-#: showtime/gtk/help-overlay.blp:67 showtime/gtk/window.blp:545
-msgid "Toggle Fullscreen"
-msgstr "Εναλλαγή πλήρους οθόνης"
-
-#: showtime/gtk/help-overlay.blp:72
-msgid "Exit Fullscreen"
-msgstr "Έξοδος από πλήρη οθόνη"
-
-#: showtime/gtk/help-overlay.blp:78
-msgid "Playback"
-msgstr "Αναπαραγωγή"
-
-#: showtime/gtk/help-overlay.blp:81
-msgid "Play/Pause"
-msgstr "Αναπαραγωγή/Παύση"
-
-#: showtime/gtk/help-overlay.blp:86 showtime/gtk/window.blp:152
-#: showtime/gtk/window.blp:469
-msgid "Go Back 10 Seconds"
-msgstr "Μετάβαση 10 δευτερόλεπτα πίσω"
-
-#: showtime/gtk/help-overlay.blp:91 showtime/gtk/window.blp:153
-#: showtime/gtk/window.blp:488
-msgid "Go Forward 10 Seconds"
-msgstr "Μετάβαση 10 δευτερόλεπτα μπροστά"
-
-#: showtime/gtk/window.blp:6 showtime/gtk/window.blp:178
-msgid "_Open…"
-msgstr "Άν_οιγμα…"
-
-#: showtime/gtk/window.blp:11 showtime/gtk/window.blp:171
-msgid "Show in _Files"
-msgstr "Εμφάνιση στο _Αρχεία"
-
-#: showtime/gtk/window.blp:19 showtime/gtk/window.blp:163
-msgid "Take _Screenshot"
-msgstr "Λήψη _στιγμιότυπου οθόνης"
-
-#: showtime/gtk/window.blp:26
-msgid "_Keyboard Shortcuts"
-msgstr "Συντομεύσεις _πληκτρολογίου"
-
-#: showtime/gtk/window.blp:27
-msgid "_About Showtime"
-msgstr "_Περί του Showtime"
-
-#: showtime/gtk/window.blp:39
+#: showtime/gtk/options.blp:17
 msgid "_Language"
 msgstr "_Γλώσσα"
 
-#: showtime/gtk/window.blp:43
+#: showtime/gtk/options.blp:21
 msgid "_Subtitles"
 msgstr "_Υπότιτλοι"
 
-#: showtime/gtk/window.blp:48 showtime/gtk/window.blp:158
+#: showtime/gtk/options.blp:26
 msgid "_Repeat"
 msgstr "_Επανάληψη"
 
-#: showtime/gtk/window.blp:66
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "Περιστροφή"
+
+#: showtime/gtk/options.blp:61
 msgid "Playback Speed"
 msgstr "Ταχύτητα αναπαραγωγής"
 
-#: showtime/gtk/window.blp:212 showtime/gtk/window.blp:578
-msgid "Main Menu"
-msgstr "Κυρίως μενού"
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "Περιστροφή αριστερά"
 
-#: showtime/gtk/window.blp:221
-msgid "Watch Videos"
-msgstr "Παρακολουθήστε βίντεο"
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "Περιστροφή δεξιά"
 
-#: showtime/gtk/window.blp:222
-msgid "Drag and drop videos here"
-msgstr "Σύρετε και αποθέστε βίντεο εδώ"
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "Επιλογές αναπαραγωγής"
 
-#: showtime/gtk/window.blp:225
-msgid "Open…"
-msgstr "Άνοιγμα…"
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "Γενικά"
 
-#: showtime/gtk/window.blp:238
-msgid "Unable to Play Video"
-msgstr "Αδυναμία αναπαραγωγής βίντεο"
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "Εμφάνιση συντομεύσεων"
 
-#: showtime/gtk/window.blp:243
-msgid "Missing Plugin"
-msgstr "Έλλειψη προσθέτου"
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "Άνοιγμα βίντεο"
 
-#: showtime/gtk/window.blp:285
-msgid "Resume"
-msgstr "Συνέχεια"
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "Επιλογές βίντεο"
 
-#: showtime/gtk/window.blp:317
-msgid "Start Again"
-msgstr "Εκκίνηση πάλι"
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "Λήψη στιγμιοτύπου οθόνης"
 
-#: showtime/gtk/window.blp:422
-msgid "Toggle Duration/Remaining"
-msgstr "Εναλλαγή διάρκειας/υπολειπόμενου χρόνου"
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "Κλείσιμο παραθύρου"
 
-#: showtime/gtk/window.blp:458
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "Έξοδος"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "Ένταση"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "Αύξηση έντασης"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "Μείωση έντασης"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "Σίγαση/αναίρεση σίγασης"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "Προβολή"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+msgid "Toggle Fullscreen"
+msgstr "Εναλλαγή πλήρους οθόνης"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "Έξοδος από πλήρη οθόνη"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "Αναπαραγωγή"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "Αναπαραγωγή/Παύση"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+msgid "Go Back 10 Seconds"
+msgstr "Μετάβαση 10 δευτερόλεπτα πίσω"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+msgid "Go Forward 10 Seconds"
+msgstr "Μετάβαση 10 δευτερόλεπτα μπροστά"
+
+#: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
 msgstr "Ρύθμιση της έντασης ήχου"
 
-#: showtime/gtk/window.blp:501
-msgid "Playback Options"
-msgstr "Επιλογές αναπαραγωγής"
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_Νέο παράθυρο"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "Άν_οιγμα…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "Εμφάνιση στο _Αρχεία"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "Λήψη _στιγμιότυπου οθόνης"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "Συντομεύσεις _πληκτρολογίου"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_Περί Αναπαραγωγέα Βίντεο"
+
+#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+msgid "Main Menu"
+msgstr "Κυρίως μενού"
+
+#: showtime/gtk/window.blp:71
+msgid "Watch Videos"
+msgstr "Παρακολουθήστε βίντεο"
+
+#: showtime/gtk/window.blp:72
+msgid "Drag and drop videos here"
+msgstr "Σύρετε και αποθέστε βίντεο εδώ"
+
+#: showtime/gtk/window.blp:88
+msgid "Unable to Play Video"
+msgstr "Αδυναμία αναπαραγωγής βίντεο"
+
+#: showtime/gtk/window.blp:93
+msgid "Missing Plugin"
+msgstr "Έλλειψη προσθέτου"
+
+#: showtime/gtk/window.blp:255
+msgid "Toggle Duration/Remaining"
+msgstr "Εναλλαγή διάρκειας/υπολειπόμενου χρόνου"
+
+#: showtime/gtk/window.blp:310
+msgid "Resume"
+msgstr "Συνέχεια"
+
+#: showtime/gtk/window.blp:350
+msgid "Start Again"
+msgstr "Εκκίνηση πάλι"
+
+#: showtime/gtk/window.blp:543
+msgid "Video"
+msgstr "Βίντεο"
+
+#: showtime/gtk/window.blp:553
+msgid "Subtitles"
+msgstr "Υπότιτλοι"
+
+#~ msgid "Showtime"
+#~ msgstr "Showtime"
+
+#~ msgid "_About Showtime"
+#~ msgstr "_Περί του Showtime"
