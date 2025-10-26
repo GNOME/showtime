@@ -136,6 +136,10 @@ scale.overlaid slider {
   opacity: var(--dim-opacity);
 }
 
+.drop-widget {
+  box-shadow: none;
+}
+
 @media (prefers-contrast: more) {
   windowcontrols.overlaid > button > image,
   windowcontrols.overlaid > button,

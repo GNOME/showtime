@@ -41,6 +41,14 @@ template $Window: Adw.ApplicationWindow {
 
   content: Adw.ToastOverlay toast_overlay {
     child: $DragOverlay drag_overlay {
+      styles ["drop-widget"]
+
+      DropTarget drop_target {
+        formats: "GFile";
+        actions: copy;
+        drop => $_on_drop();
+      }
+
       drop_target: drop_target;
 
       overlayed: Adw.Bin {
@@ -525,12 +533,6 @@ template $Window: Adw.ApplicationWindow {
       };
     };
   };
-
-  DropTarget drop_target {
-    formats: "GFile";
-    actions: copy;
-    drop => $_on_drop();
-  }
 
   Adw.Breakpoint {
     condition ("min-width: 550px")
