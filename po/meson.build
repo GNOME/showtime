@@ -1,1 +1,1 @@
-i18n.gettext('showtime', preset: 'glib')
+i18n.gettext(bin_name, preset: 'glib')

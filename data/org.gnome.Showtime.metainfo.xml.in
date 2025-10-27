@@ -9,7 +9,7 @@
 	  <p>Play your favorite movies and video files without hassle. Video Player features simple playback controls that fade out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, and screenshots — everything you need for a straightforward viewing experience.</p>
 	</description>
 	<launchable type="desktop-id">@APP_ID@.desktop</launchable>
-	<translation type="gettext">showtime</translation>
+	<translation type="gettext">@BIN_NAME@</translation>
 	<branding>
 		<color type="primary" scheme_preference="light">#9aa9ee</color>
 		<color type="primary" scheme_preference="dark">#4b3e81</color>
