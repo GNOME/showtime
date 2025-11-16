@@ -3,12 +3,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
-import os
-import sys
-import signal
-from pathlib import Path
-import locale
 import gettext
+import locale
+import signal
+import sys
+from pathlib import Path
 from platform import system
 
 pkgdatadir = "@pkgdatadir@"
@@ -35,14 +34,9 @@ if __name__ == "__main__":
     GLib.set_application_name(_("Video Player"))
     Gtk.Window.set_default_icon_name("@APP_ID@")
 
-    try:
-        # For a macOS application bundle
-        resource = Gio.Resource.load(
-            str(Path(__file__).parent / "Resources" / "showtime.gresource")
-        )
-    except GLib.GError:
-        resource = Gio.Resource.load(os.path.join(pkgdatadir, "showtime.gresource"))
-    resource._register()
+    Gio.resources_register(
+        Gio.Resource.load(str(Path(pkgdatadir, "showtime.gresource")))
+    )
 
     from showtime import main
 

@@ -26,12 +26,6 @@ from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
 from .mpris import MPRIS
 from .widgets.window import PROFILE, Window
 
-# if system == "Darwin":
-#     from AppKit import NSApp
-#     from PyObjCTools import AppHelper
-#
-#     from showtime.application_delegate import ApplicationDelegate
-
 MAX_HIST_ITEMS = 1000
 MAX_BUFFER_TRIES = 50
 
@@ -61,14 +55,6 @@ class Application(Adw.Application):
         logger.debug("Starting %s v%s (%s)", APP_ID, VERSION, PROFILE)
         logger.debug("Python version: %s", sys.version)
         logger.debug("GStreamer version: %s", ".".join(str(v) for v in Gst.version()))
-
-        # if system == "Darwin":
-        #
-        #     def setup_app_delegate() -> None:
-        #         NSApp.setDelegate_(ApplicationDelegate.alloc().init())
-        #         AppHelper.runEventLoop()
-        #
-        #     GLib.Thread.new(None, setup_app_delegate)
 
         new_window = GLib.OptionEntry()
         new_window.long_name = "new-window"

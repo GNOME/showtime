@@ -2,7 +2,6 @@ data/org.gnome.Showtime.desktop.in
 data/org.gnome.Showtime.metainfo.xml.in
 data/org.gnome.Showtime.gschema.xml.in
 
-showtime/application_delegate.py
 showtime/main.py
 showtime/mpris.py
 showtime/play.py

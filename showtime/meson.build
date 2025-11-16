@@ -42,7 +42,6 @@ configure_file(
 
 showtime_sources = [
   configure_file(input: '__init__.py.in', output: '__init__.py', configuration: conf),
-  'application_delegate.py',
   'main.py',
   'mpris.py',
   'play.py',

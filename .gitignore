@@ -1,5 +1,3 @@
-/build-aux/macos/build
-/build-aux/macos/dist
 .flatpak-builder
 .DS_Store
 .prettierignore
