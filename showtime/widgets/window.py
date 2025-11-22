@@ -928,11 +928,7 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "screenshot",
-            lambda *_args: Gtk.FileDialog(
-                initial_name=f"{
-                    get_title(self.play.get_media_info()) or _('Unknown Title')
-                } {nanoseconds_to_timestamp(self.play.get_position(), hours=True)}.png"
-            ).save(self, callback=self._save_screenshot),
+            lambda *_args: self._screenshot(),
             ("<primary><alt>s",),
         ).props.enabled = False
 
@@ -1025,24 +1021,36 @@ class Window(Adw.ApplicationWindow):
 
         about.present(self)
 
-    def _save_screenshot(self, dialog: Gtk.FileDialog, result: Gio.AsyncResult) -> None:
-        logger.debug("Saving screenshot…")
-
-        try:
-            gfile = dialog.save_finish(result)
-        except GLib.Error:
-            logger.exception("Failed to save screenshot")
-            return
-
+    def _screenshot(self) -> None:
         if not (paintable := self.picture.props.paintable):
-            logger.warning("Cannot save screenshot, no paintable")
+            logger.warning("Cannot take screenshot, no paintable")
             return
 
         if not (texture := screenshot(paintable, self)):
             return
 
+        Gtk.FileDialog(
+            initial_name=f"{
+                get_title(self.play.get_media_info()) or _('Unknown Title')
+            } {nanoseconds_to_timestamp(self.play.get_position(), hours=True)}.png"
+        ).save(self, None, self._save_screenshot, texture.save_to_png_bytes())
+
+    def _save_screenshot(
+        self,
+        dialog: Gtk.FileDialog,
+        result: Gio.AsyncResult,
+        contents: GLib.Bytes,
+    ) -> None:
+        logger.debug("Saving screenshot…")
+
+        try:
+            gfile = dialog.save_finish(result)
+        except GLib.Error:
+            logger.exception("Could not save screenshot")
+            return
+
         gfile.replace_contents_bytes_async(
-            texture.save_to_png_bytes(),
+            contents,
             None,
             False,
             Gio.FileCreateFlags.REPLACE_DESTINATION,
@@ -1053,7 +1061,7 @@ class Window(Adw.ApplicationWindow):
         try:
             gfile.replace_contents_finish(result)
         except GLib.Error:
-            logger.exception("Failed to save screenshot")
+            logger.exception("Could not save screenshot")
             return
 
         toast = Adw.Toast(
