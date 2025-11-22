@@ -1054,6 +1054,7 @@ class Window(Adw.ApplicationWindow):
             gfile.replace_contents_finish(result)
         except GLib.Error:
             logger.exception("Failed to save screenshot")
+            return
 
         toast = Adw.Toast(
             title=_("Screenshot captured"),
