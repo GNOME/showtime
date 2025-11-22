@@ -39,6 +39,14 @@
 		</screenshot>
 	</screenshots>
 	<releases>
+		<release version="49.1" date="2025-11-22">
+			<ul>
+				<li>When the window resizes, it will now stay in the center on supported systems.</li>
+				<li>Screenshots can now be saved to a directory of your choice. This additionally fixes an issue with translated folder names and improves security.</li>
+				<li>The application name should now correctly show up in the Sound panel of Settings.</li>
+				<li>Small localization improvements for right-to-left languages.</li>
+			</ul>
+		</release>
 		<release version="49.0" date="2025-09-13">
 			<description>
 				<ul>
