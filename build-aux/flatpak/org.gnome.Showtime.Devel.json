@@ -9,8 +9,7 @@
     "--socket=fallback-x11",
     "--device=dri",
     "--socket=wayland",
-    "--socket=pulseaudio",
-    "--filesystem=xdg-pictures/Screenshots:create"
+    "--socket=pulseaudio"
   ],
   "cleanup": [
     "/include",

@@ -928,7 +928,11 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "screenshot",
-            lambda *_: self._save_screenshot(),
+            lambda *_args: Gtk.FileDialog(
+                initial_name=f"{
+                    get_title(self.play.get_media_info()) or _('Unknown Title')
+                } {nanoseconds_to_timestamp(self.play.get_position(), hours=True)}.png"
+            ).save(self, callback=self._save_screenshot),
             ("<primary><alt>s",),
         ).props.enabled = False
 
@@ -1021,12 +1025,14 @@ class Window(Adw.ApplicationWindow):
 
         about.present(self)
 
-    def _save_screenshot(self) -> None:
-        """Save a snapshot of the current frame of the currently playing video as a PNG.
-
-        It tries saving it to `xdg-pictures/Screenshots` and falls back to `~`.
-        """
+    def _save_screenshot(self, dialog: Gtk.FileDialog, result: Gio.AsyncResult) -> None:
         logger.debug("Saving screenshot…")
+
+        try:
+            gfile = dialog.save_finish(result)
+        except GLib.Error:
+            logger.exception("Failed to save screenshot")
+            return
 
         if not (paintable := self.picture.props.paintable):
             logger.warning("Cannot save screenshot, no paintable")
@@ -1035,18 +1041,19 @@ class Window(Adw.ApplicationWindow):
         if not (texture := screenshot(paintable, self)):
             return
 
-        path = (
-            str(Path(pictures, "Screenshots"))
-            if (pictures := GLib.get_user_special_dir(GLib.USER_DIRECTORY_PICTURES))  # pyright: ignore[reportArgumentType]
-            else GLib.get_home_dir()
+        gfile.replace_contents_bytes_async(
+            texture.save_to_png_bytes(),
+            None,
+            False,
+            Gio.FileCreateFlags.REPLACE_DESTINATION,
+            callback=self._save_screenshot_cb,
         )
 
-        title = get_title(self.play.get_media_info()) or _("Unknown Title")
-        timestamp = nanoseconds_to_timestamp(self.play.get_position(), hours=True)
-
-        path = str(Path(path, f"{title} {timestamp}.png"))
-
-        texture.save_to_png(path)
+    def _save_screenshot_cb(self, gfile: Gio.File, result: Gio.AsyncResult) -> None:
+        try:
+            gfile.replace_contents_finish(result)
+        except GLib.Error:
+            logger.exception("Failed to save screenshot")
 
         toast = Adw.Toast(
             title=_("Screenshot captured"),
@@ -1055,9 +1062,7 @@ class Window(Adw.ApplicationWindow):
         )
         toast.connect(
             "button-clicked",
-            lambda *_: Gtk.FileLauncher.new(
-                Gio.File.new_for_path(path)
-            ).open_containing_folder(),
+            lambda *_: Gtk.FileLauncher.new(gfile).open_containing_folder(),
         )
         self.toast_overlay.add_toast(toast)
 
