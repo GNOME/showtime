@@ -224,6 +224,8 @@ class Window(Adw.ApplicationWindow):
         messenger.connect("error", self._on_error)
         messenger.connect("missing-plugin", self._on_missing_plugin)
 
+        self._already_shown_missing_plugins = False
+
         if PROFILE == "development":
             self.add_css_class("devel")
 
@@ -292,6 +294,7 @@ class Window(Adw.ApplicationWindow):
         app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
 
         self._playing_gfile = gfile
+        self._already_shown_missing_plugins = False
 
         try:
             file_info = gfile.query_info(
@@ -777,6 +780,11 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.placeholder_page
 
     def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
+        if self._already_shown_missing_plugins:
+            return
+
+        self._already_shown_missing_plugins = True
+
         # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
         if partially_missing := (
             self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
