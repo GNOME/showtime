@@ -815,6 +815,7 @@ class Window(Adw.ApplicationWindow):
             match result:
                 case GstPbutils.InstallPluginsReturn.SUCCESS:
                     logger.debug("Plugin installed")
+                    Gst.update_registry()
                     self._try_again()
 
                 case GstPbutils.InstallPluginsReturn.NOT_FOUND:
