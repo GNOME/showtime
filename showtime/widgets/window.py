@@ -872,6 +872,15 @@ class Window(Adw.ApplicationWindow):
     def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
         return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
 
+    def _open_choose_subtitles(self) -> None:
+        if self._playing_gfile:
+            self.choose_subtitles_dialog.props.initial_folder = (
+                self._playing_gfile.get_parent()
+            )
+        else:
+            self.choose_subtitles_dialog.props.initial_folder = None
+        self.choose_subtitles_dialog.open(self, callback=self._on_choose_subtitles)
+
     def _create_actions(self) -> None:
         self._create_action(
             "close-window",
@@ -949,9 +958,7 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "choose-subtitles",
-            lambda *_args: self.choose_subtitles_dialog.open(
-                self, callback=self._on_choose_subtitles
-            ),
+            lambda *_: self._open_choose_subtitles(),
         )
 
         subs_action = Gio.SimpleAction.new_stateful(
