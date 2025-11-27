@@ -6,7 +6,6 @@ from collections.abc import Callable, Sequence
 from functools import partial
 from hashlib import sha256
 from math import sqrt
-from pathlib import Path
 from time import time
 from typing import TYPE_CHECKING, Any, cast
 
