@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-08-24 22:30+0000\n"
-"PO-Revision-Date: 2025-08-25 15:02+0100\n"
-"Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
+"POT-Creation-Date: 2025-11-27 12:19+0000\n"
+"PO-Revision-Date: 2025-12-30 22:38+0000\n"
+"Last-Translator: hugokarvalho@hotmail.com <Hugo Carvalho>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -31,8 +31,7 @@ msgstr "Reproduza vídeos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Vídeo;Filme;Clipe.Leitor;Reprodutor;Showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
-#: showtime/gtk/shortcuts-dialog.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Nova janela"
 
@@ -67,31 +66,11 @@ msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr ""
 "Por exemplo, a duração total do vídeo ou a quantidade de tempo restante"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:74
-msgid "Open…"
-msgstr "Abrir…"
-
-#: showtime/application_delegate.py:39
-msgid "File"
-msgstr "Ficheiro"
-
-#: showtime/application_delegate.py:47
-msgid "Window"
-msgstr "Janela"
-
-#: showtime/application_delegate.py:56
-msgid "Keyboard Shortcuts"
-msgstr "Teclas de atalho"
-
-#: showtime/application_delegate.py:64
-msgid "Help"
-msgstr "Ajuda"
-
-#: showtime/main.py:103
+#: showtime/main.py:89
 msgid "Playing a video"
 msgstr "A reproduzir um vídeo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1033
+#: showtime/mpris.py:288 showtime/widgets/window.py:1040
 msgid "Unknown Title"
 msgstr "Título desconhecido"
 
@@ -123,61 +102,61 @@ msgstr "Idioma indeterminado"
 msgid "Add Subtitle File…"
 msgstr "Adicionar ficheiro de legendas…"
 
-#: showtime/widgets/window.py:173 showtime/gtk/window.blp:146
+#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Reproduzir"
 
-#: showtime/widgets/window.py:173
+#: showtime/widgets/window.py:181
 msgid "Pause"
 msgstr "Pausa"
 
-#: showtime/widgets/window.py:748
+#: showtime/widgets/window.py:756
 msgid "Details copied"
 msgstr "Detalhes copiados"
 
-#: showtime/widgets/window.py:750
+#: showtime/widgets/window.py:758
 msgid "Copy Technical Details"
 msgstr "Copiar detalhes técnicos"
 
-#: showtime/widgets/window.py:753
+#: showtime/widgets/window.py:761
 msgid "Try Again"
 msgstr "Tente novamente"
 
-#: showtime/widgets/window.py:783
+#: showtime/widgets/window.py:791
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Os codecs \"{}\" necessários para reproduzir este vídeo não foram encontrados"
 
-#: showtime/widgets/window.py:801
+#: showtime/widgets/window.py:809
 msgid "No plugin available for this media type"
 msgstr "Nenhum plugin disponível para este tipo de ficheiro"
 
-#: showtime/widgets/window.py:807
+#: showtime/widgets/window.py:815
 msgid "Unable to install the required plugin"
 msgstr "Não foi possível instalar o plugin necessário"
 
-#: showtime/widgets/window.py:810
+#: showtime/widgets/window.py:818
 msgid "Install Plugin"
 msgstr "Instalar plugin"
 
-#: showtime/widgets/window.py:818
+#: showtime/widgets/window.py:826
 msgid "Installing…"
 msgstr "A instalar…"
 
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:834
 msgid "“{}” codecs are required to play this video"
 msgstr "Os codecs \"{}\" são necessários para reproduzir este vídeo"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1002
-msgid "translator_credits"
+#: showtime/widgets/window.py:1019
+msgid "translator-credits"
 msgstr "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: showtime/widgets/window.py:1041
+#: showtime/widgets/window.py:1074
 msgid "Screenshot captured"
 msgstr "Captura de ecrã efetuada"
 
-#: showtime/widgets/window.py:1043
+#: showtime/widgets/window.py:1076
 msgid "Show in Files"
 msgstr "Mostrar em Ficheiros"
 
@@ -261,7 +240,7 @@ msgstr "Desativar/Ativar som"
 msgid "View"
 msgstr "Ver"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:434
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
 msgstr "Ativar/Desativar ecrã inteiro"
 
@@ -277,11 +256,11 @@ msgstr "Reprodução"
 msgid "Play/Pause"
 msgstr "Reproduzir/Pausa"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:127
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
 msgstr "Recuar 10 segundos"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:163
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "Avançar 10 segundos"
 
@@ -313,45 +292,65 @@ msgstr "_Teclas de atalho"
 msgid "_About Video Player"
 msgstr "_Acerca do Reprodutor de vídeo"
 
-#: showtime/gtk/window.blp:61 showtime/gtk/window.blp:474
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr "Largar o vídeo para reproduzir"
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
 msgstr "Menu Principal"
 
-#: showtime/gtk/window.blp:70
+#: showtime/gtk/window.blp:85
 msgid "Watch Videos"
 msgstr "Assista a vídeos"
 
-#: showtime/gtk/window.blp:71
+#: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
 msgstr "Arrastar e largar vídeos para aqui"
 
-#: showtime/gtk/window.blp:87
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr "Abrir…"
+
+#: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
 msgstr "Não foi possível reproduzir o vídeo"
 
-#: showtime/gtk/window.blp:92
+#: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
 msgstr "Plugin em falta"
 
-#: showtime/gtk/window.blp:254
+#: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
 msgstr "Alternar duração/tempo restante"
 
-#: showtime/gtk/window.blp:309
+#: showtime/gtk/window.blp:324
 msgid "Resume"
 msgstr "Retomar"
 
-#: showtime/gtk/window.blp:349
+#: showtime/gtk/window.blp:364
 msgid "Start Again"
 msgstr "Recomeçar"
 
-#: showtime/gtk/window.blp:542
+#: showtime/gtk/window.blp:551
 msgid "Video"
 msgstr "Vídeo"
 
-#: showtime/gtk/window.blp:552
+#: showtime/gtk/window.blp:561
 msgid "Subtitles"
 msgstr "Legendas"
+
+#~ msgid "File"
+#~ msgstr "Ficheiro"
+
+#~ msgid "Window"
+#~ msgstr "Janela"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Teclas de atalho"
+
+#~ msgid "Help"
+#~ msgstr "Ajuda"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
