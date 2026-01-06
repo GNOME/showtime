@@ -2,23 +2,23 @@
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Tim Sabsch <tim@sabsch.com>,  2024.
-# Jürgen Benvenuti <gastornis@posteo.org>, 2024, 2025.
+# Jürgen Benvenuti <gastornis@posteo.org>, 2024-2026.
 # Philipp Kiemle <l10n@prly.mozmail.com>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-10-14 03:02+0000\n"
-"PO-Revision-Date: 2025-10-25 20:44+0200\n"
-"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
+"POT-Creation-Date: 2025-11-27 12:19+0000\n"
+"PO-Revision-Date: 2026-01-04 21:18+0100\n"
+"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.7\n"
+"X-Generator: Poedit 3.8\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -33,8 +33,7 @@ msgstr "Videos wiedergeben"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "Video;Movie;Film;Clip;Player;Showtime;Wiedergabe;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
-#: showtime/gtk/shortcuts-dialog.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Neues Fenster"
 
@@ -69,31 +68,11 @@ msgstr ""
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Z. B. die Gesamtdauer des Videos oder die verbleibende Zeit"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
-msgid "Open…"
-msgstr "Öffnen …"
-
-#: showtime/application_delegate.py:39
-msgid "File"
-msgstr "Datei"
-
-#: showtime/application_delegate.py:47
-msgid "Window"
-msgstr "Fenster"
-
-#: showtime/application_delegate.py:56
-msgid "Keyboard Shortcuts"
-msgstr "Tastenkombinationen"
-
-#: showtime/application_delegate.py:64
-msgid "Help"
-msgstr "Hilfe"
-
-#: showtime/main.py:103
+#: showtime/main.py:89
 msgid "Playing a video"
 msgstr "Ein Video wiedergeben"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+#: showtime/mpris.py:288 showtime/widgets/window.py:1040
 msgid "Unknown Title"
 msgstr "Unbekannter Titel"
 
@@ -125,64 +104,64 @@ msgstr "Unbestimmte Sprache"
 msgid "Add Subtitle File…"
 msgstr "Untertiteldatei hinzufügen …"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Wiedergeben"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:181
 msgid "Pause"
 msgstr "Anhalten"
 
-#: showtime/widgets/window.py:757
+#: showtime/widgets/window.py:756
 msgid "Details copied"
 msgstr "Details kopiert"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:758
 msgid "Copy Technical Details"
 msgstr "Technische Details kopieren"
 
-#: showtime/widgets/window.py:762
+#: showtime/widgets/window.py:761
 msgid "Try Again"
 msgstr "Erneut versuchen"
 
-#: showtime/widgets/window.py:792
+#: showtime/widgets/window.py:791
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Die für die Wiedergabe dieses Videos erforderlichen »{}«-Codecs konnten "
 "nicht gefunden werden"
 
-#: showtime/widgets/window.py:810
+#: showtime/widgets/window.py:809
 msgid "No plugin available for this media type"
 msgstr "Für diesen Medientyp ist kein Plugin verfügbar"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:815
 msgid "Unable to install the required plugin"
 msgstr "Das erforderliche Plugin kann nicht installiert werden"
 
-#: showtime/widgets/window.py:819
+#: showtime/widgets/window.py:818
 msgid "Install Plugin"
 msgstr "Plugin installieren"
 
-#: showtime/widgets/window.py:827
+#: showtime/widgets/window.py:826
 msgid "Installing…"
 msgstr "Wird installiert …"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:834
 msgid "“{}” codecs are required to play this video"
 msgstr "Für die Wiedergabe dieses Videos sind »{}«-Codecs erforderlich"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1013
-msgid "translator_credits"
+#: showtime/widgets/window.py:1019
+msgid "translator-credits"
 msgstr ""
 "Tim Sabsch <tim@sabsch.com>\n"
 "Jürgen Benvenuti <gastornis@posteo.org>"
 
-#: showtime/widgets/window.py:1052
+#: showtime/widgets/window.py:1074
 msgid "Screenshot captured"
 msgstr "Bildschirmfoto aufgenommen"
 
-#: showtime/widgets/window.py:1054
+#: showtime/widgets/window.py:1076
 msgid "Show in Files"
 msgstr "In Dateien anzeigen"
 
@@ -266,7 +245,7 @@ msgstr "Stumm schalten/Stummschaltung aufheben"
 msgid "View"
 msgstr "Ansicht"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
 msgstr "Vollbildmodus umschalten"
 
@@ -282,11 +261,11 @@ msgstr "Wiedergabe"
 msgid "Play/Pause"
 msgstr "Wiedergabe/Pause"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
 msgstr "10 Sekunden zurückspulen"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "10 Sekunden vorspulen"
 
@@ -318,45 +297,65 @@ msgstr "_Tastenkürzel"
 msgid "_About Video Player"
 msgstr "_Info zu Videowiedergabe"
 
-#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr "Video zum Wiedergeben ablegen"
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
 msgstr "Hauptmenü"
 
-#: showtime/gtk/window.blp:71
+#: showtime/gtk/window.blp:85
 msgid "Watch Videos"
 msgstr "Videos ansehen"
 
-#: showtime/gtk/window.blp:72
+#: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
 msgstr "Videos hierher ziehen und ablegen"
 
-#: showtime/gtk/window.blp:88
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr "Öffnen …"
+
+#: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
 msgstr "Video kann nicht abgespielt werden"
 
-#: showtime/gtk/window.blp:93
+#: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
 msgstr "Fehlendes Plugin"
 
-#: showtime/gtk/window.blp:255
+#: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
 msgstr "Dauer/Restzeit umschalten"
 
-#: showtime/gtk/window.blp:310
+#: showtime/gtk/window.blp:324
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: showtime/gtk/window.blp:350
+#: showtime/gtk/window.blp:364
 msgid "Start Again"
 msgstr "Neu anfangen"
 
-#: showtime/gtk/window.blp:543
+#: showtime/gtk/window.blp:551
 msgid "Video"
 msgstr "Video"
 
-#: showtime/gtk/window.blp:553
+#: showtime/gtk/window.blp:561
 msgid "Subtitles"
 msgstr "Untertitel"
+
+#~ msgid "File"
+#~ msgstr "Datei"
+
+#~ msgid "Window"
+#~ msgstr "Fenster"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Tastenkombinationen"
+
+#~ msgid "Help"
+#~ msgstr "Hilfe"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
