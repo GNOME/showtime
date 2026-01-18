@@ -1,0 +1,337 @@
+# Thai translation for showtime.
+# Copyright (C) 2026 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# Aefgh Threenine <aefgh39622@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-11-27 12:19+0000\n"
+"PO-Revision-Date: 2026-01-18 12:25+0700\n"
+"Last-Translator: \n"
+"Language-Team: Thai <th@li.org>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.8\n"
+
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "โปรแกรมเล่นวิดีโอ"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "เล่นวิดีโอ"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "วิดีโอ;ภาพยนตร์;หนัง;คลิป;โปรแกรมเล่น;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "หน้าต่างใหม่"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "ดูวิดีโอแบบไม่มีอะไรมารบกวน"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr ""
+"เล่นภาพยนตร์และไฟล์วิดีโอที่คุณชื่นชอบได้อย่างง่ายดาย “โปรแกรมเล่นวิดีโอ” "
+"มีปุ่มควบคุมการเล่นที่ใช้งานง่าย ซึ่งจะค่อย ๆ จางหายไปขณะที่คุณกำลังดู มีโหมดเต็มจอ "
+"สามารถปรับความเร็วการเล่นได้ รองรับภาษาและแทร็กบทบรรยายได้หลากหลาย "
+"และสามารถจับภาพหน้าจอได้ ซึ่งมีทุกสิ่งที่คุณต้องการสำหรับประสบการณ์การดูที่สะดวกสบาย"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr ""
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr ""
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr ""
+
+#: showtime/main.py:89
+msgid "Playing a video"
+msgstr "กำลังเล่นวิดีโอ"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+msgid "Unknown Title"
+msgstr "ไม่ทราบชื่อเรื่อง"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgid_plural "Undetermined, {} Channels"
+msgstr[0] "ไม่ได้ระบุ {} ช่องสัญญาณ"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "ไม่ได้ระบุ"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "ไม่มีเสียง"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "ไม่มี"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "ไม่ได้ระบุภาษา"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "เพิ่มไฟล์บทบรรยาย…"
+
+#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+msgid "Play"
+msgstr "เล่น"
+
+#: showtime/widgets/window.py:181
+msgid "Pause"
+msgstr "พัก"
+
+#: showtime/widgets/window.py:756
+msgid "Details copied"
+msgstr "คัดลอกรายละเอียดแล้ว"
+
+#: showtime/widgets/window.py:758
+msgid "Copy Technical Details"
+msgstr "คัดลอกรายละเอียดทางเทคนิค"
+
+#: showtime/widgets/window.py:761
+msgid "Try Again"
+msgstr "ลองอีกครั้ง"
+
+#: showtime/widgets/window.py:791
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "ไม่พบตัวอ่าน-ลงรหัส “{}” ที่ต้องใช้ในการเล่นวิดีโอนี้"
+
+#: showtime/widgets/window.py:809
+msgid "No plugin available for this media type"
+msgstr "ไม่มีปลั๊กอินที่ใช้ได้สำหรับชนิดสื่อนี้"
+
+#: showtime/widgets/window.py:815
+msgid "Unable to install the required plugin"
+msgstr "ไม่สามารถติดตั้งปลั๊กอินที่ต้องใช้"
+
+#: showtime/widgets/window.py:818
+msgid "Install Plugin"
+msgstr "ติดตั้งปลั๊กอิน"
+
+#: showtime/widgets/window.py:826
+msgid "Installing…"
+msgstr "กำลังติดตั้ง…"
+
+#: showtime/widgets/window.py:834
+msgid "“{}” codecs are required to play this video"
+msgstr "ต้องใช้ตัวอ่าน-ลงรหัส “{}” เพื่อเล่นวิดีโอนี้"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1019
+msgid "translator-credits"
+msgstr "Aefgh Threenine <aefgh39622@gmail.com>"
+
+#: showtime/widgets/window.py:1074
+msgid "Screenshot captured"
+msgstr "จับภาพหน้าจอแล้ว"
+
+#: showtime/widgets/window.py:1076
+msgid "Show in Files"
+msgstr "แสดงใน “ไฟล์”"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "_ภาษา"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "_บทบรรยาย"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "เล่น_ซ้ำ"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "หมุน"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "ความเร็วการเล่น"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "หมุนไปทางซ้าย"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "หมุนไปทางขวา"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "ตัวเลือกการเล่น"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
+msgid "Go Back 10 Seconds"
+msgstr ""
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
+msgid "Go Forward 10 Seconds"
+msgstr ""
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr ""
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr ""
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr ""
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr ""
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr ""
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr ""
+
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr ""
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
+msgid "Main Menu"
+msgstr ""
+
+#: showtime/gtk/window.blp:85
+msgid "Watch Videos"
+msgstr ""
+
+#: showtime/gtk/window.blp:86
+msgid "Drag and drop videos here"
+msgstr ""
+
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr ""
+
+#: showtime/gtk/window.blp:102
+msgid "Unable to Play Video"
+msgstr ""
+
+#: showtime/gtk/window.blp:107
+msgid "Missing Plugin"
+msgstr ""
+
+#: showtime/gtk/window.blp:269
+msgid "Toggle Duration/Remaining"
+msgstr ""
+
+#: showtime/gtk/window.blp:324
+msgid "Resume"
+msgstr ""
+
+#: showtime/gtk/window.blp:364
+msgid "Start Again"
+msgstr ""
+
+#: showtime/gtk/window.blp:551
+msgid "Video"
+msgstr ""
+
+#: showtime/gtk/window.blp:561
+msgid "Subtitles"
+msgstr ""
