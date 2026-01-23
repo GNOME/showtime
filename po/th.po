@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
 "POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-18 12:30+0700\n"
+"PO-Revision-Date: 2026-01-23 23:58+0700\n"
 "Last-Translator: \n"
 "Language-Team: Thai <th@li.org>\n"
 "Language: th\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.8\n"
 
-#: data/org.gnome.Showtime.desktop.in:2
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+#: data/org.gnome.Showtime.desktop.in:2 data/org.gnome.Showtime.metainfo.xml.in:6
+#: showtime/gtk/window.blp:37
 msgid "Video Player"
 msgstr "โปรแกรมเล่นวิดีโอ"
 
@@ -41,16 +41,15 @@ msgstr "ดูวิดีโอแบบไม่มีอะไรมารบ
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Video Player "
-"features simple playback controls that fade out of your way when you're "
-"watching, fullscreen, adjustable playback speed, multiple language and "
-"subtitle tracks, and screenshots — everything you need for a straightforward "
-"viewing experience."
+"Play your favorite movies and video files without hassle. Video Player features "
+"simple playback controls that fade out of your way when you're watching, "
+"fullscreen, adjustable playback speed, multiple language and subtitle tracks, and "
+"screenshots — everything you need for a straightforward viewing experience."
 msgstr ""
-"เล่นภาพยนตร์และไฟล์วิดีโอที่คุณชื่นชอบได้อย่างง่ายดาย “โปรแกรมเล่นวิดีโอ” "
-"มีปุ่มควบคุมการเล่นที่ใช้งานง่าย ซึ่งจะค่อย ๆ จางหายไปขณะที่คุณกำลังดู มีโหมดเต็มจอ "
-"สามารถปรับความเร็วการเล่นได้ รองรับภาษาและแทร็กบทบรรยายได้หลากหลาย "
-"และสามารถจับภาพหน้าจอได้ ซึ่งมีทุกสิ่งที่คุณต้องการสำหรับประสบการณ์การดูที่สะดวกสบาย"
+"เล่นภาพยนตร์และไฟล์วิดีโอที่คุณชื่นชอบได้อย่างง่ายดาย “โปรแกรมเล่นวิดีโอ” มีปุ่มควบคุมการเล่นที่ใช้งานง่าย "
+"ซึ่งจะค่อย ๆ จางหายไปขณะที่คุณกำลังดู มีโหมดเต็มจอ สามารถปรับความเร็วการเล่นได้ "
+"รองรับภาษาและแทร็กบทบรรยายได้หลากหลาย และสามารถจับภาพหน้าจอได้ "
+"ซึ่งมีทุกสิ่งที่คุณต้องการสำหรับประสบการณ์การดูที่สะดวกสบาย"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
@@ -206,132 +205,132 @@ msgstr "ตัวเลือกวิดีโอ"
 
 #: showtime/gtk/shortcuts-dialog.blp:24
 msgid "Take Screenshot"
-msgstr ""
+msgstr "เก็บภาพหน้าจอ"
 
 #: showtime/gtk/shortcuts-dialog.blp:34
 msgid "Close Window"
-msgstr ""
+msgstr "ปิดหน้าต่าง"
 
 #: showtime/gtk/shortcuts-dialog.blp:39
 msgid "Quit"
-msgstr ""
+msgstr "ออก"
 
 #: showtime/gtk/shortcuts-dialog.blp:45
 msgid "Volume"
-msgstr ""
+msgstr "ระดับเสียง"
 
 #: showtime/gtk/shortcuts-dialog.blp:48
 msgid "Increase Volume"
-msgstr ""
+msgstr "เพิ่มระดับเสียง"
 
 #: showtime/gtk/shortcuts-dialog.blp:53
 msgid "Decrease Volume"
-msgstr ""
+msgstr "ลดระดับเสียง"
 
 #: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
-msgstr ""
+msgstr "ปิด/เปิดเสียง"
 
 #: showtime/gtk/shortcuts-dialog.blp:64
 msgid "View"
-msgstr ""
+msgstr "มุมมอง"
 
 #: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "เปิด/ปิดแบบเต็มจอ"
 
 #: showtime/gtk/shortcuts-dialog.blp:72
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "ออกจากเต็มจอ"
 
 #: showtime/gtk/shortcuts-dialog.blp:78
 msgid "Playback"
-msgstr ""
+msgstr "การเล่น"
 
 #: showtime/gtk/shortcuts-dialog.blp:81
 msgid "Play/Pause"
-msgstr ""
+msgstr "เล่น/พัก"
 
 #: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
-msgstr ""
+msgstr "ถอยหลัง 10 วินาที"
 
 #: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
-msgstr ""
+msgstr "ไปข้างหน้า 10 วินาที"
 
 #: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
-msgstr ""
+msgstr "ปรับระดับเสียง"
 
 #: showtime/gtk/window.blp:6
 msgid "_New Window"
-msgstr ""
+msgstr "_หน้าต่างใหม่"
 
 #: showtime/gtk/window.blp:7
 msgid "_Open…"
-msgstr ""
+msgstr "เ_ปิด…"
 
 #: showtime/gtk/window.blp:12
 msgid "Show in _Files"
-msgstr ""
+msgstr "แสดงใน “ไ_ฟล์”"
 
 #: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
-msgstr ""
+msgstr "เก็บ_ภาพหน้าจอ"
 
 #: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "ปุ่_มลัดแป้นพิมพ์"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
-msgstr ""
+msgstr "เ_กี่ยวกับ “โปรแกรมเล่นวิดีโอ”"
 
 #: showtime/gtk/window.blp:61
 msgid "Drop Video to Play"
-msgstr ""
+msgstr "ปล่อยวิดีโอเพื่อเล่น"
 
 #: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
-msgstr ""
+msgstr "เมนูหลัก"
 
 #: showtime/gtk/window.blp:85
 msgid "Watch Videos"
-msgstr ""
+msgstr "ดูวิดีโอ"
 
 #: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
-msgstr ""
+msgstr "ลากและปล่อยวิดีโอที่นี่"
 
 #: showtime/gtk/window.blp:89
 msgid "Open…"
-msgstr ""
+msgstr "เปิด…"
 
 #: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
-msgstr ""
+msgstr "ไม่สามารถเล่นวิดีโอได้"
 
 #: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
-msgstr ""
+msgstr "ปลั๊กอินหายไป"
 
 #: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
-msgstr ""
+msgstr "สลับระยะเวลา/คงเหลือ"
 
 #: showtime/gtk/window.blp:324
 msgid "Resume"
-msgstr ""
+msgstr "เล่นต่อ"
 
 #: showtime/gtk/window.blp:364
 msgid "Start Again"
-msgstr ""
+msgstr "เริ่มใหม่"
 
 #: showtime/gtk/window.blp:551
 msgid "Video"
-msgstr ""
+msgstr "วิดีโอ"
 
 #: showtime/gtk/window.blp:561
 msgid "Subtitles"
-msgstr ""
+msgstr "บทบรรยาย"
