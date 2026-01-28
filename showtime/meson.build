@@ -40,6 +40,14 @@ configure_file(
   install_mode: 'rwxr-xr-x',
 )
 
+showtime_widgets_sources = [
+  'widgets/__init__.py',
+  'widgets/drag_overlay.py',
+  'widgets/options.py',
+  'widgets/sound_options.py',
+  'widgets/window.py',
+]
+
 showtime_sources = [
   configure_file(input: '__init__.py.in', output: '__init__.py', configuration: conf),
   'main.py',
@@ -48,5 +56,5 @@ showtime_sources = [
   'utils.py',
 ]
 
-install_subdir('widgets', install_dir: moduledir)
-install_data(showtime_sources, install_dir: moduledir)
+py_installation.install_sources(showtime_widgets_sources, subdir: 'showtime/widgets')
+py_installation.install_sources(showtime_sources, subdir: 'showtime')
