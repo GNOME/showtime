@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2025-12-28 14:14+0100\n"
+"POT-Creation-Date: 2026-01-28 16:11+0000\n"
+"PO-Revision-Date: 2026-01-28 17:18+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -72,7 +72,7 @@ msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
 msgid "Playing a video"
 msgstr "Predvajanje videoposnetka"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1067
 msgid "Unknown Title"
 msgstr "Neznan naslov"
 
@@ -106,61 +106,65 @@ msgstr "Nedoločen jezik"
 msgid "Add Subtitle File…"
 msgstr "Dodaj datoteko s podnapisi ..."
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Predvajaj"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Premor"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:758
 msgid "Details copied"
 msgstr "Podrobnosti kopirane"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:760
 msgid "Copy Technical Details"
 msgstr "Kopiraj tehnične podrobnosti"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:763
 msgid "Try Again"
 msgstr "Poskusi znova"
 
-#: showtime/widgets/window.py:791
+#: showtime/widgets/window.py:820
+msgid "No plugin available for this media type"
+msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
+
+#: showtime/widgets/window.py:828
+msgid "Unable to install the required plugin"
+msgstr "Zahtevanega vstavka ni mogoče namestiti"
+
+#: showtime/widgets/window.py:835
+msgid "Installing…"
+msgstr "Poteka nameščanje …"
+
+#: showtime/widgets/window.py:839
+msgid "“{}” codecs are required to play this video"
+msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
+
+#: showtime/widgets/window.py:842
+msgid "Install Plugin"
+msgstr "Namesti vstavek"
+
+#: showtime/widgets/window.py:848
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni mogoče najti"
 
-#: showtime/widgets/window.py:809
-msgid "No plugin available for this media type"
-msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
-
-#: showtime/widgets/window.py:815
-msgid "Unable to install the required plugin"
-msgstr "Zahtevanega vstavka ni mogoče namestiti"
-
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Namesti vstavek"
-
-#: showtime/widgets/window.py:826
-msgid "Installing…"
-msgstr "Poteka nameščanje …"
-
-#: showtime/widgets/window.py:834
-msgid "“{}” codecs are required to play this video"
-msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
+#: showtime/widgets/window.py:858
+msgid "Try Anyway"
+msgstr "Vseeno poskusi"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1046
 msgid "translator-credits"
 msgstr "Martin Srebotnjak  <miles@filmsi.net>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1101
 msgid "Screenshot captured"
 msgstr "Zaslonska slika je zajeta"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1103
 msgid "Show in Files"
 msgstr "Pokaži v Datotekah"
 
