@@ -2,13 +2,13 @@
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>,  2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>,  2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2025-12-28 15:31+0200\n"
+"POT-Creation-Date: 2026-01-28 16:33+0000\n"
+"PO-Revision-Date: 2026-01-28 20:33+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -69,17 +69,17 @@ msgstr "Перегляд у позиції кінцевої часової по�
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Наприклад, загальна тривалість відео або обсяг часу, що лишився"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Відтворюємо відео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Невідома назва"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Не визначено, {} канал"
@@ -87,81 +87,85 @@ msgstr[1] "Не визначено, {} канали"
 msgstr[2] "Не визначено, {} каналів"
 msgstr[3] "Не визначено, {} канал"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "невизначена"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Немає звукових даних"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Немає"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Невизначена мова"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Додати файл субтитрів…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Пуск"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Подробиці скопійовано"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Копіювати технічні параметри"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Повторити спробу"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Кодеки «{}», які потрібні для відтворення цього відео, не знайдено"
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "Немає додатка для цього типу мультимедійних даних"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "Не вдалося встановити потрібний додаток"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Встановити додаток"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "Встановлення…"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "Для відтворення цього відео потрібні кодеки «{}»"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Встановити додаток"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Кодеки «{}», які потрібні для відтворення цього відео, не знайдено"
+
+#: showtime/widgets/window.py:854
+#| msgid "Try Again"
+msgid "Try Anyway"
+msgstr "Спробувати попри все"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
-#| msgid "translator_credits"
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Знімок зроблено"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Показати у «Файлах»"
 
@@ -298,7 +302,6 @@ msgid "_About Video Player"
 msgstr "_Про «Відеопрогравач»"
 
 #: showtime/gtk/window.blp:61
-#| msgid "Video Player"
 msgid "Drop Video to Play"
 msgstr "Скиньте відео для відтворення"
 
