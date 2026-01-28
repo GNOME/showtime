@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
-from typing import Any
 from functools import partial
+from typing import Any
 
 from gi.repository import (
     Gdk,
@@ -41,7 +41,7 @@ def gst_play_setup(
 
     pipeline = play.props.pipeline
 
-    def set_subtitle_font_desc(*_args: Any) -> None:
+    def set_subtitle_font_desc(*_args) -> None:
         pipeline.props.subtitle_font_desc = utils.get_subtitle_font_desc()
 
     if settings := Gtk.Settings.get_default():
@@ -82,7 +82,12 @@ class Messenger(GObject.Object):
 
         if bus := pipeline.get_bus():
             bus.add_signal_watch()
-            bus.connect("message", lambda bus, msg: GLib.idle_add(partial(self._on_pipeline_bus_message, bus, msg)))
+            bus.connect(
+                "message",
+                lambda bus, msg: GLib.idle_add(
+                    partial(self._on_pipeline_bus_message, bus, msg)
+                ),
+            )
 
     def _on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):

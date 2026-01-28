@@ -1,9 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 # SPDX-FileCopyrightText: Copyright 2025 Jamie Gravendeel
 
 from gettext import ngettext
-from typing import Any
 
 from gi.repository import (
     Adw,
@@ -59,7 +58,7 @@ class Options(Adw.Bin):
 
         self.popover.popup()
 
-        def closed(*_args: Any) -> None:
+        def closed(*_args) -> None:
             self.popover.unparent()
             self.popover.props.has_arrow = True
             self.popover.props.halign = Gtk.Align.FILL
@@ -139,9 +138,9 @@ class Options(Adw.Bin):
         state_settings.set_boolean("looping", value)
 
     @Gtk.Template.Callback()
-    def _rotate_left(self, *_args: Any) -> None:
+    def _rotate_left(self, *_args) -> None:
         self.emit("rotate-left")
 
     @Gtk.Template.Callback()
-    def _rotate_right(self, *_args: Any) -> None:
+    def _rotate_right(self, *_args) -> None:
         self.emit("rotate-right")

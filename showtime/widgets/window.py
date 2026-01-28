@@ -311,7 +311,7 @@ class Window(Adw.ApplicationWindow):
 
         logger.debug("Playing video: %s", uri)
 
-        def setup_cb(*_args: Any) -> None:
+        def setup_cb(*_args) -> None:
             self.pipeline.disconnect_by_func(setup_cb)
 
             if not (pos := self._get_previous_play_position()):
@@ -354,7 +354,7 @@ class Window(Adw.ApplicationWindow):
         self.play.play()
         logger.debug("Video unpaused")
 
-    def pause(self, *_args: Any) -> None:
+    def pause(self, *_args) -> None:
         """Pause the currently playing video."""
         self.play.pause()
         logger.debug("Video paused")
@@ -365,7 +365,7 @@ class Window(Adw.ApplicationWindow):
             action.activate(GLib.Variant.new_uint16(index))
 
     @Gtk.Template.Callback()
-    def _cycle_end_timestamp_type(self, *_args: Any) -> None:
+    def _cycle_end_timestamp_type(self, *_args) -> None:
         state_settings.set_enum(
             "end-timestamp-type",
             int(not showtime.end_timestamp_type),
@@ -376,16 +376,16 @@ class Window(Adw.ApplicationWindow):
         )
 
     @Gtk.Template.Callback()
-    def _resume(self, *_args: Any) -> None:
+    def _resume(self, *_args) -> None:
         self.unpause()
 
     @Gtk.Template.Callback()
-    def _play_again(self, *_args: Any) -> None:
+    def _play_again(self, *_args) -> None:
         self.play.seek(0)
         self.unpause()
 
     @Gtk.Template.Callback()
-    def _rotate_left(self, *_args: Any) -> None:
+    def _rotate_left(self, *_args) -> None:
         match int((props := self.paintable.props).orientation):
             case 0:
                 props.orientation = 4
@@ -397,7 +397,7 @@ class Window(Adw.ApplicationWindow):
                 props.orientation -= 1
 
     @Gtk.Template.Callback()
-    def _rotate_right(self, *_args: Any) -> None:
+    def _rotate_right(self, *_args) -> None:
         match int((props := self.paintable.props).orientation):
             case 0:
                 props.orientation = 2
@@ -409,7 +409,7 @@ class Window(Adw.ApplicationWindow):
                 props.orientation += 1
 
     @Gtk.Template.Callback()
-    def _on_drop(self, _target: Any, gfile: Gio.File, _x: Any, _y: Any) -> None:
+    def _on_drop(self, _target, gfile: Gio.File, _x, _y) -> None:
         self.play_video(gfile)
 
     def _get_previous_play_position(self) -> float | None:
@@ -433,7 +433,7 @@ class Window(Adw.ApplicationWindow):
         return hist.get(sha256(uri.encode("utf-8")).hexdigest())
 
     def _resize_window(
-        self, _obj: Any, paintable: Gdk.Paintable, initial: bool | None = False
+        self, _obj, paintable: Gdk.Paintable, initial: bool | None = False
     ) -> None:
         logger.debug("Resizing window…")
 
@@ -523,7 +523,7 @@ class Window(Adw.ApplicationWindow):
             (anim.skip if initial else anim.play)()
             logger.debug("Resized window to %ix%i", nat_width, nat_height)
 
-    def _on_end_timestamp_type_changed(self, *_args: Any) -> None:
+    def _on_end_timestamp_type_changed(self, *_args) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
             self.play.props.position, self.play.props.duration
@@ -539,7 +539,7 @@ class Window(Adw.ApplicationWindow):
                 )
 
     @Gtk.Template.Callback()
-    def _schedule_volume_change(self, _obj: Any, value: float) -> None:
+    def _schedule_volume_change(self, _obj, value: float) -> None:
         GLib.idle_add(
             partial(
                 self.pipeline.set_volume,  # pyright: ignore[reportAttributeAccessIssue]
@@ -592,7 +592,7 @@ class Window(Adw.ApplicationWindow):
             self.set_cursor_from_name("none")
 
     @Gtk.Template.Callback()
-    def _on_realize(self, *_args: Any) -> None:
+    def _on_realize(self, *_args) -> None:
         if not (surface := self.get_surface()):
             return
 
@@ -601,7 +601,7 @@ class Window(Adw.ApplicationWindow):
 
         surface.connect("notify::state", self._on_toplevel_state_changed)
 
-    def _on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args: Any) -> None:
+    def _on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args) -> None:
         if (
             focused := toplevel.get_state() & Gdk.ToplevelState.FOCUSED
         ) == self._toplevel_focused:
@@ -612,9 +612,7 @@ class Window(Adw.ApplicationWindow):
 
         self._toplevel_focused = bool(focused)
 
-    def _on_paintable_invalidate_size(
-        self, paintable: Gdk.Paintable, *_args: Any
-    ) -> None:
+    def _on_paintable_invalidate_size(self, paintable: Gdk.Paintable, *_args) -> None:
         if self.is_visible():
             # Add a timeout to not interfere with loading the stream too much
             GLib.timeout_add(100, self._resize_window, None, paintable)
@@ -623,7 +621,7 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _on_motion(
-        self, _obj: Any = None, x: float | None = None, y: float | None = None
+        self, _obj=None, x: float | None = None, y: float | None = None
     ) -> None:
         if None not in (x, y):
             if (x, y) == self._prev_motion_xy:
@@ -639,7 +637,7 @@ class Window(Adw.ApplicationWindow):
         self._last_reveal = time()
         GLib.timeout_add_seconds(2, self._hide_overlays, self._last_reveal)
 
-    def _on_playback_state_changed(self, _obj: Any, state: GstPlay.PlayState) -> None:
+    def _on_playback_state_changed(self, _obj, state: GstPlay.PlayState) -> None:
         # Only show a spinner if buffering for more than a second
         if state == GstPlay.PlayState.BUFFERING:
             self.buffering = True
@@ -663,10 +661,10 @@ class Window(Adw.ApplicationWindow):
             case GstPlay.PlayState.PLAYING:
                 self.paused = False
 
-    def _on_duration_changed(self, _obj: Any, dur: int) -> None:
+    def _on_duration_changed(self, _obj, dur: int) -> None:
         self._set_end_timestamp_label(self.play.props.position, dur)
 
-    def _on_position_updated(self, _obj: Any, pos: int) -> None:
+    def _on_position_updated(self, _obj, pos: int) -> None:
         dur = self.play.props.duration
 
         self.seek_scale.set_value((pos / dur) * SCALE_MULT)
@@ -676,7 +674,7 @@ class Window(Adw.ApplicationWindow):
         self._set_end_timestamp_label(pos, dur)
 
     @Gtk.Template.Callback()
-    def _seek(self, _obj: Any, _scroll: Any, val: float) -> None:
+    def _seek(self, _obj, _scroll, val: float) -> None:
         if not self._seeking:
             self._seeking = True
             self._seek_paused = self.paused
@@ -699,7 +697,7 @@ class Window(Adw.ApplicationWindow):
         self._last_seek = time()
         GLib.timeout_add(250, post_seek, self._last_seek)
 
-    def _on_seek_done(self, _obj: Any) -> None:
+    def _on_seek_done(self, _obj) -> None:
         pos = self.play.props.position
         dur = self.play.props.duration
 
@@ -708,9 +706,7 @@ class Window(Adw.ApplicationWindow):
         self._set_end_timestamp_label(pos, dur)
         logger.debug("Seeked to %i", pos)
 
-    def _on_media_info_updated(
-        self, _obj: Any, media_info: GstPlay.PlayMediaInfo
-    ) -> None:
+    def _on_media_info_updated(self, _obj, media_info: GstPlay.PlayMediaInfo) -> None:
         self.title_label.props.label = get_title(media_info) or ""
 
         # Add a timeout to reduce things happening at once while the video is loading
@@ -719,7 +715,7 @@ class Window(Adw.ApplicationWindow):
         GLib.timeout_add(500, self.options.build_menus, media_info)
         self.emit("media-info-updated")
 
-    def _on_volume_changed(self, _obj: Any) -> None:
+    def _on_volume_changed(self, _obj) -> None:
         vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # pyright: ignore[reportAttributeAccessIssue]
 
         if self._prev_volume == vol:
@@ -731,16 +727,16 @@ class Window(Adw.ApplicationWindow):
 
         self.emit("volume-changed")
 
-    def _on_end_of_stream(self, _obj: Any) -> None:
+    def _on_end_of_stream(self, _obj) -> None:
         if not state_settings.get_boolean("looping"):
             self.pause()
 
         self.play.seek(0)
 
-    def _on_warning(self, _obj: Any, warning: GLib.Error) -> None:
+    def _on_warning(self, _obj, warning: GLib.Error) -> None:
         logger.warning(warning)
 
-    def _on_error(self, _obj: Any, error: GLib.Error) -> None:
+    def _on_error(self, _obj, error: GLib.Error) -> None:
         logger.error(error.message)
 
         if (
@@ -749,7 +745,7 @@ class Window(Adw.ApplicationWindow):
         ):
             return
 
-        def copy_details(*_args: Any) -> None:
+        def copy_details(*_args) -> None:
             if not (display := Gdk.Display.get_default()):
                 return
 
@@ -777,7 +773,7 @@ class Window(Adw.ApplicationWindow):
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.stack.props.visible_child = self.placeholder_page
 
-    def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
+    def _on_missing_plugin(self, _obj, msg: Gst.Message) -> None:
         if self._already_shown_missing_plugins:
             return
 
@@ -828,7 +824,7 @@ class Window(Adw.ApplicationWindow):
                             "Unable to install the required plugin"
                         )
 
-            def install_plugin(*_args: Any) -> None:
+            def install_plugin(*_args) -> None:
                 GstPbutils.install_plugins_async(
                     (detail,) if detail else (), None, on_install_done
                 )
@@ -850,7 +846,7 @@ class Window(Adw.ApplicationWindow):
 
         if partially_missing:
 
-            def try_to_play(*_args: Any) -> None:
+            def try_to_play(*_args) -> None:
                 self.missing_plugin_status_page.props.child = None
                 self.stack.props.visible_child = self.video_page
                 self.unpause()
@@ -864,9 +860,7 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.placeholder_page
 
     @Gtk.Template.Callback()
-    def _on_primary_click_released(
-        self, gesture: Gtk.Gesture, n: int, *_args: Any
-    ) -> None:
+    def _on_primary_click_released(self, gesture: Gtk.Gesture, n: int, *_args) -> None:
         gesture.set_state(Gtk.EventSequenceState.CLAIMED)
         self._on_motion()
 
@@ -875,11 +869,11 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _on_secondary_click_pressed(
-        self, gesture: Gtk.Gesture, _n: Any, x: int, y: int
+        self, gesture: Gtk.Gesture, _n, x: int, y: int
     ) -> None:
         self.options.on_secondary_click_pressed(self, gesture, x, y)
 
-    def _try_again(self, *_args: Any) -> None:
+    def _try_again(self, *_args) -> None:
         if not (app := self.props.application):
             return
 
@@ -887,7 +881,7 @@ class Window(Adw.ApplicationWindow):
         self.close()
 
     @Gtk.Template.Callback()
-    def _get_play_icon(self, _obj: Any, paused: bool) -> str:
+    def _get_play_icon(self, _obj, paused: bool) -> str:
         return (
             "media-playback-start-symbolic"
             if paused
@@ -895,7 +889,7 @@ class Window(Adw.ApplicationWindow):
         )
 
     @Gtk.Template.Callback()
-    def _get_fullscreen_icon(self, _obj: Any, fullscreened: bool) -> str:
+    def _get_fullscreen_icon(self, _obj, fullscreened: bool) -> str:
         return "view-restore-symbolic" if fullscreened else "view-fullscreen-symbolic"
 
     def _open_choose_subtitles(self) -> None:

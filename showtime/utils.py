@@ -1,9 +1,8 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Any
 from urllib.parse import unquote, urlparse
 
 from gi.repository import (
@@ -91,7 +90,7 @@ def get_title(media_info: GstPlay.PlayMediaInfo | None) -> str | None:
     )
 
 
-def lookup_action(action_map: Any, name: str) -> Gio.SimpleAction | None:
+def lookup_action(action_map: object, name: str) -> Gio.SimpleAction | None:
     """Look up an action in `action_map` with type checking."""
     if isinstance(action_map, Gio.ActionMap) and isinstance(
         action := action_map.lookup_action(name), Gio.SimpleAction

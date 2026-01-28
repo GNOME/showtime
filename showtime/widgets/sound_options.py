@@ -1,8 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 # SPDX-FileCopyrightText: Copyright 2025 Jamie Gravendeel
 
-from typing import Any
 
 from gi.repository import Adw, GObject, Gtk
 
@@ -28,11 +27,11 @@ class SoundOptions(Adw.Bin):
     schedule_volume_change = GObject.Signal(arg_types=(float,))
 
     @Gtk.Template.Callback()
-    def _schedule_volume_change(self, adjustment: Gtk.Adjustment, _: Any) -> None:
+    def _schedule_volume_change(self, adjustment: Gtk.Adjustment, _) -> None:
         self.emit("schedule-volume-change", adjustment.props.value)
 
     @Gtk.Template.Callback()
-    def _get_volume_icon(self, _obj: Any, mute: bool, volume: float) -> str:
+    def _get_volume_icon(self, _obj, mute: bool, volume: float) -> str:
         return (
             "audio-volume-muted-symbolic"
             if mute

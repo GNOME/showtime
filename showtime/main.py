@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
 import json
 import logging
@@ -7,7 +7,6 @@ import sys
 from collections.abc import Callable, Sequence
 from hashlib import sha256
 from logging.handlers import RotatingFileHandler
-from typing import Any
 
 import gi
 
@@ -145,37 +144,39 @@ class Application(Adw.Application):
 
         win.connect(
             "media-info-updated",
-            lambda win: self.emit("media-info-updated")
-            if win == self.props.active_window
-            else None,
+            lambda win: (
+                self.emit("media-info-updated")
+                if win == self.props.active_window
+                else None
+            ),
         )
 
         win.connect(
             "volume-changed",
-            lambda win: self.emit("volume-changed")
-            if win == self.props.active_window
-            else None,
+            lambda win: (
+                self.emit("volume-changed") if win == self.props.active_window else None
+            ),
         )
 
         win.connect(
             "rate-changed",
-            lambda win: self.emit("rate-changed")
-            if win == self.props.active_window
-            else None,
+            lambda win: (
+                self.emit("rate-changed") if win == self.props.active_window else None
+            ),
         )
 
         win.connect(
             "seeked",
-            lambda win: self.emit("seeked")
-            if win == self.props.active_window
-            else None,
+            lambda win: (
+                self.emit("seeked") if win == self.props.active_window else None
+            ),
         )
 
         win.connect(
             "notify::paused",
-            lambda win, *_: self.emit("state-changed")
-            if win == self.props.active_window
-            else None,
+            lambda win, *_: (
+                self.emit("state-changed") if win == self.props.active_window else None
+            ),
         )
 
         if gfile:
@@ -238,12 +239,12 @@ class Application(Adw.Application):
 
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def _on_window_removed(self, _obj: Any, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
+    def _on_window_removed(self, _obj, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
         self.save_play_position(win)
         self.uninhibit_win(win)
         win.play.stop()
 
-    def _on_shutdown(self, *_args: Any) -> None:
+    def _on_shutdown(self, *_args) -> None:
         for win in self.get_windows():
             if isinstance(win, Window):  # pyright: ignore[reportAttributeAccessIssue]
                 self._on_window_removed(None, win)
@@ -254,12 +255,10 @@ def main() -> int:
     logging.basicConfig(
         level=logging.DEBUG,
         format="%(levelname)s: %(name)s:%(lineno)d %(message)s",
-        handlers=(
-            (
-                logging.StreamHandler(),
-                RotatingFileHandler(log_file, maxBytes=1_000_000),
-            )
-        ),
+        handlers=((
+            logging.StreamHandler(),
+            RotatingFileHandler(log_file, maxBytes=1_000_000),
+        )),
     )
 
     showtime.app = Application()

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: 2019 The GNOME Music developers
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
 # A lot of the code is taken from GNOME Music
 # https://gitlab.gnome.org/GNOME/gnome-music/-/blob/6a32efb74ff4107d1e4a288184e21c43f5dd877f/gnomemusic/mpris.py
@@ -114,7 +114,7 @@ INTERFACE = """
 class DBusInterface:
     """A D-Bus interface."""
 
-    def __init__(self, name: str, path: str, _application: Any) -> None:
+    def __init__(self, name: str, path: str, _application) -> None:
         """Etablish a D-Bus session connection.
 
         :param str name: interface name
@@ -125,7 +125,7 @@ class DBusInterface:
         self._signals = None
         Gio.bus_get(Gio.BusType.SESSION, None, self._bus_get_sync, name)
 
-    def _bus_get_sync(self, _source: Any, res: Gio.AsyncResult, name: str) -> None:
+    def _bus_get_sync(self, _source, res: Gio.AsyncResult, name: str) -> None:
         try:
             self._con = Gio.bus_get_finish(res)
         except GLib.Error as e:
@@ -289,7 +289,7 @@ class MPRIS(DBusInterface):
             ),
         }
 
-    def _on_player_state_changed(self, *_args: Any) -> None:
+    def _on_player_state_changed(self, *_args) -> None:
         playback_status = self._get_playback_status()
 
         self._properties_changed(
@@ -300,7 +300,7 @@ class MPRIS(DBusInterface):
             [],
         )
 
-    def _on_media_info_updated(self, *_args: Any) -> None:
+    def _on_media_info_updated(self, *_args) -> None:
         self._properties_changed(
             MPRIS.MEDIA_PLAYER2_PLAYER_IFACE,
             {
@@ -311,7 +311,7 @@ class MPRIS(DBusInterface):
             [],
         )
 
-    def _on_active_window_changed(self, *_args: Any) -> None:
+    def _on_active_window_changed(self, *_args) -> None:
         playback_status = self._get_playback_status()
         can_play = (self.play.get_uri() is not None) if self.play else False
         self._properties_changed(
@@ -325,7 +325,7 @@ class MPRIS(DBusInterface):
             [],
         )
 
-    def _on_volume_changed(self, *_args: Any) -> None:
+    def _on_volume_changed(self, *_args) -> None:
         if not self.win:
             return
 
@@ -339,7 +339,7 @@ class MPRIS(DBusInterface):
             [],
         )
 
-    def _on_rate_changed(self, *_args: Any) -> None:
+    def _on_rate_changed(self, *_args) -> None:
         if not self.play:
             return
 
@@ -351,7 +351,7 @@ class MPRIS(DBusInterface):
             [],
         )
 
-    def _on_seeked(self, *_args: Any) -> None:
+    def _on_seeked(self, *_args) -> None:
         position_usecond = int(self.play.get_position() / 1e3) if self.play else 0
 
         self._dbus_emit_signal(
@@ -502,7 +502,7 @@ class MPRIS(DBusInterface):
         logger.warning("MPRIS does not implement %s interface", interface_name)
         return None
 
-    def _set(self, interface_name: str, property_name: str, value: Any) -> None:
+    def _set(self, interface_name: str, property_name: str, value: Any) -> None:  # noqa: ANN401
         if interface_name != MPRIS.MEDIA_PLAYER2_PLAYER_IFACE:
             logger.warning("MPRIS does not implement %s interface", interface_name)
             return
