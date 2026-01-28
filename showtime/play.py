@@ -2,9 +2,11 @@
 # SPDX-FileCopyrightText: Copyright 2024-2025 kramo
 
 from typing import Any
+from functools import partial
 
 from gi.repository import (
     Gdk,
+    GLib,
     GObject,
     Gst,
     GstPbutils,
@@ -80,7 +82,7 @@ class Messenger(GObject.Object):
 
         if bus := pipeline.get_bus():
             bus.add_signal_watch()
-            bus.connect("message", self._on_pipeline_bus_message)
+            bus.connect("message", lambda bus, msg: GLib.idle_add(partial(self._on_pipeline_bus_message, bus, msg)))
 
     def _on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):

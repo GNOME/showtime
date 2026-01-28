@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: Copyright 2024-2025 kramo
+# SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
 import json
 from collections.abc import Callable, Sequence
@@ -141,6 +141,7 @@ class Window(Adw.ApplicationWindow):
     _prev_motion_xy: tuple = (0, 0)
     _prev_volume = -1
     _toplevel_focused: bool = False
+    _already_shown_missing_plugins = False
 
     @GObject.Property(type=bool, default=False)
     def mute(self) -> bool:
@@ -291,6 +292,7 @@ class Window(Adw.ApplicationWindow):
         app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
 
         self._playing_gfile = gfile
+        self._already_shown_missing_plugins = False
 
         try:
             file_info = gfile.query_info(
@@ -755,17 +757,17 @@ class Window(Adw.ApplicationWindow):
 
             self.toast_overlay.add_toast(Adw.Toast.new(_("Details copied")))
 
-        copy = Adw.ButtonRow(title=_("Copy Technical Details"))  # pyright: ignore[reportAttributeAccessIssue]
+        copy = Adw.ButtonRow(title=_("Copy Technical Details"))
         copy.connect("activated", copy_details)
 
-        retry = Adw.ButtonRow(title=_("Try Again"))  # pyright: ignore[reportAttributeAccessIssue]
+        retry = Adw.ButtonRow(title=_("Try Again"))
         retry.add_css_class("suggested-action")
         retry.connect("activated", self._try_again)
 
         group = Adw.PreferencesGroup(
             halign=Gtk.Align.CENTER,
             width_request=250,
-            separate_rows=True,  # pyright: ignore[reportCallIssue]
+            separate_rows=True,
         )
         group.add(retry)
         group.add(copy)
@@ -776,63 +778,88 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.placeholder_page
 
     def _on_missing_plugin(self, _obj: Any, msg: Gst.Message) -> None:
-        # This is so media that is still partially playable doesn't get interrupted
+        if self._already_shown_missing_plugins:
+            return
+
+        self._already_shown_missing_plugins = True
+
         # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
-        if (
+        if partially_missing := (
             self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
             != Gst.StateChangeReturn.FAILURE
         ):
-            return
+            self.pause()
 
         desc = GstPbutils.missing_plugin_message_get_description(msg)
         detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
+        group = Adw.PreferencesGroup(
+            halign=Gtk.Align.CENTER,
+            width_request=250,
+            separate_rows=True,
+        )
 
-        self.missing_plugin_status_page.props.description = _(
-            "The “{}” codecs required to play this video could not be found"
-        ).format(desc)
+        if GstPbutils.install_plugins_supported():
 
-        if not GstPbutils.install_plugins_supported():
-            self.missing_plugin_status_page.props.child = None
-            self.placeholder_stack.props.visible_child = self.missing_plugin_status_page
-            self.stack.props.visible_child = self.placeholder_page
-            return
+            def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
+                if (
+                    self.stack.props.visible_child != self.placeholder_page
+                    or self.placeholder_stack.props.visible_child
+                    != self.missing_plugin_status_page
+                ):
+                    return
 
-        def on_install_done(result: GstPbutils.InstallPluginsReturn) -> None:
-            match result:
-                case GstPbutils.InstallPluginsReturn.SUCCESS:
-                    logger.debug("Plugin installed")
-                    self._try_again()
+                match result:
+                    case GstPbutils.InstallPluginsReturn.SUCCESS:
+                        logger.debug("Plugin installed")
+                        Gst.update_registry()
+                        self._try_again()
 
-                case GstPbutils.InstallPluginsReturn.NOT_FOUND:
-                    logger.error("Plugin installation failed: Not found")
-                    self.missing_plugin_status_page.props.description = _(
-                        "No plugin available for this media type"
-                    )
+                    case GstPbutils.InstallPluginsReturn.NOT_FOUND:
+                        logger.error("Plugin installation failed: Not found")
+                        self.missing_plugin_status_page.props.description = _(
+                            "No plugin available for this media type"
+                        )
 
-                case _:
-                    logger.error("Plugin installation failed, result: %d", int(result))
-                    self.missing_plugin_status_page.props.description = _(
-                        "Unable to install the required plugin"
-                    )
+                    case _:
+                        logger.error(
+                            "Plugin installation failed, result: %d", int(result)
+                        )
+                        self.missing_plugin_status_page.props.description = _(
+                            "Unable to install the required plugin"
+                        )
 
-        button = Gtk.Button(halign=Gtk.Align.CENTER, label=_("Install Plugin"))
-        button.add_css_class("pill")
-        button.add_css_class("suggested-action")
+            def install_plugin(*_args: Any) -> None:
+                GstPbutils.install_plugins_async(
+                    (detail,) if detail else (), None, on_install_done
+                )
+                self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
+                install.props.sensitive = False
 
-        def install_plugin(*_args: Any) -> None:
-            GstPbutils.install_plugins_async(
-                (detail,) if detail else (), None, on_install_done
-            )
-            self.toast_overlay.add_toast(Adw.Toast.new(_("Installing…")))
-            button.props.sensitive = False
+            self.missing_plugin_status_page.props.description = _(
+                "“{}” codecs are required to play this video"
+            ).format(desc)
 
-        button.connect("clicked", install_plugin)
+            install = Adw.ButtonRow(title=_("Install Plugin"))
+            install.add_css_class("suggested-action")
+            install.connect("activated", install_plugin)
+            group.add(install)
+        else:
+            self.missing_plugin_status_page.props.description = _(
+                "The “{}” codecs required to play this video could not be found"
+            ).format(desc)
 
-        self.missing_plugin_status_page.props.child = button
+        if partially_missing:
 
-        self.missing_plugin_status_page.props.description = _(
-            "“{}” codecs are required to play this video"
-        ).format(desc)
+            def try_to_play(*_args: Any) -> None:
+                self.missing_plugin_status_page.props.child = None
+                self.stack.props.visible_child = self.video_page
+                self.unpause()
+
+            try_anyway = Adw.ButtonRow(title=_("Try Anyway"))
+            try_anyway.connect("activated", try_to_play)
+            group.add(try_anyway)
+
+        self.missing_plugin_status_page.props.child = group
         self.placeholder_stack.props.visible_child = self.missing_plugin_status_page
         self.stack.props.visible_child = self.placeholder_page
 
