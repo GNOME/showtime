@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-21 10:33+0100\n"
+"POT-Creation-Date: 2026-01-28 16:33+0000\n"
+"PO-Revision-Date: 2026-01-29 07:59+0100\n"
 "Last-Translator: twlvnn kraftwerk <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -66,90 +66,94 @@ msgstr "Какво да се показва в позицията за края 
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Например общата продължителност на видеото или оставащото време"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Изпълняване на видео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Неизвестно заглавие"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Неясно, {} канал"
 msgstr[1] "Неясно, {} канала"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Неясно"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Без звук"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Без"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Неясен език"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Добавяне на файл със субтитри…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Изпълнение"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Подробностите са копирани"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Копиране на техническите подробности"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Опитайте отново"
 
-#: showtime/widgets/window.py:791
+#: showtime/widgets/window.py:816
+msgid "No plugin available for this media type"
+msgstr "Няма налична приставка за този тип медия"
+
+#: showtime/widgets/window.py:824
+msgid "Unable to install the required plugin"
+msgstr "Нужната приставка не може да бъде инсталирана"
+
+#: showtime/widgets/window.py:831
+msgid "Installing…"
+msgstr "Инсталиране…"
+
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "„{}“ кодерите са необходими за изпълнението на това видео"
+
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Инсталиране на приставка"
+
+#: showtime/widgets/window.py:844
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Кодерите „{}“, необходими за изпълнението на това видео, не могат да бъдат "
 "намерени"
 
-#: showtime/widgets/window.py:809
-msgid "No plugin available for this media type"
-msgstr "Няма налична приставка за този тип медия"
-
-#: showtime/widgets/window.py:815
-msgid "Unable to install the required plugin"
-msgstr "Нужната приставка не може да бъде инсталирана"
-
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Инсталиране на приставка"
-
-#: showtime/widgets/window.py:826
-msgid "Installing…"
-msgstr "Инсталиране…"
-
-#: showtime/widgets/window.py:834
-msgid "“{}” codecs are required to play this video"
-msgstr "„{}“ кодерите са необходими за изпълнението на това видео"
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Опит въпреки това"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr ""
 "Twlvnn Kraftwerk &lt;<a "
@@ -162,11 +166,11 @@ msgstr ""
 "Докладвайте за грешки в превода в <a href='https://fsa-bg.org/project/gtp/"
 "newticket'>съответния раздел</a>."
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Екранът е заснет"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Показване във „Файлове“"
 
