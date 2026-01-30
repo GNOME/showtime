@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-10 22:21+0500\n"
+"POT-Creation-Date: 2026-01-28 16:33+0000\n"
+"PO-Revision-Date: 2026-01-30 07:05+0500\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <Kazakh>\n"
 "Language: kk\n"
@@ -44,14 +44,14 @@ msgid ""
 "Play your favorite movies and video files without hassle. Video Player "
 "features simple playback controls that fade out of your way when you're "
 "watching, fullscreen, adjustable playback speed, multiple language and "
-"subtitle tracks, and screenshots — everything you need for a "
-"straightforward viewing experience."
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
 msgstr ""
 "Таңдаулы фильмдеріңіз бен видео файлдарыңызды қиындықсыз ойнатыңыз. Видео "
 "плеері қарапайым ойнатуды басқару элементтерін ұсынады, олар сіз көріп "
 "жатқанда жасырылады, сондай-ақ толық экран режимі, реттелетін ойнату "
-"жылдамдығы, бірнеше тіл және субтитр жолдары және скриншоттар — ыңғайлы "
-"көру үшін қажет нәрсенің бәрі бар."
+"жылдамдығы, бірнеше тіл және субтитр жолдары және скриншоттар — ыңғайлы көру "
+"үшін қажет нәрсенің бәрі бар."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
@@ -65,96 +65,99 @@ msgstr "Соңғы уақыт белгісінің орнында нені кө�
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Мысалы, видеоның жалпы ұзақтығы немесе қалған уақыт мөлшері"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Видеоны ойнату"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Белгісіз атау"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Анықталмаған, {} арна"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Анықталмаған"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Аудио жоқ"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Ештеңе"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Анықталмаған тіл"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Субтитр файлын қосу…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Ойнату"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Кідірту"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Мәліметтер көшірілді"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Техникалық мәліметтерді көшіру"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Қайтадан көру"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Осы видеоны ойнату үшін қажетті “{}” кодектері табылмады"
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "Бұл медиа түрі үшін қолжетімді плагин жоқ"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "Қажетті плагинді орнату мүмкін емес"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Плагинді орнату"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "Орнатылуда…"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "Бұл видеоны ойнату үшін “{}” кодектері қажет"
 
-#. Translators: Replace this with your name for it to show up in the about
-#. dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Плагинді орнату"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Осы видеоны ойнату үшін қажетті “{}” кодектері табылмады"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Сонда да ашып көру"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Скриншот түсірілді"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Файлдарда көрсету"
 
