@@ -39,6 +39,14 @@
 		</screenshot>
 	</screenshots>
 	<releases>
+        	<release version="50.beta" date="2026-01-31">
+			<description>
+				<ul>
+					<li>Videos with partially-missing plugins can now be attempted to be played anyway.</li>
+					<li>Smaller quality-of-life improvements.</li>
+				</ul>
+			</description>
+		</release>
 		<release version="49.1" date="2025-11-22">
 			<description>
 				<ul>
