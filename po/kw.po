@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-27 14:12+0000\n"
+"POT-Creation-Date: 2026-01-28 16:33+0000\n"
+"PO-Revision-Date: 2026-01-31 12:57+0000\n"
 "Last-Translator: Flynn Peck <cirilla@tuta.io>\n"
 "Language-Team: kw\n"
 "Language: kw\n"
@@ -71,96 +71,100 @@ msgstr "Pyth diskwedhes yn an le termyn diwedh"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "R.e. termyn somm a'n gwydhyow po an myns termyn remenant"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Ow gwari unn gwydhyow"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Titel Ankoth"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Andetermys, {} Chanel"
 msgstr[1] "Andetermys, {} Chanels"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Andetermys"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Son Vyth"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Vyth"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Yeth Andetermys"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Addya Restren Istitlow…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Gwari"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Powes"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Manylyon kopys"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Kopia Manylyon Teknogel"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Assaya Arta"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "An kodekys “{}” a res rag gwari an gwydhyow ma ny kavosys"
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "Ystynnans kavadow vyth rag an eghen media ma"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "Anabel lea an ystynnans a res"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Lea Ystynnans"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "Ow Lea…"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "Kodekys “{}” a res rag gwari an gwydhyow ma"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Lea Ystynnans"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "An kodekys “{}” a res rag gwari an gwydhyow ma ny kavosys"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Assaya Yn Neb Kas"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr "Flynn"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Skrin-imach degemerys"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Diskwedhes yn Restrennow"
 
