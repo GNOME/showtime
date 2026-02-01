@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-04 21:18+0100\n"
-"Last-Translator: Jürgen Benvenuti <gastornis@posteo.org>\n"
+"POT-Creation-Date: 2026-01-31 14:28+0000\n"
+"PO-Revision-Date: 2026-02-01 16:56+0100\n"
+"Last-Translator: Christian Kirbach <christian.kirbach@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -68,100 +68,104 @@ msgstr ""
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Z. B. die Gesamtdauer des Videos oder die verbleibende Zeit"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Ein Video wiedergeben"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Unbekannter Titel"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Unbestimmt, {} Kanal"
 msgstr[1] "Unbestimmt, {} Kanäle"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Unbestimmt"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Kein Audio"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Keine"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Unbestimmte Sprache"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Untertiteldatei hinzufügen …"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Wiedergeben"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "Anhalten"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Details kopiert"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Technische Details kopieren"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Erneut versuchen"
 
-#: showtime/widgets/window.py:791
+#: showtime/widgets/window.py:816
+msgid "No plugin available for this media type"
+msgstr "Für diesen Medientyp ist kein Plugin verfügbar"
+
+#: showtime/widgets/window.py:824
+msgid "Unable to install the required plugin"
+msgstr "Das erforderliche Plugin kann nicht installiert werden"
+
+#: showtime/widgets/window.py:831
+msgid "Installing…"
+msgstr "Wird installiert …"
+
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "Für die Wiedergabe dieses Videos sind »{}«-Codecs erforderlich"
+
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Plugin installieren"
+
+#: showtime/widgets/window.py:844
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Die für die Wiedergabe dieses Videos erforderlichen »{}«-Codecs konnten "
 "nicht gefunden werden"
 
-#: showtime/widgets/window.py:809
-msgid "No plugin available for this media type"
-msgstr "Für diesen Medientyp ist kein Plugin verfügbar"
-
-#: showtime/widgets/window.py:815
-msgid "Unable to install the required plugin"
-msgstr "Das erforderliche Plugin kann nicht installiert werden"
-
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Plugin installieren"
-
-#: showtime/widgets/window.py:826
-msgid "Installing…"
-msgstr "Wird installiert …"
-
-#: showtime/widgets/window.py:834
-msgid "“{}” codecs are required to play this video"
-msgstr "Für die Wiedergabe dieses Videos sind »{}«-Codecs erforderlich"
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Dennoch versuchen"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr ""
 "Tim Sabsch <tim@sabsch.com>\n"
 "Jürgen Benvenuti <gastornis@posteo.org>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Bildschirmfoto aufgenommen"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "In Dateien anzeigen"
 
