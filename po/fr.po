@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-09-15 16:34+0000\n"
-"PO-Revision-Date: 2025-09-07 01:02+0200\n"
+"POT-Creation-Date: 2026-01-31 14:28+0000\n"
+"PO-Revision-Date: 2026-02-03 13:05+0000\n"
 "Last-Translator: Malo Billoré <malo.billore@gmail.com>\n"
 "Language-Team: French\n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 48.0\n"
+"X-Generator: Poedit 3.8\n"
 "X-DL-Lang: fr\n"
 "X-DL-Module: showtime\n"
 "X-DL-Branch: main\n"
@@ -37,8 +37,7 @@ msgstr "Lire des vidéos"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "vidéo;film;clip;lecteur;showtime;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
-#: showtime/gtk/shortcuts-dialog.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Nouvelle fenêtre"
 
@@ -72,63 +71,43 @@ msgstr "Ce qu’il faut afficher à la position du temps de fin"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Par exemple, la durée totale de la vidéo ou le temps restant"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
-msgid "Open…"
-msgstr "Ouvrir…"
-
-#: showtime/application_delegate.py:39
-msgid "File"
-msgstr "Fichier"
-
-#: showtime/application_delegate.py:47
-msgid "Window"
-msgstr "Fenêtre"
-
-#: showtime/application_delegate.py:56
-msgid "Keyboard Shortcuts"
-msgstr "Raccourcis clavier"
-
-#: showtime/application_delegate.py:64
-msgid "Help"
-msgstr "Aide"
-
-#: showtime/main.py:103
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Lecture d’une vidéo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Titre inconnu"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Indéterminé, {} canal"
 msgstr[1] "Indéterminé, {} canaux"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Indéterminé"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Pas d’audio"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Aucun"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Langue indéterminée"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Ajouter un fichier de sous-titres…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Lecture"
 
@@ -136,36 +115,27 @@ msgstr "Lecture"
 msgid "Pause"
 msgstr "Pause"
 
-#: showtime/widgets/window.py:757
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Informations copiées"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Copier les informations techniques"
 
-#: showtime/widgets/window.py:762
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Essayer à nouveau"
 
-#: showtime/widgets/window.py:792
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr ""
-"Les codecs « {} » requis pour lire cette vidéo n’ont pas pu être trouvés"
-
-#: showtime/widgets/window.py:810
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "Pas de greffon disponible pour ce type de média"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "Impossible d’installer le greffon requis"
 
-#: showtime/widgets/window.py:819
-msgid "Install Plugin"
-msgstr "Installer le greffon"
-
-#: showtime/widgets/window.py:827
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "Installation…"
 
@@ -173,18 +143,32 @@ msgstr "Installation…"
 msgid "“{}” codecs are required to play this video"
 msgstr "Les codecs « {} » sont requis pour lire cette vidéo"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Installer le greffon"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr ""
+"Les codecs « {} » requis pour lire cette vidéo n’ont pas pu être trouvés"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Essayer quand même"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1013
-msgid "translator_credits"
+#: showtime/widgets/window.py:1040
+msgid "translator-credits"
 msgstr ""
 "Matthieu Lorier\n"
-"Malo Billoré <malo.billore@gmail.com>"
+"Malo Billoré <malo.billore@gmail.com>\n"
+"Lucien Ouoba <luiz01luciano04@gmail.com>"
 
-#: showtime/widgets/window.py:1052
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Capture d’écran effectuée"
 
-#: showtime/widgets/window.py:1054
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Afficher dans Fichiers"
 
@@ -268,7 +252,7 @@ msgstr "Activer/Désactiver le son"
 msgid "View"
 msgstr "Affichage"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
 msgstr "Basculer le plein écran"
 
@@ -284,11 +268,11 @@ msgstr "Lecture"
 msgid "Play/Pause"
 msgstr "Lecture/Pause"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
 msgstr "Reculer de 10 secondes"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "Avancer de 10 secondes"
 
@@ -320,45 +304,65 @@ msgstr "_Raccourcis clavier"
 msgid "_About Video Player"
 msgstr "À _propos de Lecteur vidéo"
 
-#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr "Déposez une vidéo pour la lire"
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: showtime/gtk/window.blp:71
+#: showtime/gtk/window.blp:85
 msgid "Watch Videos"
 msgstr "Regarder des vidéos"
 
-#: showtime/gtk/window.blp:72
+#: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
 msgstr "Glisser et déposer des vidéos ici"
 
-#: showtime/gtk/window.blp:88
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr "Ouvrir…"
+
+#: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
 msgstr "Impossible de lire la vidéo"
 
-#: showtime/gtk/window.blp:93
+#: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
 msgstr "Greffon manquant"
 
-#: showtime/gtk/window.blp:255
+#: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
 msgstr "Basculer entre la durée et le temps restant"
 
-#: showtime/gtk/window.blp:310
+#: showtime/gtk/window.blp:324
 msgid "Resume"
 msgstr "Reprendre"
 
-#: showtime/gtk/window.blp:350
+#: showtime/gtk/window.blp:364
 msgid "Start Again"
 msgstr "Recommencer"
 
-#: showtime/gtk/window.blp:543
+#: showtime/gtk/window.blp:551
 msgid "Video"
 msgstr "Vidéo"
 
-#: showtime/gtk/window.blp:553
+#: showtime/gtk/window.blp:561
 msgid "Subtitles"
 msgstr "Sous-titres"
+
+#~ msgid "File"
+#~ msgstr "Fichier"
+
+#~ msgid "Window"
+#~ msgstr "Fenêtre"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Raccourcis clavier"
+
+#~ msgid "Help"
+#~ msgstr "Aide"
 
 #~ msgid "Showtime"
 #~ msgstr "Showtime"
