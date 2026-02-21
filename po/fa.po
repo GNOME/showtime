@@ -1,14 +1,14 @@
 # Persian translation for showtime.
 # Copyright (C) 2024 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
-# Danial Behzadi <dani.behzi@ubuntu.com>, 2024-2025.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2024-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2025-12-28 11:18+0330\n"
+"POT-Creation-Date: 2026-01-31 14:28+0000\n"
+"PO-Revision-Date: 2026-02-21 13:09+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.6\n"
 
 #: data/org.gnome.Showtime.desktop.in:2 data/org.gnome.Showtime.metainfo.xml.in:6
 #: showtime/gtk/window.blp:37
@@ -63,96 +63,100 @@ msgstr "مورد نمایشی در پایان موقعیت برچسب زمانی
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "برای نمونه کل مدّت ویدیو یا مقدار زمان مانده"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "پخش کردن ویدیو"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "عنوان ناشناخته"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "تشخیص داده نشده. {} کانال"
 msgstr[1] "تشخیص داده نشده. {} کانال"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "تشخیص داده نشده"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "بدون صدا"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "هیچ"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "زبان تشخیص داده نشده"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "افزودن پروندهٔ زیرنویس…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "پخش"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "مکث"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "جزییات رونوشت شد"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "رونوشت از جزییات فنی"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "تلاش دوباره"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "رمزینه‌های «{}»‌که برای پخش این ویدیو لازمند پیدا نشدند"
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "هیچ افزایه‌ای برای این گونهٔ رسانه موجود نیست"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "ناتوان در تصب افزایهٔ لازم"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "نصب افزایه"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "نصب کردن…"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "رمزینه‌های «{}» برای پخش این ویدو لازمند"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "نصب افزایه"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "رمزینه‌های «{}»‌که برای پخش این ویدیو لازمند پیدا نشدند"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "تلاش به هر روی"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr "دانیال بهزادی <dani.behzi@ubuntu.com>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "نماگرفت ضبط شد"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "نمایش در پرونده‌ها"
 
