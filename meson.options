@@ -1,15 +1,15 @@
 option(
-  'profile',
-  type: 'combo',
-  choices: [
-    'release',
-    'development',
-  ],
-  value: 'release'
+    'profile',
+    type: 'combo',
+    choices: [
+        'release',
+        'development',
+    ],
+    value: 'release',
 )
 
 option(
-  'python_exec',
-  type: 'string',
-  description: 'Path to a custom Python interpreter'
+    'python_exec',
+    type: 'string',
+    description: 'Path to a custom Python interpreter',
 )
