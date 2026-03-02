@@ -1,23 +1,23 @@
 # Japanese translation for showtime.
-# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# Copyright (C) 2025-2026 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Kusano Takayuki <https://bsky.app/profile/tkusano.jp>,  2025.
 # Makoto Sakaguchi <ycco34vx@gmail.com>, 2025.
+# 小山田 純 <oyamadajun@outlook.jp>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-09-18 14:52+0000\n"
-"PO-Revision-Date: 2025-09-19 09:59+0900\n"
-"Last-Translator: Makoto Sakaguchi <ycco34vx@gmail.com>\n"
+"POT-Creation-Date: 2026-02-28 11:22+0000\n"
+"PO-Revision-Date: 2026-03-02 21:16+0900\n"
+"Last-Translator: 小山田 純 <oyamadajun@outlook.jp>\n"
 "Language-Team: Japanese <https://l10n.gnome.org/teams/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.7\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -34,8 +34,7 @@ msgstr ""
 "Video;Movie;Film;Clip;Player;Showtime;ビデオ;動画;ムービー;映画;フィルム;ク"
 "リップ;プレイヤー;プレーヤー;ショータイム;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
-#: showtime/gtk/shortcuts-dialog.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "新しいウィンドウ"
 
@@ -68,62 +67,42 @@ msgstr "最後のタイムスタンプ位置に表示する内容"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "例: ビデオの総再生時間や残り時間など"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
-msgid "Open…"
-msgstr "開く…"
-
-#: showtime/application_delegate.py:39
-msgid "File"
-msgstr "ファイル"
-
-#: showtime/application_delegate.py:47
-msgid "Window"
-msgstr "ウィンドウ"
-
-#: showtime/application_delegate.py:56
-msgid "Keyboard Shortcuts"
-msgstr "キーボードショートカット"
-
-#: showtime/application_delegate.py:64
-msgid "Help"
-msgstr "ヘルプ"
-
-#: showtime/main.py:103
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "ビデオを再生中"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "不明なタイトル"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "不明、{} チャンネル"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "不明"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "音声なし"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "なし"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "不明な言語"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "字幕ファイルを追加…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "再生"
 
@@ -131,35 +110,27 @@ msgstr "再生"
 msgid "Pause"
 msgstr "一時停止"
 
-#: showtime/widgets/window.py:757
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "詳細をコピーしました"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "技術的な詳細をコピー"
 
-#: showtime/widgets/window.py:762
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "再試行"
 
-#: showtime/widgets/window.py:792
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "このビデオの再生に必要な “{}” コーデックが見つかりませんでした"
-
-#: showtime/widgets/window.py:810
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "このメディア形式に対応するプラグインがありません"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "必要なプラグインをインストールできません"
 
-#: showtime/widgets/window.py:819
-msgid "Install Plugin"
-msgstr "プラグインをインストール"
-
-#: showtime/widgets/window.py:827
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "インストール中…"
 
@@ -167,19 +138,32 @@ msgstr "インストール中…"
 msgid "“{}” codecs are required to play this video"
 msgstr "このビデオの再生には “{}” コーデックが必要です"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "プラグインをインストール"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "このビデオの再生に必要な “{}” コーデックが見つかりませんでした"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "再試行"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1013
-msgid "translator_credits"
+#: showtime/widgets/window.py:1040
+msgid "translator-credits"
 msgstr ""
 "Kusano Takayuki https://bsky.app/profile/tkusano.jp\n"
 "Japanese Translation Team https://l10n.gnome.org/teams/ja/\n"
-"Makoto Sakaguchi <ycco34vx@gmail.com>"
+"Makoto Sakaguchi <ycco34vx@gmail.com>\n"
+"小山田 純 <oyamadajun@outlook.jp>"
 
-#: showtime/widgets/window.py:1052
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "スクリーンショットをキャプチャしました"
 
-#: showtime/widgets/window.py:1054
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "「ファイル」で表示"
 
@@ -263,7 +247,7 @@ msgstr "ミュート/ミュート解除"
 msgid "View"
 msgstr "表示"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
 msgstr "全画面表示を切り替え"
 
@@ -279,11 +263,11 @@ msgstr "再生"
 msgid "Play/Pause"
 msgstr "再生/一時停止"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
 msgstr "10秒戻る"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "10秒進む"
 
@@ -315,42 +299,62 @@ msgstr "キーボードショートカット(_K)"
 msgid "_About Video Player"
 msgstr "ビデオプレイヤーについて(_A)"
 
-#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr "動画ファイルをドロップして再生"
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
 msgstr "メインメニュー"
 
-#: showtime/gtk/window.blp:71
+#: showtime/gtk/window.blp:85
 msgid "Watch Videos"
 msgstr "ビデオを視聴"
 
-#: showtime/gtk/window.blp:72
+#: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
 msgstr "ビデオをここにドラッグ＆ドロップ"
 
-#: showtime/gtk/window.blp:88
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr "開く…"
+
+#: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
 msgstr "ビデオを再生できません"
 
-#: showtime/gtk/window.blp:93
+#: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
 msgstr "プラグインが見つかりません"
 
-#: showtime/gtk/window.blp:255
+#: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
 msgstr "総再生時間/残り時間を切り替え"
 
-#: showtime/gtk/window.blp:310
+#: showtime/gtk/window.blp:324
 msgid "Resume"
 msgstr "再開"
 
-#: showtime/gtk/window.blp:350
+#: showtime/gtk/window.blp:364
 msgid "Start Again"
 msgstr "最初から再生"
 
-#: showtime/gtk/window.blp:543
+#: showtime/gtk/window.blp:551
 msgid "Video"
 msgstr "ビデオ"
 
-#: showtime/gtk/window.blp:553
+#: showtime/gtk/window.blp:561
 msgid "Subtitles"
 msgstr "字幕"
+
+#~ msgid "File"
+#~ msgstr "ファイル"
+
+#~ msgid "Window"
+#~ msgstr "ウィンドウ"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "キーボードショートカット"
+
+#~ msgid "Help"
+#~ msgstr "ヘルプ"
