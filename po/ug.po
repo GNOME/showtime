@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-26 09:37-0500\n"
+"POT-Creation-Date: 2026-02-28 11:22+0000\n"
+"PO-Revision-Date: 2026-03-02 23:52-0500\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: \n"
 "Language: ug\n"
@@ -21,11 +21,11 @@ msgstr ""
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
-msgstr "سىن قويغۇچ"
+msgstr "سىن ياڭراتقۇچ"
 
 #: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
-msgstr "سىن قويىدۇ"
+msgstr "سىن ياڭرىتىدۇ"
 
 #: data/org.gnome.Showtime.desktop.in:9
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
-msgstr "سىن قويىدىغان پىروگرامما"
+msgstr "سىن ياڭرىتىدىغان پىروگرامما"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
@@ -64,106 +64,102 @@ msgstr "ۋاقىت ئوقى ئاخىرلاشقاندا نېمە كۆرسىتىد
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "مەسىلەن، سىننىڭ ئومۇمىي ئۇزۇنلۇقى ۋە قالغان ۋاقىت"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
-msgstr "سىن قويىدۇ"
+msgstr "سىن ياڭرىتىدۇ"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "ناتونۇش ماۋزۇ"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "ئېنىقلانمىغان، {} قانال"
 msgstr[1] "ئېنىقلانمىغان، {} قانال"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "ئېنىقلانمىغان"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "ئۈن يوق"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "يوق"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "ئېنىقلانمىغان تىل"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "فىلىم خەت ھۆججىتى قوش…"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "ياڭرات"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:182
 msgid "Pause"
 msgstr "ۋاقىتلىق توختا"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "تەپسىلاتى كۆچۈرۈلدى"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "تېخنىكىلىق تەپسىلاتىنى كۆچۈر"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "قايتا سىنا"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "بۇ سىننى قويۇشقا كېرەكلىك «{}» كود يەشكۈچنى تاپالمىدى"
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "بۇ ۋاسىتە تۈرىگە قوللىنىدىغان قىستۇرما يوق"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "زۆرۈر قىستۇرمىنى ئورنىتالمايدۇ"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "قىستۇرما ئورنات"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "ئورنىتىۋاتىدۇ…"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
 msgstr "بۇ سىننى قويۇشقا «{}» كود يەشكۈچ كېرەك"
 
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "قىستۇرما ئورنات"
+
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "بۇ سىننى قويۇشقا كېرەكلىك «{}» كود يەشكۈچنى تاپالمىدى"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "سىناۋەر"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
-#, fuzzy
-#| msgid "translator_credits"
+#: showtime/widgets/window.py:1040
 msgid "translator-credits"
 msgstr ""
-"Sahran <sahran@live.com>\n"
-"Gheyret T.Kenji <gheyret@yahoo.com>\n"
-"Zeper <zeper@msn.com>\n"
-"Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>\n"
-"Launchpad Contributions:\n"
-"Burkut https://launchpad.net/~burkut\n"
-"Gheyret T.Kenji https://launchpad.net/~gheyretkenji\n"
-"Sahran https://launchpad.net/~sahran"
+"غەيرەت ت.كەنجى <gheyret@gmail.com>\n"
+"ئابدۇقادىر ئابلىز <sahranbay@gmail.com>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "ئېكران كەسمىسى تۇتتى"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "ھۆججەتتە كۆرسەت"
 
