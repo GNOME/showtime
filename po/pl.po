@@ -1,22 +1,23 @@
 # Polish translation for showtime.
 # Copyright © 2025 the showtime authors.
 # This file is distributed under the same license as the showtime package.
-# tragivictoria <royal.victoria@proton.me>, 2025.
+# Victoria <royal.victoria@proton.me>, 2025-2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-10-14 03:02+0000\n"
-"PO-Revision-Date: 2025-12-14 16:55+0100\n"
-"Last-Translator: tragivictoria <royal.victoria@proton.me>\n"
-"Language-Team: Polish <community-poland@mozilla.org>\n"
+"POT-Creation-Date: 2026-01-28 16:33+0000\n"
+"PO-Revision-Date: 2026-02-24 18:51+0100\n"
+"Last-Translator: Victoria <royal.victoria@proton.me>\n"
+"Language-Team: Polish\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Gtranslator 49.0\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -31,8 +32,7 @@ msgstr "Odtwarzanie wideo"
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
 msgstr "wideo;filmy;film;klip;odtwarzacz;Showtime;Seans;"
 
-#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
-#: showtime/gtk/shortcuts-dialog.blp:29
+#: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
 msgstr "Nowe okno"
 
@@ -66,64 +66,44 @@ msgstr "Co wyświetlać w końcowej pozycji znacznika czasu"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Np. całkowity czas trwania wideo albo pozostały czas do końca"
 
-#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
-msgid "Open…"
-msgstr "Otwórz…"
-
-#: showtime/application_delegate.py:39
-msgid "File"
-msgstr "Plik"
-
-#: showtime/application_delegate.py:47
-msgid "Window"
-msgstr "Okno"
-
-#: showtime/application_delegate.py:56
-msgid "Keyboard Shortcuts"
-msgstr "Skróty klawiszowe"
-
-#: showtime/application_delegate.py:64
-msgid "Help"
-msgstr "Pomoc"
-
-#: showtime/main.py:103
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Odtwarzanie wideo"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+#: showtime/mpris.py:288 showtime/widgets/window.py:1061
 msgid "Unknown Title"
 msgstr "Nieznany tytuł"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Nieokreślone, {} kanał"
 msgstr[1] "Nieokreślone, {} kanały"
 msgstr[2] "Nieokreślone, {} kanałów"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Nieokreślone"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Nie ma dźwięku"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Nic"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Nieokreślony język"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Dodaj plik z napisami…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Odtwórz"
 
@@ -131,35 +111,27 @@ msgstr "Odtwórz"
 msgid "Pause"
 msgstr "Wstrzymaj"
 
-#: showtime/widgets/window.py:757
+#: showtime/widgets/window.py:754
 msgid "Details copied"
 msgstr "Skopiowano informacje"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:756
 msgid "Copy Technical Details"
 msgstr "Skopiuj informacje techniczne"
 
-#: showtime/widgets/window.py:762
+#: showtime/widgets/window.py:759
 msgid "Try Again"
 msgstr "Spróbuj ponownie"
 
-#: showtime/widgets/window.py:792
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Kodeki „{}” wymagane do odtworzenia tego wideo nie zostały odnalezione"
-
-#: showtime/widgets/window.py:810
+#: showtime/widgets/window.py:816
 msgid "No plugin available for this media type"
 msgstr "Nie ma wtyczek dla tego formatu pliku"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:824
 msgid "Unable to install the required plugin"
 msgstr "Nie można zainstalować wymaganej wtyczki"
 
-#: showtime/widgets/window.py:819
-msgid "Install Plugin"
-msgstr "Zainstaluj wtyczkę"
-
-#: showtime/widgets/window.py:827
+#: showtime/widgets/window.py:831
 msgid "Installing…"
 msgstr "Instalowanie…"
 
@@ -167,16 +139,28 @@ msgstr "Instalowanie…"
 msgid "“{}” codecs are required to play this video"
 msgstr "Kodeki „{}” są wymagane do odtworzenia tego wideo"
 
-#. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1013
-msgid "translator_credits"
-msgstr "tragivictoria <royal.victoria@proton.me>, 2025"
+#: showtime/widgets/window.py:838
+msgid "Install Plugin"
+msgstr "Zainstaluj wtyczkę"
 
-#: showtime/widgets/window.py:1052
+#: showtime/widgets/window.py:844
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Kodeki „{}” wymagane do odtworzenia tego wideo nie zostały odnalezione"
+
+#: showtime/widgets/window.py:854
+msgid "Try Anyway"
+msgstr "Spróbuj mimo tego"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1040
+msgid "translator-credits"
+msgstr "Victoria <royal.victoria@proton.me>, 2025-2026"
+
+#: showtime/widgets/window.py:1095
 msgid "Screenshot captured"
 msgstr "Wykonano zrzut ekranu"
 
-#: showtime/widgets/window.py:1054
+#: showtime/widgets/window.py:1097
 msgid "Show in Files"
 msgstr "Wyświetl w Menedżerze plików"
 
@@ -260,7 +244,7 @@ msgstr "Wyciszenie/włączenie dźwięku"
 msgid "View"
 msgstr "Widok"
 
-#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
 msgstr "Przełączenie trybu pełnoekranowego"
 
@@ -276,11 +260,11 @@ msgstr "Odtwarzanie"
 msgid "Play/Pause"
 msgstr "Odtworzenie/wstrzymanie"
 
-#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
 msgstr "Przewiń do tyłu o 10 sekund"
 
-#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "Przewiń do przodu o 10 sekund"
 
@@ -310,44 +294,64 @@ msgstr "_Skróty klawiszowe"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
-msgstr "_O programie"
+msgstr "O p_rogramie"
 
-#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+#: showtime/gtk/window.blp:61
+msgid "Drop Video to Play"
+msgstr "Przeciągnij wideo, aby je odtworzyć"
+
+#: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
 msgstr "Menu główne"
 
-#: showtime/gtk/window.blp:71
+#: showtime/gtk/window.blp:85
 msgid "Watch Videos"
 msgstr "Obejrzyj wideo"
 
-#: showtime/gtk/window.blp:72
+#: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
 msgstr "Przeciągnij wideo tutaj"
 
-#: showtime/gtk/window.blp:88
+#: showtime/gtk/window.blp:89
+msgid "Open…"
+msgstr "Otwórz…"
+
+#: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
 msgstr "Nie można odtworzyć wideo"
 
-#: showtime/gtk/window.blp:93
+#: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
 msgstr "Brakuje wtyczki"
 
-#: showtime/gtk/window.blp:255
+#: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
 msgstr "Przełącza czas trwania/pozostały czas"
 
-#: showtime/gtk/window.blp:310
+#: showtime/gtk/window.blp:324
 msgid "Resume"
 msgstr "Wznów"
 
-#: showtime/gtk/window.blp:350
+#: showtime/gtk/window.blp:364
 msgid "Start Again"
 msgstr "Zacznij od początku"
 
-#: showtime/gtk/window.blp:543
+#: showtime/gtk/window.blp:551
 msgid "Video"
 msgstr "Wideo"
 
-#: showtime/gtk/window.blp:553
+#: showtime/gtk/window.blp:561
 msgid "Subtitles"
 msgstr "Napisy"
+
+#~ msgid "File"
+#~ msgstr "Plik"
+
+#~ msgid "Window"
+#~ msgstr "Okno"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Skróty klawiszowe"
+
+#~ msgid "Help"
+#~ msgstr "Pomoc"
