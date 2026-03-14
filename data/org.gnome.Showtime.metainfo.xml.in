@@ -39,7 +39,7 @@
 		</screenshot>
 	</screenshots>
 	<releases>
-		<release version="50.rc" date="2026-02-28">
+		<release version="50.0" date="2026-03-14">
 			<description>
 				<ul>
 					<li>Videos with partially-missing plugins can now be attempted to be played anyway.</li>
