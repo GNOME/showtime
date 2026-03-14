@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-28 16:33+0000\n"
-"PO-Revision-Date: 2026-01-29 12:30+0100\n"
+"POT-Creation-Date: 2026-02-28 11:22+0000\n"
+"PO-Revision-Date: 2026-03-14 11:48+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: Occitan <Occitan>\n"
 "Language: oc\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -29,7 +29,7 @@ msgstr "Legir de vidèos"
 
 #: data/org.gnome.Showtime.desktop.in:9
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
-msgstr "Vidèo;Film;Pellicula;Clip;Lector;Showtime;"
+msgstr "Vidèo;Film;Filme;Pellicula;Clip;Lector;Legidor;Showtime;"
 
 #: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
@@ -47,7 +47,7 @@ msgid ""
 "subtitle tracks, and screenshots — everything you need for a straightforward "
 "viewing experience."
 msgstr ""
-"Legissètz vòstres filmes e fichièrs vidèo favorits sens cap de problèma. Lo "
+"Legissètz vòstres films e fichièrs vidèo favorits sens cap de problèma. Lo "
 "Lector vidèo presenta de contraròtles de lectura simples que dispareisson "
 "quand agachatz, en ecran complèt, velocitat de lectura ajustabla, divèrsas "
 "pistas de lenga e de sostítols, e de capturas d'ecran — tot çò que vos cal "
@@ -83,7 +83,7 @@ msgstr[1] "Indeterminada, {} canals"
 
 #: showtime/widgets/options.py:98
 msgid "Undetermined"
-msgstr "Pas determinat"
+msgstr "Indeterminat"
 
 #: showtime/widgets/options.py:111
 msgid "No Audio"
@@ -95,7 +95,7 @@ msgstr "Cap"
 
 #: showtime/widgets/options.py:122
 msgid "Undetermined Language"
-msgstr "Lenga non determinada"
+msgstr "Lenga indeterminada"
 
 #: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
@@ -135,7 +135,7 @@ msgstr "Installacion…"
 
 #: showtime/widgets/window.py:835
 msgid "“{}” codecs are required to play this video"
-msgstr "Lo codèc « {} » es requerit per legir aquesta vidèo"
+msgstr "Lo còdec « {} » es requerit per legir aquesta vidèo"
 
 #: showtime/widgets/window.py:838
 msgid "Install Plugin"
@@ -144,7 +144,7 @@ msgstr "Installar un empeuton"
 #: showtime/widgets/window.py:844
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
-"Los codecs « {} » requerits per legir aquesta vidèo son pas estats trobats"
+"Los còdecs « {} » requerits per legir aquesta vidèo son pas estats trobats"
 
 #: showtime/widgets/window.py:854
 msgid "Try Anyway"
@@ -261,7 +261,7 @@ msgstr "Lectura/Pausa"
 
 #: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
-msgstr "Tornar enrèire de 10 segondas"
+msgstr "Recular de 10 segondas"
 
 #: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
@@ -273,7 +273,7 @@ msgstr "Ajustar lo volum"
 
 #: showtime/gtk/window.blp:6
 msgid "_New Window"
-msgstr "_Novèla fenèstra"
+msgstr "Fenèstra _novèla"
 
 #: showtime/gtk/window.blp:7
 msgid "_Open…"
