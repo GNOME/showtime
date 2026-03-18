@@ -9,3 +9,5 @@
 </div>
 
 The project follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
+
+We do not accept AI-generated contributions.
