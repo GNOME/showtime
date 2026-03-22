@@ -211,7 +211,7 @@ class DBusInterface:
         else:
             invocation.return_value(None)
 
-    def _dbus_emit_signal(self, signal_name: str, values: dict) -> None:
+    def _dbus_emit_signal(self, signal_name: str, values: dict[str, Any]) -> None:
         if self._signals is None:
             return
 
@@ -275,7 +275,7 @@ class MPRIS(DBusInterface):
 
         return "Playing"
 
-    def _get_metadata(self) -> dict:
+    def _get_metadata(self) -> dict[str, GLib.Variant]:
         if (not self.play) or (not (media_info := self.play.get_media_info())):
             return {
                 "mpris:trackid": GLib.Variant("o", f"{PREFIX}/TrackList/CurrentTrack")
@@ -457,7 +457,7 @@ class MPRIS(DBusInterface):
             logger.warning(msg)
             raise ValueError(msg) from error
 
-    def _get_all(self, interface_name: str) -> dict | None:
+    def _get_all(self, interface_name: str) -> dict[str, GLib.Variant] | None:
         if interface_name == MPRIS.MEDIA_PLAYER2_IFACE:
             return {
                 "CanQuit": GLib.Variant("b", True),
@@ -539,8 +539,8 @@ class MPRIS(DBusInterface):
     def _properties_changed(
         self,
         interface_name: str,
-        changed_properties: dict,
-        invalidated_properties: list,
+        changed_properties: dict[str, GLib.Variant],
+        invalidated_properties: list[str],
     ) -> None:
         self._dbus_emit_signal(
             "PropertiesChanged",

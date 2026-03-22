@@ -32,7 +32,7 @@ MAX_BUFFER_TRIES = 50
 class Application(Adw.Application):
     """The main application singleton class."""
 
-    inhibit_cookies: dict
+    inhibit_cookies: dict[Window, int]
     mpris_active: bool = False
 
     media_info_updated = GObject.Signal(name="media-info-updated")
@@ -226,7 +226,7 @@ class Application(Adw.Application):
     def _create_action(
         self,
         name: str,
-        callback: Callable,
+        callback: Callable[[Gio.SimpleAction, GLib.Variant], None],
         shortcuts: Sequence[str] | None = None,
     ) -> None:
         action = Gio.SimpleAction.new(name, None)

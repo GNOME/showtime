@@ -138,7 +138,7 @@ class Window(Adw.ApplicationWindow):
     _paused: bool = True
     _seeking: bool = False
     _seek_paused: bool = False
-    _prev_motion_xy: tuple = (0, 0)
+    _prev_motion_xy: tuple[float | None, float | None] = (0, 0)
     _prev_volume = -1
     _toplevel_focused: bool = False
     _already_shown_missing_plugins = False
@@ -1009,7 +1009,7 @@ class Window(Adw.ApplicationWindow):
     def _create_action(
         self,
         name: str,
-        callback: Callable,
+        callback: Callable[[Gio.SimpleAction, GLib.Variant], None],
         shortcuts: Sequence[str] | None = None,
     ) -> Gio.SimpleAction:
         action = Gio.SimpleAction.new(name, None)
