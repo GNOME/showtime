@@ -52,6 +52,22 @@ def gst_play_setup(
     return paintable, play, pipeline, paintable_sink
 
 
+def _is_qtdemux_unknown_fourcc_message(msg: Gst.Message) -> bool:
+    """Check if a missing-plugin message is for an x-gst-fourcc cap.
+
+    qtdemux generates {audio,video,text,meta}/x-gst-fourcc-<fourcc>
+    caps as a fallback for any fourcc code it doesn't recognise in a
+    QuickTime/MP4 file. If a decoder existed, qtdemux would already
+    know the fourcc and emit proper caps for it. These messages are
+    therefore not actionable from the missing-plugin UI.
+    """
+    if not (structure := msg.get_structure()):
+        return False
+
+    has_detail, caps = structure.get_caps("detail")  # pyright: ignore[reportAttributeAccessIssue]
+    return has_detail and "x-gst-fourcc" in caps.to_string()
+
+
 class Messenger(GObject.Object):
     """A messenger between GStreamer and the app."""
 
@@ -132,5 +148,7 @@ class Messenger(GObject.Object):
                 self.emit("error", error)
 
     def _on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
-        if GstPbutils.is_missing_plugin_message(msg):
+        missing = GstPbutils.is_missing_plugin_message(msg)
+        qtmux_unknown_fourcc = _is_qtdemux_unknown_fourcc_message(msg)
+        if missing and not qtmux_unknown_fourcc:
             self.emit("missing-plugin", msg)
