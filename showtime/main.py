@@ -253,7 +253,7 @@ class Application(Adw.Application):
 def main() -> int:
     """Run the application."""
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=logging.DEBUG if PROFILE == "development" else logging.INFO,
         format="%(levelname)s: %(name)s:%(lineno)d %(message)s",
         handlers=((
             logging.StreamHandler(),
