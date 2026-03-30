@@ -1,5 +1,3 @@
-moduledir = python_dir / 'showtime'
-
 blueprints = custom_target(
     'blueprints',
     input: files(
