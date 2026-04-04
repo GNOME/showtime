@@ -163,6 +163,13 @@ class Window(Adw.ApplicationWindow):
         self.options.popover.popdown()
         self.emit("rate-changed")
 
+    def _step_rate(self, step: int) -> None:
+        rates = ("0.5", "1.0", "1.25", "1.5", "2.0")
+        current = self.rate if self.rate in rates else "1.0"
+        index = rates.index(current)
+
+        self.rate = rates[max(0, min(index + step, len(rates) - 1))]
+
     @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
         """Whether the video is currently paused."""
@@ -953,6 +960,18 @@ class Window(Adw.ApplicationWindow):
             "forwards",
             lambda *_: self.play.seek(self.play.props.position + 1e10),
             ("Right",),
+        )
+
+        self._create_action(
+            "decrease-rate",
+            lambda *_: self._step_rate(-1),
+            ("bracketleft",),
+        )
+
+        self._create_action(
+            "increase-rate",
+            lambda *_: self._step_rate(1),
+            ("bracketright",),
         )
 
         self._create_action(
