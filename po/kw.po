@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-28 16:33+0000\n"
-"PO-Revision-Date: 2026-01-31 12:57+0000\n"
+"POT-Creation-Date: 2026-03-30 13:21+0000\n"
+"PO-Revision-Date: 2026-04-11 11:29+0100\n"
 "Last-Translator: Flynn Peck <cirilla@tuta.io>\n"
 "Language-Team: kw\n"
 "Language: kw\n"
@@ -23,7 +23,7 @@ msgstr ""
 "X-DL-Branch: main\n"
 "X-DL-Domain: po\n"
 "X-DL-State: Translating\n"
-"X-Generator: Gtranslator 49.0\n"
+"X-Generator: Gtranslator 50.0\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -286,7 +286,7 @@ msgstr "_Ygeri…"
 
 #: showtime/gtk/window.blp:12
 msgid "Show in _Files"
-msgstr "Diskwedges yn _Restrennow"
+msgstr "Diskwedhes yn _Restrennow"
 
 #: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
