@@ -1,0 +1,344 @@
+# Lao translation for showtime.
+# Copyright (C) 2025 showtime's COPYRIGHT HOLDER
+# This file is distributed under the same license as the showtime package.
+# bone NI <bounkirdni@gmail.com>,  2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: showtime main\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
+"POT-Creation-Date: 2025-09-19 01:29+0000\n"
+"PO-Revision-Date: 2025-09-19 01:29+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Lao <lo@li.org>\n"
+"Language: lo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/org.gnome.Showtime.desktop.in:2
+#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+msgid "Video Player"
+msgstr "ເຄື່ອງຫຼີ້ນວິດີໂອ"
+
+#: data/org.gnome.Showtime.desktop.in:3
+msgid "Play videos"
+msgstr "ຫຼີ້ນວິດີໂອ"
+
+#: data/org.gnome.Showtime.desktop.in:9
+msgid "Video;Movie;Film;Clip;Player;Showtime;"
+msgstr "ວິດີໂອ;ໜັງ;ຮູບເງົາ;ຄລິບ;ເຄື່ອງຫຼີ້ນ;Showtime;"
+
+#: data/org.gnome.Showtime.desktop.in:17 showtime/application_delegate.py:27
+#: showtime/gtk/shortcuts-dialog.blp:29
+msgid "New Window"
+msgstr "ໜ້າຕ່າງໃໝ່"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:7
+msgid "Watch without distraction"
+msgstr "ຮັບຊົມໂດຍບໍ່ມີສິ່ງລົບກວນ"
+
+#: data/org.gnome.Showtime.metainfo.xml.in:9
+msgid ""
+"Play your favorite movies and video files without hassle. Video Player "
+"features simple playback controls that fade out of your way when you're "
+"watching, fullscreen, adjustable playback speed, multiple language and "
+"subtitle tracks, and screenshots — everything you need for a straightforward "
+"viewing experience."
+msgstr "ຫຼີ້ນຮູບເງົາ ແລະ ໄຟລ໌ວິດີໂອທີ່ທ່ານມັກໄດ້ຢ່າງງ່າຍດາຍ. ເຄື່ອງຫຼີ້ນວິດີໂອມີປຸ່ມຄວບຄຸມການຫຼີ້ນທີ່ລຽບງ່າຍເຊິ່ງຈະເລື່ອນຫາຍໄປເມື່ອທ່ານກຳລັງຮັບຊົມ, ມີໂໝດເຕັມຈໍ, ປັບຄວາມໄວໃນການຫຼີ້ນໄດ້, ຮອງຮັບຫຼາຍພາສາ ແລະ ຄຳບັນຍາຍ, ແລະ ສາມາດຖ່າຍພາບໜ້າຈໍໄດ້ — ທຸກສິ່ງທີ່ທ່ານຕ້ອງການເພື່ອປະສົບການການຮັບຊົມທີ່ກົງໄປກົງມາ."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:37
+msgid "The app playing a video"
+msgstr "ແອັບກຳລັງຫຼີ້ນວິດີໂອ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:12
+msgid "What to show in the end timestamp position"
+msgstr "ສິ່ງທີ່ຈະສະແດງໃນຕຳແໜ່ງເວລາສິ້ນສຸດ"
+
+#: data/org.gnome.Showtime.gschema.xml.in:13
+msgid "E.g. total duration of the video or the amount of time remaining"
+msgstr "ຕົວຢ່າງ: ຄວາມຍາວທັງໝົດຂອງວິດີໂອ ຫຼື ເວລາທີ່ເຫຼືອ"
+
+#: showtime/application_delegate.py:31 showtime/gtk/window.blp:75
+msgid "Open…"
+msgstr "ເປີດ…"
+
+#: showtime/application_delegate.py:39
+msgid "File"
+msgstr "ໄຟລ໌"
+
+#: showtime/application_delegate.py:47
+msgid "Window"
+msgstr "ໜ້າຕ່າງ"
+
+#: showtime/application_delegate.py:56
+msgid "Keyboard Shortcuts"
+msgstr "ທາງລັດແປ້ນພິມ"
+
+#: showtime/application_delegate.py:64
+msgid "Help"
+msgstr "ຊ່ວຍເຫຼືອ"
+
+#: showtime/main.py:103
+msgid "Playing a video"
+msgstr "ກຳລັງຫຼີ້ນວິດີໂອ"
+
+#: showtime/mpris.py:288 showtime/widgets/window.py:1044
+msgid "Unknown Title"
+msgstr "ບໍ່ຮູ້ຊື່ເລື່ອງ"
+
+#. Translators: The variable is the number of channels
+#. in an audio track
+#: showtime/widgets/options.py:94
+msgid "Undetermined, {} Channel"
+msgstr "ບໍ່ສາມາດລະບຸໄດ້, {} ຊ່ອງສຽງ"
+
+#: showtime/widgets/options.py:99
+msgid "Undetermined"
+msgstr "ບໍ່ສາມາດລະບຸໄດ້"
+
+#: showtime/widgets/options.py:112
+msgid "No Audio"
+msgstr "ບໍ່ມີສຽງ"
+
+#: showtime/widgets/options.py:117
+msgid "None"
+msgstr "ບໍ່ມີ"
+
+#: showtime/widgets/options.py:123
+msgid "Undetermined Language"
+msgstr "ບໍ່ສາມາດລະບຸພາສາໄດ້"
+
+#: showtime/widgets/options.py:134
+msgid "Add Subtitle File…"
+msgstr "ເພີ່ມໄຟລ໌ຄຳບັນຍາຍ…"
+
+#: showtime/widgets/window.py:182 showtime/gtk/window.blp:147
+msgid "Play"
+msgstr "ຫຼີ້ນ"
+
+#: showtime/widgets/window.py:182
+msgid "Pause"
+msgstr "ຢຸດຊົ່ວຄາວ"
+
+#: showtime/widgets/window.py:757
+msgid "Details copied"
+msgstr "ສຳເນົາລາຍລະອຽດແລ້ວ"
+
+#: showtime/widgets/window.py:759
+msgid "Copy Technical Details"
+msgstr "ສຳເນົາລາຍລະອຽດທາງເທັກນິກ"
+
+#: showtime/widgets/window.py:762
+msgid "Try Again"
+msgstr "ລອງໃໝ່ອີກຄັ້ງ"
+
+#: showtime/widgets/window.py:792
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "ບໍ່ພົບຕົວຖອດລະຫັດ “{}” ທີ່ຈຳເປັນໃນການຫຼີ້ນວິດີໂອນີ້"
+
+#: showtime/widgets/window.py:810
+msgid "No plugin available for this media type"
+msgstr "ບໍ່ມີປລັກອິນສຳລັບໄຟລ໌ປະເພດນີ້"
+
+#: showtime/widgets/window.py:816
+msgid "Unable to install the required plugin"
+msgstr "ບໍ່ສາມາດຕິດຕັ້ງປລັກອິນທີ່ຈຳເປັນໄດ້"
+
+#: showtime/widgets/window.py:819
+msgid "Install Plugin"
+msgstr "ຕິດຕັ້ງປລັກອິນ"
+
+#: showtime/widgets/window.py:827
+msgid "Installing…"
+msgstr "ກຳລັງຕິດຕັ້ງ…"
+
+#: showtime/widgets/window.py:835
+msgid "“{}” codecs are required to play this video"
+msgstr "ຈຳເປັນຕ້ອງມີຕົວຖອດລະຫັດ “{}” ເພື່ອຫຼີ້ນວິດີໂອນີ້"
+
+#. Translators: Replace this with your name for it to show up in the about dialog
+#: showtime/widgets/window.py:1013
+msgid "translator_credits"
+msgstr "ທີມງານແປພາສາລາວ"
+
+#: showtime/widgets/window.py:1052
+msgid "Screenshot captured"
+msgstr "ຖ່າຍພາບໜ້າຈໍແລ້ວ"
+
+#: showtime/widgets/window.py:1054
+msgid "Show in Files"
+msgstr "ສະແດງໃນແອັບໄຟລ໌"
+
+#: showtime/gtk/options.blp:17
+msgid "_Language"
+msgstr "_ພາສາ"
+
+#: showtime/gtk/options.blp:21
+msgid "_Subtitles"
+msgstr "_ຄຳບັນຍາຍ"
+
+#: showtime/gtk/options.blp:26
+msgid "_Repeat"
+msgstr "_ຫຼີ້ນຊ້ຳ"
+
+#: showtime/gtk/options.blp:30
+msgid "Rotate"
+msgstr "ໝຸນ"
+
+#: showtime/gtk/options.blp:61
+msgid "Playback Speed"
+msgstr "ຄວາມໄວໃນການຫຼີ້ນ"
+
+#: showtime/gtk/options.blp:107
+msgid "Rotate Left"
+msgstr "ໝຸນຊ້າຍ"
+
+#: showtime/gtk/options.blp:118
+msgid "Rotate Right"
+msgstr "ໝຸນຂວາ"
+
+#: showtime/gtk/options.blp:128
+msgid "Playback Options"
+msgstr "ຕົວເລືອກການຫຼີ້ນ"
+
+#: showtime/gtk/shortcuts-dialog.blp:6
+msgid "General"
+msgstr "ທົ່ວໄປ"
+
+#: showtime/gtk/shortcuts-dialog.blp:9
+msgid "Show Shortcuts"
+msgstr "ສະແດງທາງລັດ"
+
+#: showtime/gtk/shortcuts-dialog.blp:14
+msgid "Open Video"
+msgstr "ເປີດວິດີໂອ"
+
+#: showtime/gtk/shortcuts-dialog.blp:19
+msgid "Video Options"
+msgstr "ຕົວເລືອກວິດີໂອ"
+
+#: showtime/gtk/shortcuts-dialog.blp:24
+msgid "Take Screenshot"
+msgstr "ຖ່າຍພາບໜ້າຈໍ"
+
+#: showtime/gtk/shortcuts-dialog.blp:34
+msgid "Close Window"
+msgstr "ປິດໜ້າຕ່າງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:39
+msgid "Quit"
+msgstr "ອອກຈາກໂປຣແກຣມ"
+
+#: showtime/gtk/shortcuts-dialog.blp:45
+msgid "Volume"
+msgstr "ລະດັບສຽງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:48
+msgid "Increase Volume"
+msgstr "ເພີ່ມສຽງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:53
+msgid "Decrease Volume"
+msgstr "ຫຼຸດສຽງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
+msgid "Mute/Unmute"
+msgstr "ປິດສຽງ/ເປີດສຽງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:64
+msgid "View"
+msgstr "ມຸມມອງ"
+
+#: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:435
+msgid "Toggle Fullscreen"
+msgstr "ສະຫຼັບໂໝດເຕັມຈໍ"
+
+#: showtime/gtk/shortcuts-dialog.blp:72
+msgid "Exit Fullscreen"
+msgstr "ອອກຈາກໂໝດເຕັມຈໍ"
+
+#: showtime/gtk/shortcuts-dialog.blp:78
+msgid "Playback"
+msgstr "ການຫຼີ້ນ"
+
+#: showtime/gtk/shortcuts-dialog.blp:81
+msgid "Play/Pause"
+msgstr "ຫຼີ້ນ/ຢຸດຊົ່ວຄາວ"
+
+#: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:128
+msgid "Go Back 10 Seconds"
+msgstr "ກັບຄືນ 10 ວິນາທີ"
+
+#: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:164
+msgid "Go Forward 10 Seconds"
+msgstr "ໄປໜ້າ 10 ວິນາທີ"
+
+#: showtime/gtk/sound-options.blp:48
+msgid "Adjust Volume"
+msgstr "ປັບລະດັບສຽງ"
+
+#: showtime/gtk/window.blp:6
+msgid "_New Window"
+msgstr "_ໜ້າຕ່າງໃໝ່"
+
+#: showtime/gtk/window.blp:7
+msgid "_Open…"
+msgstr "_ເປີດ…"
+
+#: showtime/gtk/window.blp:12
+msgid "Show in _Files"
+msgstr "ສະແດງໃນແອັບ_ໄຟລ໌"
+
+#: showtime/gtk/window.blp:20
+msgid "Take _Screenshot"
+msgstr "_ຖ່າຍພາບໜ້າຈໍ"
+
+#: showtime/gtk/window.blp:27
+msgid "_Keyboard Shortcuts"
+msgstr "_ທາງລັດແປ້ນພິມ"
+
+#: showtime/gtk/window.blp:28
+msgid "_About Video Player"
+msgstr "_ກ່ຽວກັບເຄື່ອງຫຼີ້ນວິດີໂອ"
+
+#: showtime/gtk/window.blp:62 showtime/gtk/window.blp:475
+msgid "Main Menu"
+msgstr "ເມນູຫຼັກ"
+
+#: showtime/gtk/window.blp:71
+msgid "Watch Videos"
+msgstr "ຮັບຊົມວິດີໂອ"
+
+#: showtime/gtk/window.blp:72
+msgid "Drag and drop videos here"
+msgstr "ລາກ ແລະ ວາງວິດີໂອໃສ່ບ່ອນນີ້"
+
+#: showtime/gtk/window.blp:88
+msgid "Unable to Play Video"
+msgstr "ບໍ່ສາມາດຫຼີ້ນວິດີໂອໄດ້"
+
+#: showtime/gtk/window.blp:93
+msgid "Missing Plugin"
+msgstr "ບໍ່ມີປລັກອິນ"
+
+#: showtime/gtk/window.blp:255
+msgid "Toggle Duration/Remaining"
+msgstr "ສະຫຼັບຄວາມຍາວ/ເວລາທີ່ເຫຼືອ"
+
+#: showtime/gtk/window.blp:310
+msgid "Resume"
+msgstr "ຫຼີ້ນຕໍ່"
+
+#: showtime/gtk/window.blp:350
+msgid "Start Again"
+msgstr "ເລີ່ມໃໝ່"
+
+#: showtime/gtk/window.blp:543
+msgid "Video"
+msgstr "ວິດີໂອ"
+
+#: showtime/gtk/window.blp:553
+msgid "Subtitles"
+msgstr "ຄຳບັນຍາຍ"
