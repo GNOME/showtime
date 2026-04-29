@@ -64,8 +64,11 @@ def _is_qtdemux_unknown_fourcc_message(msg: Gst.Message) -> bool:
     if not (structure := msg.get_structure()):
         return False
 
-    has_detail, caps = structure.get_caps("detail")  # pyright: ignore[reportAttributeAccessIssue]
-    return has_detail and "x-gst-fourcc" in caps.to_string()
+    if not structure.has_field("detail"):
+        return False
+
+    caps = structure.get_value("detail")
+    return isinstance(caps, Gst.Caps) and "x-gst-fourcc" in caps.to_string()
 
 
 class Messenger(GObject.Object):
