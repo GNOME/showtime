@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-03-30 13:21+0000\n"
-"PO-Revision-Date: 2026-04-11 11:29+0100\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-05-04 18:20+0100\n"
 "Last-Translator: Flynn Peck <cirilla@tuta.io>\n"
 "Language-Team: kw\n"
 "Language: kw\n"
@@ -54,28 +54,28 @@ msgid ""
 "subtitle tracks, and screenshots — everything you need for a straightforward "
 "viewing experience."
 msgstr ""
-"Gwari dha fylmys drudh ha restrennow gwydhyow heb kudynnow. Gwarier Gwydhyow "
-"omdhiskwedhes routyansow sempel mar gwayvya pan os ow mires orth, leun-"
-"skrin, tooth chanjadow, yethow ha istitlow liesek, ha skrin-imajys — oll ty "
-"res rag unn klewans didro."
+"Gwari agas fylmys ha restrwnnow gwydhyow drudh heb goderransow. Yn Gwarier "
+"Gwydhyow, yma routyansow senans sempel ow tisliwa pan nyns owgh ow mires, "
+"leun-skrin, tooth senans chanjyadow, skoodhyans arg yethow ha istitlow "
+"liesek, ha skrin-skeusennow — puptra yma edhom dhywgh rag klewans diflows."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
-msgstr "An app ow gwari unn gwydhyow"
+msgstr "An app ow kwari gwydhyow"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr "Pyth diskwedhes yn an le termyn diwedh"
+msgstr "An pyth dhe dhiskwedhes y'n tyller gorfen"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr "R.e. termyn somm a'n gwydhyow po an myns termyn remenant"
+msgstr "R.e. termyn kowal a'n gwydhyow po an myns a dermyn remenant"
 
 #: showtime/main.py:88
 msgid "Playing a video"
-msgstr "Ow gwari unn gwydhyow"
+msgstr "Ow kwari gwydhyow"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Titel Ankoth"
 
@@ -105,66 +105,66 @@ msgstr "Yeth Andetermys"
 
 #: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
-msgstr "Addya Restren Istitlow…"
+msgstr "Keworra Restren Istitlow…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Gwari"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Powes"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Manylyon kopys"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Kopia Manylyon Teknogel"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Assaya Arta"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
-msgstr "Ystynnans kavadow vyth rag an eghen media ma"
-
-#: showtime/widgets/window.py:824
-msgid "Unable to install the required plugin"
-msgstr "Anabel lea an ystynnans a res"
+msgstr "Nyns eus ystynnans kavadow rag an eghen vedia ma"
 
 #: showtime/widgets/window.py:831
+msgid "Unable to install the required plugin"
+msgstr "Ny yllir lea an ystynnans a res"
+
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Ow Lea…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "Kodekys “{}” a res rag gwari an gwydhyow ma"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Lea Ystynnans"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
-msgstr "An kodekys “{}” a res rag gwari an gwydhyow ma ny kavosys"
+msgstr "Nyns o kevys an kodekys “{}” a res rag gwari an gwydhyow ma"
 
-#: showtime/widgets/window.py:854
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Assaya Yn Neb Kas"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Flynn"
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
-msgstr "Skrin-imach degemerys"
+msgstr "Skrin-skeusen degemerys"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Diskwedhes yn Restrennow"
 
@@ -186,19 +186,19 @@ msgstr "Rosella"
 
 #: showtime/gtk/options.blp:61
 msgid "Playback Speed"
-msgstr "Tooth Senyans"
+msgstr "Tooth Senans"
 
 #: showtime/gtk/options.blp:107
 msgid "Rotate Left"
-msgstr "Rosella Kledh"
+msgstr "Rosella A-Gledh"
 
 #: showtime/gtk/options.blp:118
 msgid "Rotate Right"
-msgstr "Rosella Dyghow"
+msgstr "Rosella A-Dhyghow"
 
 #: showtime/gtk/options.blp:128
 msgid "Playback Options"
-msgstr "Dewisyow Senyans"
+msgstr "Dewisyow Senans"
 
 #: showtime/gtk/shortcuts-dialog.blp:6
 msgid "General"
@@ -206,7 +206,7 @@ msgstr "Ollgemmyn"
 
 #: showtime/gtk/shortcuts-dialog.blp:9
 msgid "Show Shortcuts"
-msgstr "Diskwedhes Kesunyansow Bysowek"
+msgstr "Diskwedhes Kesunyansow Vysowek"
 
 #: showtime/gtk/shortcuts-dialog.blp:14
 msgid "Open Video"
@@ -214,11 +214,11 @@ msgstr "Ygeri Gwydhyow"
 
 #: showtime/gtk/shortcuts-dialog.blp:19
 msgid "Video Options"
-msgstr "Dewisyow Gwydhyow"
+msgstr "Dewisyow Wydhyow"
 
 #: showtime/gtk/shortcuts-dialog.blp:24
 msgid "Take Screenshot"
-msgstr "Degemeres Skrin-Imach"
+msgstr "Degemeres Skrin-Skeusen"
 
 #: showtime/gtk/shortcuts-dialog.blp:34
 msgid "Close Window"
@@ -258,7 +258,7 @@ msgstr "Kwitya Leun-Skrin"
 
 #: showtime/gtk/shortcuts-dialog.blp:78
 msgid "Playback"
-msgstr "Senyans"
+msgstr "Senans"
 
 #: showtime/gtk/shortcuts-dialog.blp:81
 msgid "Play/Pause"
@@ -290,15 +290,15 @@ msgstr "Diskwedhes yn _Restrennow"
 
 #: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
-msgstr "Degemeres _Skrin-Imach"
+msgstr "Degemeres _Skrin-Skeusen"
 
 #: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
-msgstr "_Kesunyans Bysowek"
+msgstr "_Kesunyans Vysowek"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
-msgstr "_A-dro Gwarier Gwydhyow"
+msgstr "_A-dro dhe Warier Gwydhyow"
 
 #: showtime/gtk/window.blp:61
 msgid "Drop Video to Play"
@@ -306,11 +306,11 @@ msgstr "Droppya Gwydhyow rag Gwari"
 
 #: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
-msgstr "Rol Chif"
+msgstr "Pennrol"
 
 #: showtime/gtk/window.blp:85
 msgid "Watch Videos"
-msgstr "Mires Orth Gwydhyowyow"
+msgstr "Mires orth Gwydhyowyow"
 
 #: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
@@ -322,7 +322,7 @@ msgstr "Ygeri…"
 
 #: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
-msgstr "Anabel Gwari Gwydhyow"
+msgstr "Ny yllir Gwari Gwydhyow"
 
 #: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
