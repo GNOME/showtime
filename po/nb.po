@@ -1,14 +1,14 @@
 # Norwegian bokmål translation of showtime.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Kjartan Maraas <kjartan.maraas@gmail.com>, 2025
+# Kjartan Maraas <kjartan.maraas@gmail.com>, 2025-2026
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2025-11-27 12:19+0000\n"
-"PO-Revision-Date: 2026-01-08 15:33+0100\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-05-05 19:32+0200\n"
 "Last-Translator: Kjartan Maraas <kjartan.maraas@gmail.com>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
@@ -53,106 +53,110 @@ msgstr ""
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
-msgstr ""
+msgstr "Appen som spiller av en video"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr ""
+msgstr "Hva skal vises når videoen er ferdig avspilt"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr ""
+msgstr "F.eks. total varighet eller gjenstående tid"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Spiller en video"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1040
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Ukjent tittel"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Ubestemt, {} kanal"
 msgstr[1] "Ubestemt, {} kanaler"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Ubestemt"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Ingen lyd"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Ingen"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Ubestemt språk"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Legg til tekstfil …"
 
-#: showtime/widgets/window.py:181 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Spill av"
 
-#: showtime/widgets/window.py:181
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Pause"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Detaljer ble kopiert"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Kopier tekniske detaljer"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Prøv igjen"
 
-#: showtime/widgets/window.py:791
-msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Fant ikke {} kodekene som kreves for å spille av denne videoen."
-
-#: showtime/widgets/window.py:809
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Ingen tillegg tilgjengelig for denne medietypen"
 
-#: showtime/widgets/window.py:815
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Kan ikke installere nødvendig tillegg"
 
-#: showtime/widgets/window.py:818
-msgid "Install Plugin"
-msgstr "Installer tillegg"
-
-#: showtime/widgets/window.py:826
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Installerer …"
 
-#: showtime/widgets/window.py:834
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "{} kodeker kreves for å spille av denne videoen"
 
+#: showtime/widgets/window.py:845
+msgid "Install Plugin"
+msgstr "Installer tillegg"
+
+#: showtime/widgets/window.py:851
+msgid "The “{}” codecs required to play this video could not be found"
+msgstr "Fant ikke {} kodekene som kreves for å spille av denne videoen."
+
+#: showtime/widgets/window.py:861
+msgid "Try Anyway"
+msgstr "Prøv likevel"
+
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1019
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kjartan.maraas@gmail.com>"
 
-#: showtime/widgets/window.py:1074
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Skjermdump laget"
 
-#: showtime/widgets/window.py:1076
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Vis i Filer"
 
