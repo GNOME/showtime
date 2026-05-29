@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
 "POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-05-04 18:20+0100\n"
+"PO-Revision-Date: 2026-05-29 17:34+0100\n"
 "Last-Translator: Flynn Peck <cirilla@tuta.io>\n"
 "Language-Team: kw\n"
 "Language: kw\n"
@@ -54,9 +54,9 @@ msgid ""
 "subtitle tracks, and screenshots — everything you need for a straightforward "
 "viewing experience."
 msgstr ""
-"Gwari agas fylmys ha restrwnnow gwydhyow drudh heb goderransow. Yn Gwarier "
-"Gwydhyow, yma routyansow senans sempel ow tisliwa pan nyns owgh ow mires, "
-"leun-skrin, tooth senans chanjyadow, skoodhyans arg yethow ha istitlow "
+"Gwari agas fylmys ha restrennow gwydhyow drudh heb goderransow. Yn Gwarier "
+"Gwydhyow, yma routyansow senans sempel ow tisliwa pan yth esowgh ow mires, "
+"leun-skrin, tooth senans chanjyadow, skoodhyans rag yethow hag istitlow "
 "liesek, ha skrin-skeusennow — puptra yma edhom dhywgh rag klewans diflows."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
@@ -206,7 +206,7 @@ msgstr "Ollgemmyn"
 
 #: showtime/gtk/shortcuts-dialog.blp:9
 msgid "Show Shortcuts"
-msgstr "Diskwedhes Kesunyansow Vysowek"
+msgstr "Diskwedhes Kesunyansow Bysowek"
 
 #: showtime/gtk/shortcuts-dialog.blp:14
 msgid "Open Video"
@@ -214,7 +214,7 @@ msgstr "Ygeri Gwydhyow"
 
 #: showtime/gtk/shortcuts-dialog.blp:19
 msgid "Video Options"
-msgstr "Dewisyow Wydhyow"
+msgstr "Dewisyow Gwydhyow"
 
 #: showtime/gtk/shortcuts-dialog.blp:24
 msgid "Take Screenshot"
@@ -294,7 +294,7 @@ msgstr "Degemeres _Skrin-Skeusen"
 
 #: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
-msgstr "_Kesunyans Vysowek"
+msgstr "_Kesunyans Bysowek"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
@@ -302,7 +302,7 @@ msgstr "_A-dro dhe Warier Gwydhyow"
 
 #: showtime/gtk/window.blp:61
 msgid "Drop Video to Play"
-msgstr "Droppya Gwydhyow rag Gwari"
+msgstr "Droppyewgh Gwydhyow rag Gwari"
 
 #: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
@@ -314,7 +314,7 @@ msgstr "Mires orth Gwydhyowyow"
 
 #: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
-msgstr "Draylya ha droppya gwydhyowyow omma"
+msgstr "Draylyewgh ha droppyewgh gwydhyowyow omma"
 
 #: showtime/gtk/window.blp:89
 msgid "Open…"
