@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
 "POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-05-05 19:32+0200\n"
-"Last-Translator: Kjartan Maraas <kjartan.maraas@gmail.com>\n"
+"PO-Revision-Date: 2026-06-02 19:08+0200\n"
+"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -36,7 +37,7 @@ msgstr "Nytt vindu"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:7
 msgid "Watch without distraction"
-msgstr "Se uten forstyrrelser"
+msgstr "Se videoer distraksjonsfritt"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
@@ -46,18 +47,19 @@ msgid ""
 "subtitle tracks, and screenshots — everything you need for a straightforward "
 "viewing experience."
 msgstr ""
-"Spill av dine favorittfilmer og videofiler uten problemer. Videoavspiller "
-"har enkle kontroller for avspilling som ikke vises når du ser på film, "
-"fullskjermvisning, justerbar avspillingshastighet, flere språk, undertekster "
-"og skjermdump – alt du trenger for en fin opplevelse av visningen."
+"Spill videofiler helt friksjonsfritt. Denne videospilleren har enkle "
+"kontroller som forsvinner ut av syne når du ikke trenger dem, "
+"fullskjermvisning, justerbar avspillingshastighet, mulighet for å bytte både "
+"videospråk og og undertekster, og mulighet til å ta skjermbilder av videoen "
+"– alt du trenger for en fin opplevelse."
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
-msgstr "Appen som spiller av en video"
+msgstr "Avspilling av video"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr "Hva skal vises når videoen er ferdig avspilt"
+msgstr "Indikator for sluttid"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
@@ -97,7 +99,7 @@ msgstr "Ubestemt språk"
 
 #: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
-msgstr "Legg til tekstfil …"
+msgstr "Legg til undertekster …"
 
 #: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
@@ -109,7 +111,7 @@ msgstr "Pause"
 
 #: showtime/widgets/window.py:761
 msgid "Details copied"
-msgstr "Detaljer ble kopiert"
+msgstr "Detaljer kopiert"
 
 #: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
@@ -125,7 +127,7 @@ msgstr "Ingen tillegg tilgjengelig for denne medietypen"
 
 #: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
-msgstr "Kan ikke installere nødvendig tillegg"
+msgstr "Installering av nødvendig tillegg mislyktes"
 
 #: showtime/widgets/window.py:838
 msgid "Installing…"
@@ -133,7 +135,7 @@ msgstr "Installerer …"
 
 #: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
-msgstr "{} kodeker kreves for å spille av denne videoen"
+msgstr "«{}»-kodeker kreves for å spille av denne videoen"
 
 #: showtime/widgets/window.py:845
 msgid "Install Plugin"
@@ -141,7 +143,7 @@ msgstr "Installer tillegg"
 
 #: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
-msgstr "Fant ikke {} kodekene som kreves for å spille av denne videoen."
+msgstr "Fant ikke «{}»-kodekene som kreves for å spille av denne videoen."
 
 #: showtime/widgets/window.py:861
 msgid "Try Anyway"
@@ -150,11 +152,13 @@ msgstr "Prøv likevel"
 #. Translators: Replace this with your name for it to show up in the about dialog
 #: showtime/widgets/window.py:1059
 msgid "translator-credits"
-msgstr "Kjartan Maraas <kjartan.maraas@gmail.com>"
+msgstr ""
+"Kjartan Maraas <kjartan.maraas@gmail.com>\n"
+"Brage Fuglseth https://bragefuglseth.no"
 
 #: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
-msgstr "Skjermdump laget"
+msgstr "Skjermbilde tatt"
 
 #: showtime/widgets/window.py:1116
 msgid "Show in Files"
@@ -166,7 +170,7 @@ msgstr "_Språk"
 
 #: showtime/gtk/options.blp:21
 msgid "_Subtitles"
-msgstr "_Tekster"
+msgstr "_Undertekster"
 
 #: showtime/gtk/options.blp:26
 msgid "_Repeat"
@@ -206,7 +210,7 @@ msgstr "Åpne video"
 
 #: showtime/gtk/shortcuts-dialog.blp:19
 msgid "Video Options"
-msgstr "Alternativer for video"
+msgstr "Videoinnstillinger"
 
 #: showtime/gtk/shortcuts-dialog.blp:24
 msgid "Take Screenshot"
@@ -226,23 +230,23 @@ msgstr "Volum"
 
 #: showtime/gtk/shortcuts-dialog.blp:48
 msgid "Increase Volume"
-msgstr "Ta opp volumet"
+msgstr "Skru opp lyden"
 
 #: showtime/gtk/shortcuts-dialog.blp:53
 msgid "Decrease Volume"
-msgstr "Ta ned volumet"
+msgstr "Skru ned lyden"
 
 #: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
-msgstr "Demp/Fjern demping"
+msgstr "Slå demping på eller av"
 
 #: showtime/gtk/shortcuts-dialog.blp:64
 msgid "View"
-msgstr "Vis"
+msgstr "Visning"
 
 #: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
-msgstr "Slå av/på fullskjerm"
+msgstr "Slå av eller på fullskjerm"
 
 #: showtime/gtk/shortcuts-dialog.blp:72
 msgid "Exit Fullscreen"
@@ -250,19 +254,19 @@ msgstr "Avslutt fullskjerm"
 
 #: showtime/gtk/shortcuts-dialog.blp:78
 msgid "Playback"
-msgstr "Spill av"
+msgstr "Avspilling"
 
 #: showtime/gtk/shortcuts-dialog.blp:81
 msgid "Play/Pause"
-msgstr "Spill av/Pause"
+msgstr "Pause"
 
 #: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
-msgstr "Gå tilbake ti sekunder"
+msgstr "Gå tilbake 10 sekunder"
 
 #: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
-msgstr "Gå frem ti sekunder"
+msgstr "Gå frem 10 sekunder"
 
 #: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
@@ -278,11 +282,11 @@ msgstr "_Åpne …"
 
 #: showtime/gtk/window.blp:12
 msgid "Show in _Files"
-msgstr "Vis i _filer"
+msgstr "Vis i _Filer"
 
 #: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
-msgstr "Ta _skjemdump"
+msgstr "Ta _skjermbilde"
 
 #: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
@@ -290,11 +294,11 @@ msgstr "_Tastatursnarveier"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
-msgstr "_Om Videoavspiller"
+msgstr "_Om Videospiller"
 
 #: showtime/gtk/window.blp:61
 msgid "Drop Video to Play"
-msgstr "Slipp video som skal spilles av"
+msgstr "Slipp video for å spille av"
 
 #: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
@@ -314,7 +318,7 @@ msgstr "Åpne …"
 
 #: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
-msgstr "Kan ikke spille av video"
+msgstr "Avspilling mislyktes"
 
 #: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
@@ -322,15 +326,15 @@ msgstr "Mangler tillegg"
 
 #: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
-msgstr "Slå av/på varighet/gjenstående tid"
+msgstr "Bytt mellom total varighet og gjenstående tid"
 
 #: showtime/gtk/window.blp:324
 msgid "Resume"
-msgstr "Gjenoppta"
+msgstr "Fortsett"
 
 #: showtime/gtk/window.blp:364
 msgid "Start Again"
-msgstr "Start igjen"
+msgstr "Start på nytt"
 
 #: showtime/gtk/window.blp:551
 msgid "Video"
@@ -338,4 +342,4 @@ msgstr "Video"
 
 #: showtime/gtk/window.blp:561
 msgid "Subtitles"
-msgstr "Tekster"
+msgstr "Undertekster"
