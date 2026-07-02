@@ -2,7 +2,7 @@
 
 - Distribution, including version (example: "Ubuntu 20.04"):
 - showtime version (example: "45.1"):
-- Package format and distributor (example: "Flatpak from Flathub"):
+- Flatpak is the only package format we support. If you are using a different packaging format please instead report to its respective package maintainer. Is the issue reproducible with our Flatpak package:
 
 ## Logs
 
