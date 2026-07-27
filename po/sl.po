@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-28 16:11+0000\n"
-"PO-Revision-Date: 2026-01-28 17:18+0100\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-07-27 16:34+0200\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -56,6 +56,10 @@ msgstr ""
 "predvajanja, večjezične zvokovne steze in podnaslove ter posnetke zaslona – "
 "vse, kar potrebujete za enostavno izkušnjo gledanja."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "Projekt GNOME"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Program, ki predvaja videoposnetke"
@@ -68,17 +72,17 @@ msgstr "Kaj naj se prikaže na položaju končnega časovnega žiga"
 msgid "E.g. total duration of the video or the amount of time remaining"
 msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
 
-#: showtime/main.py:89
+#: showtime/main.py:88
 msgid "Playing a video"
 msgstr "Predvajanje videoposnetka"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1067
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Neznan naslov"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:94
+#: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Nedoločeno, {} kanalov"
@@ -86,85 +90,85 @@ msgstr[1] "Nedoločeno, {} kanal"
 msgstr[2] "Nedoločeno, {} kanala"
 msgstr[3] "Nedoločeno, {} kanali"
 
-#: showtime/widgets/options.py:99
+#: showtime/widgets/options.py:98
 msgid "Undetermined"
 msgstr "Nedoločeno"
 
-#: showtime/widgets/options.py:112
+#: showtime/widgets/options.py:111
 msgid "No Audio"
 msgstr "Brez zvoka"
 
-#: showtime/widgets/options.py:117
+#: showtime/widgets/options.py:116
 msgid "None"
 msgstr "Brez"
 
-#: showtime/widgets/options.py:123
+#: showtime/widgets/options.py:122
 msgid "Undetermined Language"
 msgstr "Nedoločen jezik"
 
-#: showtime/widgets/options.py:134
+#: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
 msgstr "Dodaj datoteko s podnapisi ..."
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Predvajaj"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Premor"
 
-#: showtime/widgets/window.py:758
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Podrobnosti kopirane"
 
-#: showtime/widgets/window.py:760
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Kopiraj tehnične podrobnosti"
 
-#: showtime/widgets/window.py:763
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Poskusi znova"
 
-#: showtime/widgets/window.py:820
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
 
-#: showtime/widgets/window.py:828
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Zahtevanega vstavka ni mogoče namestiti"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Poteka nameščanje …"
 
-#: showtime/widgets/window.py:839
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
 
-#: showtime/widgets/window.py:842
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Namesti vstavek"
 
-#: showtime/widgets/window.py:848
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni mogoče najti"
 
-#: showtime/widgets/window.py:858
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Vseeno poskusi"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1046
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Martin Srebotnjak  <miles@filmsi.net>"
 
-#: showtime/widgets/window.py:1101
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Zaslonska slika je zajeta"
 
-#: showtime/widgets/window.py:1103
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Pokaži v Datotekah"
 
