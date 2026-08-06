@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
 "POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-08-04 23:18+0630\n"
+"PO-Revision-Date: 2026-08-06 08:06+0630\n"
 "Last-Translator: \n"
 "Language-Team: Burmese <my@li.org>\n"
 "Language: my\n"
@@ -18,191 +18,191 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.9\n"
 
-#: data/org.gnome.Showtime.desktop.in:2
-#: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
+#: data/org.gnome.Showtime.desktop.in:2 data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
 msgid "Video Player"
-msgstr ""
+msgstr "ဗီဒီယိုဖွင့်စက်"
 
 #: data/org.gnome.Showtime.desktop.in:3
 msgid "Play videos"
-msgstr ""
+msgstr "ဗီဒီယို ဖွင့်ရန်"
 
 #: data/org.gnome.Showtime.desktop.in:9
 msgid "Video;Movie;Film;Clip;Player;Showtime;"
-msgstr ""
+msgstr "ဗီဒီယို၊ ရုပ်ရှင်၊ ဇာတ်ကား၊ ဗီဒီယိုအတို၊ ဖွင့်စက်၊ Showtime"
 
 #: data/org.gnome.Showtime.desktop.in:17 showtime/gtk/shortcuts-dialog.blp:29
 msgid "New Window"
-msgstr ""
+msgstr "ဝင်းဒိုးအသစ်"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:7
 msgid "Watch without distraction"
-msgstr ""
+msgstr "အနှောင့်ယှက်မရှိဘဲ ကြည့်ရှုပါ"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:9
 msgid ""
-"Play your favorite movies and video files without hassle. Video Player "
-"features simple playback controls that fade out of your way when you're "
-"watching, fullscreen, adjustable playback speed, multiple language and "
-"subtitle tracks, and screenshots — everything you need for a straightforward "
-"viewing experience."
+"Play your favorite movies and video files without hassle. Video Player features simple playback controls that fade "
+"out of your way when you're watching, fullscreen, adjustable playback speed, multiple language and subtitle tracks, "
+"and screenshots — everything you need for a straightforward viewing experience."
 msgstr ""
+"သင့်နှစ်သက်ရာ ရုပ်ရှင်များနှင့် ဗီဒီယိုဖိုင်များကို အခက်အခဲမရှိဘဲ ကြည့်ရှုနိုင်ပါသည်။ ဗီဒီယိုဖွင့်စက်တွင် ကြည့်နေစဉ် ပျောက်သွားမည်ဖြစ်သော ရိုးရှင်းသည့် "
+"ရုပ်သံပြသမှုဆိုင်ရာထိန်းချုပ်ခလုတ်များပါဝင်ပါသည်။ မှန်ပြင်အပြည့်ဖြင့် ကြည့်ရှုနိုင်သည်။ ရုပ်သံမြန်နှုန်းကို ချိန်ညှိနိုင်သည်။ ဘာသာစကားနှင့် စာတန်းထိုးများစွာ ထည့်သွင်းထားပြီး၊ "
+"စခရင်ရှော့များလည်း ရိုက်ယူနိုင်ပါသည်။"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:18
 msgid "The GNOME Project"
-msgstr ""
+msgstr "GNOME ပရောဂျက်"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
-msgstr ""
+msgstr "ဤ အပ်ပ်သည် ဗီဒီယို ပြသနေပါသည်"
 
 #: data/org.gnome.Showtime.gschema.xml.in:12
 msgid "What to show in the end timestamp position"
-msgstr ""
+msgstr "အဆုံးသတ် အချိန်မှတ်သည့်နေရာတွင် ပြသရမည့်အရာ"
 
 #: data/org.gnome.Showtime.gschema.xml.in:13
 msgid "E.g. total duration of the video or the amount of time remaining"
-msgstr ""
+msgstr "ဥပမာ - ဗီဒီယိုတစ်ပုဒ်လုံး၏ စုစုပေါင်းကြာချိန် (သို့) ကျန်ရှိသော ကြာချိန်"
 
 #: showtime/main.py:88
 msgid "Playing a video"
-msgstr ""
+msgstr "ဗီဒီယို ပြသနေပါသည်"
 
 #: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
-msgstr ""
+msgstr "ခေါင်းစဥ်မဲ့"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
 #: showtime/widgets/options.py:93
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
-msgstr[0] ""
+msgstr[0] "မသတ်မှတ်ထား၊ ချန်နယ် {}ခု"
 
 #: showtime/widgets/options.py:98
 msgid "Undetermined"
-msgstr ""
+msgstr "မသတ်မှတ်ထားသော"
 
 #: showtime/widgets/options.py:111
 msgid "No Audio"
-msgstr ""
+msgstr "အသံမရှိပါ။"
 
 #: showtime/widgets/options.py:116
 msgid "None"
-msgstr ""
+msgstr "ဘာမှမရှိပါ"
 
 #: showtime/widgets/options.py:122
 msgid "Undetermined Language"
-msgstr ""
+msgstr "မသတ်မှတ်ထားသော ဘာသာစကား"
 
 #: showtime/widgets/options.py:133
 msgid "Add Subtitle File…"
-msgstr ""
+msgstr "စာတန်းထိုးဖိုင်ထည့်သွင်းပါ…"
 
 #: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
-msgstr ""
+msgstr "ဖွင့်"
 
 #: showtime/widgets/window.py:189
 msgid "Pause"
-msgstr ""
+msgstr "ရပ်"
 
 #: showtime/widgets/window.py:761
 msgid "Details copied"
-msgstr ""
+msgstr "အသေးစိတ်အချက်အလက်များ ကူးယူပြီးပါပြီ"
 
 #: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
-msgstr ""
+msgstr "နည်းပညာဆိုင်ရာ အသေးစိတ် အချက်အလက်များကို ကူးယူမည်"
 
 #: showtime/widgets/window.py:766
 msgid "Try Again"
-msgstr ""
+msgstr "နောက်တစ်ကြိမ်ပြန်စမ်းကြည့်ပါ"
 
 #: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
-msgstr ""
+msgstr "ဤသို့သော မီဒီယာအမျိုးစားအတွက် ပလပ်ဂင် မရှိပါ"
 
 #: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
-msgstr ""
+msgstr "လိုအပ်သော ပလပ်ဂင်ကို တပ်ဆင်၍ မရနိုင်ပါ"
 
 #: showtime/widgets/window.py:838
 msgid "Installing…"
-msgstr "ထည့်သွင်းနေပါသည်"
+msgstr "တပ်ဆင်နေသည်…"
 
 #: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
-msgstr ""
+msgstr "ဤဗီဒီယိုအား ဖွင့်ရန် \"{}\" ကုဒ်ဖော်/ဖွက်စနစ် လိုအပ်ပါသည်"
 
 #: showtime/widgets/window.py:845
 msgid "Install Plugin"
-msgstr ""
+msgstr "ပလပ်ဂင် တပ်ဆင်မည်"
 
 #: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
-msgstr ""
+msgstr "ဤဗီဒီယိုအား ဖွင့်ရန် လိုအပ်သော \"{}\" ကုဒ်ဖော်/ဖွက်စနစ်များ မတွေ့ပါ"
 
 #: showtime/widgets/window.py:861
 msgid "Try Anyway"
-msgstr ""
+msgstr "ဘာဖြစ်ဖြစ်ဆက်လုပ်"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
 #: showtime/widgets/window.py:1059
 msgid "translator-credits"
-msgstr ""
+msgstr "ဇေယျာလွင်၊ Rachel Bawi Nei Mawi"
 
 #: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
-msgstr ""
+msgstr "စခင်ရှော့ ရိုက်ပြီးပြီ"
 
 #: showtime/widgets/window.py:1116
 msgid "Show in Files"
-msgstr ""
+msgstr "ဖိုင်မန်နေဂျာတွင်ကြည့်မည်"
 
 #: showtime/gtk/options.blp:17
 msgid "_Language"
-msgstr ""
+msgstr "_ဘာသာစကား"
 
 #: showtime/gtk/options.blp:21
 msgid "_Subtitles"
-msgstr ""
+msgstr "_စာတန်းထိုးများ"
 
 #: showtime/gtk/options.blp:26
 msgid "_Repeat"
-msgstr ""
+msgstr "_ထပ်တလဲလဲ"
 
 #: showtime/gtk/options.blp:30
 msgid "Rotate"
-msgstr "လှည့်ပါ ↷"
+msgstr "လှည့်ပါ"
 
 #: showtime/gtk/options.blp:61
 msgid "Playback Speed"
-msgstr ""
+msgstr "ရုပ်သံပြသမှု မြန်နှုန်း"
 
 #: showtime/gtk/options.blp:107
 msgid "Rotate Left"
-msgstr ""
+msgstr "လက်ဝဲဘက် လှည့်ပါ"
 
 #: showtime/gtk/options.blp:118
 msgid "Rotate Right"
-msgstr ""
+msgstr "လက်ယာဘက် လှည့်ပါ"
 
 #: showtime/gtk/options.blp:128
 msgid "Playback Options"
-msgstr ""
+msgstr "ရုပ်သံပြသမှုဆိုင်ရာ ရွေးချယ်ချက်များ"
 
 #: showtime/gtk/shortcuts-dialog.blp:6
 msgid "General"
-msgstr ""
+msgstr "အထွေထွေ"
 
 #: showtime/gtk/shortcuts-dialog.blp:9
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "ဖြတ်လမ်းများ ပြရန်"
 
 #: showtime/gtk/shortcuts-dialog.blp:14
 msgid "Open Video"
-msgstr "ဗွီဒီယိုဖွင့်မည်"
+msgstr "ဗီဒီယို ဖွင့်ရန်"
 
 #: showtime/gtk/shortcuts-dialog.blp:19
 msgid "Video Options"
@@ -210,7 +210,7 @@ msgstr "ဗွီဒီယိုဆိုင်ရာရွေးချယ်ခ
 
 #: showtime/gtk/shortcuts-dialog.blp:24
 msgid "Take Screenshot"
-msgstr ""
+msgstr "စခရင်ရှော့ ရိုက်ရန်"
 
 #: showtime/gtk/shortcuts-dialog.blp:34
 msgid "Close Window"
@@ -222,63 +222,64 @@ msgstr "ထွက်ရန်"
 
 #: showtime/gtk/shortcuts-dialog.blp:45
 msgid "Volume"
-msgstr ""
+msgstr "အသံဆိုင်ရာ"
 
 #: showtime/gtk/shortcuts-dialog.blp:48
 msgid "Increase Volume"
-msgstr ""
+msgstr "အသံချဲ့"
 
 #: showtime/gtk/shortcuts-dialog.blp:53
 msgid "Decrease Volume"
-msgstr ""
+msgstr "အသံလျှော့"
 
 #: showtime/gtk/shortcuts-dialog.blp:58 showtime/gtk/sound-options.blp:24
 msgid "Mute/Unmute"
-msgstr ""
+msgstr "အသံ ပိတ်/ဖွင့်"
 
+# View is not verb here. It is a section title name in keyboard shorcuts view.
 #: showtime/gtk/shortcuts-dialog.blp:64
 msgid "View"
-msgstr ""
+msgstr "မြင်ကွင်းဆိုင်ရာ"
 
 #: showtime/gtk/shortcuts-dialog.blp:67 showtime/gtk/window.blp:449
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "မှန်ပြင်အပြည့် ပိတ်၊ ဖွင့်"
 
 #: showtime/gtk/shortcuts-dialog.blp:72
 msgid "Exit Fullscreen"
-msgstr ""
+msgstr "မှန်ပြင်အပြည့် ပိတ်"
 
 #: showtime/gtk/shortcuts-dialog.blp:78
 msgid "Playback"
-msgstr ""
+msgstr "ပြန်လည်ဖွင့်ပါ"
 
 #: showtime/gtk/shortcuts-dialog.blp:81
 msgid "Play/Pause"
-msgstr ""
+msgstr "ဖွင့်/ ရပ်"
 
 #: showtime/gtk/shortcuts-dialog.blp:86 showtime/gtk/window.blp:142
 msgid "Go Back 10 Seconds"
-msgstr ""
+msgstr "၁၀ စက္ကန့် ပြန်သွား"
 
 #: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
-msgstr ""
+msgstr "၁၀ စက္ကန့် ကျော်"
 
 #: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
-msgstr ""
+msgstr "အသံကျယ်နှုန်း ညှိပါ"
 
 #: showtime/gtk/window.blp:6
 msgid "_New Window"
-msgstr ""
+msgstr "_ဝင်းဒိုးအသစ်"
 
 #: showtime/gtk/window.blp:7
 msgid "_Open…"
-msgstr ""
+msgstr "_ဖွင့်ပါ…"
 
 #: showtime/gtk/window.blp:12
 msgid "Show in _Files"
-msgstr "_ဖိုင်မန်နေဂျာတွင်ကြည့်မည်"
+msgstr "ဖိုင်_မန်နေဂျာတွင်ကြည့်မည်"
 
 #: showtime/gtk/window.blp:20
 msgid "Take _Screenshot"
@@ -286,15 +287,15 @@ msgstr "_စခရင်ရှော့ရိုက်"
 
 #: showtime/gtk/window.blp:27
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "ကီး_ဘုတ်ဖြတ်လမ်းခလုတ်များ"
 
 #: showtime/gtk/window.blp:28
 msgid "_About Video Player"
-msgstr ""
+msgstr "_ဗီဒီယိုဖွင့်စက် အကြောင်းအရာ"
 
 #: showtime/gtk/window.blp:61
 msgid "Drop Video to Play"
-msgstr ""
+msgstr "ဖွင့်ရန် ဗီဒီယို ထည့်ပါ"
 
 #: showtime/gtk/window.blp:76 showtime/gtk/window.blp:489
 msgid "Main Menu"
@@ -302,40 +303,40 @@ msgstr "ပင်မမီနူး"
 
 #: showtime/gtk/window.blp:85
 msgid "Watch Videos"
-msgstr "ဗွီဒီယိုများကြည့်မယ်"
+msgstr "ဗီဒီယိုများ ကြည့်ရှုပါ"
 
 #: showtime/gtk/window.blp:86
 msgid "Drag and drop videos here"
-msgstr ""
+msgstr "ဗီဒီယိုများကို ဤနေရာသို့ ဆွဲယူ၍ ပစ်ချလိုက်ပါ"
 
 #: showtime/gtk/window.blp:89
 msgid "Open…"
-msgstr ""
+msgstr "ဖွင့်ပါ…"
 
 #: showtime/gtk/window.blp:102
 msgid "Unable to Play Video"
-msgstr ""
+msgstr "ဗီဒီယို မဖွင့်နိုင်ပါ"
 
 #: showtime/gtk/window.blp:107
 msgid "Missing Plugin"
-msgstr ""
+msgstr "ပလပ်ဂင် မရှိပါ"
 
 #: showtime/gtk/window.blp:269
 msgid "Toggle Duration/Remaining"
-msgstr ""
+msgstr "ကြာချိန်/ကျန်ရှိချိန် ပြပါ"
 
 #: showtime/gtk/window.blp:324
 msgid "Resume"
-msgstr ""
+msgstr "ဆက်ဖွင့်ပါ"
 
 #: showtime/gtk/window.blp:364
 msgid "Start Again"
-msgstr ""
+msgstr "အစကပြန်ဖွင့်"
 
 #: showtime/gtk/window.blp:551
 msgid "Video"
-msgstr ""
+msgstr "ဗီဒီယို"
 
 #: showtime/gtk/window.blp:561
 msgid "Subtitles"
-msgstr ""
+msgstr "စာတန်းထိုးများ"
