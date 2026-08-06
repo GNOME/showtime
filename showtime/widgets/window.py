@@ -342,6 +342,7 @@ class Window(Adw.ApplicationWindow):
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.select_subtitles(0)
+        self.select_language(0)
         self.rate = "1.0"
 
         self.play.props.uri = uri
@@ -369,6 +370,11 @@ class Window(Adw.ApplicationWindow):
     def select_subtitles(self, index: int) -> None:
         """Select subtitles for the given index."""
         if action := lookup_action(self, "select-subtitles"):
+            action.activate(GLib.Variant.new_uint16(index))
+
+    def select_language(self, index: int) -> None:
+        """Select the audio track for the given index."""
+        if action := lookup_action(self, "select-language"):
             action.activate(GLib.Variant.new_uint16(index))
 
     @Gtk.Template.Callback()
