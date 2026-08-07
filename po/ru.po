@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-28 16:33+0000\n"
-"PO-Revision-Date: 2026-01-28 20:05+0300\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-07-28 18:04+0300\n"
 "Last-Translator: Artur So <arturios2005@mail.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -53,6 +53,10 @@ msgstr ""
 "скорость воспроизведения, несколько языков и дорожек субтитров, а также "
 "снимки экрана - все, что вам нужно для удобного просмотра."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "Проект GNOME"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Приложение, воспроизводящее видео"
@@ -69,7 +73,7 @@ msgstr "Например, общая длительность видео или 
 msgid "Playing a video"
 msgstr "Воспроизведение видео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Неизвестное название"
 
@@ -102,64 +106,64 @@ msgstr "Язык не определен"
 msgid "Add Subtitle File…"
 msgstr "Добавить файл субтитров…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Воспроизведение"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Пауза"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Сведения скопированы"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Копировать технические сведения"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Попробовать снова"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Нет доступного модуля для этого типа медиафайлов"
 
-#: showtime/widgets/window.py:824
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Невозможно установить требуемый модуль"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Установка…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "Кодеки “{}” необходимы для воспроизведения этого видео"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Установить модуль"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Кодеки “{}”, необходимые для воспроизведения этого видео, не найдены"
 
-#: showtime/widgets/window.py:854
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Все равно попробовать"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Aleksandr Melman <Alexmelman88@gmail.com>"
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Сделан снимок экрана"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Показать в Файлах"
 
