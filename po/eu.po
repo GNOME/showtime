@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-31 14:28+0000\n"
-"PO-Revision-Date: 2026-02-15 17:22+0000\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-08-07 17:22+0000\n"
 "Last-Translator: Asier Saratsua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <eu@li.org>\n"
 "Language: eu\n"
@@ -46,6 +46,10 @@ msgid ""
 "viewing experience."
 msgstr "Erreproduzitu zure film eta bideo-fitxategirik gogokoenak arazorik gabe. Bideo-errproduzigailuak erreprodukzio-kontrol sinpleak ditu, gogaitzen ez dutenak zerbait ikusten ari zarenean, pantaila osoa onartzen du, erreprodukzio-abiadura doitu daiteke, hizkuntza anitzeko azpitituluak eta pantaila-argazkiak - bideoak ikusteko esperientzia gogobetegarria izateko behar duzun guztia."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "GNOME proiektua"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Bideoa erreproduzitzen duen aplikazioa"
@@ -62,7 +66,7 @@ msgstr "Adibidez, bideoaren iraupen osoa edo falta den denbora"
 msgid "Playing a video"
 msgstr "Bideo bat erreproduzitzen"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Titulu ezezaguna"
 
@@ -94,64 +98,64 @@ msgstr "Zehaztu gabeko hizkuntza"
 msgid "Add Subtitle File…"
 msgstr "Gehitu azpitituluen fitxategia…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Erreproduzitu"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Pausatu"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Xehetasunak kopiatu dira"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Kopiatu xehetasun teknikoak"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Saiatu berriro"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Ez dago pluginik multimedia mota horretarako"
 
-#: showtime/widgets/window.py:824
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Ezin dira instalatu behar diren pluginak"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Instalatzen…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "“{}” kodekak behar dira bideo hau erreproduzitzeko"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Instalatu plugina"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Bideoo hauek erreproduzitzeko behar diren “{}” kodekak ez dira aurkitu"
 
-#: showtime/widgets/window.py:854
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Saiatu dena den"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Asier Saratsua Garmendia <asiersarasua@ni.eus>"
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Pantaila-argazkia hartu da"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Erakutsi Fitxategiak aplikazioan"
 
