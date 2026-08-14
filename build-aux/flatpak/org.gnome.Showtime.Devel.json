@@ -9,7 +9,9 @@
     "--socket=fallback-x11",
     "--device=dri",
     "--socket=wayland",
-    "--socket=pulseaudio"
+    "--socket=pulseaudio",
+    "--talk-name=org.gtk.vfs.*",
+    "--filesystem=xdg-run/gvfsd"
   ],
   "cleanup": [
     "/include",
