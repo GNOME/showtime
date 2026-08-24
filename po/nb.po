@@ -1,15 +1,15 @@
 # Norwegian bokmål translation of showtime.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Kjartan Maraas <kjartan.maraas@gmail.com>, 2025-2026
+# Kjartan Maraas <kmaraas@gnome.org>, 2025-2026
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
 "POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-06-02 19:08+0200\n"
-"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
+"PO-Revision-Date: 2026-08-24 19:39+0200\n"
+"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian bokmål <i18n-nb@lister.ping.uio.no>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,10 @@ msgstr ""
 "fullskjermvisning, justerbar avspillingshastighet, mulighet for å bytte både "
 "videospråk og og undertekster, og mulighet til å ta skjermbilder av videoen "
 "– alt du trenger for en fin opplevelse."
+
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "GNOME prosjektet"
 
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
