@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-31 14:28+0000\n"
-"PO-Revision-Date: 2026-02-22 20:13+0900\n"
-"Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-08-23 16:15+0900\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,10 @@ msgstr ""
 "랙, 그리고 스크린샷 등을 제어할 수 있는 간단한 재생 제어 기능을 갖추고 있습니"
 "다. 시청 경험에 직결되는 필요한, 간단한 모든 요소를 갖추었습니다."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "그놈 프로젝트"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "동영상을 재생하는 앱"
@@ -70,7 +74,7 @@ msgstr "예: 동영상의 총 재생 길이 또는 남은 시간"
 msgid "Playing a video"
 msgstr "동영상 재생 중"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "제목 알 수 없음"
 
@@ -101,64 +105,64 @@ msgstr "분명하지 않은 언어"
 msgid "Add Subtitle File…"
 msgstr "자막 파일 추가…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "재생"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "일시 정지"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "세부 정보를 복사했습니다"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "복제 기술 세부 정보"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "다시 시도"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "이 미디어 형식에 맞는 플러그인이 없습니다"
 
-#: showtime/widgets/window.py:824
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "필요한 플러그인을 설치할 수 없습니다"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "설치중…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "이 영상을 재생하려면 “{}” 코덱이 필요합니다"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "플러그인 설치"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "이 동영상을 재생할 “{}” 코덱이 없습니다"
 
-#: showtime/widgets/window.py:854
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "어쨌든 시도"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "조성호 <shcho@gnome.org>, 2024-2026"
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "스크린샷을 찍었습니다"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "파일에서 보기"
 
