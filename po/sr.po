@@ -2,15 +2,15 @@
 # Copyright (©) 2025 showtime's COPYRIGHT HOLDER
 # This file is distributed under the same license as the showtime package.
 # Мирослав Николић <miroslavnikolic@rocketmail.com>,  2025.
-# aceydot <aceydot@tuta.io>, 2025.
+# aceydot <aceydot@proton.me>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-03-14 14:31+0000\n"
-"PO-Revision-Date: 2026-03-17 23:57+0100\n"
-"Last-Translator: Марко М. Костић <marko.m.kostic@gmail.com>\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-08-29 20:09+0200\n"
+"Last-Translator: aceydot <aceydot@proton.me>\n"
 "Language-Team: Serbian <Serbian>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,10 @@ msgstr ""
 "екрана, подесиву брзину пуштања, више језика и превода нумера и снимке екрана "
 "– све што вам је потребно за једноставно искуство гледања."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "Пројекат Гном"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Програм пушта видео"
@@ -70,7 +74,7 @@ msgstr "Нпр. укупно трајање видеа или преостало
 msgid "Playing a video"
 msgstr "Пуштам видео"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Непознат наслов"
 
@@ -104,66 +108,67 @@ msgstr "Неодређен језик"
 msgid "Add Subtitle File…"
 msgstr "Додај датотеку превода…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Пусти"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Паузирај"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Детаљи су умножени"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Умножи техничке детаље"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Покушај поново"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Нема доступног прикључка за ову врсту медија"
 
-#: showtime/widgets/window.py:824
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Не могу да инсталирам потребан прикључак"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Инсталирам…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "Потребни у „{}“ кодеци за пуштање овог видеа"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Инсталирај прикључак"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Не могу да нађем „{}“ кодеке потребне за пуштање овог видеа"
 
-#: showtime/widgets/window.py:854
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Ипак покушај"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr ""
 "Мирослав Николић\n"
-"Марко Костић"
+"Марко Костић\n"
+"aceydot <aceydot@proton.me>"
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Снимак екрана је направљен"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Прикажите у програму Датотеке"
 
