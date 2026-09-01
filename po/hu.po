@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-01-31 14:28+0000\n"
-"PO-Revision-Date: 2026-02-22 19:12+0100\n"
+"POT-Creation-Date: 2026-04-04 07:19+0000\n"
+"PO-Revision-Date: 2026-09-01 22:41+0200\n"
 "Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <openscope at fsf dot hu>\n"
 "Language: hu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -54,6 +54,10 @@ msgstr ""
 "sebesség, több nyelvi és feliratozási sáv, valamint képernyőképek – minden, "
 "amire szüksége van az egyszerű videónézési élményhez."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "A GNOME projekt"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Az alkalmazás egy videó lejátszása közben"
@@ -70,7 +74,7 @@ msgstr "Például a videó teljes időtartama vagy a hátralévő idő mennyisé
 msgid "Playing a video"
 msgstr "Egy videó lejátszása"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1061
+#: showtime/mpris.py:288 showtime/widgets/window.py:1080
 msgid "Unknown Title"
 msgstr "Ismeretlen cím"
 
@@ -102,66 +106,64 @@ msgstr "Meghatározatlan nyelv"
 msgid "Add Subtitle File…"
 msgstr "Feliratfájl hozzáadása…"
 
-#: showtime/widgets/window.py:182 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Lejátszás"
 
-#: showtime/widgets/window.py:182
+#: showtime/widgets/window.py:189
 msgid "Pause"
 msgstr "Szüneteltetés"
 
-#: showtime/widgets/window.py:754
+#: showtime/widgets/window.py:761
 msgid "Details copied"
 msgstr "Részletek másolva"
 
-#: showtime/widgets/window.py:756
+#: showtime/widgets/window.py:763
 msgid "Copy Technical Details"
 msgstr "Műszaki részletek másolása"
 
-#: showtime/widgets/window.py:759
+#: showtime/widgets/window.py:766
 msgid "Try Again"
 msgstr "Újrapróbálkozás"
 
-#: showtime/widgets/window.py:816
+#: showtime/widgets/window.py:823
 msgid "No plugin available for this media type"
 msgstr "Nem érhető el bővítmény ehhez a médiatípushoz"
 
-#: showtime/widgets/window.py:824
+#: showtime/widgets/window.py:831
 msgid "Unable to install the required plugin"
 msgstr "Nem lehet telepíteni a szükséges bővítményt"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:838
 msgid "Installing…"
 msgstr "Telepítés…"
 
-#: showtime/widgets/window.py:835
+#: showtime/widgets/window.py:842
 msgid "“{}” codecs are required to play this video"
 msgstr "A(z) „{}” kodekek szükségesek a videó lejátszásához"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:845
 msgid "Install Plugin"
 msgstr "Bővítmény telepítése"
 
-#: showtime/widgets/window.py:844
+#: showtime/widgets/window.py:851
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "A videó lejátszásához szükséges „{}” kodekek nem találhatók"
 
-#: showtime/widgets/window.py:854
-#| msgid "Try Again"
+#: showtime/widgets/window.py:861
 msgid "Try Anyway"
 msgstr "Próbálkozás mindenképp"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1040
-#| msgid "translator_credits"
+#: showtime/widgets/window.py:1059
 msgid "translator-credits"
 msgstr "Úr Balázs <ur.balazs at fsf dot hu>, 2024, 2026."
 
-#: showtime/widgets/window.py:1095
+#: showtime/widgets/window.py:1114
 msgid "Screenshot captured"
 msgstr "Képernyőkép rögzítve"
 
-#: showtime/widgets/window.py:1097
+#: showtime/widgets/window.py:1116
 msgid "Show in Files"
 msgstr "Megjelenítés a Fájlokban"
 
@@ -298,7 +300,6 @@ msgid "_About Video Player"
 msgstr "A Videólejátszó _névjegye"
 
 #: showtime/gtk/window.blp:61
-#| msgid "Video Player"
 msgid "Drop Video to Play"
 msgstr "Ejtsen ide videót a lejátszáshoz"
 
