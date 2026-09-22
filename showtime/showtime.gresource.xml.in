@@ -9,6 +9,7 @@
     <file preprocess="xml-stripblanks" alias="speedometer3-symbolic.svg">../data/icons/scalable/actions/speedometer3-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="speedometer4-symbolic.svg">../data/icons/scalable/actions/speedometer4-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="arrow-circular-top-right-symbolic.svg">../data/icons/scalable/actions/arrow-circular-top-right-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="video-camera-symbolic.svg">../data/icons/scalable/actions/video-camera-symbolic.svg</file>
   </gresource>
   <gresource prefix="@PREFIX@">
     <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">gtk/shortcuts-dialog.ui</file>
