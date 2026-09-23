@@ -1,2 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 16 16" width="16px"><path d="m 8 1 c -2.050781 0 -4.097656 0.78125 -5.65625 2.339844 c -3.117188 3.113281 -3.117188 8.195312 0 11.3125 c 0.320312 0.328125 0.824219 0.398437 1.21875 0.167968 c 0.398438 -0.230468 0.589844 -0.703124 0.460938 -1.144531 l 0.796874 -0.792969 l -0.707031 -0.707031 l -0.695312 0.695313 c -0.808594 -0.953125 -1.296875 -2.132813 -1.402344 -3.375 h 0.984375 v -1 h -0.984375 c 0.105469 -1.246094 0.59375 -2.425782 1.402344 -3.375 l 0.695312 0.691406 l 0.707031 -0.707031 l -0.695312 -0.691407 c 0.9375 -0.792968 2.089844 -1.28125 3.3125 -1.398437 c -0.058594 0.105469 -0.101562 0.226563 -0.101562 0.363281 l -0.039063 3.746094 c -0.78125 0.289062 -1.296875 1.035156 -1.296875 1.871094 c 0 1.101562 0.894531 2 2 2 s 2 -0.898438 2 -2 c 0 -0.796875 -0.46875 -1.515625 -1.199219 -1.835938 l 0.039063 -3.765625 c 0.003906 -0.128906 -0.035156 -0.246093 -0.09375 -0.359375 c 1.15625 0.144532 2.242187 0.625 3.128906 1.375 l -0.691406 0.695313 l 0.707031 0.707031 l 0.691406 -0.691406 c 0.808594 0.949218 1.296875 2.128906 1.402344 3.375 h -0.984375 v 1 h 0.984375 c -0.105469 1.242187 -0.59375 2.421875 -1.402344 3.375 l -0.695312 -0.695313 l -0.707031 0.707031 l 0.800781 0.796876 c -0.125 0.441406 0.0625 0.910156 0.460937 1.136718 c 0.394532 0.230469 0.894532 0.160156 1.214844 -0.164062 c 3.117188 -3.117188 3.117188 -8.199219 0 -11.3125 c -1.5 -1.503906 -3.535156 -2.34375 -5.65625 -2.339844 z m 0 0" fill="#222222"/></svg>
+<svg gpa:rendering="symbolic" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:gpa="https://www.gtk.org/grappa" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" width="16" height="16" gpa:version="1" gpa:state="0" gpa:state-names="outline empty">
+<path d="M 12 9 C 12 10.0614424, 11.5786781 11.0775719, 10.828125 11.828125 L 12.9492188 13.9492188 C 14.2615662 12.6368723, 15 10.8559389, 15 9 Z" id="path22" gpa:states="outline" stroke="none" fill-rule="nonzero" fill-opacity="0.35" fill="rgb(0,0,0)" class="foreground-fill" gpa:fill="foreground">
+    </path>
+  <path d="M 9 9 C 9 9.55228519, 8.55228519 10, 8 10 C 7.44771528 10, 7 9.55228519, 7 9 C 7 8.44771481, 7.44771528 8, 8 8 C 8.55228519 8, 9 8.44771481, 9 9 Z M 8 5 L 8 8 M 3.05025244 13.9497471 C 1.73749793 12.6369934, 1.00000012 10.8565149, 1 9 C 1 5.13400698, 4.13400698 2, 8 2 C 11.8659945 2, 15 5.13400698, 15 9 C 15 10.8565149, 14.2625017 12.6369934, 12.9497471 13.9497471" id="path6" gpa:states="outline" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="rgb(0,0,0)" fill="none" class="foreground-stroke transparent-fill" gpa:stroke="foreground" gpa:stroke-minwidth="25%" gpa:stroke-maxwidth="150%" >
+    </path>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <cc:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"></cc:license>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>power performance saving power-profile-balanced speedometer-medium</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Wartybix</dc:title>
+          </cc:Agent>
+        </dc:creator>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
