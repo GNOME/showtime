@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-07-18 18:23+0200\n"
+"POT-Creation-Date: 2026-09-22 14:19+0000\n"
+"PO-Revision-Date: 2026-09-25 19:51+0200\n"
 "Last-Translator: Victoria Niedzielska <victorian@gnome.org>\n"
 "Language-Team: Polish <https://l10n.gnome.org/teams/pl/>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Gtranslator 50.0\n"
+"X-Generator: Gtranslator 51.0\n"
 
 #: data/org.gnome.Showtime.desktop.in:2
 #: data/org.gnome.Showtime.metainfo.xml.in:6 showtime/gtk/window.blp:37
@@ -54,6 +54,10 @@ msgstr ""
 "i napisy w wielu językach oraz zrzuty ekranu — wszystko, czego potrzeba do "
 "prostego oglądania."
 
+#: data/org.gnome.Showtime.metainfo.xml.in:18
+msgid "The GNOME Project"
+msgstr "Projekt GNOME"
+
 #: data/org.gnome.Showtime.metainfo.xml.in:37
 msgid "The app playing a video"
 msgstr "Aplikacja odtwarzająca wideo"
@@ -77,6 +81,7 @@ msgstr "Nieznany tytuł"
 #. Translators: The variable is the number of channels
 #. in an audio track
 #: showtime/widgets/options.py:93
+#, python-brace-format
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Nieokreślone, {} kanał"
@@ -136,6 +141,7 @@ msgid "Installing…"
 msgstr "Instalowanie…"
 
 #: showtime/widgets/window.py:842
+#, python-brace-format
 msgid "“{}” codecs are required to play this video"
 msgstr "Kodeki „{}” są wymagane do odtworzenia tego wideo"
 
@@ -144,6 +150,7 @@ msgid "Install Plugin"
 msgstr "Zainstaluj wtyczkę"
 
 #: showtime/widgets/window.py:851
+#, python-brace-format
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr "Kodeki „{}” wymagane do odtworzenia tego wideo nie zostały odnalezione"
 
