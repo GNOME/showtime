@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="@PREFIX@/icons/scalable/actions/">
-    <file preprocess="xml-stripblanks" alias="settings-symbolic.svg">../data/icons/scalable/actions/settings-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="puzzle-piece-symbolic.svg">../data/icons/scalable/actions/puzzle-piece-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="skip-backwards-10-symbolic.svg">../data/icons/scalable/actions/skip-backwards-10-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="skip-forward-10-symbolic.svg">../data/icons/scalable/actions/skip-forward-10-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="speedometer2-symbolic.svg">../data/icons/scalable/actions/speedometer2-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="speedometer3-symbolic.svg">../data/icons/scalable/actions/speedometer3-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="speedometer4-symbolic.svg">../data/icons/scalable/actions/speedometer4-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="arrow-circular-top-right-symbolic.svg">../data/icons/scalable/actions/arrow-circular-top-right-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="video-camera-symbolic.svg">../data/icons/scalable/actions/video-camera-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="settings.svg">../data/icons/scalable/actions/settings.svg</file>
+    <file preprocess="xml-stripblanks" alias="puzzle-piece.svg">../data/icons/scalable/actions/puzzle-piece.svg</file>
+    <file preprocess="xml-stripblanks" alias="skip-backwards-10.svg">../data/icons/scalable/actions/skip-backwards-10.svg</file>
+    <file preprocess="xml-stripblanks" alias="skip-forward-10.svg">../data/icons/scalable/actions/skip-forward-10.svg</file>
+    <file preprocess="xml-stripblanks" alias="speedometer2.svg">../data/icons/scalable/actions/speedometer2.svg</file>
+    <file preprocess="xml-stripblanks" alias="speedometer3.svg">../data/icons/scalable/actions/speedometer3.svg</file>
+    <file preprocess="xml-stripblanks" alias="speedometer4.svg">../data/icons/scalable/actions/speedometer4.svg</file>
+    <file preprocess="xml-stripblanks" alias="arrow-circular-top-right.svg">../data/icons/scalable/actions/arrow-circular-top-right.svg</file>
+    <file preprocess="xml-stripblanks" alias="video-camera.svg">../data/icons/scalable/actions/video-camera.svg</file>
   </gresource>
   <gresource prefix="@PREFIX@">
     <file preprocess="xml-stripblanks" alias="shortcuts-dialog.ui">gtk/shortcuts-dialog.ui</file>
