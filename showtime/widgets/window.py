@@ -33,7 +33,7 @@ from showtime import (
     state_settings,
     system,
 )
-from showtime.play import Messenger, gst_play_setup
+from showtime.play import Messenger, MissingPlugin, gst_play_setup
 from showtime.utils import (
     get_title,
     lookup_action,
@@ -141,7 +141,6 @@ class Window(Adw.ApplicationWindow):
     _prev_motion_xy: tuple[float | None, float | None] = (0, 0)
     _prev_volume = -1
     _toplevel_focused: bool = False
-    _already_shown_missing_plugins = False
 
     @GObject.Property(type=bool, default=False)
     def mute(self) -> bool:
@@ -219,7 +218,7 @@ class Window(Adw.ApplicationWindow):
 
         self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
 
-        messenger = Messenger(self.play, self.pipeline)
+        messenger = Messenger(self.play)
         messenger.connect("state-changed", self._on_playback_state_changed)
         messenger.connect("duration-changed", self._on_duration_changed)
         messenger.connect("position-updated", self._on_position_updated)
@@ -229,7 +228,7 @@ class Window(Adw.ApplicationWindow):
         messenger.connect("end-of-stream", self._on_end_of_stream)
         messenger.connect("warning", self._on_warning)
         messenger.connect("error", self._on_error)
-        messenger.connect("missing-plugin", self._on_missing_plugin)
+        messenger.connect("missing-plugins", self._on_missing_plugins)
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -299,7 +298,6 @@ class Window(Adw.ApplicationWindow):
         app.save_play_position(self)  # pyright: ignore[reportAttributeAccessIssue]
 
         self._playing_gfile = gfile
-        self._already_shown_missing_plugins = False
 
         try:
             file_info = gfile.query_info(
@@ -780,21 +778,13 @@ class Window(Adw.ApplicationWindow):
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.stack.props.visible_child = self.placeholder_page
 
-    def _on_missing_plugin(self, _obj, msg: Gst.Message) -> None:
-        if self._already_shown_missing_plugins:
-            return
-
-        self._already_shown_missing_plugins = True
-
-        # https://gstreamer.freedesktop.org/documentation/additional/design/missing-plugins.html#partially-missing-plugins
-        if partially_missing := (
-            self.pipeline.get_state(Gst.CLOCK_TIME_NONE)[0]
-            != Gst.StateChangeReturn.FAILURE
-        ):
+    def _on_missing_plugins(
+        self, _obj, missing_plugins: tuple[MissingPlugin, ...], partially_missing: bool
+    ) -> None:
+        if partially_missing:
             self.pause()
 
-        desc = GstPbutils.missing_plugin_message_get_description(msg)
-        detail = GstPbutils.missing_plugin_message_get_installer_detail(msg)
+        desc, detail = missing_plugins[0]
         group = Adw.PreferencesGroup(
             halign=Gtk.Align.CENTER,
             width_request=250,
