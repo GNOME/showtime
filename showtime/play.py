@@ -1,20 +1,24 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
-from functools import partial
-from typing import Any
+from typing import Any, NamedTuple
 
 from gi.repository import (
     Gdk,
-    GLib,
     GObject,
     Gst,
-    GstPbutils,
     GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
 
-from showtime import system, utils
+from showtime import logger, system, utils
+
+
+class MissingPlugin(NamedTuple):
+    """A missing plugin reported by GStreamer."""
+
+    description: str
+    detail: str
 
 
 def gst_play_setup(
@@ -52,29 +56,46 @@ def gst_play_setup(
     return paintable, play, pipeline, paintable_sink
 
 
-def _is_qtdemux_unknown_fourcc_message(msg: Gst.Message) -> bool:
-    """Check if a missing-plugin message is for an x-gst-fourcc cap.
+def _should_missing_plugin_be_ignored(missing_plugin: MissingPlugin) -> bool:
+    """Check if a missing plugin should be ignored.
 
     qtdemux generates {audio,video,text,meta}/x-gst-fourcc-<fourcc>
     caps as a fallback for any fourcc code it doesn't recognise in a
     QuickTime/MP4 file. If a decoder existed, qtdemux would already
-    know the fourcc and emit proper caps for it. These messages are
-    therefore not actionable from the missing-plugin UI.
+    know the fourcc and emit proper caps for it. These are therefore
+    not actionable from the missing-plugin UI, so they're ignored.
     """
-    if not (structure := msg.get_structure()):
-        return False
+    return "x-gst-fourcc" in missing_plugin.detail
 
-    if not structure.has_field("detail"):
-        return False
 
-    caps = structure.get_value("detail")
-    return isinstance(caps, Gst.Caps) and "x-gst-fourcc" in caps.to_string()
+def _parse_missing_plugins(msg: GstPlay.PlayMessage) -> tuple[MissingPlugin, ...]:
+    result: tuple[bool, list[str], list[str]] = (
+        GstPlay.play_message_parse_error_missing_plugin(msg)
+        if GstPlay.PlayMessage.parse_type(msg) == GstPlay.PlayMessage.ERROR
+        else GstPlay.play_message_parse_warning_missing_plugin(msg)
+    )
+    found, descriptions, details = result
+    if not found:
+        return ()
+
+    missing_plugins: list[MissingPlugin] = [
+        MissingPlugin(description, detail)
+        for description, detail in zip(descriptions, details, strict=True)
+    ]
+
+    return tuple(
+        missing_plugin
+        for missing_plugin in missing_plugins
+        if not _should_missing_plugin_be_ignored(missing_plugin)
+    )
 
 
 class Messenger(GObject.Object):
     """A messenger between GStreamer and the app."""
 
     __gtype_name__ = "Messenger"
+
+    _pending_missing_plugins: tuple[MissingPlugin, ...] = ()
 
     state_changed = GObject.Signal(name="state-changed", arg_types=(object,))
     duration_changed = GObject.Signal(name="duration-changed", arg_types=(object,))
@@ -85,12 +106,11 @@ class Messenger(GObject.Object):
     end_of_stream = GObject.Signal(name="end-of-stream")
     warning = GObject.Signal(name="warning", arg_types=(object,))
     error = GObject.Signal(name="error", arg_types=(object,))
-    missing_plugin = GObject.Signal(name="missing-plugin", arg_types=(object,))
+    missing_plugins = GObject.Signal(name="missing-plugins", arg_types=(object, bool))
 
     def __init__(
         self,
         play: GstPlay.Play,
-        pipeline: Gst.Element,
         **kwargs: Any,
     ) -> None:
         super().__init__(**kwargs)
@@ -99,22 +119,12 @@ class Messenger(GObject.Object):
             bus.add_signal_watch()
             bus.connect("message", self._on_play_bus_message)
 
-        if bus := pipeline.get_bus():
-            bus.add_signal_watch()
-            bus.connect(
-                "message",
-                lambda bus, msg: GLib.idle_add(
-                    partial(self._on_pipeline_bus_message, bus, msg)
-                ),
-            )
-
     def _on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):
             case GstPlay.PlayMessage.STATE_CHANGED:
-                self.emit(
-                    "state-changed",
-                    GstPlay.PlayMessage.parse_state_changed(msg),
-                )
+                state = GstPlay.PlayMessage.parse_state_changed(msg)
+                self._resolve_pending_missing_plugins(state)
+                self.emit("state-changed", state)
 
             case GstPlay.PlayMessage.DURATION_CHANGED:
                 self.emit(
@@ -144,14 +154,23 @@ class Messenger(GObject.Object):
                 self.emit("end-of-stream")
 
             case GstPlay.PlayMessage.WARNING:
+                if plugins := _parse_missing_plugins(msg):
+                    self._pending_missing_plugins = plugins
                 self.emit("warning", GstPlay.PlayMessage.parse_warning(msg))
 
             case GstPlay.PlayMessage.ERROR:
                 error, _details = GstPlay.PlayMessage.parse_error(msg)
-                self.emit("error", error)
+                if plugins := _parse_missing_plugins(msg):
+                    logger.error(error.message)
+                    self.emit("missing-plugins", plugins, False)
+                else:
+                    self.emit("error", error)
 
-    def _on_pipeline_bus_message(self, _bus: Gst.Bus, msg: Gst.Message) -> None:
-        missing = GstPbutils.is_missing_plugin_message(msg)
-        qtmux_unknown_fourcc = _is_qtdemux_unknown_fourcc_message(msg)
-        if missing and not qtmux_unknown_fourcc:
-            self.emit("missing-plugin", msg)
+    def _resolve_pending_missing_plugins(self, state: GstPlay.PlayState) -> None:
+        match state:
+            case GstPlay.PlayState.STOPPED:
+                self._pending_missing_plugins = ()
+            case GstPlay.PlayState.PAUSED | GstPlay.PlayState.PLAYING:
+                if self._pending_missing_plugins:
+                    self.emit("missing-plugins", self._pending_missing_plugins, True)
+                    self._pending_missing_plugins = ()
