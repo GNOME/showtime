@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: Copyright 2024-2026 kramo
 
 from typing import Any, NamedTuple
+import sys
 
 from gi.repository import (
     Gdk,
@@ -25,6 +26,12 @@ def gst_play_setup(
     picture: Gtk.Picture,
 ) -> tuple[Gdk.Paintable, GstPlay.Play, Gst.Element, Gst.Element]:
     """Set up `GstPlay`."""
+    if not Gst.ElementFactory.find("gtk4paintablesink"):
+        print(
+            "GStreamer installation is missing gtk4paintablesink. "
+            "Install it or report the error to your distribution."
+        )
+        sys.exit(1)
     sink = paintable_sink = Gst.ElementFactory.make("gtk4paintablesink")
     if not paintable_sink:
         msg = "Cannot make gtk4paintablesink"
