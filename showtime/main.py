@@ -210,7 +210,12 @@ class Application(Adw.Application):
 
     def do_handle_local_options(self, options: GLib.VariantDict) -> int:
         """Handle local command line arguments."""
-        self.register()  # This is so props.is_remote works
+        try:
+            self.register()  # This is so props.is_remote works
+        except GLib.Error as error:
+            logger.warning("Failed to register application on the D-Bus session bus: %s", error)
+            return -1
+
         if self.props.is_remote:
             if options.contains("new-window"):
                 return -1
