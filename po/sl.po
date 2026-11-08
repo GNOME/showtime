@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: showtime main\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/showtime/-/issues\n"
-"POT-Creation-Date: 2026-04-04 07:19+0000\n"
-"PO-Revision-Date: 2026-07-27 16:34+0200\n"
+"POT-Creation-Date: 2026-11-08 13:26+0000\n"
+"PO-Revision-Date: 2026-11-08 23:02+0100\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl\n"
@@ -76,13 +76,14 @@ msgstr "Npr. skupno trajanje videoposnetka ali preostali čas"
 msgid "Playing a video"
 msgstr "Predvajanje videoposnetka"
 
-#: showtime/mpris.py:288 showtime/widgets/window.py:1080
+#: showtime/mpris.py:288 showtime/widgets/window.py:1078
 msgid "Unknown Title"
 msgstr "Neznan naslov"
 
 #. Translators: The variable is the number of channels
 #. in an audio track
-#: showtime/widgets/options.py:93
+#: showtime/widgets/options.py:94
+#, python-brace-format
 msgid "Undetermined, {} Channel"
 msgid_plural "Undetermined, {} Channels"
 msgstr[0] "Nedoločeno, {} kanalov"
@@ -90,85 +91,87 @@ msgstr[1] "Nedoločeno, {} kanal"
 msgstr[2] "Nedoločeno, {} kanala"
 msgstr[3] "Nedoločeno, {} kanali"
 
-#: showtime/widgets/options.py:98
+#: showtime/widgets/options.py:99
 msgid "Undetermined"
 msgstr "Nedoločeno"
 
-#: showtime/widgets/options.py:111
+#: showtime/widgets/options.py:112
 msgid "No Audio"
 msgstr "Brez zvoka"
 
-#: showtime/widgets/options.py:116
+#: showtime/widgets/options.py:117
 msgid "None"
 msgstr "Brez"
 
-#: showtime/widgets/options.py:122
+#: showtime/widgets/options.py:125
 msgid "Undetermined Language"
 msgstr "Nedoločen jezik"
 
-#: showtime/widgets/options.py:133
+#: showtime/widgets/options.py:138
 msgid "Add Subtitle File…"
 msgstr "Dodaj datoteko s podnapisi ..."
 
-#: showtime/widgets/window.py:189 showtime/gtk/window.blp:161
+#: showtime/widgets/window.py:188 showtime/gtk/window.blp:161
 msgid "Play"
 msgstr "Predvajaj"
 
-#: showtime/widgets/window.py:189
+#: showtime/widgets/window.py:188
 msgid "Pause"
 msgstr "Premor"
 
-#: showtime/widgets/window.py:761
+#: showtime/widgets/window.py:765
 msgid "Details copied"
 msgstr "Podrobnosti kopirane"
 
-#: showtime/widgets/window.py:763
+#: showtime/widgets/window.py:767
 msgid "Copy Technical Details"
 msgstr "Kopiraj tehnične podrobnosti"
 
-#: showtime/widgets/window.py:766
+#: showtime/widgets/window.py:770
 msgid "Try Again"
 msgstr "Poskusi znova"
 
-#: showtime/widgets/window.py:823
+#: showtime/widgets/window.py:819
 msgid "No plugin available for this media type"
 msgstr "Za predvajanje te vrste medija ni na voljo noben vstavek"
 
-#: showtime/widgets/window.py:831
+#: showtime/widgets/window.py:827
 msgid "Unable to install the required plugin"
 msgstr "Zahtevanega vstavka ni mogoče namestiti"
 
-#: showtime/widgets/window.py:838
+#: showtime/widgets/window.py:834
 msgid "Installing…"
 msgstr "Poteka nameščanje …"
 
-#: showtime/widgets/window.py:842
+#: showtime/widgets/window.py:838
+#, python-brace-format
 msgid "“{}” codecs are required to play this video"
 msgstr "Za predvajanje tega videoposnetka so potrebni kodeki »{}«"
 
-#: showtime/widgets/window.py:845
+#: showtime/widgets/window.py:841
 msgid "Install Plugin"
 msgstr "Namesti vstavek"
 
-#: showtime/widgets/window.py:851
+#: showtime/widgets/window.py:847
+#, python-brace-format
 msgid "The “{}” codecs required to play this video could not be found"
 msgstr ""
 "Kodekov »{}«, potrebnih za predvajanje tega videoposnetka, ni mogoče najti"
 
-#: showtime/widgets/window.py:861
+#: showtime/widgets/window.py:857
 msgid "Try Anyway"
 msgstr "Vseeno poskusi"
 
 #. Translators: Replace this with your name for it to show up in the about dialog
-#: showtime/widgets/window.py:1059
+#: showtime/widgets/window.py:1055
 msgid "translator-credits"
 msgstr "Martin Srebotnjak  <miles@filmsi.net>"
 
-#: showtime/widgets/window.py:1114
+#: showtime/widgets/window.py:1112
 msgid "Screenshot captured"
 msgstr "Zaslonska slika je zajeta"
 
-#: showtime/widgets/window.py:1116
+#: showtime/widgets/window.py:1114
 msgid "Show in Files"
 msgstr "Pokaži v Datotekah"
 
@@ -275,6 +278,14 @@ msgstr "Pojdi nazaj za 10 sekund"
 #: showtime/gtk/shortcuts-dialog.blp:91 showtime/gtk/window.blp:178
 msgid "Go Forward 10 Seconds"
 msgstr "Pojdi naprej za 10 sekund"
+
+#: showtime/gtk/shortcuts-dialog.blp:96
+msgid "Decrease Playback Speed"
+msgstr "Znižaj hitrost predvajanja"
+
+#: showtime/gtk/shortcuts-dialog.blp:101
+msgid "Increase Playback Speed"
+msgstr "Zvišaj hitrost predvajanja"
 
 #: showtime/gtk/sound-options.blp:48
 msgid "Adjust Volume"
