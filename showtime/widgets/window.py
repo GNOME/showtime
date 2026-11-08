@@ -1049,8 +1049,10 @@ class Window(Adw.ApplicationWindow):
         about.props.translator_credits = _("translator-credits")
 
         try:
-            about.props.debug_info = log_file.read_text()
-        except FileNotFoundError:
+            about.props.debug_info = log_file.read_text(
+                encoding="utf-8", errors="replace"
+            )
+        except (FileNotFoundError, OSError):
             pass
         else:
             about.props.debug_info_filename = log_file.name
