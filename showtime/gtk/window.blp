@@ -43,13 +43,11 @@ template $Window: Adw.ApplicationWindow {
     child: $DragOverlay drag_overlay {
       styles ["drop-widget"]
 
-      DropTarget drop_target {
+      drop_target: DropTarget drop_target {
         formats: "GFile";
         actions: copy;
         drop => $_on_drop();
-      }
-
-      drop_target: drop_target;
+      };
 
       overlayed: Adw.Bin {
         can-target: false;
