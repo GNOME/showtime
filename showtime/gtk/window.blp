@@ -433,7 +433,7 @@ template $Window: Adw.ApplicationWindow {
                 WindowControls window_controls_start {
                   halign: start;
                   valign: start;
-                  visible: bind window_controls_start.empty inverted;
+                  visible: bind template.fullscreened inverted;
                   side: start;
 
                   styles [
@@ -499,7 +499,7 @@ template $Window: Adw.ApplicationWindow {
                 WindowControls window_controls_end {
                   halign: end;
                   valign: start;
-                  visible: bind window_controls_end.empty inverted;
+                  visible: bind template.fullscreened inverted;
                   side: end;
 
                   styles [
