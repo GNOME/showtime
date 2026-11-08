@@ -39,4 +39,18 @@ Play your favorite movies and video files without hassle. Video Player features 
     </foaf:Person>
   </maintainer>
 
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Peter Eisenmann</foaf:name>
+      <foaf:mbox rdf:resource="mailto:p3732@getgoogleoff.me" />
+      <gnome:userid>peisen</gnome:userid>
+      <foaf:account>
+        <foaf:OnlineAccount>
+          <foaf:accountServiceHomepage rdf:resource="https://github.com"/>
+          <foaf:accountName>p3732</foaf:accountName>
+        </foaf:OnlineAccount>
+      </foaf:account>
+    </foaf:Person>
+  </maintainer>
+
 </Project>
