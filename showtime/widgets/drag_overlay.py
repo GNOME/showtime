@@ -71,3 +71,9 @@ class DragOverlay(Adw.Bin):
         self.revealer.props.can_target = False
         self.revealer.props.transition_type = Gtk.RevealerTransitionType.CROSSFADE
         self.revealer.props.reveal_child = False
+        self.revealer.bind_property(
+            "child-revealed",
+            self.revealer,
+            "visible",
+            GObject.BindingFlags.SYNC_CREATE,
+        )
