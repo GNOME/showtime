@@ -3,6 +3,7 @@
 # SPDX-FileCopyrightText: Copyright 2025 Jamie Gravendeel
 
 from gettext import ngettext
+from urllib.parse import unquote
 
 from gi.repository import (
     Adw,
@@ -119,7 +120,11 @@ class Options(Adw.Bin):
         subs = 0
         for index, stream in enumerate(media_info.get_subtitle_streams()):
             has_title, title = stream.get_tags().get_string("title")
+            if has_title and title:
+                title = unquote(title)
             language = stream.get_language() or _("Undetermined Language")
+            if language:
+                language = unquote(language)
 
             self.subtitles_menu.append(
                 f"{language}{(' - ' + title) if (has_title and title) else ''}",
