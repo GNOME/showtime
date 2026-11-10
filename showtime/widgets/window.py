@@ -35,6 +35,7 @@ from showtime import (
 )
 from showtime.play import Messenger, MissingPlugin, gst_play_setup
 from showtime.utils import (
+    get_file_hash_identifier,
     get_title,
     lookup_action,
     nanoseconds_to_timestamp,
@@ -440,8 +441,7 @@ class Window(Adw.ApplicationWindow):
             return None
 
         hist_file.close()
-
-        return hist.get(sha256(uri.encode("utf-8")).hexdigest())
+        return hist.get(get_file_hash_identifier(uri))
 
     def _resize_window(
         self, _obj, paintable: Gdk.Paintable, initial: bool | None = False

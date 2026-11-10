@@ -5,7 +5,6 @@ import json
 import logging
 import sys
 from collections.abc import Callable, Sequence
-from hashlib import sha256
 from logging.handlers import RotatingFileHandler
 
 import gi
@@ -23,6 +22,7 @@ import showtime
 from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
 
 from .mpris import MPRIS
+from .utils import get_file_hash_identifier
 from .widgets.window import PROFILE, Window
 
 MAX_HIST_ITEMS = 1000
@@ -100,7 +100,7 @@ class Application(Adw.Application):
         if not (uri := win.play.props.uri):
             return
 
-        digest = sha256(uri.encode("utf-8")).hexdigest()
+        hash_identifier = get_file_hash_identifier(uri)
 
         showtime.state_path.mkdir(parents=True, exist_ok=True)
         hist_path = showtime.state_path / "playback_history.json"
@@ -117,7 +117,7 @@ class Application(Adw.Application):
 
             hist_file.close()
 
-        hist[digest] = win.play.props.position
+        hist[hash_identifier] = win.play.props.position
 
         for _extra in range(max(len(hist) - MAX_HIST_ITEMS, 0)):
             del hist[next(iter(hist))]
