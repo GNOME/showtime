@@ -1,13 +1,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # SPDX-FileCopyrightText: Copyright 2024-2026 kramo
-
+import os
 from datetime import UTC, datetime, timedelta
+from hashlib import sha256
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
 from gi.repository import (
     Gdk,
     Gio,
+    GLib,
     Graphene,
     GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
@@ -119,3 +121,18 @@ def get_subtitle_font_desc() -> str | None:
         # TODO: Can I always assume that 72 is the default unscaled DPI? Probably not…
         new_size = size * ((settings.props.gtk_xft_dpi / 1024) / 72)
         return font_name[: len(font_name) - len(size_str)] + str(round(new_size))
+
+
+def get_file_hash_identifier(uri: str) -> str:
+    """Create a SHA256 hash using the file path."""
+    if os.getenv('FLATPAK_ID') is None:
+        return sha256(uri.encode("utf-8")).hexdigest()
+
+    current_file = Gio.File.new_for_uri(uri)
+    file_path = current_file.query_info(
+        "xattr::document-portal.host-path",
+        Gio.FileQueryInfoFlags.NONE,
+        None
+    ).get_attribute_as_string("xattr::document-portal.host-path")
+
+    return sha256(file_path.encode("utf-8")).hexdigest()
