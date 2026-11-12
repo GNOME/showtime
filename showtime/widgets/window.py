@@ -90,6 +90,7 @@ class Window(Adw.ApplicationWindow):
     header_end: Gtk.Box = Gtk.Template.Child()
     video_primary_menu_button: Gtk.MenuButton = Gtk.Template.Child()
 
+    shade: Adw.Bin = Gtk.Template.Child()
     toolbar_clamp: Adw.Clamp = Gtk.Template.Child()
     controls_box: Gtk.Box = Gtk.Template.Child()
     bottom_overlay_box: Gtk.Box = Gtk.Template.Child()
@@ -253,6 +254,7 @@ class Window(Adw.ApplicationWindow):
             self.overlay_motions.add(motion)
 
         self.overlay_widgets = {
+            self.shade,
             self.toolbar_clamp,
             self.header_start,
             self.header_end,

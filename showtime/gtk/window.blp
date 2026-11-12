@@ -113,6 +113,14 @@ template $Window: Adw.ApplicationWindow {
 
           child: Overlay video_overlay {
             [overlay]
+            Adw.Bin shade {
+              /* Only for backdrop shading */
+              styles [
+                "shade",
+              ]
+            }
+
+            [overlay]
             Adw.Clamp toolbar_clamp {
               maximum-size: 1920;
               tightening-threshold: 1920;
@@ -278,10 +286,6 @@ template $Window: Adw.ApplicationWindow {
                   }
                 }
               };
-
-              styles [
-                "shade",
-              ]
             }
 
             [overlay]
