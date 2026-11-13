@@ -419,94 +419,88 @@ template $Window: Adw.ApplicationWindow {
             }
 
             [overlay]
-            WindowHandle header_handle_start {
+            Box header_start {
               valign: start;
               halign: start;
+              margin-top: 6;
+              margin-bottom: 3;
+              margin-start: 6;
+              margin-end: 3;
+              spacing: 6;
 
-              child: Box header_start {
-                margin-top: 6;
-                margin-bottom: 3;
-                margin-start: 6;
-                margin-end: 3;
-                spacing: 6;
+              WindowControls window_controls_start {
+                halign: start;
+                valign: start;
+                visible: bind window_controls_start.empty inverted;
+                side: start;
 
-                WindowControls window_controls_start {
-                  halign: start;
-                  valign: start;
-                  visible: bind window_controls_start.empty inverted;
-                  side: start;
+                styles [
+                  "overlaid",
+                ]
+              }
 
-                  styles [
-                    "overlaid",
-                  ]
-                }
+              Button {
+                hexpand: true;
+                margin-bottom: 24;
+                margin-end: 24;
+                icon-name: bind $_get_fullscreen_icon(template.fullscreened) as <string>;
+                tooltip-text: _("Toggle Fullscreen");
+                action-name: "win.toggle-fullscreen";
 
-                Button {
-                  hexpand: true;
-                  margin-bottom: 24;
-                  margin-end: 24;
-                  icon-name: bind $_get_fullscreen_icon(template.fullscreened) as <string>;
-                  tooltip-text: _("Toggle Fullscreen");
-                  action-name: "win.toggle-fullscreen";
-
-                  styles [
-                    "circular",
-                    "highlighted",
-                    "overlaid",
-                  ]
-                }
-              };
+                styles [
+                  "circular",
+                  "highlighted",
+                  "overlaid",
+                ]
+              }
             }
 
             [overlay]
-            WindowHandle header_handle_end {
+            Box header_end {
               valign: start;
               halign: end;
+              margin-top: 6;
+              margin-bottom: 3;
+              margin-end: 6;
+              margin-start: 3;
+              spacing: 6;
 
-              child: Box header_end {
-                margin-top: 6;
-                margin-bottom: 3;
-                margin-end: 6;
-                margin-start: 3;
-                spacing: 6;
+              Adw.Spinner spinner {
+                width-request: 18;
+                height-request: 18;
+                margin-end: 9;
+                opacity: 0;
+                can-target: false;
 
-                Adw.Spinner spinner {
-                  width-request: 18;
-                  height-request: 18;
-                  margin-end: 9;
-                  opacity: 0;
-                  can-target: false;
+                styles [
+                  "overlaid",
+                ]
+              }
 
-                  styles [
-                    "overlaid",
-                  ]
-                }
+              MenuButton video_primary_menu_button {
+                hexpand: true;
+                primary: true;
+                icon-name: "open-menu-symbolic";
+                tooltip-text: _("Main Menu");
+                menu-model: primary_menu;
 
-                MenuButton video_primary_menu_button {
-                  hexpand: true;
-                  primary: true;
-                  icon-name: "open-menu-symbolic";
-                  tooltip-text: _("Main Menu");
-                  menu-model: primary_menu;
+                styles [
+                  "circular",
+                  "highlighted",
+                  "overlaid",
+                ]
+              }
 
-                  styles [
-                    "circular",
-                    "highlighted",
-                    "overlaid",
-                  ]
-                }
+              WindowControls window_controls_end {
+                halign: end;
+                valign: start;
+                visible: bind window_controls_end.empty inverted;
+                side: end;
 
-                WindowControls window_controls_end {
-                  halign: end;
-                  valign: start;
-                  visible: bind window_controls_end.empty inverted;
-                  side: end;
-
-                  styles [
-                    "overlaid",
-                  ]
-                }
-              };
+                styles [
+                  "overlaid",
+                ]
+              }
             }
 
             child: GraphicsOffload graphics_offload {
