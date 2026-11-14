@@ -46,6 +46,11 @@ showtime_widgets_sources = [
     'widgets/window.py',
 ]
 
+showtime_util_sources = [
+    'util/__init__.py',
+    'util/connection.py',
+]
+
 showtime_sources = [
     configure_file(
         input: '__init__.py.in',
@@ -61,5 +66,9 @@ showtime_sources = [
 py_installation.install_sources(
     showtime_widgets_sources,
     subdir: 'showtime/widgets',
+)
+py_installation.install_sources(
+    showtime_util_sources,
+    subdir: 'showtime/util',
 )
 py_installation.install_sources(showtime_sources, subdir: 'showtime')
