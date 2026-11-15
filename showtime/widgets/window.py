@@ -317,25 +317,7 @@ class Window(Adw.ApplicationWindow):
 
         logger.debug("Playing video: %s", uri)
 
-        def setup_cb(*_args) -> None:
-            self.pipeline.disconnect_by_func(setup_cb)
-
-            if not (pos := self._get_previous_play_position()):
-                self.unpause()
-                logger.debug("No previous play position")
-                return
-
-            if pos < MINUTE_IN_NS:
-                self.unpause()
-                logger.debug("Previous play position before 60s")
-                return
-
-            self._reveal_overlay(self.restore_breakpoint_bin)
-            self._hide_overlay(self.controls_box)
-            self.play.seek(pos)
-            logger.debug("Previous play position restored: %i", pos)
-
-        self.pipeline.connect("source-setup", setup_cb)
+        self.pipeline.connect("source-setup", self._setup_pipeline_source)
 
         self.media_info_updated = False
         self.stack.props.visible_child = self.video_page
@@ -543,6 +525,24 @@ class Window(Adw.ApplicationWindow):
             anim.props.easing = Adw.Easing.EASE_OUT_EXPO
             (anim.skip if initial else anim.play)()
             logger.debug("Resized window to %ix%i", nat_width, nat_height)
+
+    def _setup_pipeline_source(self, *_args) -> None:
+        self.pipeline.disconnect_by_func(_setup_pipeline_source)
+
+        if not (pos := self._get_previous_play_position()):
+            self.unpause()
+            logger.debug("No previous play position")
+            return
+
+        if pos < MINUTE_IN_NS:
+            self.unpause()
+            logger.debug("Previous play position before 60s")
+            return
+
+        self._reveal_overlay(self.restore_breakpoint_bin)
+        self._hide_overlay(self.controls_box)
+        self.play.seek(pos)
+        logger.debug("Previous play position restored: %i", pos)
 
     def _on_end_timestamp_type_changed(self, *_args) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
