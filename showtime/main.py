@@ -259,7 +259,7 @@ class Application(Adw.Application):
     def _on_shutdown(self, *_args) -> None:
         for win in self.get_windows():
             if isinstance(win, Window):  # pyright: ignore[reportAttributeAccessIssue]
-                self.cleanup_window(win, uninhibit_manually=True)
+                self._cleanup_window(win, uninhibit_manually=True)
 
 
 def main() -> int:
