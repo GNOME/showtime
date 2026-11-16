@@ -250,6 +250,7 @@ class Window(Adw.ApplicationWindow):
         # Pending timeouts, removed in teardown
         self._resize_source = SourceId()
         self._hide_overlays_source = SourceId()
+        self._buffering_source = SourceId()
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -388,6 +389,7 @@ class Window(Adw.ApplicationWindow):
         for source in (
             self._resize_source,
             self._hide_overlays_source,
+            self._buffering_source,
         ):
             source.remove()
 
@@ -697,15 +699,15 @@ class Window(Adw.ApplicationWindow):
         # Only show a spinner if buffering for more than a second
         if state == GstPlay.PlayState.BUFFERING:
             self.buffering = True
-            GLib.timeout_add_seconds(
-                1,
-                lambda *_: (
-                    self._reveal_overlay(self.spinner) if self.buffering else None
-                ),
+            self._buffering_source.ensure_timeout(
+                GLib.PRIORITY_DEFAULT,
+                1000,
+                lambda: self._reveal_overlay(self.spinner),
             )
             return
 
         self.buffering = False
+        self._buffering_source.remove()
         self._hide_overlay(self.spinner)
 
         match state:
