@@ -376,6 +376,16 @@ class Window(Adw.ApplicationWindow):
         if action := lookup_action(self, "select-language"):
             action.activate(GLib.Variant.new_uint16(index))
 
+    def teardown_playback(self) -> None:
+        """Stop playback and detach sinks before the window is destroyed.
+
+        play.stop() bring the pipeline to READY. Explicitly setting NULL
+        ensures a full teardown of all GStreamer resources.
+        """
+        self.play.stop()
+        self.play = None
+        self.pipeline = None
+
     @Gtk.Template.Callback()
     def _cycle_end_timestamp_type(self, *_args) -> None:
         state_settings.set_enum(
