@@ -135,10 +135,8 @@ class Window(Adw.ApplicationWindow):
     _playing_gfile: Gio.File | None = None
 
     _last_reveal: float = 0.0
-    _last_seek: float = 0.0
 
     _paused: bool = True
-    _seeking: bool = False
     _seek_paused: bool = False
     _prev_motion_xy: tuple[float | None, float | None] = (0, 0)
     _prev_volume = -1
@@ -254,6 +252,7 @@ class Window(Adw.ApplicationWindow):
         self._resize_source = SourceId()
         self._hide_overlays_source = SourceId()
         self._buffering_source = SourceId()
+        self._seeking_source = SourceId()
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -395,6 +394,7 @@ class Window(Adw.ApplicationWindow):
             self._resize_source,
             self._hide_overlays_source,
             self._buffering_source,
+            self._seeking_source,
         ):
             source.remove()
 
@@ -738,8 +738,7 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _seek(self, _obj, _scroll, val: float) -> None:
-        if not self._seeking:
-            self._seeking = True
+        if not self._seeking_source.added:
             self._seek_paused = self.paused
 
         if not self.paused:
@@ -748,17 +747,11 @@ class Window(Adw.ApplicationWindow):
         self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
         self.emit("seeked")
 
-        def post_seek(seeked: float) -> None:
-            if seeked != self._last_seek:
-                return
-
+        def post_seek() -> None:
             if not self._seek_paused:
                 self.unpause()
 
-            self._seeking = False
-
-        self._last_seek = time()
-        GLib.timeout_add(250, post_seek, self._last_seek)
+        self._seeking_source.add_timeout(GLib.PRIORITY_DEFAULT, 250, post_seek)
 
     def _on_seek_done(self, _obj) -> None:
         pos = self.play.props.position
