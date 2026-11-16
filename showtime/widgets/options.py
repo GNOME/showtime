@@ -36,8 +36,6 @@ class Options(Adw.Bin):
 
     rate = GObject.Property(type=str)
 
-    menus_building = 0
-
     def on_secondary_click_pressed(
         self,
         window: Adw.ApplicationWindow,
@@ -73,13 +71,6 @@ class Options(Adw.Bin):
 
     def build_menus(self, media_info: GstPlay.PlayMediaInfo) -> None:
         """Fill up the menu with subtitles and languages."""
-        self.menus_building -= 1
-
-        # Don't try to rebuild the menu multiple times
-        # when the media info has many changes
-        if self.menus_building > 1:
-            return
-
         self.language_menu.remove_all()
         self.subtitles_menu.remove_all()
 
