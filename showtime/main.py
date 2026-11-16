@@ -23,6 +23,7 @@ from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
 
 from .mpris import MPRIS
 from .utils import get_file_hash_identifier
+from .util.connection import Connection
 from .widgets.window import PROFILE, Window
 
 MAX_HIST_ITEMS = 1000
@@ -33,6 +34,7 @@ class Application(Adw.Application):
     """The main application singleton class."""
 
     inhibit_cookies: dict[Window, int]
+    window_connections: dict[Window, list[Connection]]
     mpris_active: bool = False
 
     media_info_updated = GObject.Signal(name="media-info-updated")
@@ -48,6 +50,7 @@ class Application(Adw.Application):
         )
 
         self.inhibit_cookies = {}
+        self.window_connections = {}
 
         Gst.init()
 
@@ -142,42 +145,22 @@ class Application(Adw.Application):
         )
         state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
 
-        win.connect(
-            "media-info-updated",
-            lambda win: (
-                self.emit("media-info-updated")
-                if win == self.props.active_window
-                else None
-            ),
-        )
-
-        win.connect(
-            "volume-changed",
-            lambda win: (
-                self.emit("volume-changed") if win == self.props.active_window else None
-            ),
-        )
-
-        win.connect(
-            "rate-changed",
-            lambda win: (
-                self.emit("rate-changed") if win == self.props.active_window else None
-            ),
-        )
-
-        win.connect(
-            "seeked",
-            lambda win: (
-                self.emit("seeked") if win == self.props.active_window else None
-            ),
-        )
-
-        win.connect(
-            "notify::paused",
-            lambda win, *_: (
-                self.emit("state-changed") if win == self.props.active_window else None
-            ),
-        )
+        self.window_connections[win] = [
+            Connection(
+                signal,
+                lambda win, *_, forwarded=forwarded: (
+                    self.emit(forwarded) if win == self.props.active_window else None
+                ),
+                win,
+            )
+            for signal, forwarded in (
+                ("media-info-updated", "media-info-updated"),
+                ("volume-changed", "volume-changed"),
+                ("rate-changed", "rate-changed"),
+                ("seeked", "seeked"),
+                ("notify::paused", "state-changed"),
+            )
+        ]
 
         if gfile:
             win.play_video(gfile)
@@ -251,6 +234,8 @@ class Application(Adw.Application):
         else:
             # Gtk.Application already uninhibited when the window was removed.
             self.inhibit_cookies.pop(win, None)
+        for connection in self.window_connections.pop(win, ()):
+            connection.disconnect()
         win.teardown_playback()
 
     def _on_window_removed(self, _obj, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
