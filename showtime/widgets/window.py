@@ -34,6 +34,7 @@ from showtime import (
     system,
 )
 from showtime.play import Messenger, MissingPlugin, gst_play_setup
+from showtime.util.connection import Connection
 from showtime.utils import (
     get_file_hash_identifier,
     get_title,
@@ -216,19 +217,33 @@ class Window(Adw.ApplicationWindow):
             self.sink,
         ) = gst_play_setup(self.picture)
 
-        self.paintable.connect("invalidate-size", self._on_paintable_invalidate_size)
+        # Connections to objects that may outlive the window, disconnected in teardown
+        self._paintable_connection = Connection(
+            "invalidate-size", self._on_paintable_invalidate_size, self.paintable
+        )
+        self._pipeline_connection = Connection(
+            "source-setup", self._setup_pipeline_source, self.pipeline
+        )
 
         messenger = Messenger(self.play)
-        messenger.connect("state-changed", self._on_playback_state_changed)
-        messenger.connect("duration-changed", self._on_duration_changed)
-        messenger.connect("position-updated", self._on_position_updated)
-        messenger.connect("seek-done", self._on_seek_done)
-        messenger.connect("media-info-updated", self._on_media_info_updated)
-        messenger.connect("volume-changed", self._on_volume_changed)
-        messenger.connect("end-of-stream", self._on_end_of_stream)
-        messenger.connect("warning", self._on_warning)
-        messenger.connect("error", self._on_error)
-        messenger.connect("missing-plugins", self._on_missing_plugins)
+        self._messenger_connections = [
+            Connection("state-changed", self._on_playback_state_changed, messenger),
+            Connection("duration-changed", self._on_duration_changed, messenger),
+            Connection("position-updated", self._on_position_updated, messenger),
+            Connection("seek-done", self._on_seek_done, messenger),
+            Connection("media-info-updated", self._on_media_info_updated, messenger),
+            Connection("volume-changed", self._on_volume_changed, messenger),
+            Connection("end-of-stream", self._on_end_of_stream, messenger),
+            Connection("warning", self._on_warning, messenger),
+            Connection("error", self._on_error, messenger),
+            Connection("missing-plugins", self._on_missing_plugins, messenger),
+        ]
+
+        self._state_settings_connection = Connection(
+            "changed::end-timestamp-type",
+            self._on_end_timestamp_type_changed,
+            state_settings,
+        )
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -266,11 +281,6 @@ class Window(Adw.ApplicationWindow):
             self.options.menu_button,
             self.sound_options.menu_button,
         }
-
-        state_settings.connect(
-            "changed::end-timestamp-type",
-            self._on_end_timestamp_type_changed,
-        )
 
         # Force playback controls and progress bar to be Left-to-Right
         for widget in (
@@ -317,8 +327,6 @@ class Window(Adw.ApplicationWindow):
 
         logger.debug("Playing video: %s", uri)
 
-        self.pipeline.connect("source-setup", self._setup_pipeline_source)
-
         self.media_info_updated = False
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
@@ -364,6 +372,14 @@ class Window(Adw.ApplicationWindow):
         play.stop() bring the pipeline to READY. Explicitly setting NULL
         ensures a full teardown of all GStreamer resources.
         """
+        for connection in (
+            self._paintable_connection,
+            self._pipeline_connection,
+            self._state_settings_connection,
+            *self._messenger_connections,
+        ):
+            connection.disconnect()
+
         self.play.stop()
         self.play = None
         self.pipeline = None
@@ -527,7 +543,7 @@ class Window(Adw.ApplicationWindow):
             logger.debug("Resized window to %ix%i", nat_width, nat_height)
 
     def _setup_pipeline_source(self, *_args) -> None:
-        self.pipeline.disconnect_by_func(_setup_pipeline_source)
+        self._pipeline_connection.disconnect()
 
         if not (pos := self._get_previous_play_position()):
             self.unpause()
