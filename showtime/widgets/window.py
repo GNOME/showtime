@@ -35,6 +35,7 @@ from showtime import (
 )
 from showtime.play import Messenger, MissingPlugin, gst_play_setup
 from showtime.util.connection import Connection
+from showtime.util.source import SourceId
 from showtime.utils import (
     get_file_hash_identifier,
     get_title,
@@ -249,6 +250,9 @@ class Window(Adw.ApplicationWindow):
             "notify::state", self._on_toplevel_state_changed
         )
 
+        # Pending timeouts, removed in teardown
+        self._resize_source = SourceId()
+
         if PROFILE == "development":
             self.add_css_class("devel")
 
@@ -384,6 +388,11 @@ class Window(Adw.ApplicationWindow):
             *self._messenger_connections,
         ):
             connection.disconnect()
+
+        for source in (
+            self._resize_source,
+        ):
+            source.remove()
 
         self.play.stop()
         self.play = None
@@ -657,7 +666,11 @@ class Window(Adw.ApplicationWindow):
     def _on_paintable_invalidate_size(self, paintable: Gdk.Paintable, *_args) -> None:
         if self.is_visible():
             # Add a timeout to not interfere with loading the stream too much
-            GLib.timeout_add(100, self._resize_window, None, paintable)
+            self._resize_source.add_timeout(
+                GLib.PRIORITY_DEFAULT,
+                100,
+                lambda: self._resize_window(None, paintable),
+            )
         else:
             self.connect("map", self._resize_window, paintable, True)
 
