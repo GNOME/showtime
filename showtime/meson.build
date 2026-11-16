@@ -49,6 +49,7 @@ showtime_widgets_sources = [
 showtime_util_sources = [
     'util/__init__.py',
     'util/connection.py',
+    'util/source.py',
 ]
 
 showtime_sources = [
