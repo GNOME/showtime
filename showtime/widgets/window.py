@@ -250,6 +250,7 @@ class Window(Adw.ApplicationWindow):
         self._hide_overlays_source = SourceId()
         self._buffering_source = SourceId()
         self._seeking_source = SourceId()
+        self._build_menus_source = SourceId()
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -390,6 +391,7 @@ class Window(Adw.ApplicationWindow):
             self._hide_overlays_source,
             self._buffering_source,
             self._seeking_source,
+            self._build_menus_source,
         ):
             source.remove()
 
@@ -762,8 +764,11 @@ class Window(Adw.ApplicationWindow):
 
         # Add a timeout to reduce things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
-        self.options.menus_building += 1
-        GLib.timeout_add(500, self.options.build_menus, media_info)
+        self._build_menus_source.ensure_timeout(
+            GLib.PRIORITY_DEFAULT,
+            500,
+            lambda: self.options.build_menus(media_info),
+        )
         self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj) -> None:
