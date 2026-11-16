@@ -244,15 +244,22 @@ class Application(Adw.Application):
 
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
-    def _on_window_removed(self, _obj, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
+    def _cleanup_window(self, win: Window, *, uninhibit_manually: bool) -> None:
         self.save_play_position(win)
-        self.uninhibit_win(win)
-        win.play.stop()
+        if uninhibit_manually:
+            self.uninhibit_win(win)
+        else:
+            # Gtk.Application already uninhibited when the window was removed.
+            self.inhibit_cookies.pop(win, None)
+        win.teardown_playback()
+
+    def _on_window_removed(self, _obj, win: Window) -> None:  # pyright: ignore[reportAttributeAccessIssue]
+        self._cleanup_window(win, uninhibit_manually=False)
 
     def _on_shutdown(self, *_args) -> None:
         for win in self.get_windows():
             if isinstance(win, Window):  # pyright: ignore[reportAttributeAccessIssue]
-                self._on_window_removed(None, win)
+                self.cleanup_window(win, uninhibit_manually=True)
 
 
 def main() -> int:
