@@ -33,11 +33,16 @@ from showtime import (
     state_settings,
     system,
 )
-from showtime.play import Messenger, MissingPlugin, gst_play_setup
+from showtime.play import (
+    Messenger,
+    MissingPlugin,
+    gst_play_setup,
+)
 from showtime.util.connection import Connection
 from showtime.util.source import SourceId
 from showtime.utils import (
     get_file_hash_identifier,
+    get_subtitle_font_desc,
     get_title,
     lookup_action,
     nanoseconds_to_timestamp,
@@ -244,6 +249,13 @@ class Window(Adw.ApplicationWindow):
             state_settings,
         )
 
+        self._update_subtitle_font_desc()
+        self._font_connection = Connection(
+            "notify::gtk-xft-dpi",
+            self._update_subtitle_font_desc,
+            Gtk.Settings.get_default(),
+        )
+
         # Pending timeouts, removed in teardown
         self._resize_source = SourceId()
         self._hide_overlays_source = SourceId()
@@ -382,6 +394,7 @@ class Window(Adw.ApplicationWindow):
             self._paintable_connection,
             self._pipeline_connection,
             self._state_settings_connection,
+            self._font_connection,
             *self._messenger_connections,
         ):
             connection.disconnect()
@@ -572,6 +585,9 @@ class Window(Adw.ApplicationWindow):
         self._hide_overlay(self.controls_box)
         self.play.seek(pos)
         logger.debug("Previous play position restored: %i", pos)
+
+    def _update_subtitle_font_desc(self) -> None:
+        self.pipeline.props.subtitle_font_desc = get_subtitle_font_desc()
 
     def _on_end_timestamp_type_changed(self, *_args) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
