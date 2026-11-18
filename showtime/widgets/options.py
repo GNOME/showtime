@@ -31,9 +31,6 @@ class Options(Adw.Bin):
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
-    rotate_left = GObject.Signal()
-    rotate_right = GObject.Signal()
-
     rate = GObject.Property(type=str)
 
     def on_secondary_click_pressed(
@@ -132,11 +129,3 @@ class Options(Adw.Bin):
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
         state_settings.set_boolean("looping", value)
-
-    @Gtk.Template.Callback()
-    def _rotate_left(self, *_args) -> None:
-        self.emit("rotate-left")
-
-    @Gtk.Template.Callback()
-    def _rotate_right(self, *_args) -> None:
-        self.emit("rotate-right")

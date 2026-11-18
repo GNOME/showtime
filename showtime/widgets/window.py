@@ -419,8 +419,7 @@ class Window(Adw.ApplicationWindow):
         self.play.seek(0)
         self.unpause()
 
-    @Gtk.Template.Callback()
-    def _rotate_left(self, *_args) -> None:
+    def _rotate_left(self) -> None:
         match int((props := self.paintable.props).orientation):
             case 0:
                 props.orientation = 4
@@ -431,8 +430,7 @@ class Window(Adw.ApplicationWindow):
             case _:
                 props.orientation -= 1
 
-    @Gtk.Template.Callback()
-    def _rotate_right(self, *_args) -> None:
+    def _rotate_right(self) -> None:
         match int((props := self.paintable.props).orientation):
             case 0:
                 props.orientation = 2
@@ -1020,6 +1018,16 @@ class Window(Adw.ApplicationWindow):
             "increase-rate",
             lambda *_: self._step_rate(1),
             ("bracketright",),
+        )
+
+        self._create_action(
+            "rotate-left",
+            lambda *_: self._rotate_left(),
+        )
+
+        self._create_action(
+            "rotate-right",
+            lambda *_: self._rotate_right(),
         )
 
         self._create_action(
