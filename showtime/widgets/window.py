@@ -643,8 +643,9 @@ class Window(Adw.ApplicationWindow):
         if self.overlay_motion.contains_pointer():
             self.set_cursor_from_name("none")
 
-    @Gtk.Template.Callback()
-    def _on_realize(self, *_args) -> None:
+    def do_realize(self) -> None:
+        Adw.ApplicationWindow.do_realize(self)
+
         if not (surface := self.get_surface()):
             return
 
@@ -652,6 +653,12 @@ class Window(Adw.ApplicationWindow):
             return
 
         surface.connect("notify::state", self._on_toplevel_state_changed)
+
+    def do_move_focus(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, direction: Gtk.DirectionType
+    ) -> None:
+        self._on_motion()
+        Adw.ApplicationWindow.do_move_focus(self, direction)
 
     def _on_toplevel_state_changed(self, toplevel: Gdk.Toplevel, *_args) -> None:
         if (

@@ -36,8 +36,6 @@ template $Window: Adw.ApplicationWindow {
   width-request: 360;
   title: _("Video Player");
   gravity: center;
-  realize => $_on_realize();
-  move-focus => $_on_motion();
 
   content: Adw.ToastOverlay toast_overlay {
     child: $DragOverlay drag_overlay {
