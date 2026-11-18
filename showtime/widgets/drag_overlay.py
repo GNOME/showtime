@@ -65,8 +65,8 @@ class DragOverlay(Adw.Bin):
 
         self.set_css_name("showtime-drag-overlay")
 
-        self.overlay.set_parent(self)
         self.overlay.add_overlay(self.revealer)
+        self.set_child(self.overlay)
 
         self.revealer.props.can_target = False
         self.revealer.props.transition_type = Gtk.RevealerTransitionType.CROSSFADE
