@@ -12,7 +12,7 @@ from gi.repository import (
     Gtk,
 )
 
-from showtime import logger, system, utils
+from showtime import logger, system
 
 
 class MissingPlugin(NamedTuple):
@@ -52,16 +52,7 @@ def gst_play_setup(
 
     pipeline = play.props.pipeline
 
-    def set_subtitle_font_desc(*_args) -> None:
-        pipeline.props.subtitle_font_desc = utils.get_subtitle_font_desc()
-
-    if settings := Gtk.Settings.get_default():
-        settings.connect("notify::gtk-xft-dpi", set_subtitle_font_desc)
-
-    set_subtitle_font_desc()
-
     return paintable, play, pipeline, paintable_sink
-
 
 def _should_missing_plugin_be_ignored(missing_plugin: MissingPlugin) -> bool:
     """Check if a missing plugin should be ignored.
