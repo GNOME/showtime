@@ -105,7 +105,7 @@ template $Options: Adw.Bin {
       Button {
         icon-name: "object-rotate-left-symbolic";
         tooltip-text: _("Rotate Left");
-        clicked => $_rotate_left();
+        action-name: "win.rotate-left";
 
         styles [
           "flat",
@@ -116,7 +116,7 @@ template $Options: Adw.Bin {
       Button {
         icon-name: "object-rotate-right-symbolic";
         tooltip-text: _("Rotate Right");
-        clicked => $_rotate_right();
+        action-name: "win.rotate-right";
 
         styles [
           "flat",
