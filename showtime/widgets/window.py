@@ -375,11 +375,7 @@ class Window(Adw.ApplicationWindow):
             action.activate(GLib.Variant.new_uint16(index))
 
     def teardown_playback(self) -> None:
-        """Stop playback and detach sinks before the window is destroyed.
-
-        play.stop() bring the pipeline to READY. Explicitly setting NULL
-        ensures a full teardown of all GStreamer resources.
-        """
+        """Stop playback and clear all references to self."""
         for connection in (
             self._paintable_connection,
             self._pipeline_connection,
