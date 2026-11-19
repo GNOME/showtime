@@ -113,9 +113,17 @@ class Messenger(GObject.Object):
     ) -> None:
         super().__init__(**kwargs)
 
-        if bus := play.get_message_bus():
-            bus.add_signal_watch()
+        self._bus = play.get_message_bus()
+        if self._bus:
+            self._bus.add_signal_watch()
             bus.connect("message", self._on_play_bus_message)
+        else:
+            logger.warning("Can't find message bus of GstPlay object")
+
+    def teardown(self) -> None:
+        if self._bus:
+            self._bus.remove_signal_watch()
+            self._bus = None
 
     def _on_play_bus_message(self, _bus: Gst.Bus, msg: GstPlay.PlayMessage) -> None:
         match GstPlay.PlayMessage.parse_type(msg):

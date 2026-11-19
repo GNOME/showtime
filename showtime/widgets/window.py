@@ -230,18 +230,18 @@ class Window(Adw.ApplicationWindow):
             "source-setup", self._setup_pipeline_source, self.pipeline
         )
 
-        messenger = Messenger(self.play)
+        self._messenger = Messenger(self.play)
         self._messenger_connections = [
-            Connection("state-changed", self._on_playback_state_changed, messenger),
-            Connection("duration-changed", self._on_duration_changed, messenger),
-            Connection("position-updated", self._on_position_updated, messenger),
-            Connection("seek-done", self._on_seek_done, messenger),
-            Connection("media-info-updated", self._on_media_info_updated, messenger),
-            Connection("volume-changed", self._on_volume_changed, messenger),
-            Connection("end-of-stream", self._on_end_of_stream, messenger),
-            Connection("warning", self._on_warning, messenger),
-            Connection("error", self._on_error, messenger),
-            Connection("missing-plugins", self._on_missing_plugins, messenger),
+            Connection("state-changed", self._on_playback_state_changed, self._messenger),
+            Connection("duration-changed", self._on_duration_changed, self._messenger),
+            Connection("position-updated", self._on_position_updated, self._messenger),
+            Connection("seek-done", self._on_seek_done, self._messenger),
+            Connection("media-info-updated", self._on_media_info_updated, self._messenger),
+            Connection("volume-changed", self._on_volume_changed, self._messenger),
+            Connection("end-of-stream", self._on_end_of_stream, self._messenger),
+            Connection("warning", self._on_warning, self._messenger),
+            Connection("error", self._on_error, self._messenger),
+            Connection("missing-plugins", self._on_missing_plugins, self._messenger),
         ]
 
         self._state_settings_connection = Connection(
@@ -407,6 +407,9 @@ class Window(Adw.ApplicationWindow):
             self._build_menus_source,
         ):
             source.remove()
+
+        self._messenger.teardown()
+        self._messenger = None
 
         self.play.stop()
         self.play = None
