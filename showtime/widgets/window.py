@@ -257,6 +257,10 @@ class Window(Adw.ApplicationWindow):
             Gtk.Settings.get_default(),
         )
 
+        self._toplevel_connection = Connection(
+            "notify::state", self._on_toplevel_state_changed
+        )
+
         # Pending timeouts, removed in teardown
         self._resize_source = SourceId()
         self._hide_overlays_source = SourceId()
@@ -379,6 +383,7 @@ class Window(Adw.ApplicationWindow):
         for connection in (
             self._paintable_connection,
             self._pipeline_connection,
+            self._toplevel_connection,
             self._state_settings_connection,
             self._font_connection,
             *self._messenger_connections,
@@ -658,7 +663,7 @@ class Window(Adw.ApplicationWindow):
         if not isinstance(surface, Gdk.Toplevel):
             return
 
-        surface.connect("notify::state", self._on_toplevel_state_changed)
+        self._toplevel_connection.connect(surface)
 
     def do_move_focus(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, direction: Gtk.DirectionType
