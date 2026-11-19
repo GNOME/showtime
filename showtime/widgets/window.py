@@ -266,16 +266,6 @@ class Window(Adw.ApplicationWindow):
         if PROFILE == "development":
             self.add_css_class("devel")
 
-        # Unfullscreen on Escape
-
-        (esc := Gtk.ShortcutController()).add_shortcut(
-            Gtk.Shortcut.new(
-                Gtk.ShortcutTrigger.parse_string("Escape"),
-                Gtk.CallbackAction.new(lambda *_: bool(self.unfullscreen())),
-            )
-        )
-        self.add_controller(esc)
-
         self.overlay_motions = set()
         for widget in (
             self.controls_box,
@@ -983,6 +973,12 @@ class Window(Adw.ApplicationWindow):
         self._create_action(
             "about",
             lambda *_: self._present_about_dialog(),
+        )
+
+        self._create_action(
+            "leave-fullscreen",
+            lambda *_: self.set_property("fullscreened", False),
+            ("Esc"),
         )
 
         self._create_action(
