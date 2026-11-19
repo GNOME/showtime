@@ -401,6 +401,9 @@ class Window(Adw.ApplicationWindow):
         self._messenger.teardown()
         self._messenger = None
 
+        for name in self.list_actions():
+            self.remove_action(name)
+
         self.play.stop()
         self.play = None
         self.pipeline = None
