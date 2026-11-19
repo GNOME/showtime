@@ -13,6 +13,7 @@ from gi.repository import (
 )
 
 from showtime import logger, system
+from showtime.util.connection import Connection
 
 
 class MissingPlugin(NamedTuple):
@@ -114,14 +115,16 @@ class Messenger(GObject.Object):
         super().__init__(**kwargs)
 
         self._bus = play.get_message_bus()
+        self._bus_connection = Connection("message", self._on_play_bus_message)
         if self._bus:
             self._bus.add_signal_watch()
-            bus.connect("message", self._on_play_bus_message)
+            self._bus_connection.connect(self._bus)
         else:
             logger.warning("Can't find message bus of GstPlay object")
 
     def teardown(self) -> None:
         if self._bus:
+            self._bus_connection.disconnect()
             self._bus.remove_signal_watch()
             self._bus = None
 
