@@ -979,7 +979,7 @@ class Window(Adw.ApplicationWindow):
         self._create_action(
             "leave-fullscreen",
             lambda *_: self.set_property("fullscreened", False),
-            ("Esc"),
+            ("Esc",),
         )
 
         self._create_action(
