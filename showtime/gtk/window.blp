@@ -79,7 +79,7 @@ template $Window: Adw.ApplicationWindow {
           content: WindowHandle {
             child: Stack placeholder_stack {
               Adw.StatusPage open_status_page {
-                icon-name: "video-camera";
+                icon-name: "video-camera-symbolic";
                 title: _("Watch Videos");
                 description: _("Drag and drop videos here");
 
@@ -101,7 +101,7 @@ template $Window: Adw.ApplicationWindow {
               }
 
               Adw.StatusPage missing_plugin_status_page {
-                icon-name: "puzzle-piece";
+                icon-name: "puzzle-piece-symbolic";
                 title: _("Missing Plugin");
               }
             };
@@ -133,7 +133,7 @@ template $Window: Adw.ApplicationWindow {
                   Button {
                     name: "backwards-button";
                     valign: center;
-                    icon-name: "skip-backwards-10";
+                    icon-name: "skip-backwards-10-symbolic";
                     action-name: "win.backwards";
 
                     accessibility {
@@ -169,7 +169,7 @@ template $Window: Adw.ApplicationWindow {
                   Button {
                     name: "forwards-button";
                     valign: center;
-                    icon-name: "skip-forward-10";
+                    icon-name: "skip-forward-10-symbolic";
                     action-name: "win.forwards";
 
                     accessibility {
@@ -347,7 +347,7 @@ template $Window: Adw.ApplicationWindow {
                     spacing: 18;
 
                     Image restart_icon {
-                      icon-name: "arrow-circular-top-right";
+                      icon-name: "arrow-circular-top-right-symbolic";
 
                       styles [
                         "overlaid",
