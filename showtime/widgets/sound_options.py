@@ -25,10 +25,15 @@ class SoundOptions(Adw.Bin):
     volume = GObject.Property(type=float)
 
     schedule_volume_change = GObject.Signal(arg_types=(float,))
+    schedule_mute_change = GObject.Signal(arg_types=(bool,))
 
     @Gtk.Template.Callback()
     def _schedule_volume_change(self, adjustment: Gtk.Adjustment, _) -> None:
         self.emit("schedule-volume-change", adjustment.props.value)
+
+    @Gtk.Template.Callback()
+    def _schedule_mute_change(self, mute_toggle: Gtk.ToggleButton) -> None:
+        self.emit("schedule-mute-change", mute_toggle.get_active())
 
     @Gtk.Template.Callback()
     def _get_volume_icon(self, _obj, mute: bool, volume: float) -> str:

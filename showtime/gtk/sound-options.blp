@@ -18,7 +18,8 @@ template $SoundOptions: Adw.Bin {
 
         ToggleButton {
           icon-name: "audio-volume-muted-symbolic";
-          active: bind template.mute bidirectional;
+          active: bind template.mute;
+          toggled => $_schedule_mute_change();
 
           accessibility {
             label: _("Mute/Unmute");

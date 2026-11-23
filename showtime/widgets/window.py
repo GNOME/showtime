@@ -149,15 +149,6 @@ class Window(Adw.ApplicationWindow):
 
         return self._playback_state
 
-    @GObject.Property(type=bool, default=False)
-    def mute(self) -> bool:
-        """Get the mute state."""
-        return self.play.props.mute
-
-    @mute.setter
-    def mute(self, mute: bool) -> None:
-        self.play.props.mute = mute
-
     def set_rate(self, rate: float) -> None:
         """Set the playback rate."""
         if rate == self.playback_state.rate:
@@ -230,6 +221,7 @@ class Window(Adw.ApplicationWindow):
         self._build_menus_source = SourceId()
 
         self.playback_state.connect("notify::state", self._on_state_changed)
+        self.playback_state.connect("notify::mute", self._on_mute_changed)
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -588,6 +580,10 @@ class Window(Adw.ApplicationWindow):
             )
         )
 
+    @Gtk.Template.Callback()
+    def _schedule_mute_change(self, _obj, mute: bool) -> None:
+        self.playback_state.mute = mute
+
     def _set_overlay_revealed(self, widget: Gtk.Widget, reveal: bool) -> None:
         animations = self._reveal_animations if reveal else self._hide_animations
         animation = animations.get(widget)
@@ -707,6 +703,9 @@ class Window(Adw.ApplicationWindow):
             return
 
         (app.uninhibit_win if paused else app.inhibit_win)(self)  # pyright: ignore[reportAttributeAccessIssue]
+
+    def _on_mute_changed(self, *_args) -> None:
+        self.play.props.mute = self.playback_state.mute
 
     def _on_playback_state_changed(self, _obj, state: GstPlay.PlayState) -> None:
         # Only show a spinner if buffering for more than a second
@@ -1011,7 +1010,7 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "toggle-mute",
-            lambda *_: self.set_property("mute", not self.mute),
+            lambda *_: self.playback_state.toggle_mute(),
             ("m",),
         )
 

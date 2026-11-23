@@ -33,6 +33,7 @@ class PlaybackState(GObject.Object):
         type=GObject.TYPE_INT64, default=0
     )  # Position in nanoseconds
     rate = GObject.Property(type=float, default=1.0)
+    mute = GObject.Property(type=bool, default=False)
 
     seeked = GObject.Signal(name="seeked", arg_types=(GObject.TYPE_INT64,))
 
@@ -55,3 +56,7 @@ class PlaybackState(GObject.Object):
         closest_rate = min(RATES_ALLOWED, key=lambda r: abs(r - rate))
         self.rate = closest_rate
         return closest_rate
+
+    def toggle_mute(self) -> None:
+        """Toggle the mute state."""
+        self.mute = not self.mute

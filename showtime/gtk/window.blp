@@ -213,9 +213,10 @@ template $Window: Adw.ApplicationWindow {
                     }
 
                     $SoundOptions sound_options {
-                      mute: bind template.mute bidirectional;
+                      mute: bind template.playback_state as <$PlaybackState>.mute;
                       volume: bind template.playback_state as <$PlaybackState>.volume;
                       schedule-volume-change => $_schedule_volume_change();
+                      schedule-mute-change => $_schedule_mute_change();
                     }
 
                     $Options options {
