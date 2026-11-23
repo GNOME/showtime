@@ -213,7 +213,9 @@ class Application(Adw.Application):
         try:
             self.register()  # This is so props.is_remote works
         except GLib.Error as error:
-            logger.warning("Failed to register application on the D-Bus session bus: %s", error)
+            logger.warning(
+                "Failed to register application on the D-Bus session bus: %s", error
+            )
             return -1
 
         if self.props.is_remote:
