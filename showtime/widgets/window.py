@@ -130,8 +130,6 @@ class Window(Adw.ApplicationWindow):
     stopped: bool = True
     buffering: bool = False
 
-    rate_changed = GObject.Signal(name="rate-changed")
-
     _reveal_animations: dict[Gtk.Widget, Adw.Animation]
     _hide_animations: dict[Gtk.Widget, Adw.Animation]
 
@@ -162,23 +160,16 @@ class Window(Adw.ApplicationWindow):
     def mute(self, mute: bool) -> None:
         self.play.props.mute = mute
 
-    @GObject.Property(type=str)
-    def rate(self) -> str:
-        """Get the playback rate."""
-        return str(self.play.props.rate)
+    def set_rate(self, rate: float) -> None:
+        """Set the playback rate."""
+        if rate == self.playback_state.rate:
+            return
 
-    @rate.setter
-    def rate(self, rate: str) -> None:
-        self.play.props.rate = float(rate)
+        self.play.props.rate = self.playback_state.set_rate(rate)
         self.options.popover.popdown()
-        self.emit("rate-changed")
 
     def _step_rate(self, step: int) -> None:
-        rates = ("0.5", "1.0", "1.25", "1.5", "2.0")
-        current = self.rate if self.rate in rates else "1.0"
-        index = rates.index(current)
-
-        self.rate = rates[max(0, min(index + step, len(rates) - 1))]
+        self.set_rate(self.playback_state.get_next_step_rate(step))
 
     @GObject.Property(type=bool, default=True)
     def paused(self) -> bool:
@@ -346,7 +337,7 @@ class Window(Adw.ApplicationWindow):
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.select_subtitles(0)
         self.select_language(0)
-        self.rate = "1.0"
+        self.set_rate(1.0)
         self.playback_state.position = 0
 
         self.play.props.uri = uri
@@ -430,6 +421,10 @@ class Window(Adw.ApplicationWindow):
     def _play_again(self, *_args) -> None:
         self.play.seek(0)
         self.unpause()
+
+    @Gtk.Template.Callback()
+    def _on_rate_selected(self, _obj, rate: float) -> None:
+        self.set_rate(rate)
 
     def _rotate_left(self) -> None:
         match int((props := self.paintable.props).orientation):

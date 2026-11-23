@@ -219,7 +219,8 @@ template $Window: Adw.ApplicationWindow {
                     }
 
                     $Options options {
-                      rate: bind template.rate bidirectional no-sync-create;
+                      rate: bind template.playback_state as <$PlaybackState>.rate;
+                      rate-selected => $_on_rate_selected();
                     }
                   }
 

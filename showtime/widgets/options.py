@@ -31,7 +31,9 @@ class Options(Adw.Bin):
     language_menu: Gio.Menu = Gtk.Template.Child()
     subtitles_menu: Gio.Menu = Gtk.Template.Child()
 
-    rate = GObject.Property(type=str)
+    rate_selected = GObject.Signal(arg_types=(float,))
+
+    rate = GObject.Property(type=float, default=1.0)
 
     def on_secondary_click_pressed(
         self,
@@ -129,3 +131,15 @@ class Options(Adw.Bin):
         value = not action.props.state.get_boolean()
         action.set_state(GLib.Variant.new_boolean(value))
         state_settings.set_boolean("looping", value)
+
+    @Gtk.Template.Callback()
+    def _get_rate_active_name(self, _obj, rate: float) -> str:
+        return str(rate)
+
+    @Gtk.Template.Callback()
+    def _on_rate_changed(self, toggle_group: Adw.ToggleGroup, _) -> None:
+        rate = toggle_group.get_active_name()
+        if rate is None or (rate_value := float(rate)) == self.rate:
+            return
+
+        self.rate_selected.emit(rate_value)

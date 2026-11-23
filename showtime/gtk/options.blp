@@ -67,7 +67,8 @@ template $Options: Adw.Bin {
 
         Adw.ToggleGroup {
           homogeneous: true;
-          active-name: bind template.rate bidirectional no-sync-create;
+          active-name: bind $_get_rate_active_name(template.rate) as <string>;
+          notify::active-name => $_on_rate_changed();
 
           styles [
             "round",

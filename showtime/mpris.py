@@ -19,13 +19,8 @@ from gi.repository import (
 )
 
 from showtime import APP_ID, PREFIX, logger
-from showtime.playback_state import MediaInfo, PlaybackState
+from showtime.playback_state import MAX_RATE, MIN_RATE, MediaInfo, PlaybackState
 from showtime.widgets.window import Window
-
-RATE_SLOW = 0.75
-RATE_NORMAL = 1.125
-RATE_FASTER = 1.375
-RATE_FASTEST = 1.75
 
 INTERFACE = """
 <!DOCTYPE node PUBLIC
@@ -265,7 +260,6 @@ class MPRIS(DBusInterface):
 
         self._app = app
 
-        self._app.connect("rate-changed", self._on_rate_changed)
         self._app.connect("notify::active-window", self._on_active_window_changed)
         self._signal_group = GObject.SignalGroup.new(PlaybackState)
 
@@ -278,6 +272,7 @@ class MPRIS(DBusInterface):
         self._signal_group.connect_closure(
             "notify::volume", self._on_volume_changed, False
         )
+        self._signal_group.connect_closure("notify::rate", self._on_rate_changed, False)
         self._signal_group.connect_closure("seeked", self._on_seeked, False)
 
         self._on_active_window_changed()
@@ -299,6 +294,9 @@ class MPRIS(DBusInterface):
 
     def _get_playback_volume(self) -> float:
         return self._playback_state.volume
+
+    def _get_playback_rate(self) -> float:
+        return self._playback_state.rate
 
     def _get_clip_is_loaded(self) -> bool:
         return self._get_playback_media_info() is not None
@@ -369,13 +367,10 @@ class MPRIS(DBusInterface):
         )
 
     def _on_rate_changed(self, *_args) -> None:
-        if not self.play:
-            return
-
         self._properties_changed(
             MPRIS.MEDIA_PLAYER2_PLAYER_IFACE,
             {
-                "Rate": GLib.Variant("d", self.play.props.rate),
+                "Rate": GLib.Variant("d", self._get_playback_rate()),
             },
             [],
         )
@@ -503,13 +498,13 @@ class MPRIS(DBusInterface):
             return {
                 "PlaybackStatus": GLib.Variant("s", self._get_playback_status()),
                 "LoopStatus": GLib.Variant("s", "None"),
-                "Rate": GLib.Variant("d", self.play.props.rate if self.play else 0.0),
+                "Rate": GLib.Variant("d", self._get_playback_rate()),
                 "Shuffle": GLib.Variant("b", False),
                 "Metadata": GLib.Variant("a{sv}", self._get_metadata()),
                 "Volume": GLib.Variant("d", self._get_playback_volume()),
                 "Position": GLib.Variant("x", self._get_playback_position() // 1000),
-                "MinimumRate": GLib.Variant("d", 0.5),
-                "MaximumRate": GLib.Variant("d", 2.0),
+                "MinimumRate": GLib.Variant("d", MIN_RATE),
+                "MaximumRate": GLib.Variant("d", MAX_RATE),
                 "CanGoNext": GLib.Variant("b", False),
                 "CanGoPrevious": GLib.Variant("b", False),
                 "CanPlay": GLib.Variant("b", can_play),
@@ -537,17 +532,7 @@ class MPRIS(DBusInterface):
 
         match property_name:
             case "Rate":
-                self.win.rate = (
-                    "0.5"
-                    if value < RATE_SLOW
-                    else "1.0"
-                    if value < RATE_NORMAL
-                    else "1.25"
-                    if value < RATE_FASTER
-                    else "1.5"
-                    if value < RATE_FASTEST
-                    else "2.0"
-                )
+                self.win.set_rate(value)
             case "Volume":
                 GLib.idle_add(
                     partial(

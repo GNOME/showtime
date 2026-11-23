@@ -16,7 +16,7 @@ gi.require_version("GstPlay", "1.0")
 gi.require_version("GstAudio", "1.0")
 gi.require_version("GstPbutils", "1.0")
 
-from gi.repository import Adw, Gio, GLib, GObject, Gst, Gtk
+from gi.repository import Adw, Gio, GLib, Gst, Gtk
 
 import showtime
 from showtime import APP_ID, VERSION, log_file, logger, state_settings, system
@@ -34,8 +34,6 @@ class Application(Adw.Application):
 
     inhibit_cookies: dict[Window, int]
     _mpris: MPRIS | None = None
-
-    rate_changed = GObject.Signal(name="rate-changed")
 
     def __init__(self) -> None:
         super().__init__(
@@ -137,13 +135,6 @@ class Application(Adw.Application):
             maximized=state_settings.get_boolean("is-maximized"),  # pyright: ignore[reportAttributeAccessIssue]
         )
         state_settings.bind("is-maximized", win, "maximized", Gio.SettingsBindFlags.SET)
-
-        win.connect(
-            "rate-changed",
-            lambda win: (
-                self.emit("rate-changed") if win == self.props.active_window else None
-            ),
-        )
 
         if gfile:
             win.play_video(gfile)
