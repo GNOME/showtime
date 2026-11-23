@@ -61,6 +61,7 @@ showtime_sources = [
     'main.py',
     'mpris.py',
     'play.py',
+    'playback_state.py',
     'utils.py',
 ]
 

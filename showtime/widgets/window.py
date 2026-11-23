@@ -40,6 +40,7 @@ from showtime.play import (
 )
 from showtime.util.connection import Connection
 from showtime.util.source import SourceId
+from showtime.playback_state import MediaInfo, PlaybackState
 from showtime.utils import (
     get_file_hash_identifier,
     get_subtitle_font_desc,
@@ -129,8 +130,6 @@ class Window(Adw.ApplicationWindow):
     stopped: bool = True
     buffering: bool = False
 
-    volume = GObject.Property(type=float)
-
     media_info_updated = GObject.Signal(name="media-info-updated")
     volume_changed = GObject.Signal(name="volume-changed")
     rate_changed = GObject.Signal(name="rate-changed")
@@ -139,6 +138,7 @@ class Window(Adw.ApplicationWindow):
     _reveal_animations: dict[Gtk.Widget, Adw.Animation]
     _hide_animations: dict[Gtk.Widget, Adw.Animation]
 
+    _playback_state: PlaybackState | None = None
     _playing_gfile: Gio.File | None = None
 
     _last_reveal: float = 0.0
@@ -146,8 +146,15 @@ class Window(Adw.ApplicationWindow):
     _paused: bool = True
     _seek_paused: bool = False
     _prev_motion_xy: tuple[float | None, float | None] = (0, 0)
-    _prev_volume = -1
     _toplevel_focused: bool = False
+
+    @GObject.Property(type=PlaybackState)
+    def playback_state(self) -> PlaybackState:
+        """Get the current playback state."""
+        if self._playback_state is None:
+            self._playback_state = PlaybackState()
+
+        return self._playback_state
 
     @GObject.Property(type=bool, default=False)
     def mute(self) -> bool:
@@ -337,12 +344,13 @@ class Window(Adw.ApplicationWindow):
 
         logger.debug("Playing video: %s", uri)
 
-        self.media_info_updated = False
+        self.playback_state.media_info = None
         self.stack.props.visible_child = self.video_page
         self.placeholder_stack.props.visible_child = self.error_status_page
         self.select_subtitles(0)
         self.select_language(0)
         self.rate = "1.0"
+        self.playback_state.position = 0
 
         self.play.props.uri = uri
         self.pause()
@@ -589,13 +597,15 @@ class Window(Adw.ApplicationWindow):
             self.play.props.position, self.play.props.duration
         )
 
-    def _set_end_timestamp_label(self, pos: int, dur: int) -> None:
+    def _set_end_timestamp_label(self, pos: int, dur: int | None) -> None:
         match showtime.end_timestamp_type:
             case 0:  # Duration
-                self.end_timestamp_button.props.label = nanoseconds_to_timestamp(dur)
+                self.end_timestamp_button.props.label = (
+                    nanoseconds_to_timestamp(dur) if dur is not None else ""
+                )
             case 1:  # Remaining
-                self.end_timestamp_button.props.label = "-" + nanoseconds_to_timestamp(
-                    dur - pos
+                self.end_timestamp_button.props.label = (
+                    "-" + nanoseconds_to_timestamp(dur - pos) if dur is not None else ""
                 )
 
     @Gtk.Template.Callback()
@@ -650,6 +660,9 @@ class Window(Adw.ApplicationWindow):
 
         if self.overlay_motion.contains_pointer():
             self.set_cursor_from_name("none")
+
+    def _set_seek_scale(self, pos: int, dur: int | None) -> None:
+        self.seek_scale.set_value((pos / dur) * SCALE_MULT if dur is not None else 0)
 
     def do_realize(self) -> None:
         Adw.ApplicationWindow.do_realize(self)
@@ -727,6 +740,9 @@ class Window(Adw.ApplicationWindow):
         self._buffering_source.remove()
         self._hide_overlay(self.spinner)
 
+        if self.playback_state.state != state:
+            self.playback_state.state = state
+
         match state:
             case GstPlay.PlayState.PAUSED:
                 self.paused = True
@@ -737,12 +753,20 @@ class Window(Adw.ApplicationWindow):
                 self.paused = False
 
     def _on_duration_changed(self, _obj, dur: int) -> None:
-        self._set_end_timestamp_label(self.play.props.position, dur)
+        duration = dur if dur != Gst.CLOCK_TIME_NONE else None
+
+        if self.playback_state.media_info is not None:
+            self.playback_state.media_info = self.playback_state.media_info.with_length(
+                duration
+            )
+
+        self._set_end_timestamp_label(self.playback_state.position, duration)
 
     def _on_position_updated(self, _obj, pos: int) -> None:
-        dur = self.play.props.duration
+        self.playback_state.position = pos
+        dur = self.playback_state.get_duration()
 
-        self.seek_scale.set_value((pos / dur) * SCALE_MULT)
+        self._set_seek_scale(pos, dur)
 
         # TODO: This can probably be done only every second instead
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
@@ -766,15 +790,26 @@ class Window(Adw.ApplicationWindow):
         self._seeking_source.add_timeout(GLib.PRIORITY_DEFAULT, 250, post_seek)
 
     def _on_seek_done(self, _obj, pos: int) -> None:
-        dur = self.play.props.duration
+        self.playback_state.position = pos
+        self.playback_state.seeked.emit(pos)
+        dur = self.playback_state.get_duration()
 
-        self.seek_scale.set_value((pos / dur) * SCALE_MULT)
+        self._set_seek_scale(pos, dur)
         self.position_label.props.label = nanoseconds_to_timestamp(pos)
         self._set_end_timestamp_label(pos, dur)
         logger.debug("Seeked to %i", pos)
 
     def _on_media_info_updated(self, _obj, media_info: GstPlay.PlayMediaInfo) -> None:
-        self.title_label.props.label = get_title(media_info) or ""
+        dur = media_info.get_duration()
+        title = get_title(media_info) or ""
+
+        self.playback_state.media_info = MediaInfo(
+            uri=media_info.get_uri(),
+            title=title,
+            length=dur if dur != Gst.CLOCK_TIME_NONE else None,
+        )
+
+        self.title_label.props.label = title
 
         # Add a timeout to reduce things happening at once while the video is loading
         # since the user won't want to change languages/subtitles within 500ms anyway
@@ -786,11 +821,10 @@ class Window(Adw.ApplicationWindow):
         self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj, vol: float) -> None:
-        if self._prev_volume == vol:
+        if self.playback_state.volume == vol:
             return
 
-        self._prev_volume = vol
-        self.volume = vol
+        self.playback_state.volume = vol
         self.sound_options.adjustment.props.value = vol
 
         self.emit("volume-changed")
