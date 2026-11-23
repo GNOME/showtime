@@ -127,7 +127,6 @@ class Window(Adw.ApplicationWindow):
     overlay_motions: set[Gtk.EventControllerMotion]
     overlay_menu_buttons: set[Gtk.MenuButton]
 
-    stopped: bool = True
     buffering: bool = False
 
     _reveal_animations: dict[Gtk.Widget, Adw.Animation]
@@ -138,7 +137,6 @@ class Window(Adw.ApplicationWindow):
 
     _last_reveal: float = 0.0
 
-    _paused: bool = True
     _seek_paused: bool = False
     _prev_motion_xy: tuple[float | None, float | None] = (0, 0)
     _toplevel_focused: bool = False
@@ -170,35 +168,6 @@ class Window(Adw.ApplicationWindow):
 
     def _step_rate(self, step: int) -> None:
         self.set_rate(self.playback_state.get_next_step_rate(step))
-
-    @GObject.Property(type=bool, default=True)
-    def paused(self) -> bool:
-        """Whether the video is currently paused."""
-        return self._paused
-
-    @paused.setter
-    def paused(self, paused: bool) -> None:
-        self.stopped = self.stopped and paused
-
-        if self._paused == paused:
-            return
-
-        self._paused = paused
-
-        self.play_button.update_property(
-            (Gtk.AccessibleProperty.LABEL,),
-            (_("Play") if paused else _("Pause"),),
-        )
-        self.play_button.props.icon_name = (
-            "media-playback-start-symbolic"
-            if paused
-            else "media-playback-pause-symbolic"
-        )
-
-        if not (app := self.props.application):
-            return
-
-        (app.uninhibit_win if paused else app.inhibit_win)(self)  # pyright: ignore[reportAttributeAccessIssue]
 
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(decorated=system != "Darwin", **kwargs)
@@ -259,6 +228,8 @@ class Window(Adw.ApplicationWindow):
         self._buffering_source = SourceId()
         self._seeking_source = SourceId()
         self._build_menus_source = SourceId()
+
+        self.playback_state.connect("notify::state", self._on_state_changed)
 
         if PROFILE == "development":
             self.add_css_class("devel")
@@ -349,6 +320,13 @@ class Window(Adw.ApplicationWindow):
 
         if action := lookup_action(self, "show-in-files"):
             action.props.enabled = True
+
+    def toggle_play_pause(self) -> None:
+        """Toggle between play and pause states."""
+        if self.playback_state.is_playing():
+            self.pause()
+        else:
+            self.unpause()
 
     def unpause(self) -> None:
         """Start playing the current video."""
@@ -717,6 +695,19 @@ class Window(Adw.ApplicationWindow):
             lambda: self._hide_overlays(self._last_reveal),
         )
 
+    def _on_state_changed(self, *_args) -> None:
+        paused = not self.playback_state.is_playing()
+
+        self.play_button.update_property(
+            (Gtk.AccessibleProperty.LABEL,),
+            (_("Play") if paused else _("Pause"),),
+        )
+
+        if not (app := self.props.application):
+            return
+
+        (app.uninhibit_win if paused else app.inhibit_win)(self)  # pyright: ignore[reportAttributeAccessIssue]
+
     def _on_playback_state_changed(self, _obj, state: GstPlay.PlayState) -> None:
         # Only show a spinner if buffering for more than a second
         if state == GstPlay.PlayState.BUFFERING:
@@ -734,15 +725,6 @@ class Window(Adw.ApplicationWindow):
 
         if self.playback_state.state != state:
             self.playback_state.state = state
-
-        match state:
-            case GstPlay.PlayState.PAUSED:
-                self.paused = True
-            case GstPlay.PlayState.STOPPED:
-                self.paused = True
-                self.stopped = True
-            case GstPlay.PlayState.PLAYING:
-                self.paused = False
 
     def _on_duration_changed(self, _obj, dur: int) -> None:
         duration = dur if dur != Gst.CLOCK_TIME_NONE else None
@@ -766,10 +748,12 @@ class Window(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def _seek(self, _obj, _scroll, val: float) -> None:
-        if not self._seeking_source.added:
-            self._seek_paused = self.paused
+        paused = not self.playback_state.is_playing()
 
-        if not self.paused:
+        if not self._seeking_source.added:
+            self._seek_paused = paused
+
+        if not paused:
             self.pause()
 
         self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
@@ -963,10 +947,10 @@ class Window(Adw.ApplicationWindow):
         self.close()
 
     @Gtk.Template.Callback()
-    def _get_play_icon(self, _obj, paused: bool) -> str:
+    def _get_play_icon(self, _obj, state: GstPlay.PlayState) -> str:
         return (
             "media-playback-start-symbolic"
-            if paused
+            if state != GstPlay.PlayState.PLAYING
             else "media-playback-pause-symbolic"
         )
 
@@ -1009,7 +993,7 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "toggle-playback",
-            lambda *_: self.unpause() if self.paused else self.pause(),
+            lambda *_: self.toggle_play_pause(),
             ("p", "k", "space"),
         )
 

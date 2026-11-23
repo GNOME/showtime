@@ -415,7 +415,7 @@ class MPRIS(DBusInterface):
         if not self.win:
             return
 
-        self.win.unpause() if self.win.paused else self.win.pause()
+        self.win.toggle_play_pause()
 
     def _stop(self) -> None:
         """Stop playback (MPRIS Method)."""

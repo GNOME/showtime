@@ -159,7 +159,7 @@ template $Window: Adw.ApplicationWindow {
                     margin-start: 12;
                     margin-end: 12;
                     valign: center;
-                    icon-name: bind $_get_play_icon(template.paused) as <string>;
+                    icon-name: bind $_get_play_icon(template.playback_state as <$PlaybackState>.state) as <string>;
                     action-name: "win.toggle-playback";
 
                     accessibility {

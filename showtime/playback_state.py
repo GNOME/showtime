@@ -36,6 +36,10 @@ class PlaybackState(GObject.Object):
 
     seeked = GObject.Signal(name="seeked", arg_types=(GObject.TYPE_INT64,))
 
+    def is_playing(self) -> bool:
+        """Check if the media is currently playing."""
+        return self.state == GstPlay.PlayState.PLAYING
+
     def get_duration(self) -> int | None:
         """Get the duration of the media in nanoseconds."""
         return self.media_info.length if self.media_info else None
