@@ -8,6 +8,7 @@ from gi.repository import (
     Gdk,
     GObject,
     Gst,
+    GstAudio,  # pyright: ignore[reportAttributeAccessIssue]
     GstPlay,  # pyright: ignore[reportAttributeAccessIssue]
     Gtk,
 )
@@ -99,9 +100,9 @@ class Messenger(GObject.Object):
     state_changed = GObject.Signal(name="state-changed", arg_types=(object,))
     duration_changed = GObject.Signal(name="duration-changed", arg_types=(object,))
     position_updated = GObject.Signal(name="position-updated", arg_types=(object,))
-    seek_done = GObject.Signal(name="seek-done")
+    seek_done = GObject.Signal(name="seek-done", arg_types=(object,))
     media_info_updated = GObject.Signal(name="media-info-updated", arg_types=(object,))
-    volume_changed = GObject.Signal(name="volume-changed")
+    volume_changed = GObject.Signal(name="volume-changed", arg_types=(object,))
     end_of_stream = GObject.Signal(name="end-of-stream")
     warning = GObject.Signal(name="warning", arg_types=(object,))
     error = GObject.Signal(name="error", arg_types=(object,))
@@ -148,7 +149,7 @@ class Messenger(GObject.Object):
                 )
 
             case GstPlay.PlayMessage.SEEK_DONE:
-                self.emit("seek-done")
+                self.emit("seek-done", GstPlay.PlayMessage.parse_seek_done(msg))
 
             case GstPlay.PlayMessage.MEDIA_INFO_UPDATED:
                 self.emit(
@@ -157,7 +158,14 @@ class Messenger(GObject.Object):
                 )
 
             case GstPlay.PlayMessage.VOLUME_CHANGED:
-                self.emit("volume-changed")
+                self.emit(
+                    "volume-changed",
+                    GstAudio.StreamVolume.convert_volume(
+                        GstAudio.StreamVolumeFormat.LINEAR,
+                        GstAudio.StreamVolumeFormat.CUBIC,
+                        GstPlay.PlayMessage.parse_volume_changed(msg),
+                    ),
+                )
 
             case GstPlay.PlayMessage.END_OF_STREAM:
                 self.emit("end-of-stream")

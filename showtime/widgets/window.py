@@ -765,8 +765,7 @@ class Window(Adw.ApplicationWindow):
 
         self._seeking_source.add_timeout(GLib.PRIORITY_DEFAULT, 250, post_seek)
 
-    def _on_seek_done(self, _obj) -> None:
-        pos = self.play.props.position
+    def _on_seek_done(self, _obj, pos: int) -> None:
         dur = self.play.props.duration
 
         self.seek_scale.set_value((pos / dur) * SCALE_MULT)
@@ -786,9 +785,7 @@ class Window(Adw.ApplicationWindow):
         )
         self.emit("media-info-updated")
 
-    def _on_volume_changed(self, _obj) -> None:
-        vol = self.pipeline.get_volume(GstAudio.StreamVolumeFormat.CUBIC)  # pyright: ignore[reportAttributeAccessIssue]
-
+    def _on_volume_changed(self, _obj, vol: float) -> None:
         if self._prev_volume == vol:
             return
 
