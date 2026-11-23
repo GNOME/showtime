@@ -160,6 +160,17 @@ class Window(Adw.ApplicationWindow):
     def _step_rate(self, step: int) -> None:
         self.set_rate(self.playback_state.get_next_step_rate(step))
 
+    def _step_volume(self, step: float) -> None:
+        desired_volume = (
+            GstAudio.StreamVolume.convert_volume(
+                GstAudio.StreamVolumeFormat.CUBIC,
+                GstAudio.StreamVolumeFormat.LINEAR,
+                self.playback_state.volume,
+            )
+            + step
+        )
+        self.play.set_volume(max(0.0, min(1.0, desired_volume)))
+
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(decorated=system != "Darwin", **kwargs)
 
@@ -380,7 +391,7 @@ class Window(Adw.ApplicationWindow):
         )
 
         self._set_end_timestamp_label(
-            self.play.props.position, self.play.props.duration
+            self.playback_state.position, self.playback_state.get_duration()
         )
 
     @Gtk.Template.Callback()
@@ -556,7 +567,7 @@ class Window(Adw.ApplicationWindow):
     def _on_end_timestamp_type_changed(self, *_args) -> None:
         showtime.end_timestamp_type = state_settings.get_enum("end-timestamp-type")
         self._set_end_timestamp_label(
-            self.play.props.position, self.play.props.duration
+            self.playback_state.position, self.playback_state.get_duration()
         )
 
     def _set_end_timestamp_label(self, pos: int, dur: int | None) -> None:
@@ -748,6 +759,10 @@ class Window(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def _seek(self, _obj, _scroll, val: float) -> None:
         paused = not self.playback_state.is_playing()
+        dur = self.playback_state.get_duration()
+
+        if dur is None:
+            return
 
         if not self._seeking_source.added:
             self._seek_paused = paused
@@ -755,7 +770,7 @@ class Window(Adw.ApplicationWindow):
         if not paused:
             self.pause()
 
-        self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
+        self.play.seek(max(dur * (val / SCALE_MULT), 0))
 
         def post_seek() -> None:
             if not self._seek_paused:
@@ -998,13 +1013,13 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "increase-volume",
-            lambda *_: self.play.set_volume(min(self.play.props.volume + 0.05, 1)),
+            lambda *_: self._step_volume(0.05),
             ("Up",),
         )
 
         self._create_action(
             "decrease-volume",
-            lambda *_: self.play.set_volume(max(self.play.props.volume - 0.05, 0)),
+            lambda *_: self._step_volume(-0.05),
             ("Down",),
         )
 
@@ -1016,13 +1031,15 @@ class Window(Adw.ApplicationWindow):
 
         self._create_action(
             "backwards",
-            lambda *_: self.play.seek(max(0, self.play.props.position - 1e10)),
+            lambda *_: self.play.seek(
+                max(0, self.playback_state.position - 10_000_000_000)
+            ),
             ("Left",),
         )
 
         self._create_action(
             "forwards",
-            lambda *_: self.play.seek(self.play.props.position + 1e10),
+            lambda *_: self.play.seek(self.playback_state.position + 10_000_000_000),
             ("Right",),
         )
 
