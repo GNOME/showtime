@@ -130,10 +130,7 @@ class Window(Adw.ApplicationWindow):
     stopped: bool = True
     buffering: bool = False
 
-    media_info_updated = GObject.Signal(name="media-info-updated")
-    volume_changed = GObject.Signal(name="volume-changed")
     rate_changed = GObject.Signal(name="rate-changed")
-    seeked = GObject.Signal(name="seeked")
 
     _reveal_animations: dict[Gtk.Widget, Adw.Animation]
     _hide_animations: dict[Gtk.Widget, Adw.Animation]
@@ -781,7 +778,6 @@ class Window(Adw.ApplicationWindow):
             self.pause()
 
         self.play.seek(max(self.play.props.duration * (val / SCALE_MULT), 0))
-        self.emit("seeked")
 
         def post_seek() -> None:
             if not self._seek_paused:
@@ -818,7 +814,6 @@ class Window(Adw.ApplicationWindow):
             500,
             lambda: self.options.build_menus(media_info),
         )
-        self.emit("media-info-updated")
 
     def _on_volume_changed(self, _obj, vol: float) -> None:
         if self.playback_state.volume == vol:
@@ -826,8 +821,6 @@ class Window(Adw.ApplicationWindow):
 
         self.playback_state.volume = vol
         self.sound_options.adjustment.props.value = vol
-
-        self.emit("volume-changed")
 
     def _on_end_of_stream(self, _obj) -> None:
         if not state_settings.get_boolean("looping"):
