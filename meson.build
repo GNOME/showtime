@@ -18,6 +18,16 @@ python = import('python')
 
 py_installation = python.find_installation('python3')
 
+script = '''
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
+Gst.init_python
+'''
+if run_command(py_installation, '-c', script, check: false).returncode() != 0
+    error('Required dependency \'gst-python\' not found')
+endif
+
 python_dir = join_paths(get_option('prefix'), py_installation.get_install_dir())
 pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
 
