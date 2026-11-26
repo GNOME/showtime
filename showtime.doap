@@ -21,26 +21,6 @@ Play your favorite movies and video files without hassle. Video Player features 
 
   <maintainer>
     <foaf:Person>
-      <foaf:name>kramo</foaf:name>
-      <foaf:mbox rdf:resource="mailto:contact@kramo.page" />
-      <gnome:userid>kramolis</gnome:userid>
-      <foaf:account>
-        <foaf:OnlineAccount>
-          <foaf:accountServiceHomepage rdf:resource="https://github.com"/>
-          <foaf:accountName>kra-mo</foaf:accountName>
-        </foaf:OnlineAccount>
-      </foaf:account>
-      <foaf:account>
-        <foaf:OnlineAccount>
-          <foaf:accountServiceHomepage rdf:resource="https://gitlab.gnome.org"/>
-          <foaf:accountName>kramo</foaf:accountName>
-        </foaf:OnlineAccount>
-      </foaf:account>
-    </foaf:Person>
-  </maintainer>
-
-  <maintainer>
-    <foaf:Person>
       <foaf:name>Peter Eisenmann</foaf:name>
       <foaf:mbox rdf:resource="mailto:p3732@getgoogleoff.me" />
       <gnome:userid>peisen</gnome:userid>
