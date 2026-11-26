@@ -49,6 +49,14 @@ conf.set('pkgdatadir', pkgdatadir)
 conf.set('bindir', get_option('bindir'))
 conf.set('prefix', get_option('prefix'))
 
+snapshot_release = ''
+if profile == 'development'
+  snapshot_release = '<release version="@0@" type="snapshot" />'.format(
+    meson.project_version(),
+  )
+endif
+conf.set('snapshot_release', snapshot_release)
+
 subdir('data')
 subdir('showtime')
 subdir('po')
